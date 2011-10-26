@@ -25,17 +25,30 @@ public abstract class ByteUtils {
     }
 
     public static final byte[] hexToBytes(String hex, int position, int length) {
-        byte[] data = new byte[length / 2];
+        if (length % 2 > 0) {
+            throw new IllegalArgumentException("A valid hexadecimal string would have an even"
+                    + "number of characters.");
+        }
+        int numOfBytes = length / 2;
+        byte[] data = new byte[numOfBytes];
         char[] hexArray = hex.toCharArray();
-        for (int i = position; i < length; i += 2) {
-            data[i / 2] = (byte) ((Character.digit(hexArray[i], 16) << 4)
-                    + (Character.digit(hexArray[i + 1], 16)));
+        for (int i = 0, charIndex = position; i < numOfBytes; i++, charIndex += 2) {
+            data[i] = (byte) ((Character.digit(hexArray[charIndex], 16) << 4)
+                    + (Character.digit(hexArray[charIndex + 1], 16)));
         }
         return data;
     }
 
     public static final byte[] hexToBytes(String hex) {
         return hexToBytes(hex, 0, hex.length());
+    }
+
+    public static final String byteToHex(byte[] bytes, int position, int length) {
+        StringBuffer buffer = new StringBuffer(length * 2);
+        for (int i = position; i < position + length; i++) {
+            buffer.append(Integer.toBinaryString(bytes[i] & 0xff));
+        }
+        return buffer.toString();
     }
 
     public static byte[] createByteArray(int... arg) {

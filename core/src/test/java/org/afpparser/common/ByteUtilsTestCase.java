@@ -52,7 +52,7 @@ public class ByteUtilsTestCase {
             // Pass
         }
     }
-    
+
     @Test
     public void testBigEndianBytesToInt() {
         byte[] bytes = ByteUtils.createByteArray(0x01);
@@ -66,19 +66,20 @@ public class ByteUtilsTestCase {
         bytes = ByteUtils.createByteArray(0x01, 0x02, 0x03);
         assertEquals(0x30201, bigEndianSut.bytesToInt(bytes, 0, 3));
         assertEquals(0x30201, bigEndianSut.bytesToInt(bytes));
+        testBytesToIntFailure("A 7 byte number is not legal", littleEndianSut, oneToSeven);
     }
 
     @Test
     public void testCommonCreateByteArray() {
         byte[] array = ByteUtils.createByteArray(1, 2, 3, 4, 5, 6, 7);
         byte[] expected = new byte[] {
-                (byte)1,
-                (byte)2,
-                (byte)3,
-                (byte)4,
-                (byte)5,
-                (byte)6,
-                (byte)7};
+                (byte) 1,
+                (byte) 2,
+                (byte) 3,
+                (byte) 4,
+                (byte) 5,
+                (byte) 6,
+                (byte) 7 };
         assertArrayEquals(expected, array);
 
         array = ByteUtils.createByteArray();
@@ -88,7 +89,30 @@ public class ByteUtilsTestCase {
 
     @Test
     public void testCommonHexToBytes() {
-        byte[] expected = ByteUtils.createByteArray(1, 2, 3, 4, 5, 6);
+        assertArrayEquals(oneToSeven, ByteUtils.hexToBytes("01020304050607"));
+
+        int byteRange = 1 << Byte.SIZE;
+        byte[] expected = new byte[byteRange];
+        for (int b = 0; b < byteRange; b++) {
+            expected[b] = (byte) b;
+        }
+        String fullHexRange = fullHexRange();
+        assertArrayEquals(expected, ByteUtils.hexToBytes(fullHexRange));
+
+        fullHexRange += " not valid hex";
+        assertArrayEquals(expected, ByteUtils.hexToBytes(fullHexRange, 0, byteRange * 2));
+
+        String lastTest = "not hex" + fullHexRange;
+        assertArrayEquals(expected, ByteUtils.hexToBytes(lastTest, 7, byteRange * 2));
+    }
+
+    private String fullHexRange() {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < 1 << Byte.SIZE; i++) {
+            String hex = Integer.toHexString(i);
+            sb.append(hex.length() < 2 ? "0" + hex : hex);
+        }
+        return sb.toString();
     }
 
 }
