@@ -10,10 +10,14 @@ public class ByteUtils {
         if (numberOfBytes > 4) {
             throw new IllegalArgumentException("The maximum capacity for an int is 32 bytes");
         }
-        for (int i = numberOfBytes, index = position; i >= 0; i--, index++) {
-            num += bytes[index] << (i * 4);
+        for (int i = 0, bitShift = (numberOfBytes - 1) * 8; i < numberOfBytes; i++, bitShift -= 8) {
+            num += (bytes[position + i] & 0xff) << bitShift;
         }
         return num;
+    }
+
+    public static int bytesToInt(byte[] bytes) {
+        return bytesToInt(bytes, 0, bytes.length);
     }
 
     public static byte[] createByteArray(int... arg) {

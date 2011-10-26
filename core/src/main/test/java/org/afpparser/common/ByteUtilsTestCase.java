@@ -9,10 +9,15 @@ public class ByteUtilsTestCase {
 
     @Test
     public void testBytesToInt() {
-        // 0x0102 = 258 
-        byte[] bytes = ByteUtils.createByteArray(0x01, 0x02);
-        int actual = ByteUtils.bytesToInt(bytes, 0, 2);
-        assertEquals(0x102, actual);
+        byte[] bytes = ByteUtils.createByteArray(0x01);
+        assertEquals(0x01, ByteUtils.bytesToInt(bytes, 0, 1));
+
+        bytes = ByteUtils.createByteArray(0x01, 0x02);
+        assertEquals(0x102, ByteUtils.bytesToInt(bytes, 0, 2));
+
+        bytes = ByteUtils.createByteArray(0x01, 0x02, 0x03);
+        int actual = ByteUtils.bytesToInt(bytes, 0, 3);
+        assertEquals(0x10203, actual);
     }
     
     @Test
