@@ -1,0 +1,10 @@
+# local build 
+.gradle/
+gradle.properties
+build/
+
+# eclipse
+.classpath
+.settings
+.project
+
