@@ -1,33 +1,31 @@
 package org.afpparser;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.afpparser.afp.modca.StructuredField;
-import org.afpparser.parser.DocumentReader;
 import org.afpparser.parser.AfpHandler;
+import org.afpparser.parser.DocumentReader;
 
 public class AFPParser {
-    
-    private final DocumentReader documentReader; 
+
+    private final DocumentReader documentReader;
 
     private final AfpHandler afpHandler;
 
     public AFPParser(File afpFile) throws FileNotFoundException {
-        documentReader = new DocumentReader(afpFile);
-        afpHandler = new SfDumper();
+        this(afpFile, AfpHandler.DEFAULT);
+    }
+
+    public AFPParser(File afpFile, AfpHandler afpHandler) throws FileNotFoundException {
+        this.documentReader = new DocumentReader(afpFile);
+        this.afpHandler = afpHandler;
     }
 
     public void parse() throws IOException {
         for (StructuredField sf : documentReader) {
             afpHandler.handle(sf);
-        }
-    }
-
-    private static class SfDumper implements AfpHandler {
-        public void handle(StructuredField sf) {
-            System.out.println(sf);            
         }
     }
 
@@ -44,7 +42,12 @@ public class AFPParser {
         }
 
         try {
-            new AFPParser(afpDoc).parse();
+            AfpHandler sfDumper = new AfpHandler() {
+                public void handle(StructuredField sf) {
+                    System.out.println(sf);
+                }
+            };
+            new AFPParser(afpDoc, sfDumper).parse();
         } catch (IOException e) {
             System.out.println("IO error occurred");
         }
