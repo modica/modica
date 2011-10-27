@@ -22,31 +22,31 @@ public class ByteUtilsTestCase {
     @Test
     public void testLittleEndianBytesToInt() {
         byte[] bytes = ByteUtils.createByteArray(0x01);
-        assertEquals(0x01, littleEndianSut.bytesToInt(bytes, 0, 1));
-        assertEquals(0x01, littleEndianSut.bytesToInt(bytes));
+        assertEquals(0x01, littleEndianSut.bytesToUnsignedInt(bytes, 0, 1));
+        assertEquals(0x01, littleEndianSut.bytesToUnsignedInt(bytes));
 
         bytes = ByteUtils.createByteArray(0x01, 0x02);
-        assertEquals(0x102, littleEndianSut.bytesToInt(bytes, 0, 2));
-        assertEquals(0x102, littleEndianSut.bytesToInt(bytes));
+        assertEquals(0x102, littleEndianSut.bytesToUnsignedInt(bytes, 0, 2));
+        assertEquals(0x102, littleEndianSut.bytesToUnsignedInt(bytes));
 
         bytes = ByteUtils.createByteArray(0x01, 0x02, 0x03);
-        assertEquals(0x10203, littleEndianSut.bytesToInt(bytes, 0, 3));
-        assertEquals(0x10203, littleEndianSut.bytesToInt(bytes));
+        assertEquals(0x10203, littleEndianSut.bytesToUnsignedInt(bytes, 0, 3));
+        assertEquals(0x10203, littleEndianSut.bytesToUnsignedInt(bytes));
 
-        assertEquals(0x1020304, littleEndianSut.bytesToInt(oneToSeven, 0, 4));
+        assertEquals(0x1020304, littleEndianSut.bytesToUnsignedInt(oneToSeven, 0, 4));
         testBytesToIntFailure("A 7 byte number is not legal", littleEndianSut, oneToSeven);
     }
 
     private void testBytesToIntFailure(String msg, ByteUtils sut, byte[] bytes) {
         try {
-            sut.bytesToInt(bytes);
+            sut.bytesToUnsignedInt(bytes);
             fail(msg);
         } catch (IllegalArgumentException e) {
             // Pass
         }
 
         try {
-            sut.bytesToInt(bytes, 0, bytes.length);
+            sut.bytesToUnsignedInt(bytes, 0, bytes.length);
             fail(msg);
         } catch (IllegalArgumentException e) {
             // Pass
@@ -56,16 +56,16 @@ public class ByteUtilsTestCase {
     @Test
     public void testBigEndianBytesToInt() {
         byte[] bytes = ByteUtils.createByteArray(0x01);
-        assertEquals(0x01, bigEndianSut.bytesToInt(bytes, 0, 1));
-        assertEquals(0x01, bigEndianSut.bytesToInt(bytes));
+        assertEquals(0x01, bigEndianSut.bytesToUnsignedInt(bytes, 0, 1));
+        assertEquals(0x01, bigEndianSut.bytesToUnsignedInt(bytes));
 
         bytes = ByteUtils.createByteArray(0x01, 0x02);
-        assertEquals(0x201, bigEndianSut.bytesToInt(bytes, 0, 2));
-        assertEquals(0x201, bigEndianSut.bytesToInt(bytes));
+        assertEquals(0x201, bigEndianSut.bytesToUnsignedInt(bytes, 0, 2));
+        assertEquals(0x201, bigEndianSut.bytesToUnsignedInt(bytes));
 
         bytes = ByteUtils.createByteArray(0x01, 0x02, 0x03);
-        assertEquals(0x30201, bigEndianSut.bytesToInt(bytes, 0, 3));
-        assertEquals(0x30201, bigEndianSut.bytesToInt(bytes));
+        assertEquals(0x30201, bigEndianSut.bytesToUnsignedInt(bytes, 0, 3));
+        assertEquals(0x30201, bigEndianSut.bytesToUnsignedInt(bytes));
         testBytesToIntFailure("A 7 byte number is not legal", littleEndianSut, oneToSeven);
     }
 

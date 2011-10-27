@@ -1,23 +1,19 @@
 package org.afpparser.afp.modca;
 
+
 public class StructuredField {
+    private final long offset;
     private final int length;
     private final StructuredFieldType type;
     private final byte flags;
-    
-    private short extLength;
-    private byte[] extData;
+    private final int extLength;
 
-    public StructuredField(int length, byte[] type, byte flags) {
+    public StructuredField(long offset, int length, byte[] type, byte flags, int extLength) {
+        this.offset = offset;
         this.length = length;
         this.type = StructuredFieldType.getValue(type);
         this.flags = flags;
-    }
-
-    public StructuredField(short length, byte[] type, byte flags, short extLength, byte[] extData) {
-        this(length, type, flags);
         this.extLength = extLength;
-        this.extData = extData;
     }
 
     public boolean hasExtData() {
@@ -32,8 +28,39 @@ public class StructuredField {
         return FlagField.hasDataPadding(flags);
     }
 
+    public int getLength() {
+        return length;
+    }
+
+    public long getOffset() {
+        return offset;
+    }
+
+    public int getExtLength() {
+        return extLength;
+    }
+
+    public int bytesToNextStructuredField() {
+        return length + extLength;
+    }
+
+    @Override
     public String toString() {
-        return type.toString();
+        return type.getFullName();
+    }
+
+    public int hashCode() {
+        int hashCode = 17;
+        hashCode = 31 * hashCode + (int) offset;
+        hashCode = 31 * hashCode + length;
+        hashCode = 31 * hashCode + type.hashCode();
+        hashCode = 31 * hashCode + flags;
+        hashCode = 31 * hashCode + extLength;
+        return hashCode();
+    }
+
+    public static boolean hasSfiExtension(byte flags) {
+        return FlagField.hasSfiExtension(flags);
     }
 
     private static enum FlagField {
@@ -62,3 +89,4 @@ public class StructuredField {
         }
     }
 }
+

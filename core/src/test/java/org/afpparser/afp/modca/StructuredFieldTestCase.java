@@ -17,7 +17,8 @@ public class StructuredFieldTestCase {
 
     private void testSFWithFlag(int flag, boolean hasExtData, boolean hasSegData,
             boolean hasDataPadding) {
-        StructuredField field = new StructuredField(1, StructuredFieldType.BAG.getId(), (byte) flag);
+        StructuredField field = new StructuredField(0, 1, StructuredFieldType.BCF.getId(),
+                (byte) flag, 0);
         assertEquals(hasExtData, field.hasExtData());
         assertEquals(hasSegData, field.hasSegmentedData());
         assertEquals(hasDataPadding, field.hasDataPadding());

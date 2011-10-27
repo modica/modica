@@ -14,26 +14,27 @@ public abstract class ByteUtils {
     /**
      * Takes an array of bytes within <code>bytes</code> starting at <code>position</code> with
      * <code>length</code> number of bytes and returns the <code>int</code> representation. An
-     * integer primitive is 32bits so this can take up to 4 bytes as the length.
+     * integer primitive is 32bits so this can take up to 4 bytes as the length. The integer
+     * returned will be unsigned, thus always positive.
      *
      * @param bytes the byte array to extract the integer from
      * @param position the byte offset within <code>bytes</code>
      * @param length the number of bytes to create the integer from
-     * @return an integer
+     * @return an unsigned integer
      */
-    public abstract int bytesToInt(byte[] bytes, int position, int length);
+    public abstract int bytesToUnsignedInt(byte[] bytes, int position, int length);
     
     /**
      * Takes an array of bytes and starting at the zeroth offset for <code>bytes.length</code> bytes
      * returns the <code>int</code> representation. An integer primitive is 32bits so this can take
-     * up to 4 bytes as the length.
+     * up to 4 bytes as the length. The integer returned will be unsigned, thus always positive.
      *
      * @param bytes the byte array to extract the integer from
-     * @return an integer
+     * @return an unsigned integer
      */
-    public abstract int bytesToInt(byte[] bytes);
+    public abstract int bytesToUnsignedInt(byte[] bytes);
 
-    private static final int bytesToInt(byte[] bytes, int position, int length,
+    private static final int bytesToUInt(byte[] bytes, int position, int length,
             int bitShiftStart, int bitShitIncrement) {
         int num = 0;
         if (length > 4) {
@@ -118,13 +119,13 @@ public abstract class ByteUtils {
         }
 
         @Override
-        public int bytesToInt(byte[] bytes, int position, int length) {
-            return bytesToInt(bytes, position, length, (length - 1) * 8, -8);
+        public int bytesToUnsignedInt(byte[] bytes, int position, int length) {
+            return bytesToUInt(bytes, position, length, (length - 1) * 8, -8);
         }
 
         @Override
-        public int bytesToInt(byte[] bytes) {
-            return bytesToInt(bytes, 0, bytes.length);
+        public int bytesToUnsignedInt(byte[] bytes) {
+            return bytesToUnsignedInt(bytes, 0, bytes.length);
         }
 
     }
@@ -135,13 +136,13 @@ public abstract class ByteUtils {
         }
 
         @Override
-        public int bytesToInt(byte[] bytes, int position, int length) {
-            return bytesToInt(bytes, position, length, 0, 8);
+        public int bytesToUnsignedInt(byte[] bytes, int position, int length) {
+            return bytesToUInt(bytes, position, length, 0, 8);
         }
 
         @Override
-        public int bytesToInt(byte[] bytes) {
-            return bytesToInt(bytes, 0, bytes.length);
+        public int bytesToUnsignedInt(byte[] bytes) {
+            return bytesToUnsignedInt(bytes, 0, bytes.length);
         }
 
     }

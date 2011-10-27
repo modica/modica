@@ -1,6 +1,10 @@
 package org.afpparser;
 
 import java.io.File;
+import java.io.IOException;
+
+import org.afpparser.afp.modca.StructuredField;
+import org.afpparser.parser.DocumentReader;
 
 public class AFPParser {
     public static void main(String[] args) {
@@ -14,6 +18,13 @@ public class AFPParser {
             System.out.println("The AFP document does not exist");
             return;
         }
-
+        try {
+            DocumentReader docReader = new DocumentReader(afpDoc);
+            for (StructuredField sf : docReader) {
+                System.out.println(sf);   
+            }
+        } catch (IOException e) {
+            System.out.println("IO error occurred");
+        }
     }
 }
