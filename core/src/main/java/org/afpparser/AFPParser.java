@@ -30,12 +30,12 @@ public class AFPParser {
     }
 
     public static void main(String[] args) {
-        if (args.length < 1) {
+        if (args.length < 2) {
             System.out.println("This takes a single parameter which is the AFP document");
             return;
         }
 
-        File afpDoc = new File(args[0]);
+        File afpDoc = new File(args[1]);
         if (!afpDoc.isFile()) {
             System.out.println("The AFP document does not exist");
             return;
@@ -43,6 +43,7 @@ public class AFPParser {
 
         try {
             AfpHandler sfDumper = new AfpHandler() {
+                @Override
                 public void handle(StructuredField sf) {
                     System.out.println(sf);
                 }

@@ -3,11 +3,15 @@ defaultTasks 'clean', 'test', 'assemble'
 subprojects {subProject ->
 	apply plugin: 'java'
 	compileJava.options.fork([memoryMaximumSize: '1024m'])
-    jar.baseName = "afp-parse_$subProject.name"
+	jar.baseName = "afp-parse_$subProject.name"
 
 	group = 'org.afpparser'
 
 	repositories {
 	    mavenCentral()
+	}
+
+	dependencies {
+		testCompile 'junit:junit:4.+'
 	}
 }
