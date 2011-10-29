@@ -29,13 +29,8 @@ public class AFPParser {
         }
     }
 
-    public static void main(String[] args) {
-        if (args.length < 2) {
-            System.out.println("This takes a single parameter which is the AFP document");
-            return;
-        }
-
-        File afpDoc = new File(args[1]);
+    public static void main(String arg) {
+        File afpDoc = new File(arg);
         if (!afpDoc.isFile()) {
             System.out.println("The AFP document does not exist");
             return;

@@ -1,2 +1,5 @@
 #!/bin/sh
-java -jar core/build/libs/afp-parse_core.jar org.afpparser.AFPParser $@
+
+
+CLASSPATH=`find "." -name '*.jar' |xargs echo  |tr ' ' ':'`
+java -classpath $CLASSPATH org.afpparser.Main $@

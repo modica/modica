@@ -1,7 +1,8 @@
-defaultTasks 'clean', 'test', 'assemble'
+defaultTasks 'clean', 'test', 'assemble', 'copyToLib'
 
 subprojects {subProject ->
 	apply plugin: 'java'
+	apply plugin: 'eclipse'
 	compileJava.options.fork([memoryMaximumSize: '1024m'])
 	jar.baseName = "afp-parse_$subProject.name"
 
@@ -11,7 +12,8 @@ subprojects {subProject ->
 	    mavenCentral()
 	}
 
-	dependencies {
-		testCompile 'junit:junit:4.+'
+	task copyToLib(type: Copy) {
+		into "lib/"
+		from configurations.runtime
 	}
 }

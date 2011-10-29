@@ -1,5 +1,6 @@
 dependencies {
-    testCompile 'junit:junit:4.7'
+	compile 'commons-cli:commons-cli:+'
+	testCompile 'junit:junit:4.+'
 }
 
 jar {
