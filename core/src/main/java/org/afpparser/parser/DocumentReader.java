@@ -12,6 +12,11 @@ import java.util.Iterator;
 import org.afpparser.afp.modca.StructuredField;
 import org.afpparser.common.ByteUtils;
 
+/**
+ * Reads the AFP document and allows access to an {@link Iterator} which can iterate over all the
+ * structured fields within the document and return a collection of skeletal Structured Field
+ * objects.
+ */
 public class DocumentReader implements Iterable<StructuredField> {
 
     private final FileChannel channel;
@@ -22,16 +27,33 @@ public class DocumentReader implements Iterable<StructuredField> {
 
     private final SfIterator sfIterator;
 
+    /**
+     * Constructor
+     *
+     * @param afpDoc an AFP document file.
+     * @throws FileNotFoundException if the document was not found
+     */
     public DocumentReader(File afpDoc) throws FileNotFoundException {
         this(new FileInputStream(afpDoc));
     }
 
+    /**
+     * Constructor
+     *
+     * @param afpDoc the file input stream wrapping the AFP document
+     */
     public DocumentReader(FileInputStream afpDoc) {
         channel = afpDoc.getChannel();
         byteUtils = ByteUtils.newLittleEndianUtils();
         sfIterator = new SfIterator();
     }
 
+    /**
+     * Checks that the carriage control character, which precedes each structured field is present.
+     *
+     * @return
+     * @throws IOException
+     */
     private final boolean hasStructuredField() throws IOException {
         ByteBuffer buffer = ByteBuffer.allocate(1);
         channel.read(buffer);
@@ -39,6 +61,15 @@ public class DocumentReader implements Iterable<StructuredField> {
         return fiveA[0] == CARRIAGE_CONTROL;
     }
 
+    /**
+     * Reads the file channel and returns the structured field that begins at the current position
+     * in the file (channel.position()). No validation is done at this point other than checking
+     * that the type is a valid structured field ID. Also no parsing is performed at this stage,
+     * only a skeletal {@link StructuredField} that contains primitive data relevant to all
+     * structured field objects.
+     *
+     * @return a structured field
+     */
     private StructuredField createStructuredField() {
         try {
             if (!hasStructuredField()) {
@@ -68,6 +99,10 @@ public class DocumentReader implements Iterable<StructuredField> {
         }
     }
 
+    /**
+     * Returns an iterator used to iterate over each of the structured fields that make the document.
+     */
+    @Override
     public Iterator<StructuredField> iterator() {
         return sfIterator;
     }
@@ -80,20 +115,21 @@ public class DocumentReader implements Iterable<StructuredField> {
             nextSf = createStructuredField();
         }
 
+        @Override
         public boolean hasNext() {
             return nextSf != null;
         }
 
+        @Override
         public StructuredField next() {
             StructuredField sf = nextSf;
             nextSf = createStructuredField();
             return sf;
         }
 
+        @Override
         public void remove() {
             throw new UnsupportedOperationException("remove() not supported");
         }
-
     }
-
 }

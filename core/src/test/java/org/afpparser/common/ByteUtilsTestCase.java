@@ -9,8 +9,8 @@ import org.junit.Test;
 
 public class ByteUtilsTestCase {
 
-    private ByteUtils littleEndianSut = ByteUtils.newLittleEndianUtils();
-    private ByteUtils bigEndianSut = ByteUtils.newBigEndianUtils();
+    private final ByteUtils littleEndianSut = ByteUtils.newLittleEndianUtils();
+    private final ByteUtils bigEndianSut = ByteUtils.newBigEndianUtils();
 
     private byte[] oneToSeven;
 
@@ -106,6 +106,14 @@ public class ByteUtilsTestCase {
         assertArrayEquals(expected, ByteUtils.hexToBytes(lastTest, 7, byteRange * 2));
     }
 
+    @Test
+    public void testBytesToHex() {
+        byte[] expected = fullByteRange();
+        String hex = ByteUtils.bytesToHex(expected);
+        byte[] actual = ByteUtils.hexToBytes(hex);
+        assertArrayEquals(expected, actual);
+    }
+
     private String fullHexRange() {
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < 1 << Byte.SIZE; i++) {
@@ -113,6 +121,14 @@ public class ByteUtilsTestCase {
             sb.append(hex.length() < 2 ? "0" + hex : hex);
         }
         return sb.toString();
+    }
+
+    private byte[] fullByteRange() {
+        byte[] array = new byte[256];
+        for (int i = 0; i < 256; i++) {
+            array[i] = (byte) i;
+        }
+        return array;
     }
 
 }

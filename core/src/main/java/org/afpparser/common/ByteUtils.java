@@ -1,7 +1,7 @@
 package org.afpparser.common;
 
 /**
- * A utility class to assist with binary operations. 
+ * A utility class to assist with binary operations.
  */
 public abstract class ByteUtils {
 
@@ -23,7 +23,7 @@ public abstract class ByteUtils {
      * @return an unsigned integer
      */
     public abstract int bytesToUnsignedInt(byte[] bytes, int position, int length);
-    
+
     /**
      * Takes an array of bytes and starting at the zeroth offset for <code>bytes.length</code> bytes
      * returns the <code>int</code> representation. An integer primitive is 32bits so this can take
@@ -34,8 +34,8 @@ public abstract class ByteUtils {
      */
     public abstract int bytesToUnsignedInt(byte[] bytes);
 
-    private static final int bytesToUInt(byte[] bytes, int position, int length,
-            int bitShiftStart, int bitShitIncrement) {
+    private static final int bytesToUInt(byte[] bytes, int position, int length, int bitShiftStart,
+            int bitShitIncrement) {
         int num = 0;
         if (length > 4) {
             throw new IllegalArgumentException("The maximum capacity for an int is 32 bytes");
@@ -64,8 +64,8 @@ public abstract class ByteUtils {
         byte[] data = new byte[numOfBytes];
         char[] hexArray = hex.toCharArray();
         for (int i = 0, charIndex = position; i < numOfBytes; i++, charIndex += 2) {
-            data[i] = (byte) ((Character.digit(hexArray[charIndex], 16) << 4)
-                    + (Character.digit(hexArray[charIndex + 1], 16)));
+            data[i] = (byte) ((Character.digit(hexArray[charIndex], 16) << 4) + (Character.digit(
+                    hexArray[charIndex + 1], 16)));
         }
         return data;
     }
@@ -90,12 +90,22 @@ public abstract class ByteUtils {
      * @param length the number of bytes to convert
      * @return a hexadecimal string
      */
-    public static final String byteToHex(byte[] bytes, int position, int length) {
+    public static final String bytesToHex(byte[] bytes, int position, int length) {
         StringBuffer buffer = new StringBuffer(length * 2);
         for (int i = position; i < position + length; i++) {
-            buffer.append(Integer.toBinaryString(bytes[i] & 0xff));
+            buffer.append(StringUtils.toHex(bytes[i] & 0xff, 2));
         }
         return buffer.toString();
+    }
+
+    /**
+     * Converts all the bytes given to a hexadecimal string.
+     *
+     * @param bytes the bytes to convert to hex
+     * @return the hexadecimal string
+     */
+    public static final String bytesToHex(byte... bytes) {
+        return bytesToHex(bytes, 0, bytes.length);
     }
 
     /**
