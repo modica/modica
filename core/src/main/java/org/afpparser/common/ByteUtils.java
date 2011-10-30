@@ -7,6 +7,7 @@ public abstract class ByteUtils {
 
     private static final ByteUtils littleEndianUtils = new LittleEndianByteUtils();
     private static final ByteUtils bigEndianUtils = new BigEndianByteUtils();
+    private static final char[] HEX = "0123456789abcdef".toCharArray();
 
     private ByteUtils() {
     }
@@ -91,11 +92,12 @@ public abstract class ByteUtils {
      * @return a hexadecimal string
      */
     public static final String bytesToHex(byte[] bytes, int position, int length) {
-        StringBuffer buffer = new StringBuffer(length * 2);
-        for (int i = position; i < position + length; i++) {
-            buffer.append(StringUtils.toHex(bytes[i] & 0xff, 2));
+        char[] chars = new char[length * 2];
+        for (int i = 0; i < bytes.length; i++) {
+            chars[2 * i] = HEX[(bytes[i] & 0xf0) >>> 4];
+            chars[2 * i + 1] = HEX[(bytes[i] & 0x0f)];
         }
-        return buffer.toString();
+        return String.valueOf(chars);
     }
 
     /**

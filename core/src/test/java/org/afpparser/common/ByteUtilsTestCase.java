@@ -108,6 +108,10 @@ public class ByteUtilsTestCase {
 
     @Test
     public void testBytesToHex() {
+        String expectedString = "00ff01fe02fd03";
+        byte[] test = ByteUtils.createByteArray(0x00, 0xff, 0x01, 0xfe, 0x02, 0xfd, 0x03);
+        assertEquals(expectedString, ByteUtils.bytesToHex(test));
+
         byte[] expected = fullByteRange();
         String hex = ByteUtils.bytesToHex(expected);
         byte[] actual = ByteUtils.hexToBytes(hex);
