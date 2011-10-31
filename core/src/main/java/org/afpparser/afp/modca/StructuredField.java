@@ -24,7 +24,7 @@ public class StructuredField {
     public StructuredField(long offset, int length, byte[] type, byte flags, int extLength) {
         this.offset = offset;
         this.length = length;
-        this.type = StructuredFieldType.getValue(type);
+        this.type = SFTypeFactory.getValue(type);
         this.flags = flags;
         this.extLength = extLength;
     }
@@ -116,7 +116,7 @@ public class StructuredField {
 
     @Override
     public String toString() {
-        return StringUtils.toHex(offset, 8) + "\t" + type.getFullName();
+        return StringUtils.toHex(offset, 8) + "\t" + type.getName();
     }
 
     @Override

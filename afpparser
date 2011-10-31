@@ -88,6 +88,4 @@ if $cygwin; then
   esac
 fi
 exec_command="exec \"$JAVACMD\" $LOGCHOICE $LOGLEVEL -classpath \"$LOCALCLASSPATH\" org.afpparser.Main $exec_args"
-echo $exec_command
 eval $exec_command
-#java -classpath $CLASSPATH org.afpparser.Main $@

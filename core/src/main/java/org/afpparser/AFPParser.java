@@ -38,7 +38,6 @@ public class AFPParser {
 
         try {
             AfpHandler sfDumper = new AfpHandler() {
-                @Override
                 public void handle(StructuredField sf) {
                     System.out.println(sf);
                 }
