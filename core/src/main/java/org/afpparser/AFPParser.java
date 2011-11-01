@@ -25,7 +25,16 @@ public class AFPParser {
 
     public void parse() throws IOException {
         for (SFIntroducer sf : documentReader) {
-            afpHandler.handle(sf);
+            switch (sf.getType().getTypeCode()) {
+            case Begin:
+                afpHandler.handleBegin(sf);
+                break;
+            case End:
+                afpHandler.handleEnd(sf);
+                break;
+            default:
+                afpHandler.handle(sf);
+            }
         }
     }
 
@@ -38,8 +47,19 @@ public class AFPParser {
 
         try {
             AfpHandler sfDumper = new AfpHandler() {
+                private String indent = "";
                 public void handle(SFIntroducer sf) {
-                    System.out.println(sf);
+                    System.out.println(indent + sf);
+                }
+
+                public void handleBegin(SFIntroducer sf) {
+                    System.out.println(indent + sf);
+                    indent += "  ";
+                }
+
+                public void handleEnd(SFIntroducer sf) {
+                    indent = indent.substring(0, indent.length() - 2);
+                    System.out.println(indent + sf);
                 }
             };
             new AFPParser(afpDoc, sfDumper).parse();
