@@ -19,14 +19,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class StructuredFieldTestCase {
-    private StructuredField sut;
-    private StructuredFieldType sutType;
+    private SFIntroducer sut;
+    private SFType sutType;
 
     @Before
     public void setUp() {
         byte[] typeId = ByteUtils.createByteArray(0xD3, 0xAE, 0x89);
         sutType = SFTypeFactory.getValue(typeId);
-        sut = new StructuredField(1L, 2, typeId, (byte) 3, 5);
+        sut = new SFIntroducer(1L, 2, typeId, (byte) 3, 5);
     }
 
     @Test
@@ -42,9 +42,9 @@ public class StructuredFieldTestCase {
     public void testHashCodeEquals() {
         // Consistency
         for (int i = 0; i < 100; i++) {
-            StructuredField x = createField();
-            StructuredField y = createField();
-            StructuredField z = createField();
+            SFIntroducer x = createField();
+            SFIntroducer y = createField();
+            SFIntroducer z = createField();
 
             // Reflectivity
             assertTrue(x.equals(x));
@@ -68,35 +68,35 @@ public class StructuredFieldTestCase {
 
     @Test
     public void testEqualsHashCodeFailureCases() {
-        StructuredField subject = createField();
-        StructuredField offsetNotEqual = new StructuredField(2L, 2, ByteUtils.createByteArray(0xD3,
+        SFIntroducer subject = createField();
+        SFIntroducer offsetNotEqual = new SFIntroducer(2L, 2, ByteUtils.createByteArray(0xD3,
                 0xA0, 0x88), (byte) 3, 5);
         checkNotEquals(subject, offsetNotEqual);
 
-        StructuredField lengthNotEquals = new StructuredField(1L, 1, ByteUtils.createByteArray(
+        SFIntroducer lengthNotEquals = new SFIntroducer(1L, 1, ByteUtils.createByteArray(
                 0xD3, 0xA0, 0x88), (byte) 3, 5);
         checkNotEquals(subject, lengthNotEquals);
 
-        StructuredField typeNotEquals = new StructuredField(1L, 2, ByteUtils.createByteArray(0xD3,
+        SFIntroducer typeNotEquals = new SFIntroducer(1L, 2, ByteUtils.createByteArray(0xD3,
                 0xA0, 0x90), (byte) 3, 5);
         checkNotEquals(subject, typeNotEquals);
 
-        StructuredField flagsNotEquals = new StructuredField(1L, 2, ByteUtils.createByteArray(0xD3,
+        SFIntroducer flagsNotEquals = new SFIntroducer(1L, 2, ByteUtils.createByteArray(0xD3,
                 0xA0, 0x88), (byte) 4, 5);
         checkNotEquals(subject, flagsNotEquals);
 
-        StructuredField extLengthNotEquals = new StructuredField(1L, 2, ByteUtils.createByteArray(
+        SFIntroducer extLengthNotEquals = new SFIntroducer(1L, 2, ByteUtils.createByteArray(
                 0xD3, 0xA0, 0x88), (byte) 3, 6);
         checkNotEquals(subject, extLengthNotEquals);
     }
 
-    private void checkNotEquals(StructuredField o1, StructuredField o2) {
+    private void checkNotEquals(SFIntroducer o1, SFIntroducer o2) {
         assertFalse(o1.equals(o2));
         assertNotSame(o1.hashCode(), o2.hashCode());
     }
 
-    private StructuredField createField() {
-        return new StructuredField(1L, 2, ByteUtils.createByteArray(0xD3, 0xA0, 0x88), (byte) 3, 5);
+    private SFIntroducer createField() {
+        return new SFIntroducer(1L, 2, ByteUtils.createByteArray(0xD3, 0xA0, 0x88), (byte) 3, 5);
     }
 
     @Test
@@ -112,7 +112,7 @@ public class StructuredFieldTestCase {
     private void testSFWithFlag(int flag, boolean hasExtData, boolean hasSegData,
             boolean hasDataPadding) {
         byte[] id = ByteUtils.createByteArray(0xD3, 0xA0, 0x88);
-        StructuredField field = new StructuredField(0, 1, id, (byte) flag, 0);
+        SFIntroducer field = new SFIntroducer(0, 1, id, (byte) flag, 0);
         assertEquals(hasExtData, field.hasExtData());
         assertEquals(hasSegData, field.hasSegmentedData());
         assertEquals(hasDataPadding, field.hasDataPadding());
@@ -230,8 +230,8 @@ public class StructuredFieldTestCase {
         testStructuredFieldTypeIsCorrect(Process.PPO, "D3ADC3");
     }
 
-    private void testStructuredFieldTypeIsCorrect(StructuredFieldType sfType, String id) {
-        StructuredFieldType type = SFTypeFactory.getValue(ByteUtils.hexToBytes(id));
+    private void testStructuredFieldTypeIsCorrect(SFType sfType, String id) {
+        SFType type = SFTypeFactory.getValue(ByteUtils.hexToBytes(id));
         assertEquals(sfType, type);
     }
 }

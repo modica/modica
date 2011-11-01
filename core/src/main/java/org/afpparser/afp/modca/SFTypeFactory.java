@@ -5,7 +5,7 @@ import java.util.HashMap;
 import org.afpparser.common.ByteUtils;
 
 abstract class SFTypeFactory {
-    private static final java.util.Map<Byte, java.util.Map<Byte, StructuredFieldType>> SF_TYPES = new HashMap<Byte, java.util.Map<Byte, StructuredFieldType>>();
+    private static final java.util.Map<Byte, java.util.Map<Byte, SFType>> SF_TYPES = new HashMap<Byte, java.util.Map<Byte, SFType>>();
 
     static {
         registerHomogenousSfTypes(Attribute.values(),
@@ -26,25 +26,25 @@ abstract class SFTypeFactory {
         registerNonHomogenousSfTypes(Foca.values());
     }
 
-    private static void registerHomogenousSfTypes(StructuredFieldType[]... sfTypes) {
-        for (StructuredFieldType[] sfTypeArray : sfTypes) {
+    private static void registerHomogenousSfTypes(SFType[]... sfTypes) {
+        for (SFType[] sfTypeArray : sfTypes) {
             byte typeID = sfTypeArray[0].getId()[1];
 
-            java.util.Map<Byte, StructuredFieldType> map = new HashMap<Byte, StructuredFieldType>();
-            for (StructuredFieldType sfType : sfTypeArray) {
+            java.util.Map<Byte, SFType> map = new HashMap<Byte, SFType>();
+            for (SFType sfType : sfTypeArray) {
                 map.put(sfType.getId()[2], sfType);
             }
             SF_TYPES.put(typeID, map);
         }
     }
 
-    private static void registerNonHomogenousSfTypes(StructuredFieldType[]... sfTypes) {
-        for (StructuredFieldType[] sfTypeArray : sfTypes) {
-            for (StructuredFieldType sfType : sfTypeArray) {
+    private static void registerNonHomogenousSfTypes(SFType[]... sfTypes) {
+        for (SFType[] sfTypeArray : sfTypes) {
+            for (SFType sfType : sfTypeArray) {
                 byte[] id = sfType.getId();
-                java.util.Map<Byte, StructuredFieldType> map = SF_TYPES.get(id[1]);
+                java.util.Map<Byte, SFType> map = SF_TYPES.get(id[1]);
                 if (map == null) {
-                    map = new HashMap<Byte, StructuredFieldType>();
+                    map = new HashMap<Byte, SFType>();
                 }
                 map.put(id[2], sfType);
                 SF_TYPES.put(id[1], map);
@@ -58,13 +58,13 @@ abstract class SFTypeFactory {
      * @param id the AFP object type ID
      * @return a structured field type
      */
-    public static StructuredFieldType getValue(byte[] id) {
-        java.util.Map<Byte, StructuredFieldType> typeMap = SF_TYPES.get(id[1]);
+    public static SFType getValue(byte[] id) {
+        java.util.Map<Byte, SFType> typeMap = SF_TYPES.get(id[1]);
         if (typeMap == null) {
             throw new IllegalArgumentException(
                     ByteUtils.bytesToHex(id) + " is not a valid structured field");
         }
-        StructuredFieldType type = typeMap.get(id[2]);
+        SFType type = typeMap.get(id[2]);
         if (type == null) {
             throw new IllegalArgumentException(
                     ByteUtils.bytesToHex(id) + " is not a valid structured field");
@@ -72,35 +72,7 @@ abstract class SFTypeFactory {
         return type;
     }
 
-    public static enum TypeCodes {
-        Attribute(0xA0),
-        CopyCount(0xA2),
-        Descriptor(0xA6),
-        Control(0xA7),
-        Begin(0xA8),
-        End(0xA9),
-        Map(0xAB),
-        Position(0xAC),
-        Process(0xAD),
-        Include(0xAF),
-        Table(0xB0),
-        Migration(0xB1),
-        Variable(0xB2),
-        Link(0xB4),
-        Data(0xEE),
-        Unknown(0x00);
-        private final byte typeCode;
-
-        private TypeCodes(int typeCode) {
-            this.typeCode = (byte) typeCode;
-        }
-
-        public byte getValue() {
-            return typeCode;
-        }
-    }
-
-    public enum Attribute implements StructuredFieldType {
+    public enum Attribute implements SFType {
         MFC(0x88, "Medium Finishing Control"),
         TLE(0x90, "Tag Logical Element");
 
@@ -127,7 +99,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum CopyCount implements StructuredFieldType {
+    public enum CopyCount implements SFType {
         MCC(0x88, "Medium Copy Count"),
         FNM(0x89, "Font Patterns Map");
 
@@ -154,7 +126,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Descriptor implements StructuredFieldType {
+    public enum Descriptor implements SFType {
         OBD(0x6B, "Object Area Descriptor"),
         IID(0x7B, "IM Image Input Descriptor (C)"),
         CPD(0x87, "Code Page Descriptor"),
@@ -191,7 +163,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Control implements StructuredFieldType {
+    public enum Control implements SFType {
         IOC(0x7B, "IM Image Output Control (C)"),
         CPC(0x87, "Code Page Control"),
         MMC(0x88, "Medium Modification Control"),
@@ -224,7 +196,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Begin implements StructuredFieldType {
+    public enum Begin implements SFType {
         BPS(0x5F, "Page Segment"),
         BCA(0x77, "Color Attribute Table"),
         BII(0x7B, "IM Image (C)"),
@@ -274,7 +246,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum End implements StructuredFieldType {
+    public enum End implements SFType {
         EPS(0x5F, "Page Segment"),
         ECA(0x77, "Color Attribute Table"),
         EII(0x7B, "IM Image (C)"),
@@ -324,7 +296,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Map implements StructuredFieldType {
+    public enum Map implements SFType {
         MCA(0x77, "Map Color Attribute Table"),
         MMT(0x88, "Map Media Type"),
         FNN(0x89, "Font Name Map"),
@@ -362,7 +334,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Position implements StructuredFieldType {
+    public enum Position implements SFType {
         OBP(0x6B, "Object Area Position"),
         ICP(0x7B, "IM Image Cell Position (C)"),
         FNP(0x89, "Font Position"),
@@ -391,7 +363,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Process implements StructuredFieldType {
+    public enum Process implements SFType {
         PPO(0xC3, "Preprocess Presentation Object");
 
         private final byte[] id;
@@ -417,7 +389,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Include implements StructuredFieldType {
+    public enum Include implements SFType {
         IPS(0x5F, "Page Segment"),
         IPG(0xAF, "Page"),
         IOB(0xC3, "Object"),
@@ -446,7 +418,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Table implements StructuredFieldType {
+    public enum Table implements SFType {
         CAT(0x77, "Color Attribute Table");
 
         private final byte[] id;
@@ -472,7 +444,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Migration implements StructuredFieldType {
+    public enum Migration implements SFType {
         MPS(0x5F, "Map Page Segment"),
         MCF1(0x8A, "Map Coded Font Format-1 (C)"),
         PTD(0x9B, "Presentation Text Data Descriptor"),
@@ -502,7 +474,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Variable implements StructuredFieldType {
+    public enum Variable implements SFType {
         PFC(0x88, "Presentation Fidelity Control"),
         IEL(0xA7, "Index Element");
 
@@ -529,7 +501,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Link implements StructuredFieldType {
+    public enum Link implements SFType {
         LLE(0x90, "Link Logical Element");
 
         private final byte[] id;
@@ -555,7 +527,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Data implements StructuredFieldType {
+    public enum Data implements SFType {
         IRD(0x7B, "IM Image Raster Data (C)"),
         FNG(0x89, "Font Patterns"),
         OCD(0x92, "Object Container Data"),
@@ -589,7 +561,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Foca implements StructuredFieldType {
+    public enum Foca implements SFType {
         CPI(ByteUtils.hexToBytes("D38C87"), "Code Page Index"),
         FNI(ByteUtils.hexToBytes("D38C89"), "Font Index"),
         CFI(ByteUtils.hexToBytes("D38C8A"), "Coded Font Index"),
@@ -597,12 +569,10 @@ abstract class SFTypeFactory {
 
         private final byte[] id;
         private final String name;
-        private final byte typeCode;
 
         private Foca(byte[] id, String name) {
             this.id = id;
             this.name = name;
-            this.typeCode = id[1];
         }
 
         public byte[] getId() {

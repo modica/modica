@@ -18,7 +18,7 @@ public class Main {
             CommandLine cmd = cliParser.parse(opts, args);
             if (cmd.hasOption('p')) {
                 AFPParser.main(cmd.getOptionValue('p'));
-            } else if (cmd.hasOption('h') || args.length == 0) {
+            } else {
                 printHelp(opts);
             }
         } catch (ParseException pe) {

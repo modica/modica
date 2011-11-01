@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.afpparser.afp.modca.StructuredField;
+import org.afpparser.afp.modca.SFIntroducer;
 import org.afpparser.parser.AfpHandler;
 import org.afpparser.parser.DocumentReader;
 
@@ -24,7 +24,7 @@ public class AFPParser {
     }
 
     public void parse() throws IOException {
-        for (StructuredField sf : documentReader) {
+        for (SFIntroducer sf : documentReader) {
             afpHandler.handle(sf);
         }
     }
@@ -38,7 +38,7 @@ public class AFPParser {
 
         try {
             AfpHandler sfDumper = new AfpHandler() {
-                public void handle(StructuredField sf) {
+                public void handle(SFIntroducer sf) {
                     System.out.println(sf);
                 }
             };
