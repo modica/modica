@@ -5,28 +5,28 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
-import org.afpparser.afp.modca.SFTypeFactory.Attribute;
-import org.afpparser.afp.modca.SFTypeFactory.Begin;
-import org.afpparser.afp.modca.SFTypeFactory.Control;
-import org.afpparser.afp.modca.SFTypeFactory.CopyCount;
-import org.afpparser.afp.modca.SFTypeFactory.Descriptor;
-import org.afpparser.afp.modca.SFTypeFactory.End;
-import org.afpparser.afp.modca.SFTypeFactory.Map;
-import org.afpparser.afp.modca.SFTypeFactory.Position;
-import org.afpparser.afp.modca.SFTypeFactory.Process;
+import org.afpparser.afp.modca.SfTypeFactory.Attribute;
+import org.afpparser.afp.modca.SfTypeFactory.Begin;
+import org.afpparser.afp.modca.SfTypeFactory.Control;
+import org.afpparser.afp.modca.SfTypeFactory.CopyCount;
+import org.afpparser.afp.modca.SfTypeFactory.Descriptor;
+import org.afpparser.afp.modca.SfTypeFactory.End;
+import org.afpparser.afp.modca.SfTypeFactory.Map;
+import org.afpparser.afp.modca.SfTypeFactory.Position;
+import org.afpparser.afp.modca.SfTypeFactory.Process;
 import org.afpparser.common.ByteUtils;
 import org.junit.Before;
 import org.junit.Test;
 
-public class StructuredFieldTestCase {
-    private SFIntroducer sut;
-    private SFType sutType;
+public class SfIntroducerTestCase {
+    private SfIntroducer sut;
+    private SfType sutType;
 
     @Before
     public void setUp() {
         byte[] typeId = ByteUtils.createByteArray(0xD3, 0xAE, 0x89);
-        sutType = SFTypeFactory.getValue(typeId);
-        sut = new SFIntroducer(1L, 2, typeId, (byte) 3, 5);
+        sutType = SfTypeFactory.getValue(typeId);
+        sut = new SfIntroducer(1L, 2, typeId, (byte) 3, 5);
     }
 
     @Test
@@ -42,9 +42,9 @@ public class StructuredFieldTestCase {
     public void testHashCodeEquals() {
         // Consistency
         for (int i = 0; i < 100; i++) {
-            SFIntroducer x = createField();
-            SFIntroducer y = createField();
-            SFIntroducer z = createField();
+            SfIntroducer x = createField();
+            SfIntroducer y = createField();
+            SfIntroducer z = createField();
 
             // Reflectivity
             assertTrue(x.equals(x));
@@ -68,35 +68,35 @@ public class StructuredFieldTestCase {
 
     @Test
     public void testEqualsHashCodeFailureCases() {
-        SFIntroducer subject = createField();
-        SFIntroducer offsetNotEqual = new SFIntroducer(2L, 2, ByteUtils.createByteArray(0xD3,
+        SfIntroducer subject = createField();
+        SfIntroducer offsetNotEqual = new SfIntroducer(2L, 2, ByteUtils.createByteArray(0xD3,
                 0xA0, 0x88), (byte) 3, 5);
         checkNotEquals(subject, offsetNotEqual);
 
-        SFIntroducer lengthNotEquals = new SFIntroducer(1L, 1, ByteUtils.createByteArray(
+        SfIntroducer lengthNotEquals = new SfIntroducer(1L, 1, ByteUtils.createByteArray(
                 0xD3, 0xA0, 0x88), (byte) 3, 5);
         checkNotEquals(subject, lengthNotEquals);
 
-        SFIntroducer typeNotEquals = new SFIntroducer(1L, 2, ByteUtils.createByteArray(0xD3,
+        SfIntroducer typeNotEquals = new SfIntroducer(1L, 2, ByteUtils.createByteArray(0xD3,
                 0xA0, 0x90), (byte) 3, 5);
         checkNotEquals(subject, typeNotEquals);
 
-        SFIntroducer flagsNotEquals = new SFIntroducer(1L, 2, ByteUtils.createByteArray(0xD3,
+        SfIntroducer flagsNotEquals = new SfIntroducer(1L, 2, ByteUtils.createByteArray(0xD3,
                 0xA0, 0x88), (byte) 4, 5);
         checkNotEquals(subject, flagsNotEquals);
 
-        SFIntroducer extLengthNotEquals = new SFIntroducer(1L, 2, ByteUtils.createByteArray(
+        SfIntroducer extLengthNotEquals = new SfIntroducer(1L, 2, ByteUtils.createByteArray(
                 0xD3, 0xA0, 0x88), (byte) 3, 6);
         checkNotEquals(subject, extLengthNotEquals);
     }
 
-    private void checkNotEquals(SFIntroducer o1, SFIntroducer o2) {
+    private void checkNotEquals(SfIntroducer o1, SfIntroducer o2) {
         assertFalse(o1.equals(o2));
         assertNotSame(o1.hashCode(), o2.hashCode());
     }
 
-    private SFIntroducer createField() {
-        return new SFIntroducer(1L, 2, ByteUtils.createByteArray(0xD3, 0xA0, 0x88), (byte) 3, 5);
+    private SfIntroducer createField() {
+        return new SfIntroducer(1L, 2, ByteUtils.createByteArray(0xD3, 0xA0, 0x88), (byte) 3, 5);
     }
 
     @Test
@@ -112,7 +112,7 @@ public class StructuredFieldTestCase {
     private void testSFWithFlag(int flag, boolean hasExtData, boolean hasSegData,
             boolean hasDataPadding) {
         byte[] id = ByteUtils.createByteArray(0xD3, 0xA0, 0x88);
-        SFIntroducer field = new SFIntroducer(0, 1, id, (byte) flag, 0);
+        SfIntroducer field = new SfIntroducer(0, 1, id, (byte) flag, 0);
         assertEquals(hasExtData, field.hasExtData());
         assertEquals(hasSegData, field.hasSegmentedData());
         assertEquals(hasDataPadding, field.hasDataPadding());
@@ -230,8 +230,8 @@ public class StructuredFieldTestCase {
         testStructuredFieldTypeIsCorrect(Process.PPO, "D3ADC3");
     }
 
-    private void testStructuredFieldTypeIsCorrect(SFType sfType, String id) {
-        SFType type = SFTypeFactory.getValue(ByteUtils.hexToBytes(id));
+    private void testStructuredFieldTypeIsCorrect(SfType sfType, String id) {
+        SfType type = SfTypeFactory.getValue(ByteUtils.hexToBytes(id));
         assertEquals(sfType, type);
     }
 }

@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 import org.afpparser.common.ByteUtils;
 
-abstract class SFTypeFactory {
-    private static final java.util.Map<Byte, java.util.Map<Byte, SFType>> SF_TYPES = new HashMap<Byte, java.util.Map<Byte, SFType>>();
+abstract class SfTypeFactory {
+    private static final java.util.Map<Byte, java.util.Map<Byte, SfType>> SF_TYPES = new HashMap<Byte, java.util.Map<Byte, SfType>>();
 
     static {
         registerHomogenousSfTypes(Attribute.values(),
@@ -26,25 +26,25 @@ abstract class SFTypeFactory {
         registerNonHomogenousSfTypes(Foca.values());
     }
 
-    private static void registerHomogenousSfTypes(SFType[]... sfTypes) {
-        for (SFType[] sfTypeArray : sfTypes) {
+    private static void registerHomogenousSfTypes(SfType[]... sfTypes) {
+        for (SfType[] sfTypeArray : sfTypes) {
             byte typeID = sfTypeArray[0].getId()[1];
 
-            java.util.Map<Byte, SFType> map = new HashMap<Byte, SFType>();
-            for (SFType sfType : sfTypeArray) {
+            java.util.Map<Byte, SfType> map = new HashMap<Byte, SfType>();
+            for (SfType sfType : sfTypeArray) {
                 map.put(sfType.getId()[2], sfType);
             }
             SF_TYPES.put(typeID, map);
         }
     }
 
-    private static void registerNonHomogenousSfTypes(SFType[]... sfTypes) {
-        for (SFType[] sfTypeArray : sfTypes) {
-            for (SFType sfType : sfTypeArray) {
+    private static void registerNonHomogenousSfTypes(SfType[]... sfTypes) {
+        for (SfType[] sfTypeArray : sfTypes) {
+            for (SfType sfType : sfTypeArray) {
                 byte[] id = sfType.getId();
-                java.util.Map<Byte, SFType> map = SF_TYPES.get(id[1]);
+                java.util.Map<Byte, SfType> map = SF_TYPES.get(id[1]);
                 if (map == null) {
-                    map = new HashMap<Byte, SFType>();
+                    map = new HashMap<Byte, SfType>();
                 }
                 map.put(id[2], sfType);
                 SF_TYPES.put(id[1], map);
@@ -58,13 +58,13 @@ abstract class SFTypeFactory {
      * @param id the AFP object type ID
      * @return a structured field type
      */
-    public static SFType getValue(byte[] id) {
-        java.util.Map<Byte, SFType> typeMap = SF_TYPES.get(id[1]);
+    public static SfType getValue(byte[] id) {
+        java.util.Map<Byte, SfType> typeMap = SF_TYPES.get(id[1]);
         if (typeMap == null) {
             throw new IllegalArgumentException(
                     ByteUtils.bytesToHex(id) + " is not a valid structured field");
         }
-        SFType type = typeMap.get(id[2]);
+        SfType type = typeMap.get(id[2]);
         if (type == null) {
             throw new IllegalArgumentException(
                     ByteUtils.bytesToHex(id) + " is not a valid structured field");
@@ -72,7 +72,7 @@ abstract class SFTypeFactory {
         return type;
     }
 
-    public enum Attribute implements SFType {
+    public enum Attribute implements SfType {
         MFC(0x88, "Medium Finishing Control"),
         TLE(0x90, "Tag Logical Element");
 
@@ -99,7 +99,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum CopyCount implements SFType {
+    public enum CopyCount implements SfType {
         MCC(0x88, "Medium Copy Count"),
         FNM(0x89, "Font Patterns Map");
 
@@ -126,7 +126,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Descriptor implements SFType {
+    public enum Descriptor implements SfType {
         OBD(0x6B, "Object Area Descriptor"),
         IID(0x7B, "IM Image Input Descriptor (C)"),
         CPD(0x87, "Code Page Descriptor"),
@@ -163,7 +163,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Control implements SFType {
+    public enum Control implements SfType {
         IOC(0x7B, "IM Image Output Control (C)"),
         CPC(0x87, "Code Page Control"),
         MMC(0x88, "Medium Modification Control"),
@@ -196,7 +196,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Begin implements SFType {
+    public enum Begin implements SfType {
         BPS(0x5F, "Page Segment"),
         BCA(0x77, "Color Attribute Table"),
         BII(0x7B, "IM Image (C)"),
@@ -246,7 +246,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum End implements SFType {
+    public enum End implements SfType {
         EPS(0x5F, "Page Segment"),
         ECA(0x77, "Color Attribute Table"),
         EII(0x7B, "IM Image (C)"),
@@ -296,7 +296,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Map implements SFType {
+    public enum Map implements SfType {
         MCA(0x77, "Map Color Attribute Table"),
         MMT(0x88, "Map Media Type"),
         FNN(0x89, "Font Name Map"),
@@ -334,7 +334,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Position implements SFType {
+    public enum Position implements SfType {
         OBP(0x6B, "Object Area Position"),
         ICP(0x7B, "IM Image Cell Position (C)"),
         FNP(0x89, "Font Position"),
@@ -363,7 +363,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Process implements SFType {
+    public enum Process implements SfType {
         PPO(0xC3, "Preprocess Presentation Object");
 
         private final byte[] id;
@@ -389,7 +389,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Include implements SFType {
+    public enum Include implements SfType {
         IPS(0x5F, "Page Segment"),
         IPG(0xAF, "Page"),
         IOB(0xC3, "Object"),
@@ -418,7 +418,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Table implements SFType {
+    public enum Table implements SfType {
         CAT(0x77, "Color Attribute Table");
 
         private final byte[] id;
@@ -444,7 +444,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Migration implements SFType {
+    public enum Migration implements SfType {
         MPS(0x5F, "Map Page Segment"),
         MCF1(0x8A, "Map Coded Font Format-1 (C)"),
         PTD(0x9B, "Presentation Text Data Descriptor"),
@@ -474,7 +474,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Variable implements SFType {
+    public enum Variable implements SfType {
         PFC(0x88, "Presentation Fidelity Control"),
         IEL(0xA7, "Index Element");
 
@@ -501,7 +501,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Link implements SFType {
+    public enum Link implements SfType {
         LLE(0x90, "Link Logical Element");
 
         private final byte[] id;
@@ -527,7 +527,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Data implements SFType {
+    public enum Data implements SfType {
         IRD(0x7B, "IM Image Raster Data (C)"),
         FNG(0x89, "Font Patterns"),
         OCD(0x92, "Object Container Data"),
@@ -561,7 +561,7 @@ abstract class SFTypeFactory {
         }
     }
 
-    public enum Foca implements SFType {
+    public enum Foca implements SfType {
         CPI(ByteUtils.hexToBytes("D38C87"), "Code Page Index"),
         FNI(ByteUtils.hexToBytes("D38C89"), "Font Index"),
         CFI(ByteUtils.hexToBytes("D38C8A"), "Coded Font Index"),

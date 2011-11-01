@@ -1,5 +1,9 @@
 package org.afpparser.afp.modca;
 
+/**
+ * Structured fields have representative type codes within their identity bytes. These enumerate
+ * the various types of structured fields available.
+ */
 public enum TypeCodes {
     Attribute(0xA0),
     CopyCount(0xA2),
@@ -23,6 +27,11 @@ public enum TypeCodes {
         this.typeCode = (byte) typeCode;
     }
 
+    /**
+     * The byte value of the type code.
+     *
+     * @return the type code byte
+     */
     public byte getValue() {
         return typeCode;
     }

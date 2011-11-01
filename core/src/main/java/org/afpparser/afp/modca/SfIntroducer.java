@@ -5,10 +5,10 @@ import org.afpparser.common.StringUtils;
 /**
  * A data object that represents a structured field and holds the data provided in the introducer.
  */
-public class SFIntroducer {
+public class SfIntroducer {
     private final long offset;
     private final int length;
-    private final SFType type;
+    private final SfType type;
     private final byte flags;
     private final int extLength;
 
@@ -21,10 +21,10 @@ public class SFIntroducer {
      * @param flags the bit-mapped flags
      * @param extLength the length of SFI extension data
      */
-    public SFIntroducer(long offset, int length, byte[] type, byte flags, int extLength) {
+    public SfIntroducer(long offset, int length, byte[] type, byte flags, int extLength) {
         this.offset = offset;
         this.length = length;
-        this.type = SFTypeFactory.getValue(type);
+        this.type = SfTypeFactory.getValue(type);
         this.flags = flags;
         this.extLength = extLength;
     }
@@ -71,7 +71,7 @@ public class SFIntroducer {
      *
      * @return the structured field type
      */
-    public SFType getType() {
+    public SfType getType() {
         return type;
     }
 
@@ -135,10 +135,10 @@ public class SFIntroducer {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof SFIntroducer)) {
+        if (!(o instanceof SfIntroducer)) {
             return false;
         }
-        SFIntroducer sf = (SFIntroducer) o;
+        SfIntroducer sf = (SfIntroducer) o;
         return this.offset == sf.offset && this.length == sf.length && this.type.equals(sf.type)
                 && this.flags == sf.flags && this.extLength == sf.extLength;
     }

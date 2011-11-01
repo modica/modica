@@ -1,23 +1,22 @@
 package org.afpparser.parser;
 
-import org.afpparser.afp.modca.SFIntroducer;
+import org.afpparser.afp.modca.SfIntroducer;
 
 public interface AfpHandler {
-    void handleBegin(SFIntroducer sf);
+    void handleBegin(SfIntroducer sf);
 
-    void handleEnd(SFIntroducer sf);
+    void handleEnd(SfIntroducer sf);
 
-    void handle(SFIntroducer sf);
+    void handle(SfIntroducer sf);
 
     public static AfpHandler DEFAULT = new AfpHandler() {
-        public void handle(SFIntroducer sf) {
+        public void handle(SfIntroducer sf) {
         }
 
-        public void handleBegin(SFIntroducer sf) {
+        public void handleBegin(SfIntroducer sf) {
         }
 
-        public void handleEnd(SFIntroducer sf) {
+        public void handleEnd(SfIntroducer sf) {
         }
     };
-
 }

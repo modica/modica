@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.afpparser.afp.modca.SFIntroducer;
+import org.afpparser.afp.modca.SfIntroducer;
 import org.afpparser.parser.AfpHandler;
 import org.afpparser.parser.DocumentReader;
 
@@ -24,7 +24,7 @@ public class AFPParser {
     }
 
     public void parse() throws IOException {
-        for (SFIntroducer sf : documentReader) {
+        for (SfIntroducer sf : documentReader) {
             switch (sf.getType().getTypeCode()) {
             case Begin:
                 afpHandler.handleBegin(sf);
@@ -48,16 +48,16 @@ public class AFPParser {
         try {
             AfpHandler sfDumper = new AfpHandler() {
                 private String indent = "";
-                public void handle(SFIntroducer sf) {
+                public void handle(SfIntroducer sf) {
                     System.out.println(indent + sf);
                 }
 
-                public void handleBegin(SFIntroducer sf) {
+                public void handleBegin(SfIntroducer sf) {
                     System.out.println(indent + sf);
                     indent += "  ";
                 }
 
-                public void handleEnd(SFIntroducer sf) {
+                public void handleEnd(SfIntroducer sf) {
                     indent = indent.substring(0, indent.length() - 2);
                     System.out.println(indent + sf);
                 }
