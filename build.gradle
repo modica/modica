@@ -1,5 +1,4 @@
-defaultTasks 'clean', 'test', 'assemble', 'copyToLib'
-
+defaultTasks 'clean', 'test', 'assemble'
 subprojects {subProject ->
 	apply plugin: 'java'
 	apply plugin: 'eclipse'
@@ -12,8 +11,10 @@ subprojects {subProject ->
 	    mavenCentral()
 	}
 
-	task copyToLib(type: Copy) {
-		into "lib/"
-		from configurations.runtime
-	}
+    classes.doLast {
+        copy {
+            into 'build/libs/lib'
+            from configurations.runtime
+        }
+    }
 }
