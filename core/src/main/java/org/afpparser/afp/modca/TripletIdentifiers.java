@@ -1,5 +1,8 @@
 package org.afpparser.afp.modca;
 
+/**
+ * Enumeration of the structured field triplet identifiers.
+ */
 public enum TripletIdentifiers {
     coded_graphic_character_set_global_identifier(0x01),
     fully_qualified_name(0x02),
@@ -57,11 +60,11 @@ public enum TripletIdentifiers {
     rendering_intent(0x95),
     cmr_tag_fidelity(0x96),
     device_appearance(0x97);
-    
-    private static int max_length = 254;
-    
+
+    private static int MAX_LENGTH = 254;
+
     private byte id;
-    
+
     private TripletIdentifiers(int id) {
         this.id = (byte) id;
     }
@@ -71,6 +74,6 @@ public enum TripletIdentifiers {
     }
 
     public static int getmaxlength() {
-        return max_length;
+        return MAX_LENGTH;
     }
 }
