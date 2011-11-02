@@ -17,7 +17,7 @@ import org.afpparser.common.ByteUtils;
  * structured fields within the document and return a collection of skeletal Structured Field
  * objects.
  */
-public class DocumentReader implements Iterable<SfIntroducer> {
+class DocumentReader implements Iterable<SfIntroducer> {
 
     private final FileChannel channel;
 

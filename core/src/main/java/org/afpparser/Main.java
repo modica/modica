@@ -1,5 +1,11 @@
 package org.afpparser;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.afpparser.parser.AFPDocumentParser;
+import org.afpparser.parser.PrintingSFHandler;
+
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -13,14 +19,20 @@ public class Main {
     public static void main(String[] args) {
         CommandLineParser cliParser = new BasicParser();
         Options opts = createCliOptions();
-
         try {
             CommandLine cmd = cliParser.parse(opts, args);
             if (cmd.hasOption('p')) {
-                AFPParser.main(cmd.getOptionValue('p'));
+                File afpDoc = new File(cmd.getOptionValue('p'));
+                if (!afpDoc.isFile()) {
+                    System.out.println("The AFP document does not exist");
+                    return;
+                }
+                new AFPDocumentParser(afpDoc, new PrintingSFHandler()).parse();
             } else {
                 printHelp(opts);
             }
+        } catch (IOException ioe) {
+            System.out.println("IO exception: " +  ioe.getMessage());
         } catch (ParseException pe) {
             System.out.println("Unexpected exception: " + pe.getMessage());
         }
