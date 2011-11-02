@@ -72,22 +72,27 @@ public abstract class SfTypeFactory {
         return type;
     }
 
+    private static byte[] getId(int type, TypeCodes typeCode) {
+        return ByteUtils.createByteArray(0xD3, typeCode.getValue(), type);
+    }
+
     public enum Attribute implements SfType {
         MFC(0x88, "Medium Finishing Control"),
         TLE(0x90, "Tag Logical Element");
 
-        private final byte[] id;
-        private final String name;
         public static final TypeCodes TYPE_CODE = TypeCodes.Attribute;
 
+        private final int type;
+
+        private final String name;
+
         private Attribute(int type, String name) {
-            TypeCodes typeCodes = TypeCodes.Attribute;
-            id = ByteUtils.createByteArray(0xD3, typeCodes.getValue(), type);
+            this.type = type;
             this.name = name;
         }
 
         public byte[] getId() {
-            return id;
+            return SfTypeFactory.getId(type, TYPE_CODE);
         }
 
         public String getName() {
@@ -103,18 +108,19 @@ public abstract class SfTypeFactory {
         MCC(0x88, "Medium Copy Count"),
         FNM(0x89, "Font Patterns Map");
 
-        private final byte[] id;
-        private final String name;
         public static final TypeCodes TYPE_CODE = TypeCodes.CopyCount;
 
+        private final int type;
+
+        private final String name;
+
         private CopyCount(int type, String name) {
-            TypeCodes tc = TypeCodes.CopyCount;
-            id = ByteUtils.createByteArray(0xD3, tc.getValue(), type);
+            this.type = type;
             this.name = name;
         }
 
         public byte[] getId() {
-            return id;
+            return SfTypeFactory.getId(type, TYPE_CODE);
         }
 
         public String getName() {
@@ -140,18 +146,19 @@ public abstract class SfTypeFactory {
         BDD(0xEB, "Bar Code Data Descriptor"),
         IDD(0xFB, "Image Data Descriptor");
 
-        private final byte[] id;
-        private final String name;
         public static final TypeCodes TYPE_CODE = TypeCodes.Descriptor;
 
+        private final int type;
+
+        private final String name;
+
         private Descriptor(int type, String name) {
-            TypeCodes tc = TypeCodes.Descriptor;
-            id = ByteUtils.createByteArray(0xD3, tc.getValue(), type);
+            this.type = type;
             this.name = name;
         }
 
         public byte[] getId() {
-            return id;
+            return SfTypeFactory.getId(type, TYPE_CODE);
         }
 
         public String getName() {
@@ -173,18 +180,19 @@ public abstract class SfTypeFactory {
         PEC(0xA8, "Presentation Environment Control"),
         PMC(0xAF, "Page Modification Control");
 
-        private final byte[] id;
-        private final String name;
         public static final TypeCodes TYPE_CODE = TypeCodes.Control;
 
+        private final int type;
+
+        private final String name;
+
         private Control(int type, String name) {
-            TypeCodes tc = TypeCodes.Control;
-            id = ByteUtils.createByteArray(0xD3, tc.getValue(), type);
+            this.type = type;
             this.name = name;
         }
 
         public byte[] getId() {
-            return id;
+            return SfTypeFactory.getId(type, TYPE_CODE);
         }
 
         public String getName() {
@@ -223,18 +231,19 @@ public abstract class SfTypeFactory {
         BBC(0xEB, "Bar Code Object"),
         BIM(0xFB, "Image Object");
 
-        private final byte[] id;
-        private final String name;
         public static final TypeCodes TYPE_CODE = TypeCodes.Begin;
 
+        private final int type;
+
+        private final String name;
+
         private Begin(int type, String name) {
-            TypeCodes tc = TypeCodes.Begin;
-            id = ByteUtils.createByteArray(0xD3, tc.getValue(), type);
+            this.type = type;
             this.name = "Begin " + name;
         }
 
         public byte[] getId() {
-            return id;
+            return SfTypeFactory.getId(type, TYPE_CODE);
         }
 
         public String getName() {
@@ -273,18 +282,19 @@ public abstract class SfTypeFactory {
         EBC(0xEB, "Bar Code Object"),
         EIM(0xFB, "Image Object");
 
-        private final byte[] id;
-        private final String name;
         public static final TypeCodes TYPE_CODE = TypeCodes.End;
 
+        private final int type;
+
+        private final String name;
+
         private End(int type, String name) {
-            TypeCodes tc = TypeCodes.End;
-            id = ByteUtils.createByteArray(0xD3, tc.getValue(), type);
+            this.type = type;
             this.name = "End " + name;
         }
 
         public byte[] getId() {
-            return id;
+            return SfTypeFactory.getId(type, TYPE_CODE);
         }
 
         public String getName() {
@@ -311,18 +321,19 @@ public abstract class SfTypeFactory {
         MBC(0xEB, "Map Bar Code Object"),
         MIO(0xFB, "Map Image Object");
 
-        private final byte[] id;
-        private final String name;
         public static final TypeCodes TYPE_CODE = TypeCodes.Map;
 
+        private final int type;
+
+        private final String name;
+
         private Map(int type, String name) {
-            TypeCodes tc = TypeCodes.Map;
-            id = ByteUtils.createByteArray(0xD3, tc.getValue(), type);
+            this.type = type;
             this.name = name;
         }
 
         public byte[] getId() {
-            return id;
+            return SfTypeFactory.getId(type, TYPE_CODE);
         }
 
         public String getName() {
@@ -340,18 +351,19 @@ public abstract class SfTypeFactory {
         FNP(0x89, "Font Position"),
         PGP1(0xAF, "Page Position Format-1 (C)");
 
-        private final byte[] id;
+        private static final TypeCodes TYPE_CODE = TypeCodes.Position;
+
+        private final int type;
+
         private final String name;
-        public static final TypeCodes TYPE_CODE = TypeCodes.Position;
 
         private Position(int type, String name) {
-            TypeCodes tc = TypeCodes.Position;
-            id = ByteUtils.createByteArray(0xD3, tc.getValue(), type);
+            this.type= type;
             this.name = name;
         }
 
         public byte[] getId() {
-            return id;
+            return SfTypeFactory.getId(type, TYPE_CODE);
         }
 
         public String getName() {
@@ -366,18 +378,19 @@ public abstract class SfTypeFactory {
     public enum Process implements SfType {
         PPO(0xC3, "Preprocess Presentation Object");
 
-        private final byte[] id;
+        private static final TypeCodes TYPE_CODE = TypeCodes.Process;
+
+        private final int type;
+
         private final String name;
-        public static final TypeCodes TYPE_CODE = TypeCodes.Process;
 
         private Process(int type, String name) {
-            TypeCodes tc = TypeCodes.Process;
-            id = ByteUtils.createByteArray(0xD3, tc.getValue(), type);
+            this.type = type;
             this.name = name;
         }
 
         public byte[] getId() {
-            return id;
+            return SfTypeFactory.getId(type, TYPE_CODE);
         }
 
         public String getName() {
@@ -395,18 +408,19 @@ public abstract class SfTypeFactory {
         IOB(0xC3, "Object"),
         IPO(0xD8, "Page Overlay");
 
-        private final byte[] id;
+        private static final TypeCodes TYPE_CODE = TypeCodes.Include;
+
+        private final int type;
+
         private final String name;
-        public static final TypeCodes TYPE_CODE = TypeCodes.Include;
 
         private Include(int type, String name) {
-            TypeCodes tc = TypeCodes.Include;
-            id = ByteUtils.createByteArray(0xD3, tc.getValue(), type);
+            this.type = type;
             this.name = "Include " + name;
         }
 
         public byte[] getId() {
-            return id;
+            return SfTypeFactory.getId(type, TYPE_CODE);
         }
 
         public String getName() {
@@ -421,18 +435,19 @@ public abstract class SfTypeFactory {
     public enum Table implements SfType {
         CAT(0x77, "Color Attribute Table");
 
-        private final byte[] id;
+        private static final TypeCodes TYPE_CODE = TypeCodes.Table;
+
+        private final int type;
+
         private final String name;
-        public static final TypeCodes TYPE_CODE = TypeCodes.Table;
 
         private Table(int type, String name) {
-            TypeCodes tc = TypeCodes.Table;
-            id = ByteUtils.createByteArray(0xD3, tc.getValue(), type);
+            this.type = type;
             this.name = name;
         }
 
         public byte[] getId() {
-            return id;
+            return SfTypeFactory.getId(type, TYPE_CODE);
         }
 
         public String getName() {
@@ -451,18 +466,19 @@ public abstract class SfTypeFactory {
         PGP(0xAF, "Page Position"),
         MMO(0xDF, "Map Medium Overlay");
 
-        private final byte[] id;
+        private static final TypeCodes TYPE_CODE = TypeCodes.Migration;
+
+        private final int type;
+
         private final String name;
-        public static final TypeCodes TYPE_CODE = TypeCodes.Migration;
 
         private Migration(int type, String name) {
-            TypeCodes tc = TypeCodes.Migration;
-            id = ByteUtils.createByteArray(0xD3, tc.getValue(), type);
+            this.type = type;
             this.name = name;
         }
 
         public byte[] getId() {
-            return id;
+            return SfTypeFactory.getId(type, TYPE_CODE);
         }
 
         public String getName() {
@@ -478,18 +494,19 @@ public abstract class SfTypeFactory {
         PFC(0x88, "Presentation Fidelity Control"),
         IEL(0xA7, "Index Element");
 
-        private final byte[] id;
+        private static final TypeCodes TYPE_CODE = TypeCodes.Variable;
+
+        private final int type;
+
         private final String name;
-        public static final TypeCodes TYPE_CODE = TypeCodes.Variable;
 
         private Variable(int type, String name) {
-            TypeCodes tc = TypeCodes.Variable;
-            id = ByteUtils.createByteArray(0xD3, tc.getValue(), type);
+            this.type = type;
             this.name = name;
         }
 
         public byte[] getId() {
-            return id;
+            return SfTypeFactory.getId(type, TYPE_CODE);
         }
 
         public String getName() {
@@ -504,18 +521,19 @@ public abstract class SfTypeFactory {
     public enum Link implements SfType {
         LLE(0x90, "Link Logical Element");
 
-        private final byte[] id;
+        private static final TypeCodes TYPE_CODE = TypeCodes.Link;
+
+        private final int type;
+
         private final String name;
-        public static final TypeCodes TYPE_CODE = TypeCodes.Link;
 
         private Link(int type, String name) {
-            TypeCodes tc = TypeCodes.Link;
-            id = ByteUtils.createByteArray(0xD3, tc.getValue(), type);
+            this.type = type;
             this.name = name;
         }
 
         public byte[] getId() {
-            return id;
+            return SfTypeFactory.getId(type, TYPE_CODE);
         }
 
         public String getName() {
@@ -538,18 +556,19 @@ public abstract class SfTypeFactory {
         IPD(0xFB, "Image Picture Data"),
         CTX(0x9B, "Composed Text Data");
 
-        private final byte[] id;
+        private static final TypeCodes TYPE_CODE = TypeCodes.Data;
+
+        private final int type;
+
         private final String name;
-        public static final TypeCodes TYPE_CODE = TypeCodes.Data;
 
         private Data(int type, String name) {
-            TypeCodes tc = TypeCodes.Data;
-            id = ByteUtils.createByteArray(0xD3, tc.getValue(), type);
+            this.type = type;
             this.name = name;
         }
 
         public byte[] getId() {
-            return id;
+            return SfTypeFactory.getId(type, TYPE_CODE);
         }
 
         public String getName() {
@@ -576,7 +595,9 @@ public abstract class SfTypeFactory {
         }
 
         public byte[] getId() {
-            return id;
+            byte[] idCopy = new byte[3];
+            System.arraycopy(id, 0, idCopy, 0, 3);
+            return idCopy;
         }
 
         public String getName() {
