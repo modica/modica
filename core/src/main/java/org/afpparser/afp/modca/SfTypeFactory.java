@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import org.afpparser.common.ByteUtils;
 
-abstract class SfTypeFactory {
+public abstract class SfTypeFactory {
     private static final java.util.Map<Byte, java.util.Map<Byte, SfType>> SF_TYPES = new HashMap<Byte, java.util.Map<Byte, SfType>>();
 
     static {
