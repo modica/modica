@@ -22,12 +22,13 @@ package org.afpparser.parser;
 import java.io.PrintStream;
 
 import org.afpparser.afp.modca.SfIntroducer;
+import org.afpparser.common.StringUtils;
 
 public class PrintingSFHandler implements StructuredFieldHandler {
 
     private final PrintStream out;
 
-    private String indent = "";
+    private String indent = "  ";
 
     public PrintingSFHandler(PrintStream out) {
         this.out = out;
@@ -38,16 +39,20 @@ public class PrintingSFHandler implements StructuredFieldHandler {
     }
 
     public void handle(SfIntroducer sf) {
-        out.println(indent + sf);
+        printSf(sf);
     }
 
     public void handleBegin(SfIntroducer sf) {
-        out.println(indent + sf);
+        printSf(sf);
         indent += "  ";
     }
 
     public void handleEnd(SfIntroducer sf) {
         indent = indent.substring(0, indent.length() - 2);
-        out.println(indent + sf);
+        printSf(sf);
+    }
+
+    private void printSf(SfIntroducer sf) {
+        out.println(StringUtils.toHex(sf.getOffset(), 8) + indent + sf.getType().getName());
     }
 }
