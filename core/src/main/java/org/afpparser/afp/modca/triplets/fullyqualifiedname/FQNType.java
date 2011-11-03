@@ -1,4 +1,4 @@
-package org.afpparser.afp.modca.triplets;
+package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 
 public enum FQNType {
     /** This GID replaces The first parameter in The structured field that contains a gid name. */

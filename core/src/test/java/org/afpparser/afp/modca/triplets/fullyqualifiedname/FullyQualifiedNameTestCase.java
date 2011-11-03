@@ -1,11 +1,10 @@
-package org.afpparser.afp.modca.triplets;
+package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.UnsupportedEncodingException;
 
-import org.afpparser.afp.modca.triplets.FullyQualifiedName.FontCharSetNameRef;
 import org.afpparser.common.ByteUtils;
 import org.junit.Test;
 
@@ -28,7 +27,7 @@ public class FullyQualifiedNameTestCase {
         FontCharSetNameRef f1 = new FontCharSetNameRef(0x0C, expectedData);
         assertTrue(f1.equals(fcsn));
     }
-    
+
     private void testEquals() {
 
     }
