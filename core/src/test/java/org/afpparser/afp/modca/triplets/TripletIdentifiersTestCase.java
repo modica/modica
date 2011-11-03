@@ -2,7 +2,6 @@ package org.afpparser.afp.modca.triplets;
 
 import static org.junit.Assert.assertEquals;
 
-import org.afpparser.afp.modca.TripletIdentifiers;
 import org.junit.Test;
 
 /**
@@ -39,7 +38,7 @@ public class TripletIdentifiersTestCase {
         testId(0x57, TripletIdentifiers.object_byte_extent);
         testId(0x58, TripletIdentifiers.object_structured_field_offset);
         testId(0x59, TripletIdentifiers.object_structured_field_extent);
-        testId(0x5A, TripletIdentifiers.object_byte_offset);
+        testId(0x5A, TripletIdentifiers.object_offset);
         testId(0x5D, TripletIdentifiers.font_horizontal_scale_factor);
         testId(0x5E, TripletIdentifiers.object_count);
         testId(0x62, TripletIdentifiers.object_date_and_timestamp);

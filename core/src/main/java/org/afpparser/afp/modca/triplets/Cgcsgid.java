@@ -1,6 +1,5 @@
 package org.afpparser.afp.modca.triplets;
 
-import org.afpparser.afp.modca.TripletIdentifiers;
 import org.afpparser.common.ByteUtils;
 
 /**
@@ -8,7 +7,7 @@ import org.afpparser.common.ByteUtils;
  * code page and character set for interpretation of all structured field parameters having a
  * CHAR data type, such as name parameters, except where such parameters define a fixed encoding.  
  */
-public abstract class Cgcsgid implements Triplet {
+public abstract class Cgcsgid extends Triplet {
     private static TripletIdentifiers tId = TripletIdentifiers.coded_graphic_character_set_global_identifier;
     private static final int LENGTH = 6;
 
@@ -38,6 +37,24 @@ public abstract class Cgcsgid implements Triplet {
         public int getCpgid() {
             return cpgid;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof Cpgid)) {
+                return false;
+            }
+            Cpgid obj = (Cpgid) o;
+            return this.gcsgid == obj.gcsgid
+                    && this.cpgid == obj.cpgid;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = 17;
+            result = 31 * result + gcsgid;
+            result = 31 * result + cpgid;
+            return result;
+        }
     }
 
     public static class Ccsid extends Cgcsgid {
@@ -49,6 +66,22 @@ public abstract class Cgcsgid implements Triplet {
 
         public int getCcsid() {
             return ccsid;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof Ccsid)) {
+                return false;
+            }
+            Ccsid obj = (Ccsid) o;
+            return this.ccsid == obj.ccsid;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = 17;
+            result = 31 * result + ccsid;
+            return result;
         }
     }
 

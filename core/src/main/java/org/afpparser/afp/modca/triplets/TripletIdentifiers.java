@@ -1,4 +1,4 @@
-package org.afpparser.afp.modca;
+package org.afpparser.afp.modca.triplets;
 
 /**
  * Enumeration of the structured field triplet identifiers.

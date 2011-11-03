@@ -1,5 +1,7 @@
 package org.afpparser.common;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * A utility class for string manipulation.
  */
@@ -28,5 +30,14 @@ public class StringUtils {
      */
     public static String toHex(int i, int length) {
         return String.format("%" + length + "s", Integer.toHexString(i)).replace(' ', '0');
+    }
+
+    public static String bytesToCp500(byte[] bytes, int offset, int length)
+            throws UnsupportedEncodingException {
+        return new String(bytes, offset, length, "Cp500");
+    }
+
+    public static String bytesToCp500(byte[] bytes) throws UnsupportedEncodingException {
+        return bytesToCp500(bytes, 0, bytes.length);
     }
 }
