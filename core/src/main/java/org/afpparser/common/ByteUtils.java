@@ -120,7 +120,7 @@ public abstract class ByteUtils {
     public static byte[] createByteArray(int... element) {
         byte[] byteArray = new byte[element.length];
         for (int i = 0; i < element.length; i++) {
-            byteArray[i] = (byte) element[i];
+            byteArray[i] = (byte) (element[i] & 0xFF);
         }
         return byteArray;
     }

@@ -1,6 +1,5 @@
 package org.afpparser.afp.modca;
 
-import org.afpparser.common.ByteUtils;
 
 /**
  * Structured fields have representative type codes within their identity bytes. These enumerate
@@ -38,7 +37,11 @@ public enum TypeCodes {
         return typeCode;
     }
 
-    public byte[] getIdForType(int type) {
-        return ByteUtils.createByteArray(0xD3, typeCode, type);
+    public byte[] getIdForType(byte type) {
+        return new byte[] { (byte) 0xD3, typeCode, type };
+    }
+
+    public byte[] getIdForType(CategoryCodes categoryCode) {
+        return new byte[] { (byte) 0xD3, typeCode, categoryCode.getCode() };
     }
 }

@@ -78,12 +78,12 @@ public abstract class SfTypeFactory {
 
         public static final TypeCodes TYPE_CODE = TypeCodes.Attribute;
 
-        private final int type;
+        private final byte type;
 
         private final String name;
 
         private Attribute(int type, String name) {
-            this.type = type;
+            this.type = (byte) type;
             this.name = name;
         }
 
@@ -106,12 +106,12 @@ public abstract class SfTypeFactory {
 
         public static final TypeCodes TYPE_CODE = TypeCodes.CopyCount;
 
-        private final int type;
+        private final byte type;
 
         private final String name;
 
         private CopyCount(int type, String name) {
-            this.type = type;
+            this.type = (byte) type;
             this.name = name;
         }
 
@@ -144,12 +144,12 @@ public abstract class SfTypeFactory {
 
         public static final TypeCodes TYPE_CODE = TypeCodes.Descriptor;
 
-        private final int type;
+        private final byte type;
 
         private final String name;
 
         private Descriptor(int type, String name) {
-            this.type = type;
+            this.type = (byte) type;
             this.name = name;
         }
 
@@ -178,12 +178,12 @@ public abstract class SfTypeFactory {
 
         public static final TypeCodes TYPE_CODE = TypeCodes.Control;
 
-        private final int type;
+        private final byte type;
 
         private final String name;
 
         private Control(int type, String name) {
-            this.type = type;
+            this.type = (byte) type;
             this.name = name;
         }
 
@@ -229,12 +229,12 @@ public abstract class SfTypeFactory {
 
         public static final TypeCodes TYPE_CODE = TypeCodes.Begin;
 
-        private final int type;
+        private final byte type;
 
         private final String name;
 
         private Begin(int type, String name) {
-            this.type = type;
+            this.type = (byte) type;
             this.name = "Begin " + name;
         }
 
@@ -280,12 +280,12 @@ public abstract class SfTypeFactory {
 
         public static final TypeCodes TYPE_CODE = TypeCodes.End;
 
-        private final int type;
+        private final byte type;
 
         private final String name;
 
         private End(int type, String name) {
-            this.type = type;
+            this.type = (byte) type;
             this.name = "End " + name;
         }
 
@@ -319,12 +319,12 @@ public abstract class SfTypeFactory {
 
         public static final TypeCodes TYPE_CODE = TypeCodes.Map;
 
-        private final int type;
+        private final byte type;
 
         private final String name;
 
         private Map(int type, String name) {
-            this.type = type;
+            this.type = (byte) type;
             this.name = name;
         }
 
@@ -349,12 +349,12 @@ public abstract class SfTypeFactory {
 
         private static final TypeCodes TYPE_CODE = TypeCodes.Position;
 
-        private final int type;
+        private final byte type;
 
         private final String name;
 
         private Position(int type, String name) {
-            this.type= type;
+            this.type = (byte) type;
             this.name = name;
         }
 
@@ -376,12 +376,12 @@ public abstract class SfTypeFactory {
 
         private static final TypeCodes TYPE_CODE = TypeCodes.Process;
 
-        private final int type;
+        private final byte type;
 
         private final String name;
 
         private Process(int type, String name) {
-            this.type = type;
+            this.type = (byte) type;
             this.name = name;
         }
 
@@ -406,12 +406,12 @@ public abstract class SfTypeFactory {
 
         private static final TypeCodes TYPE_CODE = TypeCodes.Include;
 
-        private final int type;
+        private final byte type;
 
         private final String name;
 
         private Include(int type, String name) {
-            this.type = type;
+            this.type = (byte) type;
             this.name = "Include " + name;
         }
 
@@ -433,12 +433,12 @@ public abstract class SfTypeFactory {
 
         private static final TypeCodes TYPE_CODE = TypeCodes.Table;
 
-        private final int type;
+        private final byte type;
 
         private final String name;
 
         private Table(int type, String name) {
-            this.type = type;
+            this.type = (byte) type;
             this.name = name;
         }
 
@@ -464,12 +464,12 @@ public abstract class SfTypeFactory {
 
         private static final TypeCodes TYPE_CODE = TypeCodes.Migration;
 
-        private final int type;
+        private final byte type;
 
         private final String name;
 
         private Migration(int type, String name) {
-            this.type = type;
+            this.type = (byte) type;
             this.name = name;
         }
 
@@ -492,12 +492,12 @@ public abstract class SfTypeFactory {
 
         private static final TypeCodes TYPE_CODE = TypeCodes.Variable;
 
-        private final int type;
+        private final byte type;
 
         private final String name;
 
         private Variable(int type, String name) {
-            this.type = type;
+            this.type = (byte) type;
             this.name = name;
         }
 
@@ -519,12 +519,12 @@ public abstract class SfTypeFactory {
 
         private static final TypeCodes TYPE_CODE = TypeCodes.Link;
 
-        private final int type;
+        private final byte type;
 
         private final String name;
 
         private Link(int type, String name) {
-            this.type = type;
+            this.type = (byte) type;
             this.name = name;
         }
 
@@ -554,12 +554,12 @@ public abstract class SfTypeFactory {
 
         private static final TypeCodes TYPE_CODE = TypeCodes.Data;
 
-        private final int type;
+        private final byte type;
 
         private final String name;
 
         private Data(int type, String name) {
-            this.type = type;
+            this.type = (byte) type;
             this.name = name;
         }
 
