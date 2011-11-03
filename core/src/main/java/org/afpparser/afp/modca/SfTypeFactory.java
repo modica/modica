@@ -72,10 +72,6 @@ public abstract class SfTypeFactory {
         return type;
     }
 
-    private static byte[] getId(int type, TypeCodes typeCode) {
-        return ByteUtils.createByteArray(0xD3, typeCode.getValue(), type);
-    }
-
     public enum Attribute implements SfType {
         MFC(0x88, "Medium Finishing Control"),
         TLE(0x90, "Tag Logical Element");
@@ -92,7 +88,7 @@ public abstract class SfTypeFactory {
         }
 
         public byte[] getId() {
-            return SfTypeFactory.getId(type, TYPE_CODE);
+            return TYPE_CODE.getIdForType(type);
         }
 
         public String getName() {
@@ -120,7 +116,7 @@ public abstract class SfTypeFactory {
         }
 
         public byte[] getId() {
-            return SfTypeFactory.getId(type, TYPE_CODE);
+            return TYPE_CODE.getIdForType(type);
         }
 
         public String getName() {
@@ -158,7 +154,7 @@ public abstract class SfTypeFactory {
         }
 
         public byte[] getId() {
-            return SfTypeFactory.getId(type, TYPE_CODE);
+            return TYPE_CODE.getIdForType(type);
         }
 
         public String getName() {
@@ -192,7 +188,7 @@ public abstract class SfTypeFactory {
         }
 
         public byte[] getId() {
-            return SfTypeFactory.getId(type, TYPE_CODE);
+            return TYPE_CODE.getIdForType(type);
         }
 
         public String getName() {
@@ -243,7 +239,7 @@ public abstract class SfTypeFactory {
         }
 
         public byte[] getId() {
-            return SfTypeFactory.getId(type, TYPE_CODE);
+            return TYPE_CODE.getIdForType(type);
         }
 
         public String getName() {
@@ -294,7 +290,7 @@ public abstract class SfTypeFactory {
         }
 
         public byte[] getId() {
-            return SfTypeFactory.getId(type, TYPE_CODE);
+            return TYPE_CODE.getIdForType(type);
         }
 
         public String getName() {
@@ -333,7 +329,7 @@ public abstract class SfTypeFactory {
         }
 
         public byte[] getId() {
-            return SfTypeFactory.getId(type, TYPE_CODE);
+            return TYPE_CODE.getIdForType(type);
         }
 
         public String getName() {
@@ -363,7 +359,7 @@ public abstract class SfTypeFactory {
         }
 
         public byte[] getId() {
-            return SfTypeFactory.getId(type, TYPE_CODE);
+            return TYPE_CODE.getIdForType(type);
         }
 
         public String getName() {
@@ -390,7 +386,7 @@ public abstract class SfTypeFactory {
         }
 
         public byte[] getId() {
-            return SfTypeFactory.getId(type, TYPE_CODE);
+            return TYPE_CODE.getIdForType(type);
         }
 
         public String getName() {
@@ -420,7 +416,7 @@ public abstract class SfTypeFactory {
         }
 
         public byte[] getId() {
-            return SfTypeFactory.getId(type, TYPE_CODE);
+            return TYPE_CODE.getIdForType(type);
         }
 
         public String getName() {
@@ -447,7 +443,7 @@ public abstract class SfTypeFactory {
         }
 
         public byte[] getId() {
-            return SfTypeFactory.getId(type, TYPE_CODE);
+            return TYPE_CODE.getIdForType(type);
         }
 
         public String getName() {
@@ -478,7 +474,7 @@ public abstract class SfTypeFactory {
         }
 
         public byte[] getId() {
-            return SfTypeFactory.getId(type, TYPE_CODE);
+            return TYPE_CODE.getIdForType(type);
         }
 
         public String getName() {
@@ -506,7 +502,7 @@ public abstract class SfTypeFactory {
         }
 
         public byte[] getId() {
-            return SfTypeFactory.getId(type, TYPE_CODE);
+            return TYPE_CODE.getIdForType(type);
         }
 
         public String getName() {
@@ -533,7 +529,7 @@ public abstract class SfTypeFactory {
         }
 
         public byte[] getId() {
-            return SfTypeFactory.getId(type, TYPE_CODE);
+            return TYPE_CODE.getIdForType(type);
         }
 
         public String getName() {
@@ -568,7 +564,7 @@ public abstract class SfTypeFactory {
         }
 
         public byte[] getId() {
-            return SfTypeFactory.getId(type, TYPE_CODE);
+            return TYPE_CODE.getIdForType(type);
         }
 
         public String getName() {
