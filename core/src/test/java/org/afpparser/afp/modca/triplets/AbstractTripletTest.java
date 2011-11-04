@@ -50,6 +50,5 @@ public abstract class AbstractTripletTest<T> {
         assertEquals(x.hashCode(), y.hashCode());
         assertEquals(y.hashCode(), z.hashCode());
         assertNotSame(x.hashCode(), notEqual.hashCode());
-
     }
 }

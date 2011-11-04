@@ -27,8 +27,4 @@ public class FullyQualifiedNameTestCase {
         FontCharSetNameRef f1 = new FontCharSetNameRef(0x0C, expectedData);
         assertTrue(f1.equals(fcsn));
     }
-
-    private void testEquals() {
-
-    }
 }
