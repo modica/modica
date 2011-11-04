@@ -1,5 +1,8 @@
 package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum FQNType {
     /** This GID replaces The first parameter in The structured field that contains a gid name. */
     replace_first_gid_name(0x01),
@@ -18,7 +21,7 @@ public enum FQNType {
     /** The triplet contains a reference to a begin page group structured field. */
     begin_page_group_ref(0x0D),
     /** The triplet contains a reference to a media type. */
-    media_ref(0x11),
+    media_type_ref(0x11),
     /** The triplet contains a reference to a color management resource. */
     color_management_resource_ref(0x41),
     /** The triplet contains a reference to a data-object font file that defines a base font. */
@@ -81,11 +84,23 @@ public enum FQNType {
     format_url(0x20);
     private final byte id;
 
+    private static final Map<Byte, FQNType> CACHE = new HashMap<Byte, FQNType>();
+
+    static {
+        for (FQNType type : FQNType.values()) {
+            CACHE.put(type.getId(), type);
+        }
+    }
+
     private FQNType(int id) {
         this.id = (byte) id;
     }
 
     public final byte getId() {
         return id;
+    }
+
+    public static FQNType getValue(byte id) {
+        return CACHE.get(id);
     }
 }

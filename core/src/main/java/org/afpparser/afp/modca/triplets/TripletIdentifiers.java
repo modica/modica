@@ -1,5 +1,8 @@
 package org.afpparser.afp.modca.triplets;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Enumeration of the structured field triplet identifiers.
  */
@@ -65,15 +68,27 @@ public enum TripletIdentifiers {
 
     private byte id;
 
+    private static final Map<Byte, TripletIdentifiers> CACHE = new HashMap<Byte, TripletIdentifiers>();
+
+    static {
+        for (TripletIdentifiers type : TripletIdentifiers.values()) {
+            CACHE.put(type.getId(), type);
+        }
+    }
+
     private TripletIdentifiers(int id) {
         this.id = (byte) id;
     }
 
-    public byte getid() {
+    public byte getId() {
         return id;
     }
 
     public static int getmaxlength() {
         return MAX_LENGTH;
+    }
+
+    public static TripletIdentifiers getTripletId(byte tId) {
+        return CACHE.get(tId);
     }
 }

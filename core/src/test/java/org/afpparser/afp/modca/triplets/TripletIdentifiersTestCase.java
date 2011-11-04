@@ -70,6 +70,6 @@ public class TripletIdentifiersTestCase {
     }
 
     private void testId(int expected, TripletIdentifiers tripletId) {
-        assertEquals((byte) expected, tripletId.getid());
+        assertEquals((byte) expected, tripletId.getId());
     }
 }

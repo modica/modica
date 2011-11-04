@@ -1,5 +1,6 @@
 package org.afpparser.afp.modca;
 
+
 /**
  * The category codes for structured fields.
  */
@@ -62,9 +63,9 @@ public enum CategoryCodes {
     no_operation(0xEE),
     /** image */
     image(0xFB);
-    
+
     private final byte code;
-    
+
     private CategoryCodes(int code) {
         this.code = (byte) code;
     }

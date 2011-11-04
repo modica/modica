@@ -1,8 +1,6 @@
 package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.TripletIdentifiers;
@@ -14,12 +12,6 @@ import org.afpparser.common.StringUtils;
 public abstract class FullyQualifiedName extends Triplet {
     private final int length;
     private static final TripletIdentifiers tId = TripletIdentifiers.fully_qualified_name;
-    private static final Map<Byte, FQNType> fqnTypes = new HashMap<Byte, FQNType>();
-    static {
-        for (FQNType type : FQNType.values()) {
-            fqnTypes.put(type.getId(), type);
-        }
-    }
 
     FullyQualifiedName(int length) {
         this.length = length;
@@ -58,8 +50,8 @@ public abstract class FullyQualifiedName extends Triplet {
 
     public static FullyQualifiedName parse(int length, byte[] data)
             throws UnsupportedEncodingException {
-        assert data[0] == FullyQualifiedName.tId.getid();
-        FQNType type = fqnTypes.get(data[1]);
+        assert data[0] == FullyQualifiedName.tId.getId();
+        FQNType type = FQNType.getValue(data[1]);
         String strData;
         assert type != null;
         switch (type) {

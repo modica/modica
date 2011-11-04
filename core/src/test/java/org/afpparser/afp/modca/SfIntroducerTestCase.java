@@ -177,7 +177,7 @@ public class SfIntroducerTestCase {
         testStructuredFieldTypeIsCorrect(Begin.BMO, "D3A8DF");
         testStructuredFieldTypeIsCorrect(Begin.BBC, "D3A8EB");
         testStructuredFieldTypeIsCorrect(Begin.BIM, "D3A8FB");
-        
+
         // End
         testStructuredFieldTypeIsCorrect(End.EPS, "D3A95F");
         testStructuredFieldTypeIsCorrect(End.ECA, "D3A977");
