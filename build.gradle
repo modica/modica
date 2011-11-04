@@ -1,4 +1,4 @@
-defaultTasks 'clean', 'test', 'assemble'
+defaultTasks 'clean', 'test', 'integrationTest','assemble'
 subprojects {subProject ->
 	apply plugin: 'java'
 	apply plugin: 'eclipse'

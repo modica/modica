@@ -37,17 +37,28 @@ public class PrintingSFHandler implements StructuredFieldHandler {
         this(System.out);
     }
 
+    @Override
     public void handle(SfIntroducer sf) {
         out.println(indent + sf);
     }
 
+    @Override
     public void handleBegin(SfIntroducer sf) {
         out.println(indent + sf);
         indent += "  ";
     }
 
+    @Override
     public void handleEnd(SfIntroducer sf) {
         indent = indent.substring(0, indent.length() - 2);
         out.println(indent + sf);
     }
+
+    @Override
+	public void startAfp() {
+	}
+
+    @Override
+	public void endAfp() {
+	}
 }
