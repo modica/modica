@@ -50,23 +50,76 @@ public abstract class FullyQualifiedName extends Triplet {
 
     public static FullyQualifiedName parse(int length, byte[] data)
             throws UnsupportedEncodingException {
-        assert data[0] == FullyQualifiedName.tId.getId();
-        FQNType type = FQNType.getValue(data[1]);
-        String strData;
+        int dataIndex = 0;
+        byte tripletId = data[dataIndex++];
+        assert tripletId == FullyQualifiedName.tId.getId();
+        FQNType type = FQNType.getValue(data[dataIndex++]);
+        FQNFmt format = FQNFmt.getValue(data[dataIndex++]);
         assert type != null;
-        switch (type) {
-        case font_charset_name_ref:
-            strData = parseString(data);
-            return new FontCharSetNameRef(length, strData);
-        case code_page_name_ref:
-            strData = parseString(data);
-            return new CodePageNameRef(length, strData);
+        switch (format) {
+        case character_string:
+            String strData = parseString(data, dataIndex);
+            return new FQNCharStringData(length, strData, type);
+        case oid:
         }
+
         return null;
     }
 
-    private static String parseString(byte[] data) throws UnsupportedEncodingException {
-        assert data[2] == FQNFmt.character_string.getId();
-        return StringUtils.bytesToCp500(data, 3, data.length - 3);
+    private static String parseString(byte[] data, int position)
+            throws UnsupportedEncodingException {
+        assert data[position++] == FQNFmt.character_string.getId();
+        return StringUtils.bytesToCp500(data, position, data.length - position);
     }
+
+    public final static class ObjectId {
+        private final int length;
+        private final byte[] oid;
+        public static final int OID_ENCODING = 0x06;
+
+        private ObjectId(byte[] data, int position) {
+            // The first bit of the length is always set to 0
+            byte oidEncoding = data[position++];
+            assert oidEncoding == OID_ENCODING;
+            length = data[position++] & 0x7F;
+            byte[] oidData = new byte[data.length - position];
+            System.arraycopy(data, position, oidData, 0, data.length - position);
+            oid = decodeOid(oidData);
+        }
+
+        private byte[] decodeOid(byte[] data) {
+            byte[] decodedOid = new byte[length];
+            int resultIndex = 0;
+            int bitCount = 1;
+            int dataIndex = 0;
+            boolean notLastByte = true;
+            do {
+                byte currentByte = data[dataIndex++];
+                notLastByte = (currentByte & 0x80) > 0;
+                if (!notLastByte) {
+                    decodedOid[resultIndex] = currentByte;
+                    return decodedOid;
+                } else if (resultIndex <= length - 1) {
+                    byte decodedByte = (byte) (currentByte << 8 - bitCount++);
+                    byte nextByte = data[dataIndex];
+                    notLastByte = (nextByte & 0x80) > 0;
+                    decodedByte |= nextByte;
+                    decodedOid[resultIndex++] = decodedByte;
+                }
+                bitCount++;
+            } while (notLastByte);
+            return decodedOid;
+        }
+
+        static ObjectId parse(byte[] data, int position) {
+            return new ObjectId(data, position);
+        }
+
+        byte[] getOid() {
+            byte[] ret = new byte[oid.length];
+            System.arraycopy(oid, 0, ret, 0, oid.length);
+            return ret;
+        }
+    }
+
 }

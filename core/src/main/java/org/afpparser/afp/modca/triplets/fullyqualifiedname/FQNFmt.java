@@ -22,4 +22,13 @@ public enum FQNFmt {
     byte getId() {
         return id;
     }
+
+    public static FQNFmt getValue(byte id) {
+        for (FQNFmt format : FQNFmt.values()) {
+            if (format.id == id) {
+                return format;
+            }
+        }
+        throw new IllegalArgumentException("Invalid Fully Qualified Name format");
+    }
 }

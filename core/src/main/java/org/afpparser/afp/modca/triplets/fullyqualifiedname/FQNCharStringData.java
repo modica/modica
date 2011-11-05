@@ -3,12 +3,14 @@ package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 /**
  * Provides functionality for the Fully Qualified Name triplets that have character string data.
  */
-abstract class FQNCharStringData extends FullyQualifiedName {
+final class FQNCharStringData extends FullyQualifiedName {
     private final String data;
+    private final FQNType fqnType;
 
-    FQNCharStringData(int length, String data) {
+    FQNCharStringData(int length, String data, FQNType fqnType) {
         super(length);
         this.data = data;
+        this.fqnType = fqnType;
     }
 
     /**
@@ -48,5 +50,10 @@ abstract class FQNCharStringData extends FullyQualifiedName {
     @Override
     public String toString() {
         return getTid().name() + ", " + getFQNType() + "=" + data;
+    }
+
+    @Override
+    public FQNType getFQNType() {
+        return fqnType;
     }
 }

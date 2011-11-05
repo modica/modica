@@ -1,7 +1,6 @@
 package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.io.UnsupportedEncodingException;
 
@@ -22,9 +21,21 @@ public class FullyQualifiedNameTestCase {
         FullyQualifiedName fqn = FullyQualifiedName.parse(length, fontCharSetNameRef);
         assertEquals(fqn.getLength(), length);
         assertEquals(fqn.getFQNType(), FQNType.font_charset_name_ref);
-        FontCharSetNameRef fcsn = (FontCharSetNameRef) fqn;
-        assertEquals(fcsn.getString(), expectedData);
-        FontCharSetNameRef f1 = new FontCharSetNameRef(0x0C, expectedData);
-        assertTrue(f1.equals(fcsn));
+        FQNCharStringData fcsn = (FQNCharStringData) fqn;
+        assertEquals(expectedData, fcsn.getString());
     }
+    /*
+     * @Test public void testOidDecodingExample3() { byte[] example1 =
+     * ByteUtils.hexToBytes("0603813403"); ObjectId example1Oid = ObjectId.parse(example1, 0);
+     * byte[] actual = example1Oid.getOid(); byte[] expected = ByteUtils.createByteArray(2, 100, 3);
+     * assertArrayEquals(expected, actual); }
+     *
+     * @Test public void testOidDecodingExample1() { byte[] encodedOid =
+     * ByteUtils.hexToBytes("06018148"); ObjectId oid = ObjectId.parse(encodedOid, 0); byte[]
+     * expected = ByteUtils.createByteArray(0xC8); assertArrayEquals(expected, oid.getOid()); }
+     *
+     * @Test public void testOidDecodingExample2() { byte[] encodedOid =
+     * ByteUtils.hexToBytes("060103"); ObjectId oid = ObjectId.parse(encodedOid, 0); byte[] expected
+     * = ByteUtils.createByteArray(0x03); assertArrayEquals(expected, oid.getOid()); }
+     */
 }
