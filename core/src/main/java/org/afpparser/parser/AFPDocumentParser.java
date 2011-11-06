@@ -18,6 +18,7 @@ public class AFPDocumentParser {
     }
 
     public void parse() throws IOException {
+        afpHandler.startAfp();
         for (SfIntroducer sf : documentReader) {
             switch (sf.getType().getTypeCode()) {
             case Begin:
@@ -30,5 +31,6 @@ public class AFPDocumentParser {
                 afpHandler.handle(sf);
             }
         }
+        afpHandler.endAfp();
     }
 }
