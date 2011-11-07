@@ -5,12 +5,12 @@ package org.afpparser.afp.modca.triplets.fullyqualifiedname;
  */
 final class FQNCharStringData extends FullyQualifiedName {
     private final String data;
-    private final FQNType fqnType;
+    private final FQNType type;
 
-    FQNCharStringData(int length, String data, FQNType fqnType) {
+    FQNCharStringData(int length, String data, FQNType type) {
         super(length);
         this.data = data;
-        this.fqnType = fqnType;
+        this.type = type;
     }
 
     /**
@@ -54,6 +54,6 @@ final class FQNCharStringData extends FullyQualifiedName {
 
     @Override
     public FQNType getFQNType() {
-        return fqnType;
+        return type;
     }
 }

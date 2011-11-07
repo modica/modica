@@ -3,6 +3,7 @@ package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.TripletIdentifiers;
@@ -61,8 +62,7 @@ public abstract class FullyQualifiedName extends Triplet {
         assert type != null;
         switch (format) {
         case character_string:
-            String strData = parseString(data, dataIndex);
-            return new FQNCharStringData(length, strData, type);
+            return handleStringData(length, data, type, dataIndex);
         case oid:
             ObjectId oid = new ObjectId(data, dataIndex);
             return new FQNOidData(length, oid, type);
@@ -77,6 +77,23 @@ public abstract class FullyQualifiedName extends Triplet {
     private static String parseString(byte[] data, int position)
             throws UnsupportedEncodingException {
         return StringUtils.bytesToCp500(data, position, data.length - position);
+    }
+
+    private static FullyQualifiedName handleStringData(int length, byte[] data, FQNType type,
+            int position) throws UnsupportedEncodingException {
+        switch (type) {
+        case begin_resource_object_ref:
+            GlobalResourceId grid = new GlobalResourceId(data, position);
+            return new FQNGridData(length, grid, type);
+        case data_object_internal_resource_ref:
+            int undefLength = data.length - position;
+            byte[] undefData = new byte[undefLength];
+            System.arraycopy(data, position, undefData, 0, undefLength);
+            return new FQNUndefData(length, undefData, type);
+        default:
+            String gid = parseString(data, position);
+            return new FQNCharStringData(length, gid, type);
+        }
     }
 
     /**
@@ -99,6 +116,24 @@ public abstract class FullyQualifiedName extends Triplet {
         byte[] getOid() {
             byte[] ret = new byte[oid.length];
             System.arraycopy(oid, 0, ret, 0, oid.length);
+            return ret;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof ObjectId)) {
+                return false;
+            }
+            ObjectId obj = (ObjectId) o;
+            return Arrays.equals(this.oid, obj.oid);
+        }
+
+        @Override
+        public int hashCode() {
+            int ret = 17;
+            for (byte b : oid) {
+                ret = 31 * ret + b;
+            }
             return ret;
         }
     }
@@ -135,6 +170,28 @@ public abstract class FullyQualifiedName extends Triplet {
 
         public int getFontWidth() {
             return fontWidth;
+        }
+
+        @Override
+        public int hashCode() {
+            int ret = 17;
+            ret = 31 * ret + gcsgid;
+            ret = 31 * ret + cpgid;
+            ret = 31 * ret + fgid;
+            ret = 31 * ret + fontWidth;
+            return ret;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof GlobalResourceId)) {
+                return false;
+            }
+            GlobalResourceId obj = (GlobalResourceId) o;
+            return this.gcsgid == obj.gcsgid
+                    && this.cpgid == obj.cpgid
+                    && this.fgid == obj.fgid
+                    && this.fontWidth == obj.fontWidth;
         }
     }
 }
