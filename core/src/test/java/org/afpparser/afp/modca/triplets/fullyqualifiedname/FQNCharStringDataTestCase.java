@@ -4,21 +4,24 @@ import static org.junit.Assert.assertEquals;
 
 import org.afpparser.afp.modca.triplets.AbstractTripletTest;
 import org.afpparser.afp.modca.triplets.TripletIdentifiers;
+import org.junit.Before;
 import org.junit.Test;
 
-public abstract class FQNCharStringDataTestCase<T extends FQNCharStringData>
-        extends AbstractTripletTest<T> {
-    private T x;
+public class FQNCharStringDataTestCase extends AbstractTripletTest<FQNCharStringData> {
+    private FQNCharStringData x;
     private FQNType type;
     private String expectedString;
     private int length;
     
-    public void setXYZandTypes(T x, T y, T z, T notEqual, int length, FQNType type,
-            String expectedString) {
-        this.x = x;
-        this.type = type;
-        this.expectedString = expectedString;
-        this.length = length;
+    @Before
+    public void setUp() {
+        expectedString = "Test String";
+        length = 1;
+        type = FQNType.font_charset_name_ref;
+        this.x = new FQNCharStringData(length, expectedString, type);
+        FQNCharStringData y = new FQNCharStringData(length, expectedString, type);
+        FQNCharStringData z = new FQNCharStringData(length, expectedString, type);
+        FQNCharStringData notEqual = new FQNCharStringData(length, "Not same string", type);
         setXYZ(x, y, z, notEqual);
     }
 
