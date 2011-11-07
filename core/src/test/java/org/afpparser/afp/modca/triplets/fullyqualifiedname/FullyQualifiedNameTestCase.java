@@ -3,6 +3,7 @@ package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 
 import org.afpparser.common.ByteUtils;
 import org.junit.Test;
@@ -13,15 +14,26 @@ import org.junit.Test;
 public class FullyQualifiedNameTestCase {
 
     @Test
-    public void testFQNParsing() throws UnsupportedEncodingException {
+    public void testFontCharSetNameRef() throws UnsupportedEncodingException, MalformedURLException {
+        String fqnString = "028600C3F0C8F2F0F0D1F0";
         int length = 0x0C;
-        String expectedData = "C0H20080";
-        byte[] fontCharSetNameRef = ByteUtils.hexToBytes(
-                "028600" + ByteUtils.bytesToHex(expectedData.getBytes("Cp500")));
-        FullyQualifiedName fqn = FullyQualifiedName.parse(length, fontCharSetNameRef);
-        assertEquals(fqn.getLength(), length);
-        assertEquals(fqn.getFQNType(), FQNType.font_charset_name_ref);
+        testFQNWithCharData("C0H200J0", length, FQNType.font_charset_name_ref, fqnString);
+    }
+
+    @Test
+    public void testCodePageNameRef() throws UnsupportedEncodingException, MalformedURLException {
+        String fqnString = "028500E3F1E5F1F0F5F0F0";
+        int length = 0x0C;
+        testFQNWithCharData("T1V10500", length, FQNType.code_page_name_ref, fqnString);
+    }
+
+    private void testFQNWithCharData(String expectedStr, int length, FQNType type, String hexData)
+            throws UnsupportedEncodingException, MalformedURLException {
+        byte[] bytes = ByteUtils.hexToBytes(hexData);
+        FullyQualifiedName fqn = FullyQualifiedName.parse(length, bytes);
+        assertEquals(length, fqn.getLength());
+        assertEquals(type, fqn.getFQNType());
         FQNCharStringData fcsn = (FQNCharStringData) fqn;
-        assertEquals(expectedData, fcsn.getString());
+        assertEquals(expectedStr, fcsn.getString());
     }
 }

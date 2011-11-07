@@ -9,7 +9,7 @@ final class FQNOidData extends FullyQualifiedName {
     private final FQNType type;
     private final ObjectId oid;
 
-    FQNOidData(int length, FQNType type, ObjectId oid) {
+    FQNOidData(int length, ObjectId oid, FQNType type) {
         super(length);
         this.type = type;
         this.oid = oid;
