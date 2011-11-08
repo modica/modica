@@ -3,11 +3,9 @@ package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Arrays;
 
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.TripletIdentifiers;
-import org.afpparser.common.ByteUtils;
 import org.afpparser.common.StringUtils;
 
 /**
@@ -93,105 +91,6 @@ public abstract class FullyQualifiedName extends Triplet {
         default:
             String gid = parseString(data, position);
             return new FQNCharStringData(length, gid, type);
-        }
-    }
-
-    /**
-     * The GID is an ASN.1 Object Identifier (OID), defined in ISO/IEC 8824:1990(E). The data type
-     * is CODE. The OID is encoded using the Basic Encoding Rules for ASN.1 specified in ISO/IEC
-     * 8825:1990(E). 
-     */
-    public final static class ObjectId {
-        private final byte[] oid;
-        public static final int OID_ENCODING = 0x06;
-
-        private ObjectId(byte[] data, int position) {
-            // The first bit of the length is always set to 0
-            byte oidEncoding = data[position];
-            assert oidEncoding == OID_ENCODING;
-            oid = new byte[data.length - position];
-            System.arraycopy(data, position, oid, 0, data.length - position);
-        }
-
-        byte[] getOid() {
-            byte[] ret = new byte[oid.length];
-            System.arraycopy(oid, 0, ret, 0, oid.length);
-            return ret;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (!(o instanceof ObjectId)) {
-                return false;
-            }
-            ObjectId obj = (ObjectId) o;
-            return Arrays.equals(this.oid, obj.oid);
-        }
-
-        @Override
-        public int hashCode() {
-            int ret = 17;
-            for (byte b : oid) {
-                ret = 31 * ret + b;
-            }
-            return ret;
-        }
-    }
-
-    /**
-     * The global resource identifier (GRID) is an eight-byte binary identifier used to reference
-     * a coded font.
-     */
-    public final static class GlobalResourceId {
-        private final int gcsgid;
-        private final int cpgid;
-        private final int fgid;
-        private final int fontWidth;
-
-        private GlobalResourceId(byte[] data, int position) {
-            ByteUtils utils = ByteUtils.newLittleEndianUtils();
-            gcsgid = utils.bytesToUnsignedInt(data, position += 2, 2);
-            cpgid = utils.bytesToUnsignedInt(data, position += 2, 2);
-            fgid = utils.bytesToUnsignedInt(data, position += 2, 2);
-            fontWidth = utils.bytesToUnsignedInt(data, position += 2, 2);
-        }
-
-        public int getGcsgid() {
-            return gcsgid;
-        }
-
-        public int getCpgid() {
-            return cpgid;
-        }
-
-        public int getFgid() {
-            return fgid;
-        }
-
-        public int getFontWidth() {
-            return fontWidth;
-        }
-
-        @Override
-        public int hashCode() {
-            int ret = 17;
-            ret = 31 * ret + gcsgid;
-            ret = 31 * ret + cpgid;
-            ret = 31 * ret + fgid;
-            ret = 31 * ret + fontWidth;
-            return ret;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (!(o instanceof GlobalResourceId)) {
-                return false;
-            }
-            GlobalResourceId obj = (GlobalResourceId) o;
-            return this.gcsgid == obj.gcsgid
-                    && this.cpgid == obj.cpgid
-                    && this.fgid == obj.fgid
-                    && this.fontWidth == obj.fontWidth;
         }
     }
 }

@@ -1,5 +1,8 @@
 package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 
+/**
+ * A Fully Qualified Name that contains a Global Resource Identification. 
+ */
 public class FQNGridData extends FullyQualifiedName {
     private final FQNType type;
     private final GlobalResourceId grid;
@@ -20,6 +23,11 @@ public class FQNGridData extends FullyQualifiedName {
         return FQNFmt.character_string;
     }
 
+    /**
+     * Returns the Global Resource Identification data.
+     *
+     * @return the grid
+     */
     public GlobalResourceId getGrid() {
         return grid;
     }
