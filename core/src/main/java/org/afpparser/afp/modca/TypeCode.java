@@ -5,7 +5,8 @@ package org.afpparser.afp.modca;
  * Structured fields have representative type codes within their identity bytes. These enumerate
  * the various types of structured fields available.
  */
-public enum TypeCodes {
+public enum TypeCode {
+    Index(0x8C),
     Attribute(0xA0),
     CopyCount(0xA2),
     Descriptor(0xA6),
@@ -15,6 +16,7 @@ public enum TypeCodes {
     Map(0xAB),
     Position(0xAC),
     Process(0xAD),
+    Orientation(0xAE),
     Include(0xAF),
     Table(0xB0),
     Migration(0xB1),
@@ -24,7 +26,7 @@ public enum TypeCodes {
     Unknown(0x00);
     private final byte typeCode;
 
-    private TypeCodes(int typeCode) {
+    private TypeCode(int typeCode) {
         this.typeCode = (byte) typeCode;
     }
 
@@ -41,7 +43,7 @@ public enum TypeCodes {
         return new byte[] { (byte) 0xD3, typeCode, type };
     }
 
-    public byte[] getIdForType(CategoryCodes categoryCode) {
-        return new byte[] { (byte) 0xD3, typeCode, categoryCode.getCode() };
+    public byte[] getIdForType(CategoryCode categoryCode) {
+        return new byte[] { (byte) 0xD3, typeCode, categoryCode.getValue() };
     }
 }

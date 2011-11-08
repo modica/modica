@@ -4,7 +4,7 @@ package org.afpparser.afp.modca;
 /**
  * The category codes for structured fields.
  */
-public enum CategoryCodes {
+public enum CategoryCode {
     /** page segment */
     page_segment(0x5F),
     /** object area */
@@ -37,6 +37,8 @@ public enum CategoryCodes {
     data_resource(0xC3),
     /** document environment group (deg) */
     document_environment_group(0xC4),
+    /** form environment group */
+    form_environment_group(0xC5),
     /** resource group */
     resource_group(0xC6),
     /** object environment group (oeg) */
@@ -62,15 +64,20 @@ public enum CategoryCodes {
     /** no operation */
     no_operation(0xEE),
     /** image */
-    image(0xFB);
+    image(0xFB),
+    //FOCA
+    /** font */
+    font(0x89),
+    /** code page */
+    code_page(0x87);
 
     private final byte code;
 
-    private CategoryCodes(int code) {
+    private CategoryCode(int code) {
         this.code = (byte) code;
     }
 
-    public byte getCode() {
+    public byte getValue() {
         return code;
     }
 }

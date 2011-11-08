@@ -113,8 +113,9 @@ class XmlSerializingSfHandler implements StructuredFieldHandler {
 
     private static Attributes getAttributes(SfIntroducer sf) {
         AttributesImpl atts = new AttributesImpl();
-        addAttribute(atts, "type-code",  ByteUtils.bytesToHex(sf.getType().getId()[1]));
-        addAttribute(atts, "category-code", ByteUtils.bytesToHex(sf.getType().getId()[2]));
+        addAttribute(atts, "type-code", ByteUtils.bytesToHex(sf.getType().getTypeCode().getValue()));
+        addAttribute(atts, "category-code",
+                ByteUtils.bytesToHex(sf.getType().getCategoryCode().getValue()));
         addAttribute(atts, "offset", String.valueOf(sf.getOffset()));
         addAttribute(atts, "length", String.valueOf(sf.getLength()));
         addAttribute(atts, "ext-length", String.valueOf(sf.getExtLength()));

@@ -14,6 +14,8 @@ public abstract class SfTypeFactory {
                 Control.values(),
                 Begin.values(),
                 End.values(),
+                Index.values(),
+                Orientation.values(),
                 Map.values(),
                 Position.values(),
                 Process.values(),
@@ -23,16 +25,16 @@ public abstract class SfTypeFactory {
                 Variable.values(),
                 Link.values(),
                 Data.values());
-        registerNonHomogenousSfTypes(Foca.values());
+        registerNonHomogenousSfTypes(Index.values());
     }
 
     private static void registerHomogenousSfTypes(SfType[]... sfTypes) {
         for (SfType[] sfTypeArray : sfTypes) {
-            byte typeID = sfTypeArray[0].getId()[1];
+            byte typeID = sfTypeArray[0].getTypeCode().getValue();
 
             java.util.Map<Byte, SfType> map = new HashMap<Byte, SfType>();
             for (SfType sfType : sfTypeArray) {
-                map.put(sfType.getId()[2], sfType);
+                map.put(sfType.getCategoryCode().getValue(), sfType);
             }
             SF_TYPES.put(typeID, map);
         }
@@ -41,13 +43,12 @@ public abstract class SfTypeFactory {
     private static void registerNonHomogenousSfTypes(SfType[]... sfTypes) {
         for (SfType[] sfTypeArray : sfTypes) {
             for (SfType sfType : sfTypeArray) {
-                byte[] id = sfType.getId();
-                java.util.Map<Byte, SfType> map = SF_TYPES.get(id[1]);
+                java.util.Map<Byte, SfType> map = SF_TYPES.get(sfType.getTypeCode().getValue());
                 if (map == null) {
                     map = new HashMap<Byte, SfType>();
                 }
-                map.put(id[2], sfType);
-                SF_TYPES.put(id[1], map);
+                map.put(sfType.getCategoryCode().getValue(), sfType);
+                SF_TYPES.put(sfType.getTypeCode().getValue(), map);
             }
         }
     }
@@ -73,535 +74,564 @@ public abstract class SfTypeFactory {
     }
 
     public enum Attribute implements SfType {
-        MFC(0x88, "Medium Finishing Control"),
-        TLE(0x90, "Tag Logical Element");
+        MFC(CategoryCode.medium, "Medium Finishing Control"),
+        TLE(CategoryCode.process_element, "Tag Logical Element");
 
-        public static final TypeCodes TYPE_CODE = TypeCodes.Attribute;
+        public static final TypeCode TYPE_CODE = TypeCode.Attribute;
 
-        private final byte type;
+        private final CategoryCode category;
 
         private final String name;
 
-        private Attribute(int type, String name) {
-            this.type = (byte) type;
+        private Attribute(CategoryCode category, String name) {
+            this.category = category;
             this.name = name;
         }
 
-        public byte[] getId() {
-            return TYPE_CODE.getIdForType(type);
+        public CategoryCode getCategoryCode() {
+            return category;
         }
 
         public String getName() {
             return name;
         }
 
-        public TypeCodes getTypeCode() {
+        public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
     }
 
     public enum CopyCount implements SfType {
-        MCC(0x88, "Medium Copy Count"),
-        FNM(0x89, "Font Patterns Map");
+        MCC(CategoryCode.medium, "Medium Copy Count"),
+        FNM(CategoryCode.font, "Font Patterns Map");
 
-        public static final TypeCodes TYPE_CODE = TypeCodes.CopyCount;
+        public static final TypeCode TYPE_CODE = TypeCode.CopyCount;
 
-        private final byte type;
+        private final CategoryCode category;
 
         private final String name;
 
-        private CopyCount(int type, String name) {
-            this.type = (byte) type;
+
+        private CopyCount(CategoryCode categoryCode, String name) {
+            this.category = categoryCode;
             this.name = name;
         }
 
-        public byte[] getId() {
-            return TYPE_CODE.getIdForType(type);
+        public CategoryCode getCategoryCode() {
+            return category;
         }
 
         public String getName() {
             return name;
         }
 
-        public TypeCodes getTypeCode() {
+        public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
     }
 
     public enum Descriptor implements SfType {
-        OBD(0x6B, "Object Area Descriptor"),
-        IID(0x7B, "IM Image Input Descriptor (C)"),
-        CPD(0x87, "Code Page Descriptor"),
-        MDD(0x88, "Medium Descriptor"),
-        FND(0x89, "Font Descriptor"),
-        CDD(0x92, "Container Data Descriptor"),
-        PTD1(0x9B, "Presentation Text Descriptor Format-1 (C)"),
-        PGD(0xAF, "Page Descriptor"),
-        GDD(0xBB, "Graphics Data Descriptor"),
-        FGD(0xC5, "Form Environment Group Descriptor (O)"),
-        BDD(0xEB, "Bar Code Data Descriptor"),
-        IDD(0xFB, "Image Data Descriptor");
+        OBD(CategoryCode.object_area, "Object Area Descriptor"),
+        IID(CategoryCode.im_image, "IM Image Input Descriptor (C)"),
+        CPD(CategoryCode.code_page, "Code Page Descriptor"),
+        MDD(CategoryCode.medium, "Medium Descriptor"),
+        FND(CategoryCode.font, "Font Descriptor"),
+        CDD(CategoryCode.object_container, "Container Data Descriptor"),
+        PTD1(CategoryCode.presentation_text, "Presentation Text Descriptor Format-1 (C)"),
+        PGD(CategoryCode.page, "Page Descriptor"),
+        GDD(CategoryCode.graphics, "Graphics Data Descriptor"),
+        FGD(CategoryCode.form_environment_group, "Form Environment Group Descriptor (O)"),
+        BDD(CategoryCode.barcode, "Bar Code Data Descriptor"),
+        IDD(CategoryCode.image, "Image Data Descriptor");
 
-        public static final TypeCodes TYPE_CODE = TypeCodes.Descriptor;
+        public static final TypeCode TYPE_CODE = TypeCode.Descriptor;
 
-        private final byte type;
+        private final CategoryCode category;
 
         private final String name;
 
-        private Descriptor(int type, String name) {
-            this.type = (byte) type;
+        private Descriptor(CategoryCode category, String name) {
+            this.category = category;
             this.name = name;
         }
 
-        public byte[] getId() {
-            return TYPE_CODE.getIdForType(type);
+        public CategoryCode getCategoryCode() {
+            return category;
         }
 
         public String getName() {
             return name;
         }
 
-        public TypeCodes getTypeCode() {
+        public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
     }
 
     public enum Control implements SfType {
-        IOC(0x7B, "IM Image Output Control (C)"),
-        CPC(0x87, "Code Page Control"),
-        MMC(0x88, "Medium Modification Control"),
-        FNC(0x89, "Font Control"),
-        CFC(0x8A, "Coded Font Control"),
-        CTC(0x9B, "Composed Text Control (O)"),
-        PEC(0xA8, "Presentation Environment Control"),
-        PMC(0xAF, "Page Modification Control");
+        IOC(CategoryCode.im_image, "IM Image Output Control (C)"),
+        CPC(CategoryCode.code_page, "Code Page Control"),
+        MMC(CategoryCode.medium, "Medium Modification Control"),
+        FNC(CategoryCode.font, "Font Control"),
+        CFC(CategoryCode.coded_font, "Coded Font Control"),
+        CTC(CategoryCode.presentation_text, "Composed Text Control (O)"),
+        PEC(CategoryCode.document, "Presentation Environment Control"),
+        PMC(CategoryCode.page, "Page Modification Control");
 
-        public static final TypeCodes TYPE_CODE = TypeCodes.Control;
+        public static final TypeCode TYPE_CODE = TypeCode.Control;
 
-        private final byte type;
+        private final CategoryCode category;
 
         private final String name;
 
-        private Control(int type, String name) {
-            this.type = (byte) type;
+        private Control(CategoryCode category, String name) {
+            this.category = category;
             this.name = name;
         }
 
-        public byte[] getId() {
-            return TYPE_CODE.getIdForType(type);
+        public CategoryCode getCategoryCode() {
+            return category;
         }
 
         public String getName() {
             return name;
         }
 
-        public TypeCodes getTypeCode() {
+        public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
     }
 
     public enum Begin implements SfType {
-        BPS(0x5F, "Page Segment"),
-        BCA(0x77, "Color Attribute Table"),
-        BII(0x7B, "IM Image (C)"),
-        BCP(0x87, "Code Page"),
-        BFN(0x89, "Font"),
-        BCF(0x8A, "Coded Font"),
-        BOC(0x92, "Object Container"),
-        BPT(0x9B, "Presentation Text Object"),
-        BDI(0xA7, "Document Index"),
-        BDT(0xA8, "Document"),
-        BNG(0xAD, "Named Page Group"),
-        BPG(0xAF, "Page"),
-        BGR(0xBB, "Graphics Object"),
-        BDG(0xC4, "Document Environment Group"),
-        BFG(0xC5, "Form Environment Group (O)"),
-        BRG(0xC6, "Resource Group"),
-        BOG(0xC7, "Object Environment Group"),
-        BAG(0xC9, "Active Environment Group"),
-        BMM(0xCC, "Medium Map"),
-        BFM(0xCD, "Form Map"),
-        BRS(0xCE, "Resource"),
-        BSG(0xD9, "Resource Environment Group"),
-        BMO(0xDF, "Overlay"),
-        BBC(0xEB, "Bar Code Object"),
-        BIM(0xFB, "Image Object");
+        BPS(CategoryCode.page_segment, "Page Segment"),
+        BCA(CategoryCode.color_attribute_table, "Color Attribute Table"),
+        BII(CategoryCode.im_image, "IM Image (C)"),
+        BCP(CategoryCode.code_page, "Code Page"),
+        BFN(CategoryCode.font, "Font"),
+        BCF(CategoryCode.coded_font, "Coded Font"),
+        BOC(CategoryCode.object_container, "Object Container"),
+        BPT(CategoryCode.presentation_text, "Presentation Text Object"),
+        BDI(CategoryCode.index, "Document Index"),
+        BDT(CategoryCode.document, "Document"),
+        BNG(CategoryCode.page_group, "Named Page Group"),
+        BPG(CategoryCode.page, "Page"),
+        BGR(CategoryCode.graphics, "Graphics Object"),
+        BDG(CategoryCode.document_environment_group, "Document Environment Group"),
+        BFG(CategoryCode.form_environment_group, "Form Environment Group (O)"),
+        BRG(CategoryCode.resource_group, "Resource Group"),
+        BOG(CategoryCode.object_environment_group, "Object Environment Group"),
+        BAG(CategoryCode.active_environment_group, "Active Environment Group"),
+        BMM(CategoryCode.medium_map, "Medium Map"),
+        BFM(CategoryCode.form_map, "Form Map"),
+        BRS(CategoryCode.name_resource, "Resource"),
+        BSG(CategoryCode.resource_enviroment_group, "Resource Environment Group"),
+        BMO(CategoryCode.overlay, "Overlay"),
+        BBC(CategoryCode.barcode, "Bar Code Object"),
+        BIM(CategoryCode.image, "Image Object");
 
-        public static final TypeCodes TYPE_CODE = TypeCodes.Begin;
+        public static final TypeCode TYPE_CODE = TypeCode.Begin;
 
-        private final byte type;
+        private final CategoryCode category;
 
         private final String name;
 
-        private Begin(int type, String name) {
-            this.type = (byte) type;
+        private Begin(CategoryCode category, String name) {
+            this.category = category;
             this.name = "Begin " + name;
         }
 
-        public byte[] getId() {
-            return TYPE_CODE.getIdForType(type);
+        public CategoryCode getCategoryCode() {
+            return category;
         }
 
         public String getName() {
             return name;
         }
 
-        public TypeCodes getTypeCode() {
+        public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
     }
 
     public enum End implements SfType {
-        EPS(0x5F, "Page Segment"),
-        ECA(0x77, "Color Attribute Table"),
-        EII(0x7B, "IM Image (C)"),
-        ECP(0x87, "Code Page"),
-        EFN(0x89, "Font"),
-        ECF(0x8A, "Coded Font"),
-        EOC(0x92, "Object Container"),
-        EPT(0x9B, "Presentation Text Object"),
-        EDI(0xA7, "Document Index"),
-        EDT(0xA8, "Document"),
-        ENG(0xAD, "Named Page Group"),
-        EPG(0xAF, "Page"),
-        EGR(0xBB, "Graphics Object"),
-        EDG(0xC4, "Document Environment Group"),
-        EFG(0xC5, "Form Environment Group (O)"),
-        ERG(0xC6, "Resource Group"),
-        EOG(0xC7, "Object Environment Group"),
-        EAG(0xC9, "Active Environment Group"),
-        EMM(0xCC, "Medium Map"),
-        EFM(0xCD, "Form Map"),
-        ERS(0xCE, "Resource"),
-        ESG(0xD9, "Resource Environment Group"),
-        EMO(0xDF, "Overlay"),
-        EBC(0xEB, "Bar Code Object"),
-        EIM(0xFB, "Image Object");
+        EPS(CategoryCode.page_segment, "Page Segment"),
+        ECA(CategoryCode.color_attribute_table, "Color Attribute Table"),
+        EII(CategoryCode.im_image, "IM Image (C)"),
+        ECP(CategoryCode.code_page, "Code Page"),
+        EFN(CategoryCode.font, "Font"),
+        ECF(CategoryCode.coded_font, "Coded Font"),
+        EOC(CategoryCode.object_container, "Object Container"),
+        EPT(CategoryCode.presentation_text, "Presentation Text Object"),
+        EDI(CategoryCode.index, "Document Index"),
+        EDT(CategoryCode.document, "Document"),
+        ENG(CategoryCode.page_group, "Named Page Group"),
+        EPG(CategoryCode.page, "Page"),
+        EGR(CategoryCode.graphics, "Graphics Object"),
+        EDG(CategoryCode.document_environment_group, "Document Environment Group"),
+        EFG(CategoryCode.form_environment_group, "Form Environment Group (O)"),
+        ERG(CategoryCode.resource_group, "Resource Group"),
+        EOG(CategoryCode.object_environment_group, "Object Environment Group"),
+        EAG(CategoryCode.active_environment_group, "Active Environment Group"),
+        EMM(CategoryCode.medium_map, "Medium Map"),
+        EFM(CategoryCode.form_map, "Form Map"),
+        ERS(CategoryCode.name_resource, "Resource"),
+        ESG(CategoryCode.resource_enviroment_group, "Resource Environment Group"),
+        EMO(CategoryCode.overlay, "Overlay"),
+        EBC(CategoryCode.barcode, "Bar Code Object"),
+        EIM(CategoryCode.image, "Image Object");
 
-        public static final TypeCodes TYPE_CODE = TypeCodes.End;
+        public static final TypeCode TYPE_CODE = TypeCode.End;
 
-        private final byte type;
+        private final CategoryCode category;
 
         private final String name;
 
-        private End(int type, String name) {
-            this.type = (byte) type;
+        private End(CategoryCode category, String name) {
+            this.category = category;
             this.name = "End " + name;
         }
 
-        public byte[] getId() {
-            return TYPE_CODE.getIdForType(type);
+        public CategoryCode getCategoryCode() {
+            return category;
         }
 
         public String getName() {
             return name;
         }
 
-        public TypeCodes getTypeCode() {
+        public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
     }
 
+    public enum Index implements SfType {
+        CPI(CategoryCode.code_page, "Code Page Index"),
+        FNI(CategoryCode.font, "Font Index"),
+        CFI(CategoryCode.coded_font, "Coded Font Index");
+
+    
+        private final String name;
+        private final CategoryCode category;
+        private static final TypeCode TYPE_CODE = TypeCode.Index;
+    
+        private Index(CategoryCode category, String name) {
+            this.name = name;
+            this.category = category;
+        }
+    
+        public CategoryCode getCategoryCode() {
+            return category;
+        }
+        
+        public String getName() {
+            return name;
+        }
+    
+        public TypeCode getTypeCode() {
+            return TYPE_CODE;
+        }
+    }
+    
+    public enum Orientation implements SfType {
+        FNO(CategoryCode.font, "Font Orientation");
+
+        private final String name;
+        private final CategoryCode category;
+        private static final TypeCode TYPE_CODE = TypeCode.Orientation;
+
+        private Orientation(CategoryCode category, String name) {
+            this.name = name;
+            this.category = category;
+        }
+
+        @Override
+        public CategoryCode getCategoryCode() {
+            return category;
+        }
+    
+        @Override
+        public TypeCode getTypeCode() {
+            return TYPE_CODE;
+        }
+    
+        @Override
+        public String getName() {
+            return name;
+        }
+    }
+
     public enum Map implements SfType {
-        MCA(0x77, "Map Color Attribute Table"),
-        MMT(0x88, "Map Media Type"),
-        FNN(0x89, "Font Name Map"),
-        MCF(0x8A, "Map Coded Font"),
-        MCD(0x92, "Map Container Data"),
-        MPG(0xAF, "Map Page"),
-        MGO(0xBB, "Map Graphics Object"),
-        MDR(0xC3, "Map Data Resource"),
-        IMM(0xCC, "Invoke Medium Map"),
-        MPO(0xD8, "Map Page Overlay"),
-        MSU(0xEA, "Map Suppression"),
-        MBC(0xEB, "Map Bar Code Object"),
-        MIO(0xFB, "Map Image Object");
+        MCA(CategoryCode.color_attribute_table, "Map Color Attribute Table"),
+        MMT(CategoryCode.medium, "Map Media Type"),
+        FNN(CategoryCode.font, "Font Name Map"),
+        MCF(CategoryCode.coded_font, "Map Coded Font"),
+        MCD(CategoryCode.object_container, "Map Container Data"),
+        MPG(CategoryCode.page, "Map Page"),
+        MGO(CategoryCode.graphics, "Map Graphics Object"),
+        MDR(CategoryCode.data_resource, "Map Data Resource"),
+        IMM(CategoryCode.medium_map, "Invoke Medium Map"),
+        MPO(CategoryCode.page_overlay, "Map Page Overlay"),
+        MSU(CategoryCode.data_supression, "Map Suppression"),
+        MBC(CategoryCode.barcode, "Map Bar Code Object"),
+        MIO(CategoryCode.image, "Map Image Object");
 
-        public static final TypeCodes TYPE_CODE = TypeCodes.Map;
+        public static final TypeCode TYPE_CODE = TypeCode.Map;
 
-        private final byte type;
+        private final CategoryCode category;
 
         private final String name;
 
-        private Map(int type, String name) {
-            this.type = (byte) type;
+        private Map(CategoryCode category, String name) {
+            this.category = category;
             this.name = name;
         }
 
-        public byte[] getId() {
-            return TYPE_CODE.getIdForType(type);
+        public CategoryCode getCategoryCode() {
+            return category;
         }
 
         public String getName() {
             return name;
         }
 
-        public TypeCodes getTypeCode() {
+        public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
     }
 
     public enum Position implements SfType {
-        OBP(0x6B, "Object Area Position"),
-        ICP(0x7B, "IM Image Cell Position (C)"),
-        FNP(0x89, "Font Position"),
-        PGP1(0xAF, "Page Position Format-1 (C)");
+        OBP(CategoryCode.object_area, "Object Area Position"),
+        ICP(CategoryCode.im_image, "IM Image Cell Position (C)"),
+        FNP(CategoryCode.font, "Font Position"),
+        PGP1(CategoryCode.page, "Page Position Format-1 (C)");
 
-        private static final TypeCodes TYPE_CODE = TypeCodes.Position;
+        private static final TypeCode TYPE_CODE = TypeCode.Position;
 
-        private final byte type;
+        private final CategoryCode category;
 
         private final String name;
 
-        private Position(int type, String name) {
-            this.type = (byte) type;
+        private Position(CategoryCode category, String name) {
+            this.category = category;
             this.name = name;
         }
 
-        public byte[] getId() {
-            return TYPE_CODE.getIdForType(type);
+        public CategoryCode getCategoryCode() {
+            return category;
         }
 
         public String getName() {
             return name;
         }
 
-        public TypeCodes getTypeCode() {
+        public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
     }
 
     public enum Process implements SfType {
-        PPO(0xC3, "Preprocess Presentation Object");
+        PPO(CategoryCode.data_resource, "Preprocess Presentation Object");
 
-        private static final TypeCodes TYPE_CODE = TypeCodes.Process;
+        private static final TypeCode TYPE_CODE = TypeCode.Process;
 
-        private final byte type;
+        private final CategoryCode category;
 
         private final String name;
 
-        private Process(int type, String name) {
-            this.type = (byte) type;
+        private Process(CategoryCode type, String name) {
+            this.category = type;
             this.name = name;
         }
 
-        public byte[] getId() {
-            return TYPE_CODE.getIdForType(type);
+        public CategoryCode getCategoryCode() {
+            return category;
         }
 
         public String getName() {
             return name;
         }
 
-        public TypeCodes getTypeCode() {
+        public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
     }
 
     public enum Include implements SfType {
-        IPS(0x5F, "Page Segment"),
-        IPG(0xAF, "Page"),
-        IOB(0xC3, "Object"),
-        IPO(0xD8, "Page Overlay");
+        IPS(CategoryCode.page_segment, "Page Segment"),
+        IPG(CategoryCode.page, "Page"),
+        IOB(CategoryCode.data_resource, "Object"),
+        IPO(CategoryCode.page_overlay, "Page Overlay");
 
-        private static final TypeCodes TYPE_CODE = TypeCodes.Include;
+        private static final TypeCode TYPE_CODE = TypeCode.Include;
 
-        private final byte type;
+        private final CategoryCode category;
 
         private final String name;
 
-        private Include(int type, String name) {
-            this.type = (byte) type;
+        private Include(CategoryCode category, String name) {
+            this.category = category;
             this.name = "Include " + name;
         }
 
-        public byte[] getId() {
-            return TYPE_CODE.getIdForType(type);
+        public CategoryCode getCategoryCode() {
+            return category;
         }
 
         public String getName() {
             return name;
         }
 
-        public TypeCodes getTypeCode() {
+        public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
     }
 
     public enum Table implements SfType {
-        CAT(0x77, "Color Attribute Table");
+        CAT(CategoryCode.color_attribute_table, "Color Attribute Table");
 
-        private static final TypeCodes TYPE_CODE = TypeCodes.Table;
+        private static final TypeCode TYPE_CODE = TypeCode.Table;
 
-        private final byte type;
+        private final CategoryCode category;
 
         private final String name;
 
-        private Table(int type, String name) {
-            this.type = (byte) type;
+        private Table(CategoryCode category, String name) {
+            this.category = category;
             this.name = name;
         }
 
-        public byte[] getId() {
-            return TYPE_CODE.getIdForType(type);
+        public CategoryCode getCategoryCode() {
+            return category;
         }
 
         public String getName() {
             return name;
         }
 
-        public TypeCodes getTypeCode() {
+        public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
     }
 
     public enum Migration implements SfType {
-        MPS(0x5F, "Map Page Segment"),
-        MCF1(0x8A, "Map Coded Font Format-1 (C)"),
-        PTD(0x9B, "Presentation Text Data Descriptor"),
-        PGP(0xAF, "Page Position"),
-        MMO(0xDF, "Map Medium Overlay");
+        MPS(CategoryCode.page_segment, "Map Page Segment"),
+        MCF1(CategoryCode.coded_font, "Map Coded Font Format-1 (C)"),
+        PTD(CategoryCode.presentation_text, "Presentation Text Data Descriptor"),
+        PGP(CategoryCode.page, "Page Position"),
+        MMO(CategoryCode.overlay, "Map Medium Overlay");
 
-        private static final TypeCodes TYPE_CODE = TypeCodes.Migration;
+        private static final TypeCode TYPE_CODE = TypeCode.Migration;
 
-        private final byte type;
+        private final CategoryCode category;
 
         private final String name;
 
-        private Migration(int type, String name) {
-            this.type = (byte) type;
+        private Migration(CategoryCode category, String name) {
+            this.category = category;
             this.name = name;
         }
 
-        public byte[] getId() {
-            return TYPE_CODE.getIdForType(type);
+        public CategoryCode getCategoryCode() {
+            return category;
         }
 
         public String getName() {
             return name;
         }
 
-        public TypeCodes getTypeCode() {
+        public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
     }
 
     public enum Variable implements SfType {
-        PFC(0x88, "Presentation Fidelity Control"),
-        IEL(0xA7, "Index Element");
+        PFC(CategoryCode.medium, "Presentation Fidelity Control"),
+        IEL(CategoryCode.index, "Index Element");
 
-        private static final TypeCodes TYPE_CODE = TypeCodes.Variable;
+        private static final TypeCode TYPE_CODE = TypeCode.Variable;
 
-        private final byte type;
+        private final CategoryCode category;
 
         private final String name;
 
-        private Variable(int type, String name) {
-            this.type = (byte) type;
+        private Variable(CategoryCode category, String name) {
+            this.category = category;
             this.name = name;
         }
 
-        public byte[] getId() {
-            return TYPE_CODE.getIdForType(type);
+        public CategoryCode getCategoryCode() {
+            return category;
         }
 
         public String getName() {
             return name;
         }
 
-        public TypeCodes getTypeCode() {
+        public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
     }
 
     public enum Link implements SfType {
-        LLE(0x90, "Link Logical Element");
+        LLE(CategoryCode.process_element, "Link Logical Element");
 
-        private static final TypeCodes TYPE_CODE = TypeCodes.Link;
+        private static final TypeCode TYPE_CODE = TypeCode.Link;
 
-        private final byte type;
+        private final CategoryCode category;
 
         private final String name;
 
-        private Link(int type, String name) {
-            this.type = (byte) type;
+        private Link(CategoryCode category, String name) {
+            this.category = category;
             this.name = name;
         }
 
-        public byte[] getId() {
-            return TYPE_CODE.getIdForType(type);
+        public CategoryCode getCategoryCode() {
+            return category;
         }
 
         public String getName() {
             return name;
         }
 
-        public TypeCodes getTypeCode() {
+        public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
     }
 
     public enum Data implements SfType {
-        IRD(0x7B, "IM Image Raster Data (C)"),
-        FNG(0x89, "Font Patterns"),
-        OCD(0x92, "Object Container Data"),
-        PTX(0x9B, "Presentation Text Data"),
-        GAD(0xBB, "Graphics Data"),
-        BDA(0xEB, "Bar Code Data"),
-        NOP(0xEE, "No Operation"),
-        IPD(0xFB, "Image Picture Data"),
-        CTX(0x9B, "Composed Text Data");
+        IRD(CategoryCode.im_image, "IM Image Raster Data (C)"),
+        FNG(CategoryCode.font, "Font Patterns"),
+        OCD(CategoryCode.object_container, "Object Container Data"),
+        PTX(CategoryCode.presentation_text, "Presentation Text Data"),
+        GAD(CategoryCode.graphics, "Graphics Data"),
+        BDA(CategoryCode.barcode, "Bar Code Data"),
+        NOP(CategoryCode.no_operation, "No Operation"),
+        IPD(CategoryCode.image, "Image Picture Data"),
+        // CTX is deprecated
+        CTX(CategoryCode.presentation_text, "Composed Text Data");
 
-        private static final TypeCodes TYPE_CODE = TypeCodes.Data;
+        private static final TypeCode TYPE_CODE = TypeCode.Data;
 
-        private final byte type;
+        private final CategoryCode category;
 
         private final String name;
 
-        private Data(int type, String name) {
-            this.type = (byte) type;
+        private Data(CategoryCode category, String name) {
+            this.category = category;
             this.name = name;
         }
 
-        public byte[] getId() {
-            return TYPE_CODE.getIdForType(type);
+        public CategoryCode getCategoryCode() {
+            return category;
         }
 
         public String getName() {
             return name;
         }
 
-        public TypeCodes getTypeCode() {
+        public TypeCode getTypeCode() {
             return TYPE_CODE;
-        }
-    }
-
-    public enum Foca implements SfType {
-        CPI(ByteUtils.hexToBytes("D38C87"), "Code Page Index"),
-        FNI(ByteUtils.hexToBytes("D38C89"), "Font Index"),
-        CFI(ByteUtils.hexToBytes("D38C8A"), "Coded Font Index"),
-        FNO(ByteUtils.hexToBytes("D3AE89"), "Font Orientation");
-
-        private final byte[] id;
-        private final String name;
-
-        private Foca(byte[] id, String name) {
-            this.id = id;
-            this.name = name;
-        }
-
-        public byte[] getId() {
-            byte[] idCopy = new byte[3];
-            System.arraycopy(id, 0, idCopy, 0, 3);
-            return idCopy;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public TypeCodes getTypeCode() {
-            return TypeCodes.Unknown;
         }
     }
 }

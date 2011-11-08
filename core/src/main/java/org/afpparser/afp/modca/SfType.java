@@ -5,18 +5,17 @@ package org.afpparser.afp.modca;
  */
 public interface SfType {
     /**
-     * The identity array representing this structure field type.
-     *
-     * @return the id array
+     * The category code.
+     * @return the category
      */
-    byte[] getId();
+    CategoryCode getCategoryCode();
 
     /**
      * The type code of this structured field type.
      *
      * @return the type code
      */
-    TypeCodes getTypeCode();
+    TypeCode getTypeCode();
 
     /**
      * The name of this structured field type.
