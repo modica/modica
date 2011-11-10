@@ -89,8 +89,8 @@ public abstract class Cgcsgid extends Triplet {
         assert LENGTH == length;
         assert Cgcsgid.tId == tId;
         ByteUtils byteUtils = ByteUtils.newLittleEndianUtils();
-        int gcsgid = byteUtils.bytesToUnsignedInt(data, 0, 3);
-        int ccsidOrCpgid = byteUtils.bytesToUnsignedInt(data, 3, 2);
+        int gcsgid = byteUtils.bytesToUnsignedInt(data, 0, 2);
+        int ccsidOrCpgid = byteUtils.bytesToUnsignedInt(data, 2, 2);
         if (gcsgid == 0x0000) {
             return new Ccsid(ccsidOrCpgid);
         } else {
