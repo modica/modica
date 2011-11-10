@@ -68,11 +68,10 @@ public enum FQNType {
      */
     other_object_data_ref(0xCE),
     /**
-     * The triplet contains a reference to a resource used by a data object.
-     * The gid may be a filename or any oTher identifier associated with The
-     * resource and is used to located The resource object in The resource hierarchy.
-     * The data object that uses The resource may or may not be defined by an
-     * ibm presentation architecture.
+     * The triplet contains a reference to a resource used by a data object. The gid may be a
+     * filename or any oTher identifier associated with the resource and is used to located The
+     * resource object in The resource hierarchy. The data object that uses The resource may or may
+     * not be defined by an ibm presentation architecture.
      */
     data_object_external_resource_ref(0xDE),
     // gid format
