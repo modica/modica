@@ -2,10 +2,10 @@ package org.afpparser.serializer.xml;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-
 
 import org.afpparser.parser.AFPDocumentParser;
 import org.afpparser.serializer.StructuredFieldSerializer;
@@ -16,13 +16,13 @@ import org.afpparser.serializer.StructuredFieldSerializer;
  */
 public class XmlSfSerializer implements StructuredFieldSerializer {
 	
-	private final File afpFile;
+    private final FileInputStream afpInputStream;
 
 	/**
 	 * @param afpFile afp file to serialize
 	 */
-	public XmlSfSerializer(File afpFile) {
-		this.afpFile = afpFile;
+    public XmlSfSerializer(FileInputStream afpInputStream) {
+        this.afpInputStream = afpInputStream;
 	}
 
 	@Override
@@ -38,6 +38,6 @@ public class XmlSfSerializer implements StructuredFieldSerializer {
 	@Override
 	public void writeTo(OutputStream out) throws IOException {
 		XmlSerializingSfHandler handler = new XmlSerializingSfHandler(out);
-		new AFPDocumentParser(afpFile, handler).parse();
+        new AFPDocumentParser(afpInputStream, handler).parse();
 	}
 }

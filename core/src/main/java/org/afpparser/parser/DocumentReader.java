@@ -23,8 +23,6 @@ class DocumentReader implements Iterable<SfIntroducer> {
 
     private final ByteUtils byteUtils;
 
-    private static final byte CARRIAGE_CONTROL = 0x5a;
-
     private final SfIterator sfIterator;
 
     /**
@@ -58,7 +56,7 @@ class DocumentReader implements Iterable<SfIntroducer> {
         ByteBuffer buffer = ByteBuffer.allocate(1);
         channel.read(buffer);
         byte[] fiveA = buffer.array();
-        return fiveA[0] == CARRIAGE_CONTROL;
+        return fiveA[0] == SfIntroducer.CARRIAGE_CONTROL;
     }
 
     /**
@@ -76,16 +74,16 @@ class DocumentReader implements Iterable<SfIntroducer> {
                 return null;
             }
             long offset = channel.position();
-            ByteBuffer buffer = ByteBuffer.allocate(7);
+            ByteBuffer buffer = ByteBuffer.allocate(SfIntroducer.SF_Introducer_FIELD);
             channel.read(buffer);
             byte[] introducer = buffer.array();
-            int sfLength = byteUtils.bytesToUnsignedInt(introducer, 0, 2);
+            int sfLength = byteUtils.bytesToUnsignedInt(introducer, 0, SfIntroducer.SFLength_FIELD);
             byte[] id = new byte[3];
-            System.arraycopy(introducer, 2, id, 0, 3);
+            System.arraycopy(introducer, 2, id, 0, SfIntroducer.SFType_ID_FIELD);
             byte flags = introducer[5];
             int extLength = 0;
             if (SfIntroducer.hasSfiExtension(flags)) {
-                buffer = ByteBuffer.allocate(1);
+                buffer = ByteBuffer.allocate(SfIntroducer.ExtLength_FIELD);
                 channel.read(buffer);
                 extLength = byteUtils.bytesToUnsignedInt(buffer.array());
             }

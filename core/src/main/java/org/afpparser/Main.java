@@ -1,10 +1,12 @@
 package org.afpparser;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import org.afpparser.parser.AFPDocumentParser;
 import org.afpparser.parser.PrintingSFHandler;
+import org.afpparser.parser.SFCreator;
 
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
@@ -16,9 +18,10 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         CommandLineParser cliParser = new BasicParser();
         Options opts = createCliOptions();
+        FileInputStream inStream = null;
         try {
             CommandLine cmd = cliParser.parse(opts, args);
             if (cmd.hasOption('p')) {
@@ -27,14 +30,25 @@ public class Main {
                     System.out.println("The AFP document does not exist");
                     return;
                 }
-                new AFPDocumentParser(afpDoc, new PrintingSFHandler()).parse();
+                inStream = new FileInputStream(afpDoc);
+                new AFPDocumentParser(inStream, new PrintingSFHandler()).parse();
+            } else if (cmd.hasOption('f')) {
+                File afpDoc = new File(cmd.getOptionValue('f'));
+                if (!afpDoc.isFile()) {
+                    System.out.println("The AFP document does not exist");
+                    return;
+                }
+                inStream = new FileInputStream(afpDoc);
+                new AFPDocumentParser(inStream, new SFCreator(inStream.getChannel())).parse();
             } else {
                 printHelp(opts);
             }
         } catch (IOException ioe) {
-            System.out.println("IO exception: " +  ioe.getMessage());
+            System.out.println("IO exception: " + ioe.getMessage());
         } catch (ParseException pe) {
             System.out.println("Unexpected exception: " + pe.getMessage());
+        } finally {
+            inStream.close();
         }
     }
 
@@ -51,6 +65,8 @@ public class Main {
                 + " structured field data to the commandline."));
         optGroup.addOption(new Option("c", "compare", true, "Compare two AFP documents and print"
                 + " any differences to the command line."));
+        optGroup.addOption(new Option("f", "full-parse", true, "Parse the AFP document and create"
+                + " a richer object model."));
         opts.addOptionGroup(optGroup);
         return opts;
     }

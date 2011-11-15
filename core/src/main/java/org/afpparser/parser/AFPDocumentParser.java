@@ -1,6 +1,6 @@
 package org.afpparser.parser;
 
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -12,7 +12,8 @@ public class AFPDocumentParser {
 
     private final StructuredFieldHandler afpHandler;
 
-    public AFPDocumentParser(File afpFile, StructuredFieldHandler afpHandler) throws FileNotFoundException {
+    public AFPDocumentParser(FileInputStream afpFile, StructuredFieldHandler afpHandler)
+            throws FileNotFoundException {
         this.documentReader = new DocumentReader(afpFile);
         this.afpHandler = afpHandler;
     }

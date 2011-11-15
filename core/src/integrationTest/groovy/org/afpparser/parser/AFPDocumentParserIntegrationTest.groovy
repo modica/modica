@@ -19,16 +19,19 @@ class AFPDocumentParserIntegrationTest {
         // How can we stream the output for testing?
         final ByteArrayOutputStream baos = new ByteArrayOutputStream()
 
-        new XmlSfSerializer(resourceToFile('org/afpparser/parser/test.afp')).writeTo(baos)
+        new XmlSfSerializer(resourceToStream('org/afpparser/parser/test.afp')).writeTo(baos)
 
         final ByteArrayInputStream actual = new ByteArrayInputStream(baos.toByteArray())
 
-        final expected = new FileInputStream(resourceToFile('org/afpparser/parser/expected.xml'))
+        final expected = resourceToStream('org/afpparser/parser/expected.xml')
 
         assertXMLEqual(new InputSource(expected),  new InputSource(actual))
     }
 
-    private File resourceToFile(String resource) {
-        new File(this.class.classLoader.getResource(resource).toURI())
+    private FileInputStream resourceToStream(String resource) {
+        URI uri = this.class.classLoader.getResource(resource).toURI()
+	FileInputStream inStream = new FileInputStream(uri.toURL().getFile())
+	assert inStream
+	return inStream
     }
 }

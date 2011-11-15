@@ -6,6 +6,21 @@ import org.afpparser.common.StringUtils;
  * A data object that represents a structured field and holds the data provided in the introducer.
  */
 public class SfIntroducer {
+
+    public static final byte CARRIAGE_CONTROL = 0x5a;
+
+    public static final int Carriage_Control_FIELD = 1;
+    public static final int SFLength_FIELD = 2;
+    public static final int SFType_ID_FIELD = 3;
+    public static final int Flag_Byte_FIELD = 1;
+    public static final int Reserved_FIELD = 1;
+    public static final int ExtLength_FIELD = 1;
+
+    public static final int SF_Introducer_FIELD = SfIntroducer.SFLength_FIELD
+            + SfIntroducer.SFType_ID_FIELD
+            + SfIntroducer.Flag_Byte_FIELD
+            + SfIntroducer.Reserved_FIELD;
+
     private final long offset;
     private final int length;
     private final SfType type;
