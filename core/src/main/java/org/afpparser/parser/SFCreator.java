@@ -9,6 +9,7 @@ import java.util.List;
 import org.afpparser.afp.modca.SfIntroducer;
 import org.afpparser.afp.modca.StructuredField;
 import org.afpparser.afp.modca.structuredfields.begin.BeginObjectHandler;
+import org.afpparser.afp.modca.structuredfields.map.MapObjectHandler;
 
 public class SFCreator implements StructuredFieldHandler {
 
@@ -60,5 +61,15 @@ public class SFCreator implements StructuredFieldHandler {
 
     @Override
     public void handle(SfIntroducer sf) {
+        StructuredField field;
+        switch (sf.getType().getTypeCode()) {
+        case Map:
+            field = MapObjectHandler.handle(sf, createStructuredField(sf));
+            break;
+        default:
+            field = null;
+        }
+        structuredFields.add(field);
+        System.out.println(field);
     }
 }

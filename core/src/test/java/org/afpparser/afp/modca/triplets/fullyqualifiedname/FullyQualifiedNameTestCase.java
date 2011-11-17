@@ -30,7 +30,7 @@ public class FullyQualifiedNameTestCase {
     private void testFQNWithCharData(String expectedStr, int length, FQNType type, String hexData)
             throws UnsupportedEncodingException, MalformedURLException {
         byte[] bytes = ByteUtils.hexToBytes(hexData);
-        FullyQualifiedName fqn = FullyQualifiedName.parse(length, bytes);
+        FullyQualifiedName fqn = FullyQualifiedName.parse(bytes, 0, length);
         assertEquals(length, fqn.getLength());
         assertEquals(type, fqn.getFQNType());
         FQNCharStringData fcsn = (FQNCharStringData) fqn;

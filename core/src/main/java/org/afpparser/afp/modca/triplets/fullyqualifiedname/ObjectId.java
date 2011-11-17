@@ -11,12 +11,12 @@ public final class ObjectId {
     private final byte[] oid;
     public static final int OID_ENCODING = 0x06;
 
-    ObjectId(byte[] data, int position) {
+    ObjectId(byte[] data, int position, int length) {
         // The first bit of the length is always set to 0
         byte oidEncoding = data[position];
         assert oidEncoding == OID_ENCODING;
         oid = new byte[data.length - position];
-        System.arraycopy(data, position, oid, 0, data.length - position);
+        System.arraycopy(data, position, oid, 0, length);
     }
 
     /**

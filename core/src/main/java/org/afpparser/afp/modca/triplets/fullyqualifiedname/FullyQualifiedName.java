@@ -50,35 +50,37 @@ public abstract class FullyQualifiedName extends Triplet {
     @Override
     public abstract int hashCode();
 
-    public static FullyQualifiedName parse(int length, byte[] data)
+    public static FullyQualifiedName parse(byte[] data, int position, int length)
             throws UnsupportedEncodingException, MalformedURLException {
-        int dataIndex = 0;
+        int dataIndex = position;
         byte tripletId = data[dataIndex++];
         assert tripletId == FullyQualifiedName.tId.getId();
         FQNType type = FQNType.getValue(data[dataIndex++]);
         FQNFmt format = FQNFmt.getValue(data[dataIndex++]);
         assert type != null;
+        // the length field is included in the length of the triplet
+        int dataLength = length - (dataIndex - position) - 1;
         switch (format) {
         case character_string:
-            return handleStringData(length, data, type, dataIndex);
+            return handleStringData(type, data, dataIndex, dataLength);
         case oid:
-            ObjectId oid = new ObjectId(data, dataIndex);
+            ObjectId oid = new ObjectId(data, dataIndex, dataLength);
             return new FQNOidData(length, oid, type);
         case url:
-            String url = parseString(data, dataIndex);
+            String url = parseString(data, dataIndex, dataLength);
             return new FQNUrlData(length, new URL(url), type);
         default:
             throw new IllegalStateException("The Fully Qualified Name data type is unknown");
         }
     }
 
-    private static String parseString(byte[] data, int position)
+    private static String parseString(byte[] data, int position, int length)
             throws UnsupportedEncodingException {
-        return StringUtils.bytesToCp500(data, position, data.length - position);
+        return StringUtils.bytesToCp500(data, position, length);
     }
 
-    private static FullyQualifiedName handleStringData(int length, byte[] data, FQNType type,
-            int position) throws UnsupportedEncodingException {
+    private static FullyQualifiedName handleStringData(FQNType type, byte[] data, int position,
+            int length) throws UnsupportedEncodingException {
         switch (type) {
         case begin_resource_object_ref:
             GlobalResourceId grid = new GlobalResourceId(data, position);
@@ -89,7 +91,7 @@ public abstract class FullyQualifiedName extends Triplet {
             System.arraycopy(data, position, undefData, 0, undefLength);
             return new FQNUndefData(length, undefData, type);
         default:
-            String gid = parseString(data, position);
+            String gid = parseString(data, position, length);
             return new FQNCharStringData(length, gid, type);
         }
     }

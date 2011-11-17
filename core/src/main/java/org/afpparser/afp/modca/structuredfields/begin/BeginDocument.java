@@ -16,7 +16,7 @@ public class BeginDocument extends AbstractStructuredField {
     private final String documentName;
     private final boolean docNameProvidedBySystem;
 
-    public BeginDocument(SfIntroducer introducer, byte[] sfData, List<Triplet> triplets)
+    public BeginDocument(SfIntroducer introducer, List<Triplet> triplets, byte[] sfData)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
         if (sfData != null && (sfData[0] != 0xFF && sfData[1] != 0xFF)) {
