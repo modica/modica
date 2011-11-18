@@ -17,9 +17,9 @@ public class BeginActiveEnvironmentGroup extends AbstractStructuredField {
 
     private final String aegName;
 
-    public BeginActiveEnvironmentGroup(SfIntroducer introducer, List<Triplet> triplets,
-            byte[] sfData) throws UnsupportedEncodingException {
-        super(introducer, triplets);
+    public BeginActiveEnvironmentGroup(SfIntroducer introducer, byte[] sfData)
+            throws UnsupportedEncodingException {
+        super(introducer);
         aegName = StringUtils.bytesToCp500(sfData);
     }
 
@@ -35,5 +35,15 @@ public class BeginActiveEnvironmentGroup extends AbstractStructuredField {
     @Override
     public String toString() {
         return getType().getName() + " aeg-name=" + aegName;
+    }
+
+    @Override
+    public boolean hasTriplets() {
+        return false;
+    }
+
+    @Override
+    public List<Triplet> getTriplets() {
+        return null;
     }
 }

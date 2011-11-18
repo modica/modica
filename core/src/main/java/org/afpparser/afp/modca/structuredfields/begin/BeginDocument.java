@@ -16,9 +16,9 @@ public class BeginDocument extends AbstractStructuredField {
     private final String documentName;
     private final boolean docNameProvidedBySystem;
 
-    public BeginDocument(SfIntroducer introducer, List<Triplet> triplets, byte[] sfData)
+    public BeginDocument(SfIntroducer introducer, byte[] sfData)
             throws UnsupportedEncodingException {
-        super(introducer, triplets);
+        super(introducer);
         if (sfData != null && (sfData[0] != 0xFF && sfData[1] != 0xFF)) {
             documentName = StringUtils.bytesToCp500(sfData);
             docNameProvidedBySystem = false;
@@ -26,10 +26,6 @@ public class BeginDocument extends AbstractStructuredField {
             docNameProvidedBySystem = true;
             documentName = null;
         }
-    }
-
-    public BeginDocument(SfIntroducer introducer) throws UnsupportedEncodingException {
-        this(introducer, null, null);
     }
 
     /**
@@ -57,6 +53,16 @@ public class BeginDocument extends AbstractStructuredField {
     @Override
     public String toString() {
         return "docName=" + documentName;
+    }
+
+    @Override
+    public boolean hasTriplets() {
+        return false;
+    }
+
+    @Override
+    public List<Triplet> getTriplets() {
+        return null;
     }
 
 }

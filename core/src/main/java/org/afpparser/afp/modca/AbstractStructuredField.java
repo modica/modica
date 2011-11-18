@@ -1,9 +1,5 @@
 package org.afpparser.afp.modca;
 
-import java.util.Collections;
-import java.util.List;
-
-import org.afpparser.afp.modca.triplets.Triplet;
 
 /**
  * A class that handles all the mothods common to all structured fields. 
@@ -11,11 +7,9 @@ import org.afpparser.afp.modca.triplets.Triplet;
 public abstract class AbstractStructuredField implements StructuredField {
 
     private final SfIntroducer introducer;
-    private final List<Triplet> triplets;
 
-    public AbstractStructuredField(SfIntroducer introducer, List<Triplet> triplets) {
+    public AbstractStructuredField(SfIntroducer introducer) {
         this.introducer = introducer;
-        this.triplets = triplets;
     }
 
     @Override
@@ -56,15 +50,5 @@ public abstract class AbstractStructuredField implements StructuredField {
     @Override
     public int bytesToNextStructuredField() {
         return introducer.bytesToNextStructuredField();
-    }
-
-    @Override
-    public boolean hasTriplets() {
-        return triplets != null && triplets.size() > 0;
-    }
-
-    @Override
-    public List<Triplet> getTriplets() {
-        return Collections.unmodifiableList(triplets);
     }
 }

@@ -21,7 +21,7 @@ public abstract class Cgcsgid extends Triplet {
         return tId;
     }
 
-    public static class Cpgid extends Cgcsgid {
+    public static final class Cpgid extends Cgcsgid {
         private final int gcsgid;
         private final int cpgid;
 
@@ -57,7 +57,7 @@ public abstract class Cgcsgid extends Triplet {
         }
     }
 
-    public static class Ccsid extends Cgcsgid {
+    public static final class Ccsid extends Cgcsgid {
         private final int ccsid;
 
         public Ccsid(int ccsid) {

@@ -24,7 +24,7 @@ public class BeginPage extends AbstractStructuredField {
 
     public BeginPage(SfIntroducer introducer, List<Triplet> triplets, byte[] sfData)
             throws UnsupportedEncodingException {
-        super(introducer, triplets);
+        super(introducer);
         pageName = StringUtils.bytesToCp500(sfData);
     }
 
@@ -40,6 +40,16 @@ public class BeginPage extends AbstractStructuredField {
     @Override
     public String toString() {
         return getType().getName() + " page-name=" + pageName;
+    }
+
+    @Override
+    public boolean hasTriplets() {
+        return false;
+    }
+
+    @Override
+    public List<Triplet> getTriplets() {
+        return null;
     }
 
 }

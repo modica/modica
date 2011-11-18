@@ -20,7 +20,7 @@ public class BeginNamedPageGroup extends AbstractStructuredField {
 
     public BeginNamedPageGroup(SfIntroducer introducer, List<Triplet> triplets, byte[] sfData)
             throws UnsupportedEncodingException {
-        super(introducer, triplets);
+        super(introducer);
         pGrpName = StringUtils.bytesToCp500(sfData);
     }
 
@@ -30,5 +30,15 @@ public class BeginNamedPageGroup extends AbstractStructuredField {
 
     public String toString() {
         return getType().getName() + " page-group-name=" + pGrpName;
+    }
+
+    @Override
+    public boolean hasTriplets() {
+        return false;
+    }
+
+    @Override
+    public List<Triplet> getTriplets() {
+        return null;
     }
 }

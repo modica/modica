@@ -12,7 +12,7 @@ public class BeginObjectHandler {
             StructuredField sf;
             switch (intro.getType().getCategoryCode()) {
             case document:
-                sf = new BeginDocument(intro, null, sfData);
+                sf = new BeginDocument(intro, sfData);
                 break;
             case page_group:
                 sf = new BeginNamedPageGroup(intro, null, sfData);
@@ -21,7 +21,7 @@ public class BeginObjectHandler {
                 sf = new BeginPage(intro, null, sfData);
                 break;
             case active_environment_group:
-                sf = new BeginActiveEnvironmentGroup(intro, null, sfData);
+                sf = new BeginActiveEnvironmentGroup(intro, sfData);
                 break;
             default:
                 sf = null;
