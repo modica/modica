@@ -15,6 +15,9 @@ public class CharacterRotation extends Triplet {
         this.rotation = Rotation.getValue(data[position + 1]);
     }
 
+    /**
+     * Specifies the clockwise character rotation relative to the character coordinate system.
+     */
     public enum Rotation {
         ZERO(0x00),
         NINETY(0x2D),
@@ -27,10 +30,21 @@ public class CharacterRotation extends Triplet {
             this.value = (byte) byteValue;
         }
 
+        /**
+         * Get the identifying byte array.
+         *
+         * @return the bytes identifying this character rotation
+         */
         public byte[] getBytes() {
             return new byte[] { value, 0x00 };
         }
 
+        /**
+         * Returns the character rotation as an enumerated type.
+         *
+         * @param identifier the byte value
+         * @return an enumeration of character rotation
+         */
         private static Rotation getValue(byte identifier) {
             for (Rotation charRotation : Rotation.values()) {
                 if (charRotation.value == identifier) {
@@ -52,6 +66,11 @@ public class CharacterRotation extends Triplet {
         return TripletIdentifiers.character_rotation;
     }
 
+    /**
+     * Returns an enumerated type for the character rotation.
+     *
+     * @return the character rotation
+     */
     public Rotation getRotation() {
         return rotation;
     }

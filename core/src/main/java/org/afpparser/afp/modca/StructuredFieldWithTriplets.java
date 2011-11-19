@@ -1,16 +1,20 @@
 package org.afpparser.afp.modca;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.afpparser.afp.modca.triplets.Triplet;
 
+/**
+ * An abstract class for structured fields that have a linear list of triplets.
+ */
 public abstract class StructuredFieldWithTriplets extends AbstractStructuredField {
 
     private final List<Triplet> triplets;
 
     public StructuredFieldWithTriplets(SfIntroducer introducer, List<Triplet> triplets) {
         super(introducer);
-        this.triplets = triplets;
+        this.triplets = Collections.unmodifiableList(triplets);
     }
 
     /**

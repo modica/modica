@@ -4,17 +4,45 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * A list of triplets can be grouped into repeating groups, such that there are essentially multiple
+ * groups of triplets ({@link List<{@link List<{@link Triplet}>}>}). This object implements
+ * {@link Iterable} to iterate through each group of triplets.
+ */
 public final class RepeatingTripletGroup implements Iterable<List<Triplet>> {
+
     private final List<List<Triplet>> repeatingGroup;
+
     private final RepeatingGroupIterator rgIterator;
+
+    private final int tripletCount;
 
     RepeatingTripletGroup(List<List<Triplet>> repeatingGroup) {
         this.repeatingGroup = repeatingGroup;
         rgIterator = new RepeatingGroupIterator();
+        int numOfTriplets = 0;
+        for (List<Triplet> tripletList : repeatingGroup) {
+            numOfTriplets += tripletList.size();
+        }
+        tripletCount = numOfTriplets;
     }
 
-    public int getSize() {
+    /**
+     * Returns the number of triplet groups.
+     *
+     * @return the number of triplet groups
+     */
+    public int size() {
         return repeatingGroup.size();
+    }
+
+    /**
+     * Returns the total number of triplets in all the groups.
+     *
+     * @return a total number of triplets
+     */
+    public int totalSize() {
+        return tripletCount;
     }
 
     @Override
@@ -40,6 +68,5 @@ public final class RepeatingTripletGroup implements Iterable<List<Triplet>> {
         public void remove() {
             throw new UnsupportedOperationException("Cannot remove a triplet group");
         }
-
     }
 }

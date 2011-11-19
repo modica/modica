@@ -24,6 +24,11 @@ public class BeginNamedPageGroup extends StructuredFieldWithTriplets {
         pGrpName = StringUtils.bytesToCp500(sfData);
     }
 
+    /**
+     * Return the name of the page group.
+     *
+     * @return the name of the page group
+     */
     public String getPageGroupName() {
         return pGrpName;
     }
