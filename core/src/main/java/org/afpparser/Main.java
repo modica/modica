@@ -10,7 +10,7 @@ import org.afpparser.parser.AFPDocumentParser;
 import org.afpparser.parser.PrintingSFHandler;
 import org.afpparser.parser.PrintingSFIntoducerHandler;
 import org.afpparser.parser.SFIntroducerHandlers;
-import org.afpparser.parser.StructuredFieldCreationHandler;
+import org.afpparser.parser.ObjectModelCreator;
 import org.afpparser.parser.StructuredFieldCreator;
 import org.afpparser.parser.StructuredFieldHandler;
 import org.afpparser.parser.StructuredFieldHandlers;
@@ -47,17 +47,23 @@ public class Main {
 
                 inStream = new FileInputStream(afpDoc);
 
-                StructuredFieldHandler creationHandler = StructuredFieldHandlers.aggregate(
-                        PrintingSFHandler.newInstance(), new StructuredFieldCreationHandler());
+                ObjectModelCreator objectModelCreatingHandler = new ObjectModelCreator();
+
+                StructuredFieldHandler structuredFieldHandler = StructuredFieldHandlers.aggregate(
+                        PrintingSFHandler.newInstance(), objectModelCreatingHandler);
 
                 StructuredFieldFactory structuredFieldFactory = new StructuredFieldFactoryImpl(
                         inStream.getChannel());
 
                 StructuredFieldCreator structuredFieldCreator = new StructuredFieldCreator(
-                        structuredFieldFactory, creationHandler);
+                        structuredFieldFactory, structuredFieldHandler);
 
                 new AFPDocumentParser(inStream, SFIntroducerHandlers.aggregate(
                         PrintingSFIntoducerHandler.newInstance(), structuredFieldCreator)).parse();
+
+                // List<StructuredField> objectModel =
+                // objectModelCreatingHandler.getObjectModel();
+
             } else {
                 printHelp(opts);
             }

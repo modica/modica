@@ -8,7 +8,7 @@ import org.afpparser.afp.modca.SfIntroducer;
 /**
  * 
  * This class consists exclusively of static methods that operate on or return
- * <code>SFIntroducerHandler</code>s.
+ * {@link SFIntroducerHandler}s.
  * 
  */
 public final class SFIntroducerHandlers {
@@ -17,8 +17,11 @@ public final class SFIntroducerHandlers {
     }
 
     /**
-     * Returns a SFIntroducerHandler that delegates to the handlers in their sequential order.
-     * @param handlers An array of SFIntroducerHandler
+     * Returns a SFIntroducerHandler that delegates to the handlers in their
+     * sequential order.
+     * 
+     * @param handlers
+     *            An array of SFIntroducerHandler
      * @return
      */
     public static SFIntroducerHandler aggregate(SFIntroducerHandler... handlers) {

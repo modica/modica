@@ -24,6 +24,9 @@ import java.io.PrintStream;
 import org.afpparser.afp.modca.SfIntroducer;
 import org.afpparser.common.StringUtils;
 
+/**
+ * This class is used for printing SFIntroducerHandler events to a PrintStream.
+ */
 public class PrintingSFIntoducerHandler implements SFIntroducerHandler {
 
     private final PrintStream out;
@@ -64,24 +67,25 @@ public class PrintingSFIntoducerHandler implements SFIntroducerHandler {
     }
 
     private void printSf(SfIntroducer sf) {
-        out.println("\u001B[34m" + StringUtils.toHex(sf.getOffset(), 8)
-                + "\u001B[0m" + indent + sf.getType().getName());
+        out.println("\u001B[34m" + StringUtils.toHex(sf.getOffset(), 8) + "\u001B[0m" + indent
+                + sf.getType().getName());
     }
 
     /**
-     * Return a new instance of PrintingSFHandler
-     *
-     * @return A printing StructuredFieldHandler
+     * Return a new instance of PrintingSFHandler.
+     * 
+     * @return
      */
     public static SFIntroducerHandler newInstance() {
         return new PrintingSFIntoducerHandler();
     }
 
     /**
-     * Return a new instance of PrintingSFHandler
-     *
-     * @param out OutputStream to print to
-     * @return A printing StructuredFieldHandler
+     * Return a new instance of PrintingSFHandler.
+     * 
+     * @param out
+     *            OutputStream to print to.
+     * @return
      */
     public static SFIntroducerHandler newInstance(PrintStream out) {
         return new PrintingSFIntoducerHandler(out);

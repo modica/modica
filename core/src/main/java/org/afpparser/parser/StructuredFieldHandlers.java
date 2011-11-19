@@ -8,7 +8,7 @@ import org.afpparser.afp.modca.StructuredField;
 /**
  * 
  * This class consists exclusively of static methods that operate on or return
- * <code>StructuredFieldHandler</code>s.
+ * {@link StructuredFieldHandler}s.
  * 
  */
 public final class StructuredFieldHandlers {
