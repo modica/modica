@@ -8,10 +8,26 @@ import java.util.List;
 import org.afpparser.afp.modca.triplets.fullyqualifiedname.FullyQualifiedName;
 import org.afpparser.common.ByteUtils;
 
-public class TripletHandler {
+/**
+ * A handler for parsing Structured Field Triplets and Triplet groups.
+ */
+public final class TripletHandler {
+
+    private TripletHandler() {
+    }
 
     private static final ByteUtils byteUtils = ByteUtils.newLittleEndianUtils();
 
+    /**
+     * Parse the triplet from the byte array starting at offset reading length bytes.
+     *
+     * @param data the triplet data
+     * @param offset the byte offset in the byte array
+     * @param length the number of bytes to read
+     * @return A List of triplets
+     * @throws MalformedURLException if an error was thrown parsing a URL
+     * @throws UnsupportedEncodingException if an error was thrown decoding a String
+     */
     public static List<Triplet> parseTriplet(byte[] data, int offset, int length)
             throws MalformedURLException, UnsupportedEncodingException {
         int position = offset;
@@ -34,11 +50,29 @@ public class TripletHandler {
         return tripletList;
     }
 
+    /**
+     * Parse the triplet from the byte array starting at offset reading the remainder of bytes in
+     * the data array i.e. (data.length - offset).
+     *
+     * @param data the triplet data
+     * @param offset the byte offset in the byte array
+     * @return A List of triplets
+     * @throws MalformedURLException if an error was thrown parsing a URL
+     * @throws UnsupportedEncodingException if an error was thrown decoding a String
+     */
     public static List<Triplet> parseTriplet(byte[] data, int offset) throws MalformedURLException,
             UnsupportedEncodingException {
         return parseTriplet(data, offset, data.length - offset);
     }
 
+    /**
+     * Parse the repeating group of triplets from the data array given.
+     *
+     * @param data the triplet group data
+     * @return A {@link RepeatingTripletGroup}
+     * @throws MalformedURLException if an error was thrown parsing a URL
+     * @throws UnsupportedEncodingException if an error was thrown decoding a String
+     */
     public static RepeatingTripletGroup parseRepeatingGroup(byte[] data)
             throws MalformedURLException, UnsupportedEncodingException {
         int byteIndex = 0;

@@ -5,35 +5,61 @@ import org.afpparser.common.ByteUtils;
 /**
  * Coded Graphical Character Set Global Identifier triplet is used to establish the values of the
  * code page and character set for interpretation of all structured field parameters having a
- * CHAR data type, such as name parameters, except where such parameters define a fixed encoding.  
+ * CHAR data type, such as name parameters, except where such parameters define a fixed encoding.
  */
 public abstract class Cgcsgid extends Triplet {
     private static TripletIdentifiers tId = TripletIdentifiers.coded_graphic_character_set_global_identifier;
     private static final int LENGTH = 6;
 
     /** {@inheritDoc} */
+    @Override
     public int getLength() {
         return LENGTH;
     }
 
     /** {@inheritDoc} */
+    @Override
     public TripletIdentifiers getTid() {
         return tId;
     }
 
+    /**
+     * The concatenation of the GCSGID and CPGID is currently referred to as the Coded Graphic
+     * Character Set Global Identifier (CGCSGID). In the past, it was also known as the Global
+     * Character Set Identifier (GCID).
+     */
     public static final class Cpgid extends Cgcsgid {
         private final int gcsgid;
         private final int cpgid;
 
-        public Cpgid(int gcsgid, int cpgid) {
+        private Cpgid(int gcsgid, int cpgid) {
             this.gcsgid = gcsgid;
             this.cpgid = cpgid;
         }
 
+        /**
+         * Specifies the Graphic Character Set Global Identifier of the character set to be used in
+         * conjunction with the Code Page Global Identifier to identify the graphic characters that
+         * are represented by code points in any parameter with a data type of CHAR. The GCSGID may
+         * identify a subset or the maximal set of all of the graphic characters supported for the
+         * associated code page. Valid values for Graphic Character Set Global Identifiers are 1
+         * through 65534. A value of 65535 (X'FFFF') indicates that a character set consisting of
+         * all characters that have assigned code points in the associated code page is to be used.
+         *
+         * @return the Global Character Set Global Identifier
+         */
         public int getGcsgid() {
             return gcsgid;
         }
 
+        /**
+         * Specifies the Code Page Global Identifier of the code page to be used in conjunction with
+         * the character set to identify the graphic characters that are represented by code points
+         * in any parameter with a data type of CHAR. Valid values for Code Page Global Identifiers
+         * are 1 through 65534
+         *
+         * @return the Code Page Global Identifier
+         */
         public int getCpgid() {
             return cpgid;
         }
@@ -57,13 +83,24 @@ public abstract class Cgcsgid extends Triplet {
         }
     }
 
+    /**
+     * Coded Character Set Identifier. Defined by the Character Data Representation Architecture.
+     * Can be resolved to specify the code page and character set for interpretation of parameters
+     * with CHAR data type. See the Character Data Representation Architecture Reference and
+     * Registry, SC09-2190, for detailed information.
+     */
     public static final class Ccsid extends Cgcsgid {
         private final int ccsid;
 
-        public Ccsid(int ccsid) {
+        private Ccsid(int ccsid) {
             this.ccsid = ccsid;
         }
 
+        /**
+         * Return the Coded Character Set Identifier.
+         *
+         * @return the ccsid
+         */
         public int getCcsid() {
             return ccsid;
         }
@@ -85,6 +122,14 @@ public abstract class Cgcsgid extends Triplet {
         }
     }
 
+    /**
+     * Returns the Coded Graphic Character Set Global Identifier.
+     *
+     * @param data the triplet data array
+     * @param length the triplet length
+     * @param tId the Triplet Identifier
+     * @return the CGCSGID
+     */
     public static Cgcsgid parse(byte[] data, int length, TripletIdentifiers tId) {
         assert LENGTH == length;
         assert Cgcsgid.tId == tId;

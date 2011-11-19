@@ -2,14 +2,17 @@ package org.afpparser.parser;
 
 import org.afpparser.afp.modca.SfIntroducer;
 
+/**
+ * A wrapper class that passes through all events to the delegate given in the constructor.
+ */
 public abstract class DelegatingSFIntroducerHandler implements SFIntroducerHandler {
 
     private final SFIntroducerHandler delegate;
-    
+
     public DelegatingSFIntroducerHandler(SFIntroducerHandler delegate) {
         this.delegate = delegate;
     }
-    
+
     @Override
     public void startAfp() {
         delegate.startAfp();

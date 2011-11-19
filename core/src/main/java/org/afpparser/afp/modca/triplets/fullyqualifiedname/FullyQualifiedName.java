@@ -50,6 +50,7 @@ public abstract class FullyQualifiedName extends Triplet {
     @Override
     public abstract int hashCode();
 
+    //TODO: This may need to be pulled out into it's own class i.e. FQNHandler
     public static FullyQualifiedName parse(byte[] data, int position, int length)
             throws UnsupportedEncodingException, MalformedURLException {
         int dataIndex = position;

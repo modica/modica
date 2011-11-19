@@ -18,8 +18,7 @@ public final class BeginActiveEnvironmentGroup extends StructuredFieldWithTriple
     private final String aegName;
 
     public BeginActiveEnvironmentGroup(SfIntroducer introducer, List<Triplet> triplets,
-            byte[] sfData)
-            throws UnsupportedEncodingException {
+            byte[] sfData) throws UnsupportedEncodingException {
         super(introducer, triplets);
         aegName = StringUtils.bytesToCp500(sfData);
     }

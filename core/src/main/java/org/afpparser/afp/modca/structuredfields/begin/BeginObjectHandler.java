@@ -5,11 +5,18 @@ import java.net.MalformedURLException;
 import java.util.List;
 
 import org.afpparser.afp.modca.SfIntroducer;
+import org.afpparser.afp.modca.SfTypeFactory.Begin;
 import org.afpparser.afp.modca.StructuredField;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.TripletHandler;
 
-public class BeginObjectHandler {
+/**
+ * A handler for constructing {@link Begin} type structured fields.
+ */
+public final class BeginObjectHandler {
+
+    private BeginObjectHandler() {
+    }
 
     public static StructuredField handle(SfIntroducer intro, byte[] sfData) {
         List<Triplet> triplets;

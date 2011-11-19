@@ -8,7 +8,6 @@ import org.afpparser.parser.AFPDocumentParser;
 import org.afpparser.parser.AggregateSFIntroducerHandler;
 import org.afpparser.parser.PrintingSFHandler;
 import org.afpparser.parser.StructuredFieldCreator;
-
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -51,7 +50,9 @@ public class Main {
         } catch (ParseException pe) {
             System.out.println("Unexpected exception: " + pe.getMessage());
         } finally {
-            inStream.close();
+            if (inStream != null) {
+                inStream.close();
+            }
         }
     }
 

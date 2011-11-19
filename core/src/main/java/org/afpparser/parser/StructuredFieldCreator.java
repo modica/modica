@@ -10,11 +10,16 @@ import org.afpparser.afp.modca.StructuredField;
 import org.afpparser.afp.modca.StructuredFieldFactory;
 import org.afpparser.afp.modca.StructuredFieldFactoryImpl;
 
+/**
+ * The top level class for handling structured field creation given the FileChannel of an AFP
+ * document.
+ * TODO: Add a more useful javadoc here when we know what it's supposed to be doing
+ */
 public class StructuredFieldCreator implements SFIntroducerHandler {
 
     private final FileChannel channel;
 
-    private final StructuredFieldCreationHandler creationHandler = new StructuredFieldCreationHandler();
+    private final StructuredFieldHandler creationHandler = new StructuredFieldCreationHandler();
     private final StructuredFieldFactory sfFactory = new StructuredFieldFactoryImpl();
 
     public StructuredFieldCreator(FileChannel channel) {
@@ -72,10 +77,8 @@ public class StructuredFieldCreator implements SFIntroducerHandler {
     private void handle(SfIntroducer introducer, StructuredField structuredField) {
         // TODO remove UnhandledStructuredField when all structured fields can
         // be created
-        if (structuredField == null) {
-            structuredField = new UnhandledStructuredField(introducer);
-        }
-        creationHandler.handle(structuredField);
+        creationHandler.handle(structuredField != null ? structuredField :
+            new UnhandledStructuredField(introducer));
     }
 
     private static class UnhandledStructuredField extends AbstractStructuredField {

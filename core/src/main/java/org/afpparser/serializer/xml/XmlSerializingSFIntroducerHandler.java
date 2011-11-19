@@ -20,7 +20,6 @@ import org.xml.sax.helpers.AttributesImpl;
 
 /**
  * A StructuredFieldHandler that transforms AFP SF parsing to XML written to an output stream.
- *
  */
 class XmlSerializingSFIntroducerHandler implements SFIntroducerHandler {
 

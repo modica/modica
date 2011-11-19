@@ -70,7 +70,7 @@ public class PrintingSFHandler implements SFIntroducerHandler {
 
     /**
      * Return a new instance of PrintingSFHandler
-     * 
+     *
      * @return A printing StructuredFieldHandler
      */
     public static SFIntroducerHandler newInstance() {
@@ -79,9 +79,8 @@ public class PrintingSFHandler implements SFIntroducerHandler {
 
     /**
      * Return a new instance of PrintingSFHandler
-     * 
-     * @param out
-     *            OutputStream to print to
+     *
+     * @param out OutputStream to print to
      * @return A printing StructuredFieldHandler
      */
     public static SFIntroducerHandler newInstance(PrintStream out) {

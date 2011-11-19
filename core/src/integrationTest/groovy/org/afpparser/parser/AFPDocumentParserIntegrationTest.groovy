@@ -30,8 +30,8 @@ class AFPDocumentParserIntegrationTest {
 
     private FileInputStream resourceToStream(String resource) {
         URI uri = this.class.classLoader.getResource(resource).toURI()
-	FileInputStream inStream = new FileInputStream(uri.toURL().getFile())
-	assert inStream
-	return inStream
+        FileInputStream inStream = new FileInputStream(uri.toURL().getFile())
+        assert inStream
+        return inStream
     }
 }

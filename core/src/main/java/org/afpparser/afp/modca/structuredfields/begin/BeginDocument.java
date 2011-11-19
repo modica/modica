@@ -34,6 +34,9 @@ public final class BeginDocument extends StructuredFieldWithTriplets {
      * specified in this parameter is ignored and the GID provided by the triplet is used instead.
      * If the value of the first two bytes of DocName are X'FFFF', the processing system provides
      * the document name.
+     * <p>
+     * Whether or not the DocName is provided by the system can be ascertained from the
+     * {@code docNameProvidedBySystem()} method.</p>
      *
      * @return the document name
      */

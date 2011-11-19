@@ -3,6 +3,9 @@ package org.afpparser.afp.modca;
 import org.afpparser.afp.modca.structuredfields.begin.BeginObjectHandler;
 import org.afpparser.afp.modca.structuredfields.map.MapObjectHandler;
 
+/**
+ * A plain vanilla Structured Field factory that creates objects of each type and does nothing else.
+ */
 public class StructuredFieldFactoryImpl implements StructuredFieldFactory {
 
     @Override

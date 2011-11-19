@@ -11,33 +11,32 @@ import org.afpparser.parser.AFPDocumentParser;
 import org.afpparser.serializer.SFIntroducerSerializer;
 
 /**
- * Used to parse an AFP file and serialize to xml form.
- *
+ * Used to parse an AFP file and serialise to XML form.
  */
 public class XmlSFIntroducerSerializer implements SFIntroducerSerializer {
-	
+
     private final FileInputStream afpInputStream;
 
-	/**
-	 * @param afpFile afp file to serialize
-	 */
+    /**
+     * @param afpFile the AFP file to serialise
+     */
     public XmlSFIntroducerSerializer(FileInputStream afpInputStream) {
         this.afpInputStream = afpInputStream;
-	}
+    }
 
-	@Override
-	public void writeTo(File outFile) throws IOException {
-		OutputStream out = new BufferedOutputStream(new FileOutputStream(outFile));
-		try {
-			writeTo(out);
-		} finally {
-			out.close();
-		}
-	}
+    @Override
+    public void writeTo(File outFile) throws IOException {
+        OutputStream out = new BufferedOutputStream(new FileOutputStream(outFile));
+        try {
+            writeTo(out);
+        } finally {
+            out.close();
+        }
+    }
 
-	@Override
-	public void writeTo(OutputStream out) throws IOException {
-		XmlSerializingSFIntroducerHandler handler = new XmlSerializingSFIntroducerHandler(out);
+    @Override
+    public void writeTo(OutputStream out) throws IOException {
+        XmlSerializingSFIntroducerHandler handler = new XmlSerializingSFIntroducerHandler(out);
         new AFPDocumentParser(afpInputStream, handler).parse();
-	}
+    }
 }
