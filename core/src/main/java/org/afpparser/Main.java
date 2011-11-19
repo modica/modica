@@ -4,10 +4,16 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import org.afpparser.afp.modca.StructuredFieldFactory;
+import org.afpparser.afp.modca.StructuredFieldFactoryImpl;
 import org.afpparser.parser.AFPDocumentParser;
-import org.afpparser.parser.AggregateSFIntroducerHandler;
 import org.afpparser.parser.PrintingSFHandler;
+import org.afpparser.parser.PrintingSFIntoducerHandler;
+import org.afpparser.parser.SFIntroducerHandlers;
+import org.afpparser.parser.StructuredFieldCreationHandler;
 import org.afpparser.parser.StructuredFieldCreator;
+import org.afpparser.parser.StructuredFieldHandler;
+import org.afpparser.parser.StructuredFieldHandlers;
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -31,17 +37,27 @@ public class Main {
                     return;
                 }
                 inStream = new FileInputStream(afpDoc);
-                new AFPDocumentParser(inStream, PrintingSFHandler.newInstance()).parse();
+                new AFPDocumentParser(inStream, PrintingSFIntoducerHandler.newInstance()).parse();
             } else if (cmd.hasOption('f')) {
                 File afpDoc = new File(cmd.getOptionValue('f'));
                 if (!afpDoc.isFile()) {
                     System.out.println("The AFP document does not exist");
                     return;
                 }
+
                 inStream = new FileInputStream(afpDoc);
-                new AFPDocumentParser(inStream, AggregateSFIntroducerHandler.aggregate(
-                        PrintingSFHandler.newInstance(),
-                        new StructuredFieldCreator(inStream.getChannel()))).parse();
+
+                StructuredFieldHandler creationHandler = StructuredFieldHandlers.aggregate(
+                        PrintingSFHandler.newInstance(), new StructuredFieldCreationHandler());
+
+                StructuredFieldFactory structuredFieldFactory = new StructuredFieldFactoryImpl(
+                        inStream.getChannel());
+
+                StructuredFieldCreator structuredFieldCreator = new StructuredFieldCreator(
+                        structuredFieldFactory, creationHandler);
+
+                new AFPDocumentParser(inStream, SFIntroducerHandlers.aggregate(
+                        PrintingSFIntoducerHandler.newInstance(), structuredFieldCreator)).parse();
             } else {
                 printHelp(opts);
             }

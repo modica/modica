@@ -15,7 +15,6 @@ public class StructuredFieldCreationHandler implements StructuredFieldHandler {
 
     @Override
     public void handle(StructuredField structuredField) {
-        System.out.println(structuredField);
         structuredFields.add(structuredField);
     }
 }

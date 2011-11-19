@@ -1,45 +1,25 @@
 package org.afpparser.parser;
 
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
-
 import org.afpparser.afp.modca.AbstractStructuredField;
 import org.afpparser.afp.modca.SfIntroducer;
 import org.afpparser.afp.modca.StructuredField;
 import org.afpparser.afp.modca.StructuredFieldFactory;
-import org.afpparser.afp.modca.StructuredFieldFactoryImpl;
 
 /**
- * The top level class for handling structured field creation given the FileChannel of an AFP
- * document.
- * TODO: Add a more useful javadoc here when we know what it's supposed to be doing
+ * The top level class for handling structured field creation given the
+ * FileChannel of an AFP document. TODO: Add a more useful javadoc here when we
+ * know what it's supposed to be doing
  */
 public class StructuredFieldCreator implements SFIntroducerHandler {
 
-    private final FileChannel channel;
+    private final StructuredFieldHandler creationHandler;
 
-    private final StructuredFieldHandler creationHandler = new StructuredFieldCreationHandler();
-    private final StructuredFieldFactory sfFactory = new StructuredFieldFactoryImpl();
+    private final StructuredFieldFactory sfFactory;
 
-    public StructuredFieldCreator(FileChannel channel) {
-        this.channel = channel;
-    }
-
-    public byte[] createStructuredField(SfIntroducer intro) {
-        try {
-            long byteOffset = intro.getOffset() + SfIntroducer.SF_Introducer_FIELD
-                    + SfIntroducer.Carriage_Control_FIELD;
-            if (intro.hasExtData()) {
-                byteOffset += intro.getExtLength() + SfIntroducer.ExtLength_FIELD;
-            }
-            ByteBuffer buffer = ByteBuffer.allocate(intro.getLength()
-                    - SfIntroducer.SF_Introducer_FIELD - SfIntroducer.Carriage_Control_FIELD);
-            channel.read(buffer, byteOffset);
-            return buffer.array();
-        } catch (IOException ioe) {
-            throw new IllegalStateException(ioe);
-        }
+    public StructuredFieldCreator(StructuredFieldFactory structuredFieldFactory,
+            StructuredFieldHandler structuredFieldHandler) {
+        this.sfFactory = structuredFieldFactory;
+        this.creationHandler = structuredFieldHandler;
     }
 
     @Override
@@ -52,8 +32,7 @@ public class StructuredFieldCreator implements SFIntroducerHandler {
 
     @Override
     public void handleBegin(SfIntroducer introducer) {
-        StructuredField structuredField = sfFactory.createBegin(introducer,
-                createStructuredField(introducer));
+        StructuredField structuredField = sfFactory.createBegin(introducer);
         handle(introducer, structuredField);
     }
 
@@ -66,7 +45,7 @@ public class StructuredFieldCreator implements SFIntroducerHandler {
         StructuredField structuredField;
         switch (introducer.getType().getTypeCode()) {
         case Map:
-            structuredField = sfFactory.createMap(introducer, createStructuredField(introducer));
+            structuredField = sfFactory.createMap(introducer);
             break;
         default:
             structuredField = null;
@@ -77,8 +56,8 @@ public class StructuredFieldCreator implements SFIntroducerHandler {
     private void handle(SfIntroducer introducer, StructuredField structuredField) {
         // TODO remove UnhandledStructuredField when all structured fields can
         // be created
-        creationHandler.handle(structuredField != null ? structuredField :
-            new UnhandledStructuredField(introducer));
+        creationHandler.handle(structuredField != null ? structuredField
+                : new UnhandledStructuredField(introducer));
     }
 
     private static class UnhandledStructuredField extends AbstractStructuredField {
