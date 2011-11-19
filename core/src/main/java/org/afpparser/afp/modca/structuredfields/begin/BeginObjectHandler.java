@@ -1,27 +1,36 @@
 package org.afpparser.afp.modca.structuredfields.begin;
 
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.util.List;
 
 import org.afpparser.afp.modca.SfIntroducer;
 import org.afpparser.afp.modca.StructuredField;
+import org.afpparser.afp.modca.triplets.Triplet;
+import org.afpparser.afp.modca.triplets.TripletHandler;
 
 public class BeginObjectHandler {
 
     public static StructuredField handle(SfIntroducer intro, byte[] sfData) {
+        List<Triplet> triplets;
         try {
             StructuredField sf;
             switch (intro.getType().getCategoryCode()) {
             case document:
-                sf = new BeginDocument(intro, sfData);
+                triplets = TripletHandler.parseTriplet(sfData, 8);
+                sf = new BeginDocument(intro, triplets, sfData);
                 break;
             case page_group:
-                sf = new BeginNamedPageGroup(intro, null, sfData);
+                triplets = TripletHandler.parseTriplet(sfData, 8);
+                sf = new BeginNamedPageGroup(intro, triplets, sfData);
                 break;
             case page:
-                sf = new BeginPage(intro, null, sfData);
+                triplets = TripletHandler.parseTriplet(sfData, 8);
+                sf = new BeginPage(intro, triplets, sfData);
                 break;
             case active_environment_group:
-                sf = new BeginActiveEnvironmentGroup(intro, sfData);
+                triplets = TripletHandler.parseTriplet(sfData, 8);
+                sf = new BeginActiveEnvironmentGroup(intro, triplets, sfData);
                 break;
             default:
                 sf = null;
@@ -29,6 +38,8 @@ public class BeginObjectHandler {
             return sf;
         } catch (UnsupportedEncodingException uee) {
             throw new IllegalStateException(uee);
+        } catch (MalformedURLException mue) {
+            throw new IllegalStateException(mue);
         }
     }
 }

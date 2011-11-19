@@ -1,11 +1,8 @@
 package org.afpparser.afp.modca;
 
-import java.util.List;
-
-import org.afpparser.afp.modca.triplets.Triplet;
 
 /**
- * A structured field is the building block of an AFP document. 
+ * A structured field is the building block of an AFP document.
  */
 public interface StructuredField {
     /**
@@ -64,19 +61,5 @@ public interface StructuredField {
      * @return the number of bytes to the next structured field
      */
     int bytesToNextStructuredField();
-
-    /**
-     * Checks if this structured field has triplets bound to it.
-     *
-     * @return true if this structured field has triplets 
-     */
-    boolean hasTriplets();
-
-    /**
-     * Gets a view to the triplets as an unmodifiable List.
-     *
-     * @return the triplets bound to this structured field
-     */
-    List<Triplet> getTriplets();
 
 }

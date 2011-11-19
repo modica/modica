@@ -62,7 +62,7 @@ public abstract class FullyQualifiedName extends Triplet {
         int dataLength = length - (dataIndex - position) - 1;
         switch (format) {
         case character_string:
-            return handleStringData(type, data, dataIndex, dataLength);
+            return handleStringData(type, data, dataIndex, dataLength, length);
         case oid:
             ObjectId oid = new ObjectId(data, dataIndex, dataLength);
             return new FQNOidData(length, oid, type);
@@ -80,19 +80,19 @@ public abstract class FullyQualifiedName extends Triplet {
     }
 
     private static FullyQualifiedName handleStringData(FQNType type, byte[] data, int position,
-            int length) throws UnsupportedEncodingException {
+            int length, int fieldLength) throws UnsupportedEncodingException {
         switch (type) {
         case begin_resource_object_ref:
             GlobalResourceId grid = new GlobalResourceId(data, position);
-            return new FQNGridData(length, grid, type);
+            return new FQNGridData(fieldLength, grid, type);
         case data_object_internal_resource_ref:
             int undefLength = data.length - position;
             byte[] undefData = new byte[undefLength];
             System.arraycopy(data, position, undefData, 0, undefLength);
-            return new FQNUndefData(length, undefData, type);
+            return new FQNUndefData(fieldLength, undefData, type);
         default:
             String gid = parseString(data, position, length);
-            return new FQNCharStringData(length, gid, type);
+            return new FQNCharStringData(fieldLength, gid, type);
         }
     }
 }

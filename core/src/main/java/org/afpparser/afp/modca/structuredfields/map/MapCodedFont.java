@@ -4,10 +4,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.List;
 
-import org.afpparser.afp.modca.AbstractStructuredField;
 import org.afpparser.afp.modca.SfIntroducer;
+import org.afpparser.afp.modca.StructuredFieldWithTripletGroup;
+import org.afpparser.afp.modca.triplets.RepeatingTripletGroup;
 import org.afpparser.afp.modca.triplets.Triplet;
-import org.afpparser.afp.modca.triplets.Triplet.RepeatingGroup;
 
 /**
  * The Map Coded Font structured field maps a unique coded font resource local ID, which may be
@@ -19,41 +19,23 @@ import org.afpparser.afp.modca.triplets.Triplet.RepeatingGroup;
  * Additionally, the Map Coded Font structured field specifies a set of resource attributes for the
  * coded font.
  */
-public class MapCodedFont extends AbstractStructuredField {
+public class MapCodedFont extends StructuredFieldWithTripletGroup {
 
-    private final RepeatingGroup repeatingTriplets;
-
-    public MapCodedFont(SfIntroducer introducer, byte[] sfData)
+    public MapCodedFont(SfIntroducer introducer, RepeatingTripletGroup tripletGroup, byte[] sfData)
             throws UnsupportedEncodingException, MalformedURLException {
-        super(introducer);
-        repeatingTriplets = Triplet.parseRepeatingGroup(sfData);
+        super(introducer, tripletGroup);
     }
 
-    public RepeatingGroup getRepeatingGroup() {
-        return repeatingTriplets;
-    }
-
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (List<Triplet> tripletList : repeatingTriplets.getRepeatingGroup()) {
+        for (List<Triplet> tripletList : getTripletGroup()) {
             for (Triplet t : tripletList) {
                 sb.append("\t");
                 sb.append(t.toString());
                 sb.append("\n");
             }
         }
-        return getType().getName() + " triplets=" + sb.toString();
+        return getType().getName() + " triplet group=" + sb.toString();
     }
-
-    @Override
-    public boolean hasTriplets() {
-        return false;
-    }
-
-    @Override
-    public List<Triplet> getTriplets() {
-        return null;
-    }
-
-
 }

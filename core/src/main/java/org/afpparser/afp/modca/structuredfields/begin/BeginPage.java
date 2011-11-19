@@ -3,8 +3,8 @@ package org.afpparser.afp.modca.structuredfields.begin;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-import org.afpparser.afp.modca.AbstractStructuredField;
 import org.afpparser.afp.modca.SfIntroducer;
+import org.afpparser.afp.modca.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.common.StringUtils;
 
@@ -18,13 +18,13 @@ import org.afpparser.common.StringUtils;
  * <p> - Object containers</p>
  * <p> - Presentation text objects</p>
  */
-public class BeginPage extends AbstractStructuredField {
+public class BeginPage extends StructuredFieldWithTriplets {
 
     private final String pageName;
 
     public BeginPage(SfIntroducer introducer, List<Triplet> triplets, byte[] sfData)
             throws UnsupportedEncodingException {
-        super(introducer);
+        super(introducer, triplets);
         pageName = StringUtils.bytesToCp500(sfData);
     }
 
@@ -40,16 +40,6 @@ public class BeginPage extends AbstractStructuredField {
     @Override
     public String toString() {
         return getType().getName() + " page-name=" + pageName;
-    }
-
-    @Override
-    public boolean hasTriplets() {
-        return false;
-    }
-
-    @Override
-    public List<Triplet> getTriplets() {
-        return null;
     }
 
 }

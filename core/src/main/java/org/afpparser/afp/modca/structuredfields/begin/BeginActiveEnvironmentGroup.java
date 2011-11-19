@@ -3,8 +3,8 @@ package org.afpparser.afp.modca.structuredfields.begin;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-import org.afpparser.afp.modca.AbstractStructuredField;
 import org.afpparser.afp.modca.SfIntroducer;
+import org.afpparser.afp.modca.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.common.StringUtils;
 
@@ -13,13 +13,14 @@ import org.afpparser.common.StringUtils;
  * establishes the environment parameters for the page or overlay. The scope of the active
  * environment group is the containing page or overlay.
  */
-public class BeginActiveEnvironmentGroup extends AbstractStructuredField {
+public final class BeginActiveEnvironmentGroup extends StructuredFieldWithTriplets {
 
     private final String aegName;
 
-    public BeginActiveEnvironmentGroup(SfIntroducer introducer, byte[] sfData)
+    public BeginActiveEnvironmentGroup(SfIntroducer introducer, List<Triplet> triplets,
+            byte[] sfData)
             throws UnsupportedEncodingException {
-        super(introducer);
+        super(introducer, triplets);
         aegName = StringUtils.bytesToCp500(sfData);
     }
 
@@ -35,15 +36,5 @@ public class BeginActiveEnvironmentGroup extends AbstractStructuredField {
     @Override
     public String toString() {
         return getType().getName() + " aeg-name=" + aegName;
-    }
-
-    @Override
-    public boolean hasTriplets() {
-        return false;
-    }
-
-    @Override
-    public List<Triplet> getTriplets() {
-        return null;
     }
 }

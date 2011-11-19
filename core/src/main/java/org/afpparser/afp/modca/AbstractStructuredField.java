@@ -2,7 +2,7 @@ package org.afpparser.afp.modca;
 
 
 /**
- * A class that handles all the mothods common to all structured fields. 
+ * A class that handles all the methods common to all structured fields.
  */
 public abstract class AbstractStructuredField implements StructuredField {
 
