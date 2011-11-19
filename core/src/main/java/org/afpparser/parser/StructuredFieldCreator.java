@@ -10,14 +10,14 @@ import org.afpparser.afp.modca.StructuredField;
 import org.afpparser.afp.modca.StructuredFieldFactory;
 import org.afpparser.afp.modca.StructuredFieldFactoryImpl;
 
-public class StructeredFieldCreator implements SFIntroducerHandler {
+public class StructuredFieldCreator implements SFIntroducerHandler {
 
     private final FileChannel channel;
 
     private final StructuredFieldCreationHandler creationHandler = new StructuredFieldCreationHandler();
     private final StructuredFieldFactory sfFactory = new StructuredFieldFactoryImpl();
 
-    public StructeredFieldCreator(FileChannel channel) {
+    public StructuredFieldCreator(FileChannel channel) {
         this.channel = channel;
     }
 

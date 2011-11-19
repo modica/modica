@@ -7,7 +7,7 @@ import java.io.IOException;
 import org.afpparser.parser.AFPDocumentParser;
 import org.afpparser.parser.AggregateSFIntroducerHandler;
 import org.afpparser.parser.PrintingSFHandler;
-import org.afpparser.parser.StructeredFieldCreator;
+import org.afpparser.parser.StructuredFieldCreator;
 
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
@@ -42,7 +42,7 @@ public class Main {
                 inStream = new FileInputStream(afpDoc);
                 new AFPDocumentParser(inStream, AggregateSFIntroducerHandler.aggregate(
                         PrintingSFHandler.newInstance(),
-                        new StructeredFieldCreator(inStream.getChannel()))).parse();
+                        new StructuredFieldCreator(inStream.getChannel()))).parse();
             } else {
                 printHelp(opts);
             }
