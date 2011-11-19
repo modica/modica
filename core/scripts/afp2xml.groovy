@@ -1,3 +1,3 @@
-import org.afpparser.serializer.xml.XmlSfSerializer
+import org.afpparser.serializer.xml.XmlSFIntroducerSerializer
 
-new XmlSfSerializer(new File(args[0])).writeTo(new File(args[1]))
+new XmlSFIntroducerSerializer(new File(args[0])).writeTo(new File(args[1]))

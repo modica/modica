@@ -10,9 +10,9 @@ public class AFPDocumentParser {
 
     private final DocumentReader documentReader;
 
-    private final StructuredFieldHandler afpHandler;
+    private final SFIntroducerHandler afpHandler;
 
-    public AFPDocumentParser(FileInputStream afpFile, StructuredFieldHandler afpHandler)
+    public AFPDocumentParser(FileInputStream afpFile, SFIntroducerHandler afpHandler)
             throws FileNotFoundException {
         this.documentReader = new DocumentReader(afpFile);
         this.afpHandler = afpHandler;

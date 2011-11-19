@@ -8,20 +8,20 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import org.afpparser.parser.AFPDocumentParser;
-import org.afpparser.serializer.StructuredFieldSerializer;
+import org.afpparser.serializer.SFIntroducerSerializer;
 
 /**
  * Used to parse an AFP file and serialize to xml form.
  *
  */
-public class XmlSfSerializer implements StructuredFieldSerializer {
+public class XmlSFIntroducerSerializer implements SFIntroducerSerializer {
 	
     private final FileInputStream afpInputStream;
 
 	/**
 	 * @param afpFile afp file to serialize
 	 */
-    public XmlSfSerializer(FileInputStream afpInputStream) {
+    public XmlSFIntroducerSerializer(FileInputStream afpInputStream) {
         this.afpInputStream = afpInputStream;
 	}
 
@@ -37,7 +37,7 @@ public class XmlSfSerializer implements StructuredFieldSerializer {
 
 	@Override
 	public void writeTo(OutputStream out) throws IOException {
-		XmlSerializingSfHandler handler = new XmlSerializingSfHandler(out);
+		XmlSerializingSFIntroducerHandler handler = new XmlSerializingSFIntroducerHandler(out);
         new AFPDocumentParser(afpInputStream, handler).parse();
 	}
 }

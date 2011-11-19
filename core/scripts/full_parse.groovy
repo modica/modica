@@ -4,9 +4,9 @@ import java.util.concurrent.FutureTask
 
 import org.afpparser.parser.AFPDocumentParser
 import org.afpparser.afp.modca.SfIntroducer
-import org.afpparser.parser.StructuredFieldHandler
+import org.afpparser.parser.SFIntroducerHandler
 
-class SFDataHandler implements StructuredFieldHandler {
+class SFDataHandler implements SFIntroducerHandler {
 
     def Executor executor  = Executors.newFixedThreadPool(4)
 

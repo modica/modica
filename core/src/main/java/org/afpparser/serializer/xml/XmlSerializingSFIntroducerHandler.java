@@ -13,7 +13,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.afpparser.afp.modca.SfIntroducer;
 import org.afpparser.common.ByteUtils;
-import org.afpparser.parser.StructuredFieldHandler;
+import org.afpparser.parser.SFIntroducerHandler;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
@@ -22,7 +22,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * A StructuredFieldHandler that transforms AFP SF parsing to XML written to an output stream.
  *
  */
-class XmlSerializingSfHandler implements StructuredFieldHandler {
+class XmlSerializingSFIntroducerHandler implements SFIntroducerHandler {
 
     public static final String URI = "http://afpparser.org";
 
@@ -34,7 +34,7 @@ class XmlSerializingSfHandler implements StructuredFieldHandler {
 
     private final TransformerHandler handler;
 
-    public XmlSerializingSfHandler(OutputStream output) {
+    public XmlSerializingSFIntroducerHandler(OutputStream output) {
         SAXTransformerFactory tf = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
         tf.setAttribute("indent-number", 2);
         try {

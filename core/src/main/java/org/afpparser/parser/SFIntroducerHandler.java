@@ -2,7 +2,7 @@ package org.afpparser.parser;
 
 import org.afpparser.afp.modca.SfIntroducer;
 
-public interface StructuredFieldHandler {
+public interface SFIntroducerHandler {
 
     /**
      * Called before the AFP document is parsed.

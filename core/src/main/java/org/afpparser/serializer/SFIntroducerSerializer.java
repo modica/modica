@@ -8,7 +8,7 @@ import java.io.OutputStream;
  * Used to write the state of a parsed AFP to a serial form.
  *
  */
-public interface StructuredFieldSerializer {
+public interface SFIntroducerSerializer {
 	/**
 	 * Write a serialized representation of an AFP to a file.
 	 * @param file Output file to write to

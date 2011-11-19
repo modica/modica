@@ -11,7 +11,7 @@ import org.afpparser.afp.modca.StructuredField;
 import org.afpparser.afp.modca.structuredfields.begin.BeginObjectHandler;
 import org.afpparser.afp.modca.structuredfields.map.MapObjectHandler;
 
-public class SFCreator implements StructuredFieldHandler {
+public class SFCreator implements SFIntroducerHandler {
 
     private final FileChannel channel;
 

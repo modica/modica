@@ -5,7 +5,7 @@ import static org.junit.Assert.*
 
 import java.io.File
 
-import org.afpparser.serializer.xml.XmlSfSerializer;
+import org.afpparser.serializer.xml.XmlSFIntroducerSerializer;
 import org.junit.Test
 import org.xml.sax.InputSource
 
@@ -19,7 +19,7 @@ class AFPDocumentParserIntegrationTest {
         // How can we stream the output for testing?
         final ByteArrayOutputStream baos = new ByteArrayOutputStream()
 
-        new XmlSfSerializer(resourceToStream('org/afpparser/parser/test.afp')).writeTo(baos)
+        new XmlSFIntroducerSerializer(resourceToStream('org/afpparser/parser/test.afp')).writeTo(baos)
 
         final ByteArrayInputStream actual = new ByteArrayInputStream(baos.toByteArray())
 

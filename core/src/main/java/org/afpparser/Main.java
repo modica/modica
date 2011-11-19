@@ -31,7 +31,7 @@ public class Main {
                     return;
                 }
                 inStream = new FileInputStream(afpDoc);
-                new AFPDocumentParser(inStream, new PrintingSFHandler()).parse();
+                new AFPDocumentParser(inStream, PrintingSFHandler.newInstance()).parse();
             } else if (cmd.hasOption('f')) {
                 File afpDoc = new File(cmd.getOptionValue('f'));
                 if (!afpDoc.isFile()) {
@@ -61,8 +61,8 @@ public class Main {
         final Options opts = new Options();
         opts.addOption("h", "help", false, "Print usage information");
         OptionGroup optGroup = new OptionGroup();
-        optGroup.addOption(new Option("p", "parse", true, "Parse an AFP document and print the"
-                + " structured field data to the commandline."));
+        optGroup.addOption(new Option("p", "parse", true,
+                "Parse an AFP document and print the structured field data to the commandline."));
         optGroup.addOption(new Option("c", "compare", true, "Compare two AFP documents and print"
                 + " any differences to the command line."));
         optGroup.addOption(new Option("f", "full-parse", true, "Parse the AFP document and create"

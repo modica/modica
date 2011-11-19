@@ -24,17 +24,17 @@ import java.io.PrintStream;
 import org.afpparser.afp.modca.SfIntroducer;
 import org.afpparser.common.StringUtils;
 
-public class PrintingSFHandler implements StructuredFieldHandler {
+public class PrintingSFHandler implements SFIntroducerHandler {
 
     private final PrintStream out;
 
     private String indent = "  ";
 
-    public PrintingSFHandler(PrintStream out) {
+    private PrintingSFHandler(PrintStream out) {
         this.out = out;
     }
 
-    public PrintingSFHandler() {
+    private PrintingSFHandler() {
         this(System.out);
     }
 
@@ -55,15 +55,36 @@ public class PrintingSFHandler implements StructuredFieldHandler {
         printSf(sf);
     }
 
-    private void printSf(SfIntroducer sf) {
-        out.println(StringUtils.toHex(sf.getOffset(), 8) + indent + sf.getType().getName());
+    @Override
+    public void startAfp() {
     }
 
     @Override
-	public void startAfp() {
-	}
+    public void endAfp() {
+    }
 
-    @Override
-	public void endAfp() {
-	}
+    private void printSf(SfIntroducer sf) {
+        out.println("\u001B[34m" + StringUtils.toHex(sf.getOffset(), 8)
+                + "\u001B[0m" + indent + sf.getType().getName());
+    }
+
+    /**
+     * Return a new instance of PrintingSFHandler
+     * 
+     * @return A printing StructuredFieldHandler
+     */
+    public static SFIntroducerHandler newInstance() {
+        return new PrintingSFHandler();
+    }
+
+    /**
+     * Return a new instance of PrintingSFHandler
+     * 
+     * @param out
+     *            OutputStream to print to
+     * @return A printing StructuredFieldHandler
+     */
+    public static SFIntroducerHandler newInstance(PrintStream out) {
+        return new PrintingSFHandler(out);
+    }
 }
