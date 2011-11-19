@@ -6,9 +6,9 @@ import org.afpparser.afp.modca.StructuredField;
 import org.afpparser.afp.modca.StructuredFieldFactory;
 
 /**
- * The top level class for handling structured field creation given the
- * FileChannel of an AFP document. TODO: Add a more useful javadoc here when we
- * know what it's supposed to be doing
+ * This class captures SFIntroduce creating events and delegates the creating of
+ * StructuredFields to {@link StructuredFieldFactory} and publishes creation
+ * events to a {@link StructuredFieldHandler} for further processing.
  */
 public class StructuredFieldCreator implements SFIntroducerHandler {
 
@@ -16,6 +16,14 @@ public class StructuredFieldCreator implements SFIntroducerHandler {
 
     private final StructuredFieldFactory sfFactory;
 
+    /**
+     * Create a new instance.
+     * 
+     * @param structuredFieldFactory
+     *            The factory for creating {@link StructuredField}s.
+     * @param structuredFieldHandler
+     *            The handler to publish creation events to.
+     */
     public StructuredFieldCreator(StructuredFieldFactory structuredFieldFactory,
             StructuredFieldHandler structuredFieldHandler) {
         this.sfFactory = structuredFieldFactory;
