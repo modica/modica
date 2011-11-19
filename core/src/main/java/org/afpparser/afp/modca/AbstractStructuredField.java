@@ -1,6 +1,5 @@
 package org.afpparser.afp.modca;
 
-
 /**
  * A class that handles all the methods common to all structured fields.
  */

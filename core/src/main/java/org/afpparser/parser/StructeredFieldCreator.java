@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
+import org.afpparser.afp.modca.AbstractStructuredField;
 import org.afpparser.afp.modca.SfIntroducer;
 import org.afpparser.afp.modca.StructuredField;
 import org.afpparser.afp.modca.StructuredFieldFactory;
@@ -48,7 +49,7 @@ public class StructeredFieldCreator implements SFIntroducerHandler {
     public void handleBegin(SfIntroducer introducer) {
         StructuredField structuredField = sfFactory.createBegin(introducer,
                 createStructuredField(introducer));
-        handle(structuredField);
+        handle(introducer, structuredField);
     }
 
     @Override
@@ -65,10 +66,29 @@ public class StructeredFieldCreator implements SFIntroducerHandler {
         default:
             structuredField = null;
         }
-        handle(structuredField);
+        handle(introducer, structuredField);
     }
 
-    private void handle(StructuredField structuredField) {
+    private void handle(SfIntroducer introducer, StructuredField structuredField) {
+        // TODO remove UnhandledStructuredField when all structured fields can
+        // be created
+        if (structuredField == null) {
+            structuredField = new UnhandledStructuredField(introducer);
+        }
         creationHandler.handle(structuredField);
+    }
+
+    private static class UnhandledStructuredField extends AbstractStructuredField {
+        private final SfIntroducer introducer;
+
+        public UnhandledStructuredField(SfIntroducer introducer) {
+            super(introducer);
+            this.introducer = introducer;
+        }
+
+        @Override
+        public String toString() {
+            return "UNHANDLED SF: introducer " + introducer;
+        }
     }
 }
