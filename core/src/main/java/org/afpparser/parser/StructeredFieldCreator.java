@@ -14,7 +14,7 @@ public class StructeredFieldCreator implements SFIntroducerHandler {
 
     private final FileChannel channel;
 
-    private final StrucuredFieldCreationHandler creationHandler = new StrucuredFieldCreationHandler();
+    private final StructuredFieldCreationHandler creationHandler = new StructuredFieldCreationHandler();
     private final StructuredFieldFactory sfFactory = new StructuredFieldFactoryImpl();
 
     public StructeredFieldCreator(FileChannel channel) {

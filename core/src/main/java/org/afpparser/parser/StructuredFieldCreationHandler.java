@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.afpparser.afp.modca.StructuredField;
 
-public class StrucuredFieldCreationHandler implements StructuredFieldHandler {
+public class StructuredFieldCreationHandler implements StructuredFieldHandler {
 
     private final List<StructuredField> structuredFields;
 
-    public StrucuredFieldCreationHandler() {
+    public StructuredFieldCreationHandler() {
         structuredFields = new ArrayList<StructuredField>();
     }
 
