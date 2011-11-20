@@ -91,11 +91,12 @@ public abstract class ByteUtils {
      * @param length the number of bytes to convert
      * @return a hexadecimal string
      */
-    public static final String bytesToHex(byte[] bytes, int position, int length) {
+    public static final     String bytesToHex(byte[] bytes, int position, int length) {
         char[] chars = new char[length * 2];
-        for (int i = 0; i < bytes.length; i++) {
-            chars[2 * i] = HEX[(bytes[i] & 0xf0) >>> 4];
-            chars[2 * i + 1] = HEX[(bytes[i] & 0x0f)];
+        int charIndex = 0;
+        for (int i = position; i < position + length; i++) {
+            chars[charIndex++] = HEX[(bytes[i] & 0xf0) >>> 4];
+            chars[charIndex++] = HEX[(bytes[i] & 0x0f)];
         }
         return String.valueOf(chars);
     }

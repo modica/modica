@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
+import org.afpparser.afp.modca.structuredfields.migration.PresentationTextDataDescriptor;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.TripletHandler;
 
@@ -22,6 +23,9 @@ public class DescriptorObjectHandler {
             case page:
                 triplets = TripletHandler.parseTriplet(sfData, 15);
                 sf = new PageDescriptor(intro, triplets, sfData);
+                break;
+            case presentation_text:
+                sf = new PresentationTextDataDescriptor(intro, sfData);
                 break;
             default:
                 sf = null;

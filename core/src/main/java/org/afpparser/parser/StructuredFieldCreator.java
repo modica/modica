@@ -58,6 +58,9 @@ public class StructuredFieldCreator implements SFIntroducerHandler {
         case Descriptor:
             structuredField = sfFactory.createDescriptor(introducer);
             break;
+        case Migration:
+            structuredField = sfFactory.createMigration(introducer);
+            break;
         default:
             structuredField = null;
         }

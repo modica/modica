@@ -4,6 +4,7 @@ import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Begin;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Descriptor;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Map;
+import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Migration;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
 
 /**
@@ -35,4 +36,12 @@ public interface StructuredFieldFactory {
      * @return a Map type structured field
      */
     StructuredField createDescriptor(SfIntroducer introducer);
+
+    /**
+     * Creates a structured field of the {@link Migration} type.
+     *
+     * @param introducer the introducer for the structured field
+     * @return a Map type structured field
+     */
+    StructuredField createMigration(SfIntroducer introducer);
 }

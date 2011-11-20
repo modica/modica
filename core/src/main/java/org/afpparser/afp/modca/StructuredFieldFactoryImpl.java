@@ -9,6 +9,7 @@ import org.afpparser.afp.modca.structuredfields.StructuredField;
 import org.afpparser.afp.modca.structuredfields.begin.BeginObjectHandler;
 import org.afpparser.afp.modca.structuredfields.descriptor.DescriptorObjectHandler;
 import org.afpparser.afp.modca.structuredfields.map.MapObjectHandler;
+import org.afpparser.afp.modca.structuredfields.migration.MigrationObjectHandler;
 
 /**
  * A plain vanilla Structured Field factory that creates objects of each type
@@ -54,6 +55,12 @@ public class StructuredFieldFactoryImpl implements StructuredFieldFactory {
     public StructuredField createDescriptor(SfIntroducer introducer) {
         byte[] payload = createStructuredField(introducer);
         return DescriptorObjectHandler.handle(introducer, payload);
+    }
+
+    @Override
+    public StructuredField createMigration(SfIntroducer introducer) {
+        byte[] payload = createStructuredField(introducer);
+        return MigrationObjectHandler.handle(introducer, payload);
     }
 
 }
