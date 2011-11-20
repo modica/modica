@@ -28,7 +28,9 @@ public class BeginActiveEnvironmentGroupTestCase extends
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
         intro = SfIntroducerTestCase.createGenericIntroducer(Begin.BAG);
 
-        List<Triplet> triplets = addTripletToList(FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF, FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);
+        List<Triplet> triplets = addTripletToList(
+                FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
+                FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);
 
         sut = new BeginActiveEnvironmentGroup(intro, triplets, aegName.getBytes("Cp500"));
         super.setMembers(sut, intro, triplets);
