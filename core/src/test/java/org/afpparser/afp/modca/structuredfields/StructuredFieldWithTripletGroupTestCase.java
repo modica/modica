@@ -2,8 +2,6 @@ package org.afpparser.afp.modca.structuredfields;
 
 import static org.junit.Assert.assertEquals;
 
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
-import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletGroup;
 import org.afpparser.afp.modca.triplets.RepeatingTripletGroup;
 import org.junit.Test;
 
@@ -30,4 +28,13 @@ public abstract class StructuredFieldWithTripletGroupTestCase<T extends Structur
         assertEquals(rGroup, sut.getTripletGroup());
         assertEquals(rGroup.size() > 0, sut.hasTripletGroup());
     }
+
+    /*public static RepeatingTripletGroup createGenericRepeatingGroup() throws MalformedURLException,
+            UnsupportedEncodingException {
+        List<List<Triplet>> repeatingTriplets = new ArrayList<List<Triplet>>();
+        repeatingTriplets.add(StructuredFieldWithTripletTestCase.addTripletToList(
+                FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
+                FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF));
+        return new R
+    }*/
 }

@@ -36,7 +36,7 @@ public abstract class StructuredFieldWithTripletTestCase<T extends StructuredFie
         assertTrue(sut.hasTriplets());
     };
 
-    public List<Triplet> addTripletToList(String... tripletStr) throws MalformedURLException,
+    public static List<Triplet> addTripletToList(String... tripletStr) throws MalformedURLException,
             UnsupportedEncodingException {
         List<Triplet> triplets = new ArrayList<Triplet>();
         for (String str : tripletStr) {
