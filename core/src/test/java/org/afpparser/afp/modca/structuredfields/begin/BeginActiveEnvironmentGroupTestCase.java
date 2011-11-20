@@ -1,4 +1,4 @@
-package org.afpparser.afp.modca.structuredfields;
+package org.afpparser.afp.modca.structuredfields.begin;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -8,8 +8,9 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.afpparser.afp.modca.SfIntroducerTestCase;
-import org.afpparser.afp.modca.StructuredFieldWithTripletTestCase;
+import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Begin;
 import org.afpparser.afp.modca.structuredfields.begin.BeginActiveEnvironmentGroup;
 import org.afpparser.afp.modca.triplets.Triplet;
