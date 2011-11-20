@@ -25,6 +25,19 @@ import org.afpparser.common.ByteUtils;
  * of the page or overlay that falls outside the including presentation space, that portion of the
  * data is not presented, and a X’01’ exception condition exists.
  * </p>
+ * <p>
+ * Architecture Note:
+ * Triplets that affect the page or overlay presentation space are processed in the order in which
+ * they occur on the PGD. For example, if a Presentation Space Reset Mixing (X'70') triplet on the
+ * PGD is followed by a Colour Specification (X'4E') triplet, the presentation space is coloured
+ * with the colour specified in the X'4E' triplet and covers any data underneath it regardless of
+ * whether the X'70' triplet specified “reset to colour of medium” or “do not reset to colour of
+ * medium”. If a Colour Specification (X'4E') triplet is followed by a X'70' triplet, and if the
+ * X'70' triplet specified “reset to colour of medium”, the presentation space is coloured with
+ * colour of medium. If the X'70' triplet specified “do not reset to colour of medium”, the X'70'
+ * triplet does not change the presentation space and it remains foreground data coloured with the
+ * colour specified by the X'4E' triplet.
+ * </p>
  */
 public class PageDescriptor extends StructuredFieldWithTriplets {
 
