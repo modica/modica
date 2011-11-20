@@ -7,6 +7,7 @@ import java.nio.channels.FileChannel;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
 import org.afpparser.afp.modca.structuredfields.begin.BeginObjectHandler;
+import org.afpparser.afp.modca.structuredfields.descriptor.DescriptorObjectHandler;
 import org.afpparser.afp.modca.structuredfields.map.MapObjectHandler;
 
 /**
@@ -47,6 +48,12 @@ public class StructuredFieldFactoryImpl implements StructuredFieldFactory {
     public StructuredField createMap(SfIntroducer introducer) {
         byte[] payload = createStructuredField(introducer);
         return MapObjectHandler.handle(introducer, payload);
+    }
+
+    @Override
+    public StructuredField createDescriptor(SfIntroducer introducer) {
+        byte[] payload = createStructuredField(introducer);
+        return DescriptorObjectHandler.handle(introducer, payload);
     }
 
 }

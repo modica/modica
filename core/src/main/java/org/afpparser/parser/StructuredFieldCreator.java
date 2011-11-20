@@ -18,7 +18,7 @@ public class StructuredFieldCreator implements SFIntroducerHandler {
 
     /**
      * Create a new instance.
-     * 
+     *
      * @param structuredFieldFactory
      *            The factory for creating {@link StructuredField}s.
      * @param structuredFieldHandler
@@ -54,6 +54,9 @@ public class StructuredFieldCreator implements SFIntroducerHandler {
         switch (introducer.getType().getTypeCode()) {
         case Map:
             structuredField = sfFactory.createMap(introducer);
+            break;
+        case Descriptor:
+            structuredField = sfFactory.createDescriptor(introducer);
             break;
         default:
             structuredField = null;
