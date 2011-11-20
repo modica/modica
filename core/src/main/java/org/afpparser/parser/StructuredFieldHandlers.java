@@ -20,6 +20,14 @@ public final class StructuredFieldHandlers {
         return new AggregateStructuredFieldHandler(handlers);
     }
 
+    public static StructuredFieldHandler aggregate(StructuredFieldHandler[] handlerArray,
+            StructuredFieldHandler... handlers) {
+        StructuredFieldHandler[] all = new StructuredFieldHandler[handlerArray.length + handlers.length];
+        System.arraycopy(handlerArray, 0, all, 0, handlerArray.length);
+        System.arraycopy(handlers, 0, all, handlerArray.length, handlers.length);
+        return aggregate(all);
+    }
+
     private static class AggregateStructuredFieldHandler implements StructuredFieldHandler {
 
         private final List<StructuredFieldHandler> handlers;

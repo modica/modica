@@ -28,6 +28,14 @@ public final class SFIntroducerHandlers {
         return new AggregateSFIntroducerHandler(handlers);
     }
 
+    public static SFIntroducerHandler aggregate(SFIntroducerHandler[] handlerArray,
+            SFIntroducerHandler... handlers) {
+        SFIntroducerHandler[] all = new SFIntroducerHandler[handlerArray.length + handlers.length];
+        System.arraycopy(handlerArray, 0, all, 0, handlerArray.length);
+        System.arraycopy(handlers, 0, all, handlerArray.length, handlers.length);
+        return aggregate(all);
+    }
+
     private static class AggregateSFIntroducerHandler implements SFIntroducerHandler {
 
         private final List<SFIntroducerHandler> handlers;
