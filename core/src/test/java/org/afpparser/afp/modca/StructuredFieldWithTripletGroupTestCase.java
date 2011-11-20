@@ -2,6 +2,8 @@ package org.afpparser.afp.modca;
 
 import static org.junit.Assert.assertEquals;
 
+import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletGroup;
 import org.afpparser.afp.modca.triplets.RepeatingTripletGroup;
 import org.junit.Test;
 

@@ -1,8 +1,8 @@
 package org.afpparser.parser;
 
-import org.afpparser.afp.modca.SfIntroducer;
-import org.afpparser.afp.modca.SfTypeFactory.Begin;
-import org.afpparser.afp.modca.SfTypeFactory.End;
+import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Begin;
+import org.afpparser.afp.modca.structuredfields.SfTypeFactory.End;
 
 /**
  * Implementations of this interface are registered with a

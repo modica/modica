@@ -1,4 +1,4 @@
-package org.afpparser.afp.modca;
+package org.afpparser.afp.modca.structuredfields;
 
 import java.util.Collections;
 import java.util.List;

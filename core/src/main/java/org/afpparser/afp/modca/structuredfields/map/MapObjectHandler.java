@@ -1,8 +1,8 @@
 package org.afpparser.afp.modca.structuredfields.map;
 
-import org.afpparser.afp.modca.SfIntroducer;
-import org.afpparser.afp.modca.SfTypeFactory.Map;
-import org.afpparser.afp.modca.StructuredField;
+import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredField;
+import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Map;
 import org.afpparser.afp.modca.triplets.RepeatingTripletGroup;
 import org.afpparser.afp.modca.triplets.TripletHandler;
 

@@ -1,9 +1,9 @@
 package org.afpparser.parser;
 
-import org.afpparser.afp.modca.AbstractStructuredField;
-import org.afpparser.afp.modca.SfIntroducer;
-import org.afpparser.afp.modca.StructuredField;
 import org.afpparser.afp.modca.StructuredFieldFactory;
+import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
+import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredField;
 
 /**
  * This class captures SFIntroduce creating events and delegates the creating of

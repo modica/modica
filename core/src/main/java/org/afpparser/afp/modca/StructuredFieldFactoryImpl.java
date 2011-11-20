@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
+import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredField;
 import org.afpparser.afp.modca.structuredfields.begin.BeginObjectHandler;
 import org.afpparser.afp.modca.structuredfields.map.MapObjectHandler;
 

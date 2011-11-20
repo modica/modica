@@ -3,7 +3,7 @@ package org.afpparser.parser;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.afpparser.afp.modca.StructuredField;
+import org.afpparser.afp.modca.structuredfields.StructuredField;
 
 /**
  * 

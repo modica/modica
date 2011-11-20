@@ -1,6 +1,6 @@
 package org.afpparser.parser;
 
-import org.afpparser.afp.modca.StructuredField;
+import org.afpparser.afp.modca.structuredfields.StructuredField;
 
 /**
  * Implementations of this interface are registered with a

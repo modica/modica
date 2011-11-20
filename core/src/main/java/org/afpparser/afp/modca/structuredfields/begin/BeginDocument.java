@@ -3,8 +3,8 @@ package org.afpparser.afp.modca.structuredfields.begin;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-import org.afpparser.afp.modca.SfIntroducer;
-import org.afpparser.afp.modca.StructuredFieldWithTriplets;
+import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.common.StringUtils;
 

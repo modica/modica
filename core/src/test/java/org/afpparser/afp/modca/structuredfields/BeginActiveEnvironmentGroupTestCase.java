@@ -8,10 +8,9 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.afpparser.afp.modca.SfIntroducer;
 import org.afpparser.afp.modca.SfIntroducerTestCase;
-import org.afpparser.afp.modca.SfTypeFactory.Begin;
 import org.afpparser.afp.modca.StructuredFieldWithTripletTestCase;
+import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Begin;
 import org.afpparser.afp.modca.structuredfields.begin.BeginActiveEnvironmentGroup;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.fullyqualifiedname.FullyQualifiedNameTestCase;

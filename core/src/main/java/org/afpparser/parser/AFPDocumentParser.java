@@ -4,7 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.afpparser.afp.modca.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 
 /**
  * This class reads from a fileInputStream, identifying structured field

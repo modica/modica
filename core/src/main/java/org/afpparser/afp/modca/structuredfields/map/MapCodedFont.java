@@ -4,8 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.List;
 
-import org.afpparser.afp.modca.SfIntroducer;
-import org.afpparser.afp.modca.StructuredFieldWithTripletGroup;
+import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletGroup;
 import org.afpparser.afp.modca.triplets.RepeatingTripletGroup;
 import org.afpparser.afp.modca.triplets.Triplet;
 

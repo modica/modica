@@ -1,7 +1,9 @@
 package org.afpparser.afp.modca;
 
-import org.afpparser.afp.modca.SfTypeFactory.Begin;
-import org.afpparser.afp.modca.SfTypeFactory.Map;
+import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredField;
+import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Begin;
+import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Map;
 
 /**
  * An interface for factories that create {@link StructuredField} objects given

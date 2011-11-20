@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.afpparser.afp.modca.StructuredField;
+import org.afpparser.afp.modca.structuredfields.StructuredField;
 
 /**
  * This class constructs an object model.

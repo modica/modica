@@ -5,6 +5,8 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.junit.Test;
 

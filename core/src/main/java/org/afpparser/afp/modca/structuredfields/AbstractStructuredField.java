@@ -1,4 +1,5 @@
-package org.afpparser.afp.modca;
+package org.afpparser.afp.modca.structuredfields;
+
 
 /**
  * A class that handles all the methods common to all structured fields.

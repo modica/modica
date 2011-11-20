@@ -9,7 +9,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.Iterator;
 
-import org.afpparser.afp.modca.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.common.ByteUtils;
 
 /**

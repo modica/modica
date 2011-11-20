@@ -2,15 +2,17 @@ package org.afpparser.afp.modca;
 
 import static org.junit.Assert.assertEquals;
 
-import org.afpparser.afp.modca.SfTypeFactory.Attribute;
-import org.afpparser.afp.modca.SfTypeFactory.Begin;
-import org.afpparser.afp.modca.SfTypeFactory.Control;
-import org.afpparser.afp.modca.SfTypeFactory.CopyCount;
-import org.afpparser.afp.modca.SfTypeFactory.Descriptor;
-import org.afpparser.afp.modca.SfTypeFactory.End;
-import org.afpparser.afp.modca.SfTypeFactory.Map;
-import org.afpparser.afp.modca.SfTypeFactory.Position;
-import org.afpparser.afp.modca.SfTypeFactory.Process;
+import org.afpparser.afp.modca.structuredfields.SfType;
+import org.afpparser.afp.modca.structuredfields.SfTypeFactory;
+import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Attribute;
+import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Begin;
+import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Control;
+import org.afpparser.afp.modca.structuredfields.SfTypeFactory.CopyCount;
+import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Descriptor;
+import org.afpparser.afp.modca.structuredfields.SfTypeFactory.End;
+import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Map;
+import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Position;
+import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Process;
 import org.afpparser.common.ByteUtils;
 import org.junit.Test;
 

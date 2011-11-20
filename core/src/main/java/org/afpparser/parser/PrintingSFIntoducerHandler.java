@@ -21,7 +21,7 @@ package org.afpparser.parser;
 
 import java.io.PrintStream;
 
-import org.afpparser.afp.modca.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.common.StringUtils;
 
 /**

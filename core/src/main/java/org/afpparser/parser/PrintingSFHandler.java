@@ -2,7 +2,7 @@ package org.afpparser.parser;
 
 import java.io.PrintStream;
 
-import org.afpparser.afp.modca.StructuredField;
+import org.afpparser.afp.modca.structuredfields.StructuredField;
 
 /**
  * This class is used for printing StructuredFieldHandler events to a

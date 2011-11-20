@@ -2,6 +2,7 @@ package org.afpparser.afp.modca;
 
 import static org.junit.Assert.assertEquals;
 
+import org.afpparser.afp.modca.structuredfields.TypeCode;
 import org.junit.Test;
 
 /**

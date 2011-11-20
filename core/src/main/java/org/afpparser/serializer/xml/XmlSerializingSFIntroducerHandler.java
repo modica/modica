@@ -11,7 +11,7 @@ import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
 
-import org.afpparser.afp.modca.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.common.ByteUtils;
 import org.afpparser.parser.SFIntroducerHandler;
 import org.xml.sax.Attributes;
