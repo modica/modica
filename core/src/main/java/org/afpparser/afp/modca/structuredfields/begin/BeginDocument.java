@@ -20,7 +20,7 @@ public final class BeginDocument extends StructuredFieldWithTriplets {
             throws UnsupportedEncodingException {
         super(introducer, triplets);
         if (sfData != null && (sfData[0] != 0xFF && sfData[1] != 0xFF)) {
-            documentName = StringUtils.bytesToCp500(sfData);
+            documentName = StringUtils.bytesToCp500(sfData, 0, 8);
             docNameProvidedBySystem = false;
         } else {
             docNameProvidedBySystem = true;

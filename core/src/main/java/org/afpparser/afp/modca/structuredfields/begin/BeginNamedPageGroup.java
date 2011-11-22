@@ -21,7 +21,7 @@ public class BeginNamedPageGroup extends StructuredFieldWithTriplets {
     public BeginNamedPageGroup(SfIntroducer introducer, List<Triplet> triplets, byte[] sfData)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
-        pGrpName = StringUtils.bytesToCp500(sfData);
+        pGrpName = StringUtils.bytesToCp500(sfData, 0, 8);
     }
 
     /**

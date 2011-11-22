@@ -45,7 +45,9 @@ public class StructuredFieldCreator implements SFIntroducerHandler {
     }
 
     @Override
-    public void handleEnd(SfIntroducer sf) {
+    public void handleEnd(SfIntroducer introducer) {
+        StructuredField structuredField = sfFactory.createEnd(introducer);
+        handle(introducer, structuredField);
     }
 
     @Override
@@ -60,6 +62,9 @@ public class StructuredFieldCreator implements SFIntroducerHandler {
             break;
         case Migration:
             structuredField = sfFactory.createMigration(introducer);
+            break;
+        case Data:
+            structuredField = sfFactory.createData(introducer);
             break;
         default:
             structuredField = null;

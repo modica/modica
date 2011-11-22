@@ -2,7 +2,12 @@ package org.afpparser.afp.modca.structuredfields;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+
 import org.afpparser.afp.modca.triplets.RepeatingTripletGroup;
+import org.afpparser.afp.modca.triplets.TripletHandler;
+import org.afpparser.common.ByteUtils;
 import org.junit.Test;
 
 /**
@@ -29,12 +34,10 @@ public abstract class StructuredFieldWithTripletGroupTestCase<T extends Structur
         assertEquals(rGroup.size() > 0, sut.hasTripletGroup());
     }
 
-    /*public static RepeatingTripletGroup createGenericRepeatingGroup() throws MalformedURLException,
+    public static RepeatingTripletGroup createGenericRepeatingGroup() throws MalformedURLException,
             UnsupportedEncodingException {
-        List<List<Triplet>> repeatingTriplets = new ArrayList<List<Triplet>>();
-        repeatingTriplets.add(StructuredFieldWithTripletTestCase.addTripletToList(
-                FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
-                FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF));
-        return new R
-    }*/
+        // I think this works... will find out soon enough
+        byte[] data = ByteUtils.hexToBytes("220C028600C3F0C8F2F0F0C2F00C028500E3F1E5F1F0F5F0F0042600000424050200");
+        return TripletHandler.parseRepeatingGroup(data);
+    }
 }
