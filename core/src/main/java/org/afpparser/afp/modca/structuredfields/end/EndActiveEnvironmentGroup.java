@@ -28,11 +28,11 @@ public class EndActiveEnvironmentGroup extends AbstractStructuredField {
     }
 
     /**
-     * Is the name of the active environment group being terminated. If a name is specified, it must
-     * match the name in the most recent Begin Active Environment Group structured field in the page
-     * or a X’01’ exception condition exists. If the first two bytes in AEGName contain the value
-     * X'FFFF', the name matches any name specified on the Begin Active Environment Group structured
-     * field that initiated the current definition.
+     * Returns the name of the active environment group being terminated. If a name is specified, it
+     * must match the name in the most recent Begin Active Environment Group structured field in the
+     * page or a X’01’ exception condition exists. If the first two bytes in AEGName contain the
+     * value X'FFFF', the name matches any name specified on the Begin Active Environment Group
+     * structured field that initiated the current definition.
      *
      * @return the AEG name
      */
@@ -41,7 +41,7 @@ public class EndActiveEnvironmentGroup extends AbstractStructuredField {
     }
 
     /**
-     * If the first two bytes in AEGName contain the value X'FFFF', the name matches any name
+     * Returs if the first two bytes in AEGName contain the value X'FFFF', the name matches any name
      * specified on the Begin Active Environment Group structured field that initiated the current
      * definition.
      *
