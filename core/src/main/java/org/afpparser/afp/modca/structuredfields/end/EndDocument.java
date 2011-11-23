@@ -6,8 +6,6 @@ import java.util.List;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
-import org.afpparser.common.ByteUtils;
-import org.afpparser.common.StringUtils;
 
 /**
  * The End Document structured field terminates the MO:DCA document data stream initiated by a Begin
@@ -15,19 +13,12 @@ import org.afpparser.common.StringUtils;
  */
 public class EndDocument extends StructuredFieldWithTriplets {
 
-    private final String docName;
-    private final boolean nameMatchesAny;
+    private final EndFieldName docName;
 
     public EndDocument(SfIntroducer introducer, List<Triplet> triplets,
             byte[] sfData) throws UnsupportedEncodingException {
         super(introducer, triplets);
-        if (ByteUtils.arrayEqualsSubset(sfData, 0xff, 0xff)) {
-            docName = null;
-            nameMatchesAny = true;
-        } else {
-            docName = StringUtils.bytesToCp500(sfData, 0, 8);
-            nameMatchesAny = false;
-        }
+        docName = new EndFieldName(sfData);
     }
 
     /**
@@ -40,7 +31,7 @@ public class EndDocument extends StructuredFieldWithTriplets {
      * @return the Document Name
      */
     public String getDocName() {
-        return docName;
+        return docName.getName();
     }
 
     /**
@@ -49,7 +40,7 @@ public class EndDocument extends StructuredFieldWithTriplets {
      * @return true if the name matches any
      */
     public boolean nameMatchesAny() {
-        return nameMatchesAny;
+        return docName.matchesAny();
     }
 
     @Override

@@ -4,8 +4,6 @@ import java.io.UnsupportedEncodingException;
 
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
-import org.afpparser.common.ByteUtils;
-import org.afpparser.common.StringUtils;
 
 /**
  * The End Active Environment Group structured field terminates the definition of an Active
@@ -13,19 +11,12 @@ import org.afpparser.common.StringUtils;
  */
 public class EndActiveEnvironmentGroup extends AbstractStructuredField {
 
-    private final String aegName;
-    private final boolean nameMatchesAny;
+    private final EndFieldName aegName;
 
     public EndActiveEnvironmentGroup(SfIntroducer introducer, byte[] sfData)
             throws UnsupportedEncodingException {
         super(introducer);
-        if (ByteUtils.arrayEqualsSubset(sfData, 0xff, 0xff)) {
-            nameMatchesAny = true;
-            aegName = null;
-        } else {
-            aegName = StringUtils.bytesToCp500(sfData);
-            nameMatchesAny = false;
-        }
+        aegName = new EndFieldName(sfData);
     }
 
     /**
@@ -38,7 +29,7 @@ public class EndActiveEnvironmentGroup extends AbstractStructuredField {
      * @return the AEG name
      */
     public String getAegName() {
-        return aegName;
+        return aegName.getName();
     }
 
     /**
@@ -50,7 +41,7 @@ public class EndActiveEnvironmentGroup extends AbstractStructuredField {
      * BeginActiveEnvironmentGroup
      */
     public boolean nameMatchesAny() {
-        return nameMatchesAny;
+        return aegName.matchesAny();
     }
 
     @Override

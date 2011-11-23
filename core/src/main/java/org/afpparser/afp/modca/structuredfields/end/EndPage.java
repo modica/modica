@@ -6,8 +6,6 @@ import java.util.List;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
-import org.afpparser.common.ByteUtils;
-import org.afpparser.common.StringUtils;
 
 /**
  * The End Page structured field terminates the current presentation page definition initiated by a
@@ -15,19 +13,12 @@ import org.afpparser.common.StringUtils;
  */
 public class EndPage extends StructuredFieldWithTriplets {
 
-    private final String pageName;
-    private final boolean nameMatchesAny;
+    private final EndFieldName pageName;
 
     public EndPage(SfIntroducer introducer, List<Triplet> triplets, byte[] sfData)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
-        if (ByteUtils.arrayEqualsSubset(sfData, 0xff, 0xff)) {
-            pageName = null;
-            nameMatchesAny = true;
-        } else {
-            pageName = StringUtils.bytesToCp500(sfData, 0, 8);
-            nameMatchesAny = false;
-        }
+        pageName = new EndFieldName(sfData);
     }
 
     /**
@@ -40,7 +31,7 @@ public class EndPage extends StructuredFieldWithTriplets {
      * @return the Page Name
      */
     public String getPageName() {
-        return pageName;
+        return pageName.getName();
     }
 
     /**
@@ -50,7 +41,7 @@ public class EndPage extends StructuredFieldWithTriplets {
      * @return true if the page name should match any
      */
     public boolean nameMatchesAny() {
-        return nameMatchesAny;
+        return pageName.matchesAny();
     }
 
     @Override

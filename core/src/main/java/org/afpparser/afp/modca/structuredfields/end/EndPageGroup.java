@@ -6,8 +6,6 @@ import java.util.List;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
-import org.afpparser.common.ByteUtils;
-import org.afpparser.common.StringUtils;
 
 /**
  * The End Resource Group structured field terminates the definition of a resource group initiated
@@ -15,19 +13,12 @@ import org.afpparser.common.StringUtils;
  */
 public class EndPageGroup extends StructuredFieldWithTriplets {
 
-    private final String rGrpName;
-    private final boolean nameMatchesAny;
+    private final EndFieldName rGrpName;
 
     public EndPageGroup(SfIntroducer introducer, List<Triplet> triplets, byte[] sfData)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
-        if (ByteUtils.arrayEqualsSubset(sfData, 0xff, 0xff)) {
-            rGrpName = null;
-            nameMatchesAny = true;
-        } else {
-            rGrpName = StringUtils.bytesToCp500(sfData, 0, 8);
-            nameMatchesAny = false;
-        }
+        rGrpName = new EndFieldName(sfData);
     }
 
     /**
@@ -40,7 +31,7 @@ public class EndPageGroup extends StructuredFieldWithTriplets {
      * @return the Page Group Name
      */
     public String getRGrpName() {
-        return rGrpName;
+        return rGrpName.getName();
     }
 
     /**
@@ -50,7 +41,7 @@ public class EndPageGroup extends StructuredFieldWithTriplets {
      * @return true if the page name should match any
      */
     public boolean nameMatchesAny() {
-        return nameMatchesAny;
+        return rGrpName.matchesAny();
     }
 
     @Override
