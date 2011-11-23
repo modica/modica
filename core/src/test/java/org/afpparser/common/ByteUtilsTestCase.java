@@ -2,6 +2,8 @@ package org.afpparser.common;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Before;
@@ -85,6 +87,16 @@ public class ByteUtilsTestCase {
         array = ByteUtils.createByteArray();
         expected = new byte[0];
         assertArrayEquals(expected, array);
+    }
+
+    public void testArrayEqualsSubset() {
+        byte[] array = ByteUtils.createByteArray(1, 2, 3, 4, 5, 6, 7);
+        assertTrue(ByteUtils.arrayEqualsSubset(array, 1, 2, 3, 4, 5, 6, 7));
+        // We DO NOT want to through an array index out of bounds exception!!
+        assertFalse(ByteUtils.arrayEqualsSubset(array, 1, 2, 3, 4, 5, 6, 7, 8));
+        assertTrue(ByteUtils.arrayEqualsSubset(array, 1, 2));
+        assertTrue(ByteUtils.arrayEqualsSubset(array));
+        assertFalse(ByteUtils.arrayEqualsSubset(array, 2, 3));
     }
 
     @Test

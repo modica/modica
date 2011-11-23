@@ -9,7 +9,7 @@ import java.util.List;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Begin;
-import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletTestCase;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.fullyqualifiedname.FullyQualifiedNameTestCase;
 import org.junit.Before;
@@ -19,7 +19,7 @@ import org.junit.Test;
  * TestCase for {@link BeginActiveEnvironmentGroup}.
  */
 public class BeginActiveEnvironmentGroupTestCase extends
-        StructuredFieldWithTripletTestCase<BeginActiveEnvironmentGroup> {
+        StructuredFieldWithTripletsTestCase<BeginActiveEnvironmentGroup> {
     private BeginActiveEnvironmentGroup sut;
     private SfIntroducer intro;
     private final String aegName = "TESTNAME";

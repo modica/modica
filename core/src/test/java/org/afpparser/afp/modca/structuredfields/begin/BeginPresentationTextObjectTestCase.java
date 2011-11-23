@@ -16,28 +16,28 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test case for
+ * Test case for {@link BeginPresentationTextObject}. 
  */
-public class BeginPageTestCase extends StructuredFieldWithTripletsTestCase<BeginPage> {
-
-    private BeginPage sut;
+public class BeginPresentationTextObjectTestCase extends
+        StructuredFieldWithTripletsTestCase<BeginPresentationTextObject> {
+    private BeginPresentationTextObject sut;
     private SfIntroducer intro;
     private final String pageName = "TESTNAME";
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
-        intro = SfIntroducerTestCase.createGenericIntroducer(Begin.BPG);
+        intro = SfIntroducerTestCase.createGenericIntroducer(Begin.BPT);
 
         List<Triplet> triplets = addTripletToList(
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
                 FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);
 
-        sut = new BeginPage(intro, triplets, pageName.getBytes("Cp500"));
+        sut = new BeginPresentationTextObject(intro, triplets, pageName.getBytes("Cp500"));
         super.setMembers(sut, intro, triplets);
     }
 
     @Test
     public void testDocName() {
-        assertEquals(pageName, sut.getPageName());
+        assertEquals(pageName, sut.getPTdoName());
     }
 }

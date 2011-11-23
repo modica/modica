@@ -1,4 +1,4 @@
-package org.afpparser.afp.modca.structuredfields.begin;
+package org.afpparser.afp.modca.structuredfields.end;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,36 +8,42 @@ import java.util.List;
 
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
-import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Begin;
+import org.afpparser.afp.modca.structuredfields.SfTypeFactory.End;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.fullyqualifiedname.FullyQualifiedNameTestCase;
+import org.afpparser.common.ByteUtils;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test case for
+ * Test case for {@link EndPage}. 
  */
-public class BeginPageTestCase extends StructuredFieldWithTripletsTestCase<BeginPage> {
+public class EndPageTestCase extends StructuredFieldWithTripletsTestCase<EndPage> {
 
-    private BeginPage sut;
-    private SfIntroducer intro;
-    private final String pageName = "TESTNAME";
+    private EndPage sut;
+    private EndPage sutMatchesAny;
+    private final String pageName = "Testpage";
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
-        intro = SfIntroducerTestCase.createGenericIntroducer(Begin.BPG);
+        SfIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(End.EPG);
 
         List<Triplet> triplets = addTripletToList(
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
                 FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);
 
-        sut = new BeginPage(intro, triplets, pageName.getBytes("Cp500"));
-        super.setMembers(sut, intro, triplets);
+        sut = new EndPage(intro, triplets, pageName.getBytes("Cp500"));
+        sutMatchesAny = new EndPage(intro, triplets, ByteUtils.createByteArray(0xff, 0xff));
+        setMembers(sut, intro, triplets);
     }
 
     @Test
-    public void testDocName() {
+    public void testGetterMethods() {
         assertEquals(pageName, sut.getPageName());
+        assertEquals(false, sut.nameMatchesAny());
+
+        assertEquals(null, sutMatchesAny.getPageName());
+        assertEquals(true, sutMatchesAny.nameMatchesAny());
     }
 }

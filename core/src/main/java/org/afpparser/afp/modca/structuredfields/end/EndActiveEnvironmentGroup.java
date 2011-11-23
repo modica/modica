@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.common.ByteUtils;
 import org.afpparser.common.StringUtils;
 
 /**
@@ -18,7 +19,7 @@ public class EndActiveEnvironmentGroup extends AbstractStructuredField {
     public EndActiveEnvironmentGroup(SfIntroducer introducer, byte[] sfData)
             throws UnsupportedEncodingException {
         super(introducer);
-        if (sfData[0] == 0xff && sfData[1] == 0xff) {
+        if (ByteUtils.arrayEqualsSubset(sfData, 0xff, 0xff)) {
             nameMatchesAny = true;
             aegName = null;
         } else {

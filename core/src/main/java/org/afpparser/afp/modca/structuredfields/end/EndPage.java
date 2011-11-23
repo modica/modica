@@ -6,6 +6,7 @@ import java.util.List;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
+import org.afpparser.common.ByteUtils;
 import org.afpparser.common.StringUtils;
 
 /**
@@ -20,7 +21,7 @@ public class EndPage extends StructuredFieldWithTriplets {
     public EndPage(SfIntroducer introducer, List<Triplet> triplets, byte[] sfData)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
-        if (sfData[0] == 0xff && sfData[1] == 0xff) {
+        if (ByteUtils.arrayEqualsSubset(sfData, 0xff, 0xff)) {
             pageName = null;
             nameMatchesAny = true;
         } else {
@@ -48,7 +49,7 @@ public class EndPage extends StructuredFieldWithTriplets {
      *
      * @return true if the page name should match any
      */
-    public boolean getMatchesAny() {
+    public boolean nameMatchesAny() {
         return nameMatchesAny;
     }
 

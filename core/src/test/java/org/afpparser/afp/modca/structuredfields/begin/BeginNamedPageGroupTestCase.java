@@ -9,14 +9,14 @@ import java.util.List;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Begin;
-import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletTestCase;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.fullyqualifiedname.FullyQualifiedNameTestCase;
 import org.junit.Before;
 import org.junit.Test;
 
 public class BeginNamedPageGroupTestCase extends
-        StructuredFieldWithTripletTestCase<BeginNamedPageGroup> {
+        StructuredFieldWithTripletsTestCase<BeginNamedPageGroup> {
 
     private BeginNamedPageGroup sut;
     private SfIntroducer intro;

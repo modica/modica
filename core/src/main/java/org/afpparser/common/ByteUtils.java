@@ -126,6 +126,28 @@ public abstract class ByteUtils {
         return byteArray;
     }
 
+    /**
+     * Checks that the byte array given matches the series of elements given as the varargs
+     * parameters. This returns false only if any elements are different, it does not check the
+     * length of the byte array.
+     *  
+     * @param array the byte array
+     * @param elements the byte elements to compare
+     * @return true if the 
+     */
+    public static boolean arrayEqualsSubset(byte[] array, int... elements) {
+        try {
+            for (int i = 0; i < elements.length; i++) {
+                if (array[i] != (byte) elements[i]) {
+                    return false;
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return false;
+        }
+        return true;
+    }
+
     private static class LittleEndianByteUtils extends ByteUtils {
 
         private LittleEndianByteUtils() {

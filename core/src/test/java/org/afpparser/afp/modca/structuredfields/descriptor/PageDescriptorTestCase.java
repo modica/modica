@@ -8,8 +8,8 @@ import java.util.List;
 
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
-import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Begin;
-import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletTestCase;
+import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Descriptor;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
 import org.afpparser.afp.modca.structuredfields.descriptor.PageDescriptor.PageUnit;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.fullyqualifiedname.FullyQualifiedNameTestCase;
@@ -20,7 +20,7 @@ import org.junit.Test;
 /**
  * Test case for {@link PageDescriptor}
  */
-public class PageDescriptorTestCase extends StructuredFieldWithTripletTestCase<PageDescriptor> {
+public class PageDescriptorTestCase extends StructuredFieldWithTripletsTestCase<PageDescriptor> {
 
     private PageDescriptor sut;
     private PageDescriptor cmSut;
@@ -28,7 +28,7 @@ public class PageDescriptorTestCase extends StructuredFieldWithTripletTestCase<P
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
-        intro = SfIntroducerTestCase.createGenericIntroducer(Begin.BPG);
+        intro = SfIntroducerTestCase.createGenericIntroducer(Descriptor.PGD);
 
         List<Triplet> triplets = addTripletToList(
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,

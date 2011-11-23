@@ -17,7 +17,7 @@ import org.junit.Test;
  *
  * @param <T> a sublclass of {@link StructuredFieldWithTriplets}
  */
-public abstract class StructuredFieldWithTripletTestCase<T extends StructuredFieldWithTriplets>
+public abstract class StructuredFieldWithTripletsTestCase<T extends StructuredFieldWithTriplets>
         extends StructuredFieldTestCase<T> {
     private List<Triplet> triplets;
     private T sut;
