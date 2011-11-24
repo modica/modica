@@ -133,7 +133,7 @@ public abstract class Cgcsgid extends Triplet {
     public static Cgcsgid parse(byte[] data, int length, TripletIdentifiers tId) {
         assert LENGTH == length;
         assert Cgcsgid.tId == tId;
-        ByteUtils byteUtils = ByteUtils.newLittleEndianUtils();
+        ByteUtils byteUtils = ByteUtils.getLittleEndianUtils();
         int gcsgid = byteUtils.bytesToUnsignedInt(data, 0, 2);
         int ccsidOrCpgid = byteUtils.bytesToUnsignedInt(data, 2, 2);
         if (gcsgid == 0x0000) {

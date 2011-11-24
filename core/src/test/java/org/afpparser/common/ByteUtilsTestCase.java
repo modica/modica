@@ -11,8 +11,8 @@ import org.junit.Test;
 
 public class ByteUtilsTestCase {
 
-    private final ByteUtils littleEndianSut = ByteUtils.newLittleEndianUtils();
-    private final ByteUtils bigEndianSut = ByteUtils.newBigEndianUtils();
+    private final ByteUtils littleEndianSut = ByteUtils.getLittleEndianUtils();
+    private final ByteUtils bigEndianSut = ByteUtils.getBigEndianUtils();
 
     private byte[] oneToSeven;
 

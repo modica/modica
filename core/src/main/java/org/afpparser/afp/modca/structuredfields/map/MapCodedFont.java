@@ -21,7 +21,7 @@ import org.afpparser.afp.modca.triplets.Triplet;
  */
 public class MapCodedFont extends StructuredFieldWithTripletGroup {
 
-    public MapCodedFont(SfIntroducer introducer, RepeatingTripletGroup tripletGroup, byte[] sfData)
+    public MapCodedFont(SfIntroducer introducer, RepeatingTripletGroup tripletGroup)
             throws UnsupportedEncodingException, MalformedURLException {
         super(introducer, tripletGroup);
     }

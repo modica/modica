@@ -187,7 +187,7 @@ public abstract class ByteUtils {
      *
      * @return a little endian binary assistant
      */
-    public static ByteUtils newLittleEndianUtils() {
+    public static ByteUtils getLittleEndianUtils() {
         return littleEndianUtils;
     }
 
@@ -196,7 +196,7 @@ public abstract class ByteUtils {
      *
      * @return a big endian binary assitant
      */
-    public static ByteUtils newBigEndianUtils() {
+    public static ByteUtils getBigEndianUtils() {
         return bigEndianUtils;
     }
 }

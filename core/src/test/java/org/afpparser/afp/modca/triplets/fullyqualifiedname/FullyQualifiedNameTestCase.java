@@ -13,8 +13,8 @@ import org.junit.Test;
  */
 public class FullyQualifiedNameTestCase {
 
-    public static final String FONT_CHAR_SET_NAME_REF = "028600C3F0C8F2F0F0D1F0";
-    public static final String CODE_PAGE_NAME_REF = "028500E3F1E5F1F0F5F0F0";
+    public static final String FONT_CHAR_SET_NAME_REF = "0C028600C3F0C8F2F0F0D1F0";
+    public static final String CODE_PAGE_NAME_REF = "0C028500E3F1E5F1F0F5F0F0";
 
     @Test
     public void testFontCharSetNameRef() throws UnsupportedEncodingException, MalformedURLException {
@@ -41,6 +41,6 @@ public class FullyQualifiedNameTestCase {
     public static FullyQualifiedName createFQN(String hexData) throws MalformedURLException,
             UnsupportedEncodingException {
         byte[] bytes = ByteUtils.hexToBytes(hexData);
-        return FullyQualifiedName.parse(bytes, 0, (hexData.length() / 2) + 1);
+        return FullyQualifiedName.parse(bytes, 2, (hexData.length() / 2));
     }
 }

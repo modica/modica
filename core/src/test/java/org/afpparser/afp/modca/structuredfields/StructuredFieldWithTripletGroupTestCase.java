@@ -37,7 +37,7 @@ public abstract class StructuredFieldWithTripletGroupTestCase<T extends Structur
     public static RepeatingTripletGroup createGenericRepeatingGroup() throws MalformedURLException,
             UnsupportedEncodingException {
         // I think this works... will find out soon enough
-        byte[] data = ByteUtils.hexToBytes("220C028600C3F0C8F2F0F0C2F00C028500E3F1E5F1F0F5F0F0042600000424050200");
+        byte[] data = ByteUtils.hexToBytes("00220C028600C3F0C8F2F0F0C2F00C028500E3F1E5F1F0F5F0F00426000004240502");
         return TripletHandler.parseRepeatingGroup(data);
     }
 }

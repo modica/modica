@@ -13,10 +13,10 @@ import org.afpparser.common.ByteUtils;
  */
 public final class TripletHandler {
 
+    private static final ByteUtils BYTE_UTILS = ByteUtils.getLittleEndianUtils();
+
     private TripletHandler() {
     }
-
-    private static final ByteUtils byteUtils = ByteUtils.newLittleEndianUtils();
 
     /**
      * Parse the triplet from the byte array starting at offset reading length bytes.
@@ -36,7 +36,7 @@ public final class TripletHandler {
         int reoccuringGroup = offset + length - 2;
         while (position < reoccuringGroup) {
             int tripletLength = data[position++] & 0xFF;
-            TripletIdentifiers tId = TripletIdentifiers.getTripletId(data[position]);
+            TripletIdentifiers tId = TripletIdentifiers.getTripletId(data[position++]);
             switch (tId) {
             case fully_qualified_name:
                 tripletList.add(FullyQualifiedName.parse(data, position, tripletLength));
@@ -44,8 +44,11 @@ public final class TripletHandler {
             case character_rotation:
                 tripletList.add(new CharacterRotation(data, position));
                 break;
+            case resource_local_identifier:
+                tripletList.add(new ResourceLocalId(data, position));
+                break;
             }
-            position += tripletLength - 1; // The length field is included in the triplet length
+            position += tripletLength - 2;
         }
         return tripletList;
     }
@@ -79,7 +82,7 @@ public final class TripletHandler {
         List<List<Triplet>> repeatingTriplets = new ArrayList<List<Triplet>>();
 
         while (byteIndex < data.length) {
-            int rgLength = byteUtils.bytesToUnsignedInt(data, byteIndex, 2);
+            int rgLength = BYTE_UTILS.bytesToUnsignedInt(data, byteIndex, 2);
             List<Triplet> triplets = TripletHandler.parseTriplet(data, 2, rgLength);
             repeatingTriplets.add(triplets);
             byteIndex += rgLength;

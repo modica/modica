@@ -20,7 +20,7 @@ public final class MapObjectHandler {
             switch (intro.getType().getCategoryCode()) {
             case coded_font:
                 RepeatingTripletGroup tripletGroup = TripletHandler.parseRepeatingGroup(sfData);
-                sf = new MapCodedFont(intro, tripletGroup, sfData);
+                sf = new MapCodedFont(intro, tripletGroup);
                 break;
             default:
                 sf = null;

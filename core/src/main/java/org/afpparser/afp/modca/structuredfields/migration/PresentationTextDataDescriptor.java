@@ -23,7 +23,7 @@ public class PresentationTextDataDescriptor extends StructuredFieldWithTriplets 
         super(introducer, Collections.<Triplet>emptyList());
         int position = 2;
         assert sfData[0] == 0 && sfData[1] == 0;
-        ByteUtils byteUtils = ByteUtils.newLittleEndianUtils();
+        ByteUtils byteUtils = ByteUtils.getLittleEndianUtils();
         xAxisUnit = byteUtils.bytesToUnsignedInt(sfData, position, 2);
         position += 2;
         yAxisUnit = byteUtils.bytesToUnsignedInt(sfData, position, 2);
@@ -67,7 +67,7 @@ public class PresentationTextDataDescriptor extends StructuredFieldWithTriplets 
      *
      * @return the size of the y-axis
      */
-    public int tgetYptSize() {
+    public int getYptSize() {
         return yAxisSize;
     }
 

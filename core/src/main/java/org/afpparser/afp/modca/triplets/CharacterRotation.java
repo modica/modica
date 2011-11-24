@@ -12,7 +12,7 @@ public class CharacterRotation extends Triplet {
     private final Rotation rotation;
 
     public CharacterRotation(byte[] data, int position) {
-        this.rotation = Rotation.getValue(data[position + 1]);
+        this.rotation = Rotation.getValue(data[position]);
     }
 
     /**

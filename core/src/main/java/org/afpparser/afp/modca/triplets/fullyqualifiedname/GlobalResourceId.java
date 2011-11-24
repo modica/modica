@@ -14,7 +14,7 @@ public final class GlobalResourceId {
 
     GlobalResourceId(byte[] data, int position) {
         int pos = position;
-        ByteUtils utils = ByteUtils.newLittleEndianUtils();
+        ByteUtils utils = ByteUtils.getLittleEndianUtils();
         gcsgid = utils.bytesToUnsignedInt(data, pos, 2);
         pos += 2;
         cpgid = utils.bytesToUnsignedInt(data, pos, 2);

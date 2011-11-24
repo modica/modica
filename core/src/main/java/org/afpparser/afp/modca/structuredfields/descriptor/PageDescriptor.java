@@ -54,7 +54,7 @@ public class PageDescriptor extends StructuredFieldWithTriplets {
         int position = 0;
         xAxisBaseUnit = PageUnit.getValue(sfData[position++]);
         yAxisBaseUnit = PageUnit.getValue(sfData[position++]);
-        ByteUtils byteUtils = ByteUtils.newLittleEndianUtils();
+        ByteUtils byteUtils = ByteUtils.getLittleEndianUtils();
         xAxisPageUnit = byteUtils.bytesToUnsignedInt(sfData, position, 2);
         position += 2;
         yAxisPageUnit = byteUtils.bytesToUnsignedInt(sfData, position, 2);

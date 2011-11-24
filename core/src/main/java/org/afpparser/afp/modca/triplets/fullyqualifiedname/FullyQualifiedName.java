@@ -54,13 +54,11 @@ public abstract class FullyQualifiedName extends Triplet {
     public static FullyQualifiedName parse(byte[] data, int position, int length)
             throws UnsupportedEncodingException, MalformedURLException {
         int dataIndex = position;
-        byte tripletId = data[dataIndex++];
-        assert tripletId == FullyQualifiedName.tId.getId();
         FQNType type = FQNType.getValue(data[dataIndex++]);
         FQNFmt format = FQNFmt.getValue(data[dataIndex++]);
         assert type != null;
         // the length field is included in the length of the triplet
-        int dataLength = length - (dataIndex - position) - 1;
+        int dataLength = length - (dataIndex - position) - 2;
         switch (format) {
         case character_string:
             return handleStringData(type, data, dataIndex, dataLength, length);

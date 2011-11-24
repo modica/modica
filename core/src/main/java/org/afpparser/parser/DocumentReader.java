@@ -42,7 +42,7 @@ class DocumentReader implements Iterable<SfIntroducer> {
      */
     public DocumentReader(FileInputStream afpDoc) {
         channel = afpDoc.getChannel();
-        byteUtils = ByteUtils.newLittleEndianUtils();
+        byteUtils = ByteUtils.getLittleEndianUtils();
         sfIterator = new SfIterator();
     }
 
