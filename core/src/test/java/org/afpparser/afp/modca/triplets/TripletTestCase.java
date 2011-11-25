@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public abstract class AbstractTripletTest<T> {
+public abstract class TripletTestCase<T> {
     private T x;
     private T y;
     private T z;

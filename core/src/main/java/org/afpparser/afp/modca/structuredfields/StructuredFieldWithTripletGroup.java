@@ -1,6 +1,9 @@
 package org.afpparser.afp.modca.structuredfields;
 
+import java.util.List;
+
 import org.afpparser.afp.modca.triplets.RepeatingTripletGroup;
+import org.afpparser.afp.modca.triplets.Triplet;
 
 /**
  * An abstract class for structured fields with triplet group attachments.
@@ -31,5 +34,18 @@ public abstract class StructuredFieldWithTripletGroup extends AbstractStructured
      */
     public final RepeatingTripletGroup getTripletGroup() {
         return tripletGroup;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (List<Triplet> tripletList : getTripletGroup()) {
+            for (Triplet t : tripletList) {
+                sb.append("\t");
+                sb.append(t.toString());
+                sb.append("\n");
+            }
+        }
+        return getType().getName() + " triplet group=" + sb.toString();
     }
 }

@@ -9,7 +9,7 @@ import org.junit.Test;
 /**
  * Test case for {@link MappingOption}. 
  */
-public class MappingOptionTestCase extends AbstractTripletTest<MappingOption> {
+public class MappingOptionTestCase extends TripletTestCase<MappingOption> {
     private MappingOption x;
     private MapValue mapValue = MapValue.CenterAndTrim;
 

@@ -2,12 +2,12 @@ package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 
 import static org.junit.Assert.assertEquals;
 
-import org.afpparser.afp.modca.triplets.AbstractTripletTest;
+import org.afpparser.afp.modca.triplets.TripletTestCase;
 import org.afpparser.common.ByteUtils;
 import org.junit.Before;
 import org.junit.Test;
 
-public class FQNGridDataTestCase extends AbstractTripletTest<FQNGridData> {
+public class FQNGridDataTestCase extends TripletTestCase<FQNGridData> {
     private FQNGridData x;
     private byte[] gridBytes;
     private FQNType type;

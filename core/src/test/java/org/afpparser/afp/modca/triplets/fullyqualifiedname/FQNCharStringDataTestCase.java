@@ -2,12 +2,12 @@ package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 
 import static org.junit.Assert.assertEquals;
 
-import org.afpparser.afp.modca.triplets.AbstractTripletTest;
+import org.afpparser.afp.modca.triplets.TripletTestCase;
 import org.afpparser.afp.modca.triplets.TripletIdentifiers;
 import org.junit.Before;
 import org.junit.Test;
 
-public class FQNCharStringDataTestCase extends AbstractTripletTest<FQNCharStringData> {
+public class FQNCharStringDataTestCase extends TripletTestCase<FQNCharStringData> {
     private FQNCharStringData x;
     private FQNType type;
     private String expectedString;

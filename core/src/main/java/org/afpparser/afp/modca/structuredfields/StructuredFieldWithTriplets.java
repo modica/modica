@@ -34,4 +34,14 @@ public abstract class StructuredFieldWithTriplets extends AbstractStructuredFiel
     public final List<Triplet> getTriplets() {
         return triplets;
     }
+
+    public String tripletsToString() {
+        StringBuilder sb = new StringBuilder();
+        for (Triplet t : getTriplets()) {
+            sb.append("\t");
+            sb.append(t.toString());
+            sb.append("\n");
+        }
+        return " triplets=" + sb.toString();
+    }
 }

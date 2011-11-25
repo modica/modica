@@ -23,6 +23,10 @@ public final class BeginObjectHandler {
         try {
             StructuredField sf;
             switch (intro.getType().getCategoryCode()) {
+            case active_environment_group:
+                triplets = TripletHandler.parseTriplet(sfData, 8);
+                sf = new BeginActiveEnvironmentGroup(intro, triplets, sfData);
+                break;
             case document:
                 triplets = TripletHandler.parseTriplet(sfData, 8);
                 sf = new BeginDocument(intro, triplets, sfData);
@@ -39,9 +43,13 @@ public final class BeginObjectHandler {
                 triplets = TripletHandler.parseTriplet(sfData, 8);
                 sf = new BeginPresentationTextObject(intro, triplets, sfData);
                 break;
-            case active_environment_group:
+            case name_resource:
+                triplets = TripletHandler.parseTriplet(sfData, 10);
+                sf = new BeginResource(intro, triplets, sfData);
+                break;
+            case resource_group:
                 triplets = TripletHandler.parseTriplet(sfData, 8);
-                sf = new BeginActiveEnvironmentGroup(intro, triplets, sfData);
+                sf = new BeginResourceGroup(intro, triplets, sfData);
                 break;
             default:
                 sf = null;

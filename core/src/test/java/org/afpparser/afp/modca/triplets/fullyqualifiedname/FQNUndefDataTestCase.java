@@ -3,7 +3,7 @@ package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import org.afpparser.afp.modca.triplets.AbstractTripletTest;
+import org.afpparser.afp.modca.triplets.TripletTestCase;
 import org.afpparser.afp.modca.triplets.TripletIdentifiers;
 import org.afpparser.common.ByteUtils;
 import org.junit.Before;
@@ -11,7 +11,7 @@ import org.junit.Before;
 /**
  * Test case for {@link FQNUndefData}. 
  */
-public class FQNUndefDataTestCase extends AbstractTripletTest<FQNUndefData> {
+public class FQNUndefDataTestCase extends TripletTestCase<FQNUndefData> {
     private FQNUndefData x;
     private final int length = 1;
     private final byte[] undefData = ByteUtils.createByteArray(0, 1, 2, 3, 4, 5, 6);

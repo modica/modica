@@ -38,11 +38,14 @@ public final class TripletHandler {
             int tripletLength = data[position++] & 0xFF;
             TripletIdentifiers tId = TripletIdentifiers.getTripletId(data[position++]);
             switch (tId) {
+            case character_rotation:
+                tripletList.add(new CharacterRotation(data, position));
+                break;
             case fully_qualified_name:
                 tripletList.add(FullyQualifiedName.parse(data, position, tripletLength));
                 break;
-            case character_rotation:
-                tripletList.add(new CharacterRotation(data, position));
+            case object_function_set_specification:
+                tripletList.add(new ObjectFunctionSetSpecification(data, position, tripletLength));
                 break;
             case resource_local_identifier:
                 tripletList.add(new ResourceLocalId(data, position));

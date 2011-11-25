@@ -11,7 +11,7 @@ import org.junit.Test;
 /**
  * Test case for {@link Cgcsgid}. 
  */
-public class CgcsgidTestCase extends AbstractTripletTest<Cgcsgid> {
+public class CgcsgidTestCase extends TripletTestCase<Cgcsgid> {
     private Cpgid cgcsgid;
     private Ccsid ccsid;
     private final int length = 0x06;
