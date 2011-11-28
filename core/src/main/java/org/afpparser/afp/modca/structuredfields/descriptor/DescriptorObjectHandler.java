@@ -20,6 +20,10 @@ public class DescriptorObjectHandler {
         try {
             StructuredField sf;
             switch (intro.getType().getCategoryCode()) {
+            case object_area:
+                triplets = TripletHandler.parseTriplet(sfData, 0);
+                sf = new ObjectAreaDescriptor(intro, triplets);
+                break;
             case page:
                 triplets = TripletHandler.parseTriplet(sfData, 15);
                 sf = new PageDescriptor(intro, triplets, sfData);

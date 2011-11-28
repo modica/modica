@@ -97,6 +97,7 @@ public class ResourceLocalId extends Triplet {
         int result = 17;
         result = 31 * result + resourceType.hashCode();
         result = 31 * result + resourceLocalId;
+        result = 31 * result + getTid().hashCode();
         return result;
     }
 

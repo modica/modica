@@ -126,16 +126,13 @@ public abstract class Cgcsgid extends Triplet {
      * Returns the Coded Graphic Character Set Global Identifier.
      *
      * @param data the triplet data array
-     * @param length the triplet length
-     * @param tId the Triplet Identifier
+     * @param position the byte position in the data array
      * @return the CGCSGID
      */
-    public static Cgcsgid parse(byte[] data, int length, TripletIdentifiers tId) {
-        assert LENGTH == length;
-        assert Cgcsgid.tId == tId;
+    public static Cgcsgid parse(byte[] data, int position) {
         ByteUtils byteUtils = ByteUtils.getLittleEndianUtils();
-        int gcsgid = byteUtils.bytesToUnsignedInt(data, 0, 2);
-        int ccsidOrCpgid = byteUtils.bytesToUnsignedInt(data, 2, 2);
+        int gcsgid = byteUtils.bytesToUnsignedInt(data, position, 2);
+        int ccsidOrCpgid = byteUtils.bytesToUnsignedInt(data, position + 2, 2);
         if (gcsgid == 0x0000) {
             return new Ccsid(ccsidOrCpgid);
         } else {

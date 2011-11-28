@@ -22,7 +22,7 @@ public abstract class StructuredFieldWithTripletsTestCase<T extends StructuredFi
     private List<Triplet> triplets;
     private T sut;
 
-    public void setMembers(T sut, SfIntroducer intro,
+    public final void setMembers(T sut, SfIntroducer intro,
             List<Triplet> triplets) {
         super.setMemebers(sut, intro);
         this.triplets = triplets;
@@ -32,7 +32,7 @@ public abstract class StructuredFieldWithTripletsTestCase<T extends StructuredFi
     /**
      * Test the hasTriplets() method depending on the system under test.
      */
-    public void testHasTriplets() {
+    public final void testHasTriplets() {
         assertTrue(sut.hasTriplets());
     };
 
@@ -46,7 +46,7 @@ public abstract class StructuredFieldWithTripletsTestCase<T extends StructuredFi
     }
 
     @Test
-    public void testTripletList() {
+    public final void testTripletList() {
         assertTrue(triplets.equals(sut.getTriplets()));
 
         try {

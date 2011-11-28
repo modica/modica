@@ -148,6 +148,7 @@ public class ObjectFunctionSetSpecification extends Triplet {
         hashCode = 31 * hashCode + archVrsn;
         hashCode = 31 * hashCode + dcaFnSet;
         hashCode = 31 * hashCode + ocaFnSet.hashCode();
+        hashCode = 31 * hashCode + getTid().hashCode();
         return hashCode;
     }
 

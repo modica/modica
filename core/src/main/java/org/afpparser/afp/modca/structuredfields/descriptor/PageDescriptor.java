@@ -2,6 +2,7 @@ package org.afpparser.afp.modca.structuredfields.descriptor;
 
 import java.util.List;
 
+import org.afpparser.afp.modca.common.PresentationSpaceUnits;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
@@ -41,8 +42,8 @@ import org.afpparser.common.ByteUtils;
  */
 public class PageDescriptor extends StructuredFieldWithTriplets {
 
-    private final PageUnit xAxisBaseUnit;
-    private final PageUnit yAxisBaseUnit;
+    private final PresentationSpaceUnits xAxisBaseUnit;
+    private final PresentationSpaceUnits yAxisBaseUnit;
 
     private final int xAxisPageUnit;
     private final int yAxisPageUnit;
@@ -52,8 +53,8 @@ public class PageDescriptor extends StructuredFieldWithTriplets {
     public PageDescriptor(SfIntroducer introducer, List<Triplet> triplets, byte[] sfData) {
         super(introducer, triplets);
         int position = 0;
-        xAxisBaseUnit = PageUnit.getValue(sfData[position++]);
-        yAxisBaseUnit = PageUnit.getValue(sfData[position++]);
+        xAxisBaseUnit = PresentationSpaceUnits.getValue(sfData[position++]);
+        yAxisBaseUnit = PresentationSpaceUnits.getValue(sfData[position++]);
         ByteUtils byteUtils = ByteUtils.getLittleEndianUtils();
         xAxisPageUnit = byteUtils.bytesToUnsignedInt(sfData, position, 2);
         position += 2;
@@ -67,37 +68,11 @@ public class PageDescriptor extends StructuredFieldWithTriplets {
     }
 
     /**
-     * An enumerated type that describes the base units for the page or the overlay coordinate
-     * system.
-     */
-    public enum PageUnit {
-        /** Units measured in units of 10 inches */
-        INCHES_10(0x00),
-        /** Units measured in units of 10 centimetres */
-        CENTIMETRE_10(0x01);
-
-        private final byte id;
-
-        private PageUnit(int id) {
-            this.id = (byte) id;
-        }
-
-        private static PageUnit getValue(byte id) {
-            for (PageUnit unit : PageUnit.values()) {
-                if (unit.id == id) {
-                    return unit;
-                }
-            }
-            throw new IllegalArgumentException("Byte value:" + id + " is not a valid PageUnit");
-        }
-    }
-
-    /**
      * Specifies the unit base for the X axis of the page or overlay coordinate system.
      *
      * @return the base unit for the x-axis
      */
-    public PageUnit getXpgBase() {
+    public PresentationSpaceUnits getXpgBase() {
         return xAxisBaseUnit;
     }
 
@@ -106,7 +81,7 @@ public class PageDescriptor extends StructuredFieldWithTriplets {
      *
      * @return the base unit for the y-axis
      */
-    public PageUnit getYpgBase() {
+    public PresentationSpaceUnits getYpgBase() {
         return yAxisBaseUnit;
     }
 

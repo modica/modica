@@ -185,6 +185,7 @@ public class MappingOption extends Triplet {
     public int hashCode() {
         int hashCode = 17;
         hashCode = 31 * hashCode + mapValue.hashCode();
+        hashCode = 31 * hashCode + getTid().hashCode();
         return hashCode;
     }
 

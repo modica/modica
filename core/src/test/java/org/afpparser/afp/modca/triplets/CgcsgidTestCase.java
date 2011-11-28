@@ -23,23 +23,23 @@ public class CgcsgidTestCase extends TripletTestCase<Cgcsgid> {
     @Override
     public void setUp() {
         // Tests CPGID
-        cgcsgid = (Cpgid) Cgcsgid.parse(cpgidBytes, length, tid);
-        ccsid = (Ccsid) Cgcsgid.parse(ccsidBytes, length, tid);
+        cgcsgid = (Cpgid) Cgcsgid.parse(cpgidBytes, 0);
+        ccsid = (Ccsid) Cgcsgid.parse(ccsidBytes, 0);
 
-        Cgcsgid y = Cgcsgid.parse(cpgidBytes, length, tid);
-        Cgcsgid z = Cgcsgid.parse(cpgidBytes, length, tid);
+        Cgcsgid y = Cgcsgid.parse(cpgidBytes, 0);
+        Cgcsgid z = Cgcsgid.parse(cpgidBytes, 0);
         byte[] notEqualBytes = ByteUtils.createByteArray(0x00, 0x00, 0x01, 0x03);
-        Cgcsgid notEqual = Cgcsgid.parse(notEqualBytes, length, tid);
+        Cgcsgid notEqual = Cgcsgid.parse(notEqualBytes, 0);
         setXYZ(cgcsgid, y, z, notEqual);
     }
 
     @Test
     public void testCcsidEqualsHashCode() {
-        ccsid = (Ccsid) Cgcsgid.parse(ccsidBytes, length, tid);
-        Cgcsgid y = Cgcsgid.parse(ccsidBytes, length, tid);
-        Cgcsgid z = Cgcsgid.parse(ccsidBytes, length, tid);
+        ccsid = (Ccsid) Cgcsgid.parse(ccsidBytes, 0);
+        Cgcsgid y = Cgcsgid.parse(ccsidBytes, 0);
+        Cgcsgid z = Cgcsgid.parse(ccsidBytes, 0);
         byte[] notEqualBytes = ByteUtils.createByteArray(0x00, 0x01, 0x01, 0x03);
-        Cgcsgid notEqual = Cgcsgid.parse(notEqualBytes, length, tid);
+        Cgcsgid notEqual = Cgcsgid.parse(notEqualBytes, 0);
         setXYZ(ccsid, y, z, notEqual);
         testEqualsHashCode();
     }

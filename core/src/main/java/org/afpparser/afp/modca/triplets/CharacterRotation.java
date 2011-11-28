@@ -93,7 +93,7 @@ public class CharacterRotation extends Triplet {
     public int hashCode() {
         int hashCode = 17;
         hashCode = 31 * hashCode + rotation.hashCode();
-        hashCode = 31 * hashCode + TripletIdentifiers.character_rotation.hashCode();
+        hashCode = 31 * hashCode + getTid().hashCode();
         return hashCode;
     }
 
