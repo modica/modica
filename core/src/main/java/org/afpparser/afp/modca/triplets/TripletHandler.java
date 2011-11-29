@@ -56,6 +56,9 @@ public final class TripletHandler {
             case measurement_units:
                 tripletList.add(new MeasurementUnits(data, position));
                 break;
+            case object_area_size:
+                tripletList.add(new ObjectAreaSize(data, position));
+                break;
             case object_function_set_specification:
                 tripletList.add(new ObjectFunctionSetSpecification(data, position, tripletLength));
                 break;
