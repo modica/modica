@@ -27,6 +27,44 @@ public class MeasurementUnits extends Triplet {
         yoaUnits = byteUtils.bytesToUnsignedInt(data, byteIndex, 2);
     }
 
+    /**
+     * Specifies the unit base for the X axis of the presentation space coordinate system.
+     *
+     * @return the x-axis base unit
+     */
+    public PresentationSpaceUnits getXoaBase() {
+        return xoaBase;
+    }
+
+    /**
+     * Specifies the unit base for the Y axis of the presentation space coordinate system.
+     *
+     * @return the y-axis base unit
+     */
+    public PresentationSpaceUnits getYoaBase() {
+        return yoaBase;
+    }
+
+    /**
+     * Specifies the number of units per unit base for the X axis of the presentation space
+     * coordinate system.
+     *
+     * @return the x-axis length
+     */
+    public int getXoaUnit() {
+        return xoaUnits;
+    }
+
+    /**
+     * Specifies the number of units per unit base for the Y axis of the presentation space
+     * coordinate system.
+     *
+     * @return the y-axis length
+     */
+    public int getYoaUnit() {
+        return yoaUnits;
+    }
+
     @Override
     public int getLength() {
         return LENGTH;

@@ -14,7 +14,6 @@ import org.junit.Test;
 public class CgcsgidTestCase extends TripletTestCase<Cgcsgid> {
     private Cpgid cgcsgid;
     private Ccsid ccsid;
-    private final int length = 0x06;
     private final TripletIdentifiers tid = TripletIdentifiers.coded_graphic_character_set_global_identifier;
     private byte[] cpgidBytes = ByteUtils.createByteArray(0x00, 0x01, 0x01, 0x02);
     private byte[] ccsidBytes = ByteUtils.createByteArray(0x00, 0x00, 0x01, 0x02);
