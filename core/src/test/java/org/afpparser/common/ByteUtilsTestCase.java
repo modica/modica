@@ -22,7 +22,7 @@ public class ByteUtilsTestCase {
     }
 
     @Test
-    public void testLittleEndianBytesToInt() {
+    public void testLittleEndianBytesToUnsignedInt() {
         byte[] bytes = ByteUtils.createByteArray(0x01);
         assertEquals(0x01, littleEndianSut.bytesToUnsignedInt(bytes, 0, 1));
         assertEquals(0x01, littleEndianSut.bytesToUnsignedInt(bytes));
@@ -145,6 +145,17 @@ public class ByteUtilsTestCase {
             array[i] = (byte) i;
         }
         return array;
+    }
+
+    @Test
+    public void testBytesToInt() {
+        byte[] bytes = new byte[] { (byte) 0xFF };
+        assertEquals(-1, littleEndianSut.bytesToSignedInt(bytes, 0, 1));
+        assertEquals(-1, bigEndianSut.bytesToSignedInt(bytes, 0, 1));
+
+        bytes = ByteUtils.createByteArray(0x80, 0x00);
+        assertEquals(-32768, littleEndianSut.bytesToSignedInt(bytes, 0, 2));
+        assertEquals(-128, bigEndianSut.bytesToSignedInt(bytes, 0, 2));
     }
 
 }

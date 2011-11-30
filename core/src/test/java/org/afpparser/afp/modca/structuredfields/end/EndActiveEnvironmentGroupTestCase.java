@@ -27,7 +27,7 @@ public class EndActiveEnvironmentGroupTestCase extends
 
         sutMatchesAny = new EndActiveEnvironmentGroup(intro, ByteUtils.createByteArray(0xff, 0xff));
 
-        setMemebers(sut, intro);
+        setMembers(sut, intro);
     }
 
     @Test

@@ -7,6 +7,7 @@ import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Descriptor;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.End;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Map;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Migration;
+import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Position;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
 
 /**
@@ -62,5 +63,13 @@ public interface StructuredFieldFactory {
      * @return a Map type structured field
      */
     StructuredField createData(SfIntroducer introducer);
+
+    /**
+     * Creates a structured field of the {@link Position} type.
+     *
+     * @param introducer the introducer for the structured field
+     * @return a Map type structured field
+     */
+    StructuredField createPosition(SfIntroducer introducer);
 
 }

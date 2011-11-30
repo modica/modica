@@ -2,7 +2,7 @@ package org.afpparser.afp.modca.triplets;
 
 import static org.junit.Assert.assertEquals;
 
-import org.afpparser.afp.modca.triplets.CharacterRotation.Rotation;
+import org.afpparser.afp.modca.common.Rotation;
 import org.junit.Before;
 import org.junit.Test;
 

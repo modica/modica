@@ -15,7 +15,7 @@ public abstract class StructuredFieldTestCase<S extends AbstractStructuredField>
     private AbstractStructuredField sut;
     private SfIntroducer intro;
 
-    public void setMemebers(AbstractStructuredField sut, SfIntroducer intro) {
+    public void setMembers(AbstractStructuredField sut, SfIntroducer intro) {
         this.sut = sut;
         this.intro = intro;
     }

@@ -23,7 +23,7 @@ public class PresentationTextDataTestCase extends StructuredFieldTestCase<Presen
         SfIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Begin.BPT);
 
         sut = new PresentationTextData(intro, "Test text".getBytes("Cp500"));
-        setMemebers(sut, intro);
+        setMembers(sut, intro);
     }
 
     @Test

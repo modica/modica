@@ -1,5 +1,7 @@
 package org.afpparser.afp.modca.triplets;
 
+import org.afpparser.afp.modca.common.Rotation;
+
 
 /**
  * The Character Rotation triplet is used to specify character rotation relative to the character
@@ -13,47 +15,6 @@ public class CharacterRotation extends Triplet {
 
     public CharacterRotation(byte[] data, int position) {
         this.rotation = Rotation.getValue(data[position]);
-    }
-
-    /**
-     * Specifies the clockwise character rotation relative to the character coordinate system.
-     */
-    public enum Rotation {
-        ZERO(0x00),
-        NINETY(0x2D),
-        ONE_EIGHTY(0x5A),
-        TWO_SEVENTY(0x87);
-
-        private final byte value;
-
-        private Rotation(int byteValue) {
-            this.value = (byte) byteValue;
-        }
-
-        /**
-         * Get the identifying byte array.
-         *
-         * @return the bytes identifying this character rotation
-         */
-        public byte[] getBytes() {
-            return new byte[] { value, 0x00 };
-        }
-
-        /**
-         * Returns the character rotation as an enumerated type.
-         *
-         * @param identifier the byte value
-         * @return an enumeration of character rotation
-         */
-        private static Rotation getValue(byte identifier) {
-            for (Rotation charRotation : Rotation.values()) {
-                if (charRotation.value == identifier) {
-                    return charRotation;
-                }
-            }
-            throw new IllegalArgumentException(
-                    identifier + " is not a valid CharacterRotation value");
-        }
     }
 
     @Override

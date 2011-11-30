@@ -24,7 +24,7 @@ public abstract class StructuredFieldWithTripletsTestCase<T extends StructuredFi
 
     public final void setMembers(T sut, SfIntroducer intro,
             List<Triplet> triplets) {
-        super.setMemebers(sut, intro);
+        super.setMembers(sut, intro);
         this.triplets = triplets;
         this.sut = sut;
     }
