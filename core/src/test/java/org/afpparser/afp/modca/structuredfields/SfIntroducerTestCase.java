@@ -5,9 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
-import org.afpparser.afp.modca.structuredfields.SfType;
-import org.afpparser.afp.modca.structuredfields.SfTypeFactory;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Attribute;
 import org.afpparser.common.ByteUtils;
 import org.junit.Before;
@@ -31,6 +28,7 @@ public class SfIntroducerTestCase {
         assertEquals(sutType, sut.getType());
         assertTrue(sut.hasExtData());
         assertEquals(5, sut.getExtLength());
+        assertEquals(15, sut.getDataOffset());
     }
 
     @Test

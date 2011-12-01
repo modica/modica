@@ -26,6 +26,10 @@ public class EndObjectHandler {
                 triplets = TripletHandler.parseTriplet(sfData, 8);
                 sf = new EndDocument(intro, triplets, sfData);
                 break;
+            case image:
+                triplets = TripletHandler.parseTriplet(sfData, 8);
+                sf = new EndImageObject(intro, triplets, sfData);
+                break;
             case object_environment_group:
                 sf = new EndObjectEnvironmentGroup(intro, sfData);
                 break;

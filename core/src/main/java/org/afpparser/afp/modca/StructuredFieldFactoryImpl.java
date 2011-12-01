@@ -28,11 +28,7 @@ public class StructuredFieldFactoryImpl implements StructuredFieldFactory {
 
     public byte[] createStructuredField(SfIntroducer intro) {
         try {
-            long byteOffset = intro.getOffset() + SfIntroducer.SF_Introducer_FIELD
-                    + SfIntroducer.Carriage_Control_FIELD;
-            if (intro.hasExtData()) {
-                byteOffset += intro.getExtLength() + SfIntroducer.ExtLength_FIELD;
-            }
+            long byteOffset = intro.getDataOffset();
             ByteBuffer buffer = ByteBuffer.allocate(intro.getLength()
                     - SfIntroducer.SF_Introducer_FIELD - SfIntroducer.Carriage_Control_FIELD);
             channel.read(buffer, byteOffset);

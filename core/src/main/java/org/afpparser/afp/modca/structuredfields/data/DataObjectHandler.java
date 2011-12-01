@@ -11,6 +11,9 @@ public class DataObjectHandler {
     public static StructuredField handle(SfIntroducer intro, byte[] sfData) {
         StructuredField sf;
         switch (intro.getType().getCategoryCode()) {
+        case image:
+            sf = new ImagePictureData(intro);
+            break;
         case presentation_text:
             sf = new PresentationTextData(intro, sfData);
             break;

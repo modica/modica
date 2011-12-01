@@ -20,11 +20,11 @@ public class EndObjectEnvironmentGroup extends AbstractStructuredField {
     }
 
     /**
-     * Is the name of the object environment group that is being terminated. If a name is specified,
-     * it must match the name in the most recent Begin Object Environment Group structured field in
-     * the object or a X’01’ exception condition exists. If the first two bytes of OEGName contain
-     * the value X'FFFF', the name matches any name specified on the Begin Object Environment Group
-     * structured field that initiated the current definition.
+     * Returns the name of the object environment group that is being terminated. If a name is
+     * specified, it must match the name in the most recent Begin Object Environment Group
+     * structured field in the object or a X’01’ exception condition exists. If the first two bytes
+     * of OEGName contain the value X'FFFF', the name matches any name specified on the Begin Object
+     * Environment Group structured field that initiated the current definition.
      *
      * @return the End Environment Group name
      */

@@ -120,6 +120,21 @@ public class SfIntroducer {
     }
 
     /**
+     * Returns the byte offset of the structured field data payload
+     * i.e. this offset + number of bytes in the introducer.
+     *
+     * @return the byte offset of the structured field data
+     */
+    public long getDataOffset() {
+        long dataOffset = this.offset + SfIntroducer.SF_Introducer_FIELD
+                + SfIntroducer.Carriage_Control_FIELD;
+        if (hasExtData()) {
+            dataOffset += getExtLength() + SfIntroducer.ExtLength_FIELD;
+        }
+        return dataOffset;
+    }
+
+    /**
      * Check whether the bit flag in <code>flags</code> has the SFI extension data set to true.
      *
      * @param flags the bit flags
