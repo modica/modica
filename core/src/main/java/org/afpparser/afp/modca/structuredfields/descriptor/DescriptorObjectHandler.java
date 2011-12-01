@@ -20,6 +20,9 @@ public class DescriptorObjectHandler {
         try {
             StructuredField sf;
             switch (intro.getType().getCategoryCode()) {
+            case image:
+                sf = new ImageDataDescriptor(intro, sfData);
+                break;
             case object_area:
                 triplets = TripletHandler.parseTriplet(sfData, 0);
                 sf = new ObjectAreaDescriptor(intro, triplets);

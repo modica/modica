@@ -189,4 +189,8 @@ public class MappingOption extends Triplet {
         return hashCode;
     }
 
+    @Override
+    public String toString() {
+        return getTid().name() + " mapValue=" + mapValue;
+    }
 }
