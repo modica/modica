@@ -35,6 +35,10 @@ public final class BeginObjectHandler {
                 triplets = TripletHandler.parseTriplet(sfData, 8);
                 sf = new BeginImageObject(intro, triplets, sfData);
                 break;
+            case object_environment_group:
+                triplets = TripletHandler.parseTriplet(sfData, 8);
+                sf = new BeginObjectEnvironmentGroup(intro, triplets, sfData);
+                break;
             case page_group:
                 triplets = TripletHandler.parseTriplet(sfData, 8);
                 sf = new BeginNamedPageGroup(intro, triplets, sfData);

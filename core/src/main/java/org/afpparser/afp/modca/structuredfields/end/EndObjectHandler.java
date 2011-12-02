@@ -5,10 +5,14 @@ import java.net.MalformedURLException;
 import java.util.List;
 
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.SfTypeFactory.End;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.TripletHandler;
 
+/**
+ * A handler for constructing {@link End} type structured fields.
+ */
 public class EndObjectHandler {
 
     private EndObjectHandler() {
@@ -30,6 +34,9 @@ public class EndObjectHandler {
                 triplets = TripletHandler.parseTriplet(sfData, 8);
                 sf = new EndImageObject(intro, triplets, sfData);
                 break;
+            case name_resource:
+                sf = new EndResource(intro, sfData);
+                break;
             case object_environment_group:
                 sf = new EndObjectEnvironmentGroup(intro, sfData);
                 break;
@@ -44,6 +51,10 @@ public class EndObjectHandler {
             case presentation_text:
                 triplets = TripletHandler.parseTriplet(sfData, 8);
                 sf = new EndPresentationTextObject(intro, triplets, sfData);
+                break;
+            case resource_group:
+                triplets = TripletHandler.parseTriplet(sfData, 8);
+                sf = new EndResourceGroup(intro, triplets, sfData);
                 break;
             default:
                 sf = null;
