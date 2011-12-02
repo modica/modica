@@ -13,9 +13,9 @@ import org.afpparser.afp.modca.triplets.TripletHandler;
 /**
  * A handler for constructing {@link End} type structured fields.
  */
-public class EndObjectHandler {
+public class EndHandler {
 
-    private EndObjectHandler() {
+    private EndHandler() {
     }
 
     public static StructuredField handle(SfIntroducer intro, byte[] sfData) {

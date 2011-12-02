@@ -13,9 +13,9 @@ import org.afpparser.afp.modca.triplets.TripletHandler;
 /**
  * A handler for constructing {@link Begin} type structured fields.
  */
-public final class BeginObjectHandler {
+public final class BeginHandler {
 
-    private BeginObjectHandler() {
+    private BeginHandler() {
     }
 
     public static StructuredField handle(SfIntroducer intro, byte[] sfData) {

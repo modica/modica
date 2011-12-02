@@ -6,12 +6,13 @@ import java.nio.channels.FileChannel;
 
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
-import org.afpparser.afp.modca.structuredfields.begin.BeginObjectHandler;
-import org.afpparser.afp.modca.structuredfields.data.DataObjectHandler;
-import org.afpparser.afp.modca.structuredfields.descriptor.DescriptorObjectHandler;
-import org.afpparser.afp.modca.structuredfields.end.EndObjectHandler;
+import org.afpparser.afp.modca.structuredfields.begin.BeginHandler;
+import org.afpparser.afp.modca.structuredfields.data.DataHandler;
+import org.afpparser.afp.modca.structuredfields.descriptor.DescriptorHandler;
+import org.afpparser.afp.modca.structuredfields.end.EndHandler;
+import org.afpparser.afp.modca.structuredfields.include.IncludeHandler;
 import org.afpparser.afp.modca.structuredfields.map.MapObjectHandler;
-import org.afpparser.afp.modca.structuredfields.migration.MigrationObjectHandler;
+import org.afpparser.afp.modca.structuredfields.migration.MigrationHandler;
 import org.afpparser.afp.modca.structuredfields.position.PositionHandler;
 
 /**
@@ -41,7 +42,7 @@ public class StructuredFieldFactoryImpl implements StructuredFieldFactory {
     @Override
     public StructuredField createBegin(SfIntroducer introducer) {
         byte[] payload = createStructuredField(introducer);
-        return BeginObjectHandler.handle(introducer, payload);
+        return BeginHandler.handle(introducer, payload);
     }
 
     @Override
@@ -53,30 +54,36 @@ public class StructuredFieldFactoryImpl implements StructuredFieldFactory {
     @Override
     public StructuredField createDescriptor(SfIntroducer introducer) {
         byte[] payload = createStructuredField(introducer);
-        return DescriptorObjectHandler.handle(introducer, payload);
+        return DescriptorHandler.handle(introducer, payload);
     }
 
     @Override
     public StructuredField createMigration(SfIntroducer introducer) {
         byte[] payload = createStructuredField(introducer);
-        return MigrationObjectHandler.handle(introducer, payload);
+        return MigrationHandler.handle(introducer, payload);
     }
 
     @Override
     public StructuredField createEnd(SfIntroducer introducer) {
         byte[] payload = createStructuredField(introducer);
-        return EndObjectHandler.handle(introducer, payload);
+        return EndHandler.handle(introducer, payload);
     }
 
     @Override
     public StructuredField createData(SfIntroducer introducer) {
         byte[] payload = createStructuredField(introducer);
-        return DataObjectHandler.handle(introducer, payload);
+        return DataHandler.handle(introducer, payload);
     }
 
     @Override
     public StructuredField createPosition(SfIntroducer introducer) {
         byte[] payload = createStructuredField(introducer);
         return PositionHandler.handle(introducer, payload);
+    }
+
+    @Override
+    public StructuredField createInclude(SfIntroducer introducer) {
+        byte[] payload = createStructuredField(introducer);
+        return IncludeHandler.handle(introducer, payload);
     }
 }

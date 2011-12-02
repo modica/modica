@@ -3,9 +3,9 @@ package org.afpparser.afp.modca.structuredfields.migration;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
 
-public class MigrationObjectHandler {
+public class MigrationHandler {
 
-    private MigrationObjectHandler() {
+    private MigrationHandler() {
     }
 
     public static StructuredField handle(SfIntroducer intro, byte[] sfData) {

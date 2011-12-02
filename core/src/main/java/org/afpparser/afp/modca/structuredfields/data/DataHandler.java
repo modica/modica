@@ -3,9 +3,9 @@ package org.afpparser.afp.modca.structuredfields.data;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
 
-public class DataObjectHandler {
+public class DataHandler {
 
-    private DataObjectHandler() {
+    private DataHandler() {
     }
 
     public static StructuredField handle(SfIntroducer intro, byte[] sfData) {

@@ -1,4 +1,4 @@
-package org.afpparser.afp.modca.structuredfields.descriptor;
+package org.afpparser.afp.modca.structuredfields.include;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -6,13 +6,11 @@ import java.util.List;
 
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
-import org.afpparser.afp.modca.structuredfields.migration.PresentationTextDataDescriptor;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.TripletHandler;
 
-public class DescriptorObjectHandler {
-
-    private DescriptorObjectHandler() {
+public class IncludeHandler {
+    private IncludeHandler() {
     }
 
     public static StructuredField handle(SfIntroducer intro, byte[] sfData) {
@@ -20,19 +18,9 @@ public class DescriptorObjectHandler {
         try {
             StructuredField sf;
             switch (intro.getType().getCategoryCode()) {
-            case image:
-                sf = new ImageDataDescriptor(intro, sfData);
-                break;
-            case object_area:
-                triplets = TripletHandler.parseTriplet(sfData, 0);
-                sf = new ObjectAreaDescriptor(intro, triplets);
-                break;
-            case page:
-                triplets = TripletHandler.parseTriplet(sfData, 15);
-                sf = new PageDescriptor(intro, triplets, sfData);
-                break;
-            case presentation_text:
-                sf = new PresentationTextDataDescriptor(intro, sfData);
+            case data_resource:
+                triplets = TripletHandler.parseTriplet(sfData, 27);
+                sf = new IncludeObject(intro, triplets, sfData);
                 break;
             default:
                 sf = null;
