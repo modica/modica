@@ -27,6 +27,10 @@ public final class BeginHandler {
                 triplets = TripletHandler.parseTriplet(sfData, 8);
                 sf = new BeginActiveEnvironmentGroup(intro, triplets, sfData);
                 break;
+            case code_page:
+                triplets = TripletHandler.parseTriplet(sfData, 8);
+                sf = new BeginCodePage(intro, triplets, sfData);
+                break;
             case document:
                 triplets = TripletHandler.parseTriplet(sfData, 8);
                 sf = new BeginDocument(intro, triplets, sfData);

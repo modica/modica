@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.afpparser.afp.modca.triplets.foca.ResourceManagement;
 import org.afpparser.afp.modca.triplets.fullyqualifiedname.FullyQualifiedName;
 import org.afpparser.common.ByteUtils;
 
@@ -64,6 +65,9 @@ public final class TripletHandler {
                 break;
             case resource_local_identifier:
                 tripletList.add(new ResourceLocalId(data, position));
+                break;
+            case resource_management:
+                tripletList.add(ResourceManagement.parse(data, position));
                 break;
             }
             position += tripletLength - 2;

@@ -38,6 +38,8 @@ public enum TripletIdentifiers {
     font_horizontal_scale_factor(0x5d),
     object_count(0x5e),
     object_date_and_timestamp(0x62),
+    resource_management(0x63),
+    object_origin_identifier(0x64),
     comment(0x65),
     medium_orientation(0x68),
     resource_object_include(0x6c),

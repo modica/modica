@@ -42,6 +42,8 @@ public class TripletIdentifiersTestCase {
         testId(0x5D, TripletIdentifiers.font_horizontal_scale_factor);
         testId(0x5E, TripletIdentifiers.object_count);
         testId(0x62, TripletIdentifiers.object_date_and_timestamp);
+        testId(0x63, TripletIdentifiers.resource_management);
+        testId(0x64, TripletIdentifiers.object_origin_identifier);
         testId(0x65, TripletIdentifiers.comment);
         testId(0x68, TripletIdentifiers.medium_orientation);
         testId(0x6C, TripletIdentifiers.resource_object_include);
