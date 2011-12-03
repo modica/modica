@@ -20,6 +20,9 @@ public class DescriptorHandler {
         try {
             StructuredField sf;
             switch (intro.getType().getCategoryCode()) {
+            case code_page:
+                sf = new CodePageDescriptor(intro, sfData);
+                break;
             case image:
                 sf = new ImageDataDescriptor(intro, sfData);
                 break;
