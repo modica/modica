@@ -1,7 +1,7 @@
 package org.afpparser.afp.modca.triplets;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.PresentationSpaceUnits;
-import org.afpparser.common.ByteUtils;
 
 
 /**
@@ -10,21 +10,17 @@ import org.afpparser.common.ByteUtils;
 public class MeasurementUnits extends Triplet {
 
     private static final int LENGTH = 8;
-    
+
     private final PresentationSpaceUnits xoaBase;
     private final PresentationSpaceUnits yoaBase;
     private final int xoaUnits;
     private final int yoaUnits;
 
-    public MeasurementUnits(byte[] data, int position) {
-        int byteIndex = position;
-        ByteUtils byteUtils = ByteUtils.getLittleEndianUtils();
-
-        xoaBase = PresentationSpaceUnits.getValue(data[byteIndex++]);
-        yoaBase = PresentationSpaceUnits.getValue(data[byteIndex++]);
-        xoaUnits = byteUtils.bytesToUnsignedInt(data, byteIndex, 2);
-        byteIndex += 2;
-        yoaUnits = byteUtils.bytesToUnsignedInt(data, byteIndex, 2);
+    public MeasurementUnits(Parameters params) {
+        xoaBase = PresentationSpaceUnits.getValue(params.getByte());
+        yoaBase = PresentationSpaceUnits.getValue(params.getByte());
+        xoaUnits = params.getUInt(2);
+        yoaUnits = params.getUInt(2);
     }
 
     /**

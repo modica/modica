@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.List;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.End;
@@ -17,7 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test case for {@link EndPresentationTextObject}. 
+ * Test case for {@link EndPresentationTextObject}.
  */
 public class EndPresentationTextObjectTestCase extends
         StructuredFieldWithTripletsTestCase<EndPresentationTextObject> {
@@ -34,9 +35,10 @@ public class EndPresentationTextObjectTestCase extends
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
                 FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);
 
-        sut = new EndPresentationTextObject(intro, triplets, pageName.getBytes("Cp500"));
-        sutMatchesAny = new EndPresentationTextObject(intro, triplets, ByteUtils.createByteArray(
-                0xff, 0xff));
+        Parameters params = new Parameters(pageName.getBytes("Cp500"));
+        Parameters matchesAny = new Parameters(ByteUtils.createByteArray(0xff, 0xff));
+        sut = new EndPresentationTextObject(intro, triplets, params);
+        sutMatchesAny = new EndPresentationTextObject(intro, triplets, matchesAny);
         setMembers(sut, intro, triplets);
     }
 

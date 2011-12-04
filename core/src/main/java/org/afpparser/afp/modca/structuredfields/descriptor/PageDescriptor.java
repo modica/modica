@@ -2,11 +2,11 @@ package org.afpparser.afp.modca.structuredfields.descriptor;
 
 import java.util.List;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.PresentationSpaceUnits;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
-import org.afpparser.common.ByteUtils;
 
 /**
  * The Page Descriptor structured field specifies the size and attributes of a page or overlay
@@ -50,21 +50,15 @@ public class PageDescriptor extends StructuredFieldWithTriplets {
     private final int xAxisPageSize;
     private final int yAxisPageSize;
 
-    public PageDescriptor(SfIntroducer introducer, List<Triplet> triplets, byte[] sfData) {
+    public PageDescriptor(SfIntroducer introducer, List<Triplet> triplets, Parameters params) {
         super(introducer, triplets);
-        int position = 0;
-        xAxisBaseUnit = PresentationSpaceUnits.getValue(sfData[position++]);
-        yAxisBaseUnit = PresentationSpaceUnits.getValue(sfData[position++]);
-        ByteUtils byteUtils = ByteUtils.getLittleEndianUtils();
-        xAxisPageUnit = byteUtils.bytesToUnsignedInt(sfData, position, 2);
-        position += 2;
-        yAxisPageUnit = byteUtils.bytesToUnsignedInt(sfData, position, 2);
-        position += 2;
-        xAxisPageSize = byteUtils.bytesToUnsignedInt(sfData, position, 3);
-        position += 3;
-        yAxisPageSize = byteUtils.bytesToUnsignedInt(sfData, position, 3);
-        position += 3;
-        assert sfData[position++] == 0 && sfData[position] == 0;
+        xAxisBaseUnit = PresentationSpaceUnits.getValue(params.getByte());
+        yAxisBaseUnit = PresentationSpaceUnits.getValue(params.getByte());
+        xAxisPageUnit = params.getUInt(2);
+        yAxisPageUnit = params.getUInt(2);
+        xAxisPageSize = params.getUInt(3);
+        yAxisPageSize = params.getUInt(3);
+        assert params.getByte() == 0 && params.getByte() == 0;
     }
 
     /**

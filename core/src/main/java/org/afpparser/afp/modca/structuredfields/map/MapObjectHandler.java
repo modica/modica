@@ -1,5 +1,6 @@
 package org.afpparser.afp.modca.structuredfields.map;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Map;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
@@ -14,17 +15,17 @@ public final class MapObjectHandler {
     private MapObjectHandler() {
     }
 
-    public static StructuredField handle(SfIntroducer intro, byte[] sfData) {
+    public static StructuredField handle(SfIntroducer intro, Parameters params) {
         try {
             StructuredField sf;
             RepeatingTripletGroup tripletGroup;
             switch (intro.getType().getCategoryCode()) {
             case coded_font:
-                tripletGroup = TripletHandler.parseRepeatingGroup(sfData);
+                tripletGroup = TripletHandler.parseRepeatingGroup(params);
                 sf = new MapCodedFont(intro, tripletGroup);
                 break;
             case image:
-                tripletGroup = TripletHandler.parseRepeatingGroup(sfData);
+                tripletGroup = TripletHandler.parseRepeatingGroup(params);
                 sf = new MapImageObject(intro, tripletGroup);
                 break;
             default:

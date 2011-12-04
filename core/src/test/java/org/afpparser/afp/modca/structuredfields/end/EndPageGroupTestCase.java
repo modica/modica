@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.List;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.End;
@@ -17,7 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test case for {@link EndPageGroup}. 
+ * Test case for {@link EndPageGroup}.
  */
 public class EndPageGroupTestCase extends
         StructuredFieldWithTripletsTestCase<EndPageGroup> {
@@ -34,9 +35,10 @@ public class EndPageGroupTestCase extends
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
                 FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);
 
-        sut = new EndPageGroup(intro, triplets, pageName.getBytes("Cp500"));
-        sutMatchesAny = new EndPageGroup(intro, triplets, ByteUtils.createByteArray(
-                0xff, 0xff));
+        Parameters params = new Parameters(pageName.getBytes("Cp500"));
+        Parameters matchesAny = new Parameters(ByteUtils.createByteArray(0xff, 0xff));
+        sut = new EndPageGroup(intro, triplets, params);
+        sutMatchesAny = new EndPageGroup(intro, triplets, matchesAny);
         setMembers(sut, intro, triplets);
     }
 

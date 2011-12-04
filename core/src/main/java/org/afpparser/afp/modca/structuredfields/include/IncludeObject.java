@@ -3,13 +3,12 @@ package org.afpparser.afp.modca.structuredfields.include;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.ReferenceCoordinateSystem;
 import org.afpparser.afp.modca.common.Rotation;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
-import org.afpparser.common.ByteUtils;
-import org.afpparser.common.StringUtils;
 
 /**
  * An Include Object structured field references an object on a page or overlay. It optionally
@@ -38,72 +37,67 @@ public class IncludeObject extends StructuredFieldWithTriplets {
     private final boolean useYOriginOffset;
     private final ReferenceCoordinateSystem refCSys;
 
-    public IncludeObject(SfIntroducer introducer, List<Triplet> triplets, byte[] sfData)
+    public IncludeObject(SfIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
-        int byteIndex = 0;
-        ByteUtils byteUtils = ByteUtils.getLittleEndianUtils();
-        objName = StringUtils.bytesToCp500(sfData, byteIndex, 8);
-        byteIndex += 8;
-        assert sfData[byteIndex] == (byte) 0x00;
-        byteIndex++;
-        objType = ObjectType.getValue(sfData[byteIndex++]);
+        objName = params.getStringCp500(8);
+        byte reserved = params.getByte();
+        assert reserved == (byte) 0x00;
+        objType = ObjectType.getValue(params.getByte());
         // setting the origin
-        if (nextFewByesEqual(sfData, byteIndex, 3, (byte) 0xFF)) {
+        if (nextFewByesEqual(params, 3, (byte) 0xFF)) {
             xoaOset = 0xFFFFFF;
             useXOriginArea = true;
         } else {
-            xoaOset = byteUtils.bytesToSignedInt(sfData, byteIndex, 3);
+            xoaOset = params.getInt(3);
             useXOriginArea = false;
         }
-        byteIndex += 3;
-        if (nextFewByesEqual(sfData, byteIndex, 3, (byte) 0xFF)) {
+        if (nextFewByesEqual(params, 3, (byte) 0xFF)) {
             yoaOset = 0xFFFFFF;
             useYOriginArea = true;
         } else {
-            yoaOset = byteUtils.bytesToSignedInt(sfData, byteIndex, 3);
+            yoaOset = params.getInt(3);
             useYOriginArea = false;
         }
-        byteIndex += 3;
         // setting the orientation
-        if (nextFewByesEqual(sfData, byteIndex, 2, (byte) 0xFF)) {
+        if (nextFewByesEqual(params, 2, (byte) 0xFF)) {
             xoaOrent = null;
             useXObjectRotation = true;
         } else {
-            xoaOrent = Rotation.getValue(sfData[byteIndex]);
+            xoaOrent = Rotation.getValue(params.getByte());
             useXObjectRotation = false;
+            params.skip(1);
         }
-        byteIndex += 2;
-        if (nextFewByesEqual(sfData, byteIndex, 2, (byte) 0xFF)) {
+        if (nextFewByesEqual(params, 2, (byte) 0xFF)) {
             yoaOrent = null;
             useYObjectRotation = true;
         } else {
-            yoaOrent = Rotation.getValue(sfData[byteIndex]);
+            yoaOrent = Rotation.getValue(params.getByte());
             useYObjectRotation = false;
+            params.skip(1);
         }
-        byteIndex += 2;
-        if (nextFewByesEqual(sfData, byteIndex, 3, (byte) 0xFF)) {
+        if (nextFewByesEqual(params, 3, (byte) 0xFF)) {
             xocaOset = 0xFFFFFF;
             useXOriginOffset = true;
         } else {
-            xocaOset = byteUtils.bytesToSignedInt(sfData, byteIndex, 3);
+            xocaOset = params.getInt(3);
             useXOriginOffset = false;
         }
-        byteIndex += 3;
-        if (nextFewByesEqual(sfData, byteIndex, 3, (byte) 0xFF)) {
+        if (nextFewByesEqual(params, 3, (byte) 0xFF)) {
             yocaOset = 0xFFFFFF;
             useYOriginOffset = true;
         } else {
-            yocaOset = byteUtils.bytesToSignedInt(sfData, byteIndex, 3);
+            yocaOset = params.getInt(3);
             useYOriginOffset = false;
         }
-        byteIndex += 3;
-        refCSys = ReferenceCoordinateSystem.getValue(sfData[byteIndex]);
+        refCSys = ReferenceCoordinateSystem.getValue(params.getByte());
     }
 
-    private boolean nextFewByesEqual(byte[] sfData, int position, int length, byte value) {
-        for (int i = position; i < position + length; i++) {
-            if (sfData[i] != value) {
+    private boolean nextFewByesEqual(Parameters params, int length, byte value) {
+        int pos = params.getPosition();
+        for (int i = 0; i < length; i++) {
+            if (params.getByte() != value) {
+                params.skipTo(pos);
                 return false;
             }
         }

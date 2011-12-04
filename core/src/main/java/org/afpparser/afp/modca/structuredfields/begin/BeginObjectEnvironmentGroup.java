@@ -3,10 +3,10 @@ package org.afpparser.afp.modca.structuredfields.begin;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
-import org.afpparser.common.StringUtils;
 
 /**
  * The Begin Object Environment Group structured field begins an Object Environment Group, which
@@ -18,9 +18,9 @@ public class BeginObjectEnvironmentGroup extends StructuredFieldWithTriplets {
     private final String oegName;
 
     public BeginObjectEnvironmentGroup(SfIntroducer introducer, List<Triplet> triplets,
-            byte[] sfData) throws UnsupportedEncodingException {
+            Parameters params) throws UnsupportedEncodingException {
         super(introducer, triplets);
-        oegName = StringUtils.bytesToCp500(sfData, 0, 8);
+        oegName = params.getStringCp500(0, 8);
     }
 
     /**

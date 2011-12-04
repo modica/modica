@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.UnsupportedEncodingException;
 
+import org.afpparser.afp.modca.Parameters;
 import org.junit.Test;
 
 /**
@@ -18,14 +19,16 @@ public class EndFieldNameTestCase {
     public void testGetters() throws UnsupportedEncodingException {
         byte[] bytes = "Only the first 8 characters should be taken".getBytes("Cp500");
 
-        EndFieldName fieldName = new EndFieldName(bytes);
+        Parameters params = new Parameters(bytes);
+        EndFieldName fieldName = new EndFieldName(params);
         assertEquals("Only the", fieldName.getName());
         assertFalse(fieldName.matchesAny());
 
         bytes[0] = (byte) 0xff;
         bytes[1] = (byte) 0xff;
 
-        fieldName = new EndFieldName(bytes);
+        params = new Parameters(bytes);
+        fieldName = new EndFieldName(params);
         assertNull(fieldName.getName());
         assertTrue(fieldName.matchesAny());
     }

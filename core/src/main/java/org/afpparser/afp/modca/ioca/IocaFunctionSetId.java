@@ -1,5 +1,6 @@
 package org.afpparser.afp.modca.ioca;
 
+import org.afpparser.afp.modca.Parameters;
 
 /**
  * Set IOCA Function Set Identification self-defining field.
@@ -9,13 +10,12 @@ public class IocaFunctionSetId implements SelfDefiningField {
     private final FunctionSet fs;
     private static int LENGTH = 3;
 
-    public IocaFunctionSetId(byte[] data, int position) {
-        int byteIndex = position;
-        assert data[byteIndex] == (byte) 0x02;
-        byteIndex++;
-        assert data[byteIndex] == (byte) 0x01;
-        byteIndex++;
-        fs = getFunctionSet(data[byteIndex]);
+    public IocaFunctionSetId(Parameters params) {
+        byte length = params.getByte();
+        assert length == 0x02;
+        byte category = params.getByte();
+        assert category == 0x01;
+        fs = getFunctionSet(params.getByte());
     }
 
     private FunctionSet getFunctionSet(byte id) {
@@ -35,11 +35,7 @@ public class IocaFunctionSetId implements SelfDefiningField {
         }
     }
 
-    /**
-     * Return the length of this field.
-     *
-     * @return the length
-     */
+    @Override
     public int getLength() {
         return LENGTH;
     }

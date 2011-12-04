@@ -1,6 +1,6 @@
 package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 
-import org.afpparser.common.ByteUtils;
+import org.afpparser.afp.modca.Parameters;
 
 /**
  * The global resource identifier (GRID) is an eight-byte binary identifier used to reference
@@ -12,16 +12,11 @@ public final class GlobalResourceId {
     private final int fgid;
     private final int fontWidth;
 
-    GlobalResourceId(byte[] data, int position) {
-        int pos = position;
-        ByteUtils utils = ByteUtils.getLittleEndianUtils();
-        gcsgid = utils.bytesToUnsignedInt(data, pos, 2);
-        pos += 2;
-        cpgid = utils.bytesToUnsignedInt(data, pos, 2);
-        pos += 2;
-        fgid = utils.bytesToUnsignedInt(data, pos, 2);
-        pos += 2;
-        fontWidth = utils.bytesToUnsignedInt(data, pos, 2);
+    GlobalResourceId(Parameters params) {
+        gcsgid = params.getUInt(2);
+        cpgid = params.getUInt(2);
+        fgid = params.getUInt(2);
+        fontWidth = params.getUInt(2);
     }
 
     public int getGcsgid() {

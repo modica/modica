@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.End;
@@ -24,9 +25,11 @@ public class EndObjectEnvironmentGroupTestCase extends
     @Before
     public void setUp() throws UnsupportedEncodingException {
         SfIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(End.EOG);
-        sut = new EndObjectEnvironmentGroup(intro, "TestStri".getBytes("Cp500"));
+        Parameters params = new Parameters("TestStri".getBytes("Cp500"));
+        sut = new EndObjectEnvironmentGroup(intro, params);
 
-        sutMatchesAny = new EndObjectEnvironmentGroup(intro, ByteUtils.createByteArray(0xff, 0xff));
+        Parameters matchesAny = new Parameters(ByteUtils.createByteArray(0xff, 0xff));
+        sutMatchesAny = new EndObjectEnvironmentGroup(intro, matchesAny);
 
         setMembers(sut, intro);
     }

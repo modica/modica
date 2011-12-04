@@ -1,5 +1,6 @@
 package org.afpparser.afp.modca.triplets;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.Rotation;
 
 
@@ -13,8 +14,9 @@ public class CharacterRotation extends Triplet {
 
     private final Rotation rotation;
 
-    public CharacterRotation(byte[] data, int position) {
-        this.rotation = Rotation.getValue(data[position]);
+    public CharacterRotation(Parameters params) {
+        this.rotation = Rotation.getValue(params.getByte());
+        params.skip(1);
     }
 
     @Override

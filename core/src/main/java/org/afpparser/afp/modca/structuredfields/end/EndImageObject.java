@@ -3,6 +3,7 @@ package org.afpparser.afp.modca.structuredfields.end;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
@@ -15,10 +16,10 @@ public class EndImageObject extends StructuredFieldWithTriplets {
 
     private final EndFieldName idoName;
 
-    public EndImageObject(SfIntroducer introducer, List<Triplet> triplets, byte[] sfData)
+    public EndImageObject(SfIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
-        idoName = new EndFieldName(sfData);
+        idoName = new EndFieldName(params);
     }
 
     /**

@@ -4,9 +4,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.TripletIdentifiers;
-import org.afpparser.common.StringUtils;
 
 /**
  * An abstract class that all Fully Qualified Name triplets inherit from.
@@ -51,47 +51,39 @@ public abstract class FullyQualifiedName extends Triplet {
     public abstract int hashCode();
 
     //TODO: This may need to be pulled out into it's own class i.e. FQNHandler
-    public static FullyQualifiedName parse(byte[] data, int position, int length)
+    public static FullyQualifiedName parse(Parameters params, int length)
             throws UnsupportedEncodingException, MalformedURLException {
-        int dataIndex = position;
-        FQNType type = FQNType.getValue(data[dataIndex++]);
-        FQNFmt format = FQNFmt.getValue(data[dataIndex++]);
+        FQNType type = FQNType.getValue(params.getByte());
+        FQNFmt format = FQNFmt.getValue(params.getByte());
         assert type != null;
         // the length field is included in the length of the triplet
-        int dataLength = length - (dataIndex - position) - 2;
+        int dataLength = length - 4;
         switch (format) {
         case character_string:
-            return handleStringData(type, data, dataIndex, dataLength, length);
+            return handleStringData(type, params, length, dataLength);
         case oid:
-            ObjectId oid = new ObjectId(data, dataIndex, dataLength);
+            ObjectId oid = new ObjectId(params, dataLength);
             return new FQNOidData(length, oid, type);
         case url:
-            String url = parseString(data, dataIndex, dataLength);
+            String url = params.getStringCp500(dataLength);
             return new FQNUrlData(length, new URL(url), type);
         default:
             throw new IllegalStateException("The Fully Qualified Name data type is unknown");
         }
     }
 
-    private static String parseString(byte[] data, int position, int length)
-            throws UnsupportedEncodingException {
-        return StringUtils.bytesToCp500(data, position, length);
-    }
-
-    private static FullyQualifiedName handleStringData(FQNType type, byte[] data, int position,
-            int length, int fieldLength) throws UnsupportedEncodingException {
+    private static FullyQualifiedName handleStringData(FQNType type, Parameters params,
+            int fqnLength, int stringLength) throws UnsupportedEncodingException {
         switch (type) {
         case begin_resource_object_ref:
-            GlobalResourceId grid = new GlobalResourceId(data, position);
-            return new FQNGridData(fieldLength, grid, type);
+            GlobalResourceId grid = new GlobalResourceId(params);
+            return new FQNGridData(fqnLength, grid, type);
         case data_object_internal_resource_ref:
-            int undefLength = data.length - position;
-            byte[] undefData = new byte[undefLength];
-            System.arraycopy(data, position, undefData, 0, undefLength);
-            return new FQNUndefData(fieldLength, undefData, type);
+            int undefLength = params.size() - params.getPosition();
+            byte[] undefData = params.getByteArray(undefLength);
+            return new FQNUndefData(stringLength, undefData, type);
         default:
-            String gid = parseString(data, position, length);
-            return new FQNCharStringData(fieldLength, gid, type);
+            return new FQNCharStringData(fqnLength, params.getStringCp500(stringLength), type);
         }
     }
 }

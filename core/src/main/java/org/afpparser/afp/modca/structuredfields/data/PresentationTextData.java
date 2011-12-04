@@ -2,21 +2,22 @@ package org.afpparser.afp.modca.structuredfields.data;
 
 import java.io.UnsupportedEncodingException;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.common.StringUtils;
 
 /**
- * The Presentation Text Data structured field contains the data for a presentation text data 
+ * The Presentation Text Data structured field contains the data for a presentation text data
  * object.
  */
 public class PresentationTextData extends AbstractStructuredField {
 
     private final byte[] ptocaData;
 
-    public PresentationTextData(SfIntroducer introducer, byte[] sfData) {
+    public PresentationTextData(SfIntroducer introducer, Parameters params) {
         super(introducer);
-        ptocaData = sfData;
+        ptocaData = params.getByteArray(params.size());
     }
 
     /**

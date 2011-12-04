@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.List;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Begin;
@@ -30,11 +31,12 @@ public class BeginResourceGroupTestCase extends
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
                 FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);
 
-        sut = new BeginResourceGroup(intro, triplets, "TESTNAME".getBytes("Cp500"));
+        Parameters params = new Parameters("TestName".getBytes("Cp500"));
+        sut = new BeginResourceGroup(intro, triplets, params);
         setMembers(sut, intro, triplets);
     }
 
     public void testGetterMethod() {
-        assertEquals("TESTNAME", sut.getResourceGroupName());
+        assertEquals("TestName", sut.getResourceGroupName());
     }
 }

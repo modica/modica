@@ -2,10 +2,9 @@ package org.afpparser.afp.modca.structuredfields.end;
 
 import java.io.UnsupportedEncodingException;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Begin;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.End;
-import org.afpparser.common.ByteUtils;
-import org.afpparser.common.StringUtils;
 
 /**
  * This object is to amalgamate the intelligence of a lot of the {@link End} type structured fields
@@ -17,12 +16,12 @@ public class EndFieldName {
     private final String name;
     private final boolean nameMatchesAny;
 
-    public EndFieldName(byte[] sfData) throws UnsupportedEncodingException {
-        if (ByteUtils.arrayEqualsSubset(sfData, 0xff, 0xff)) {
+    public EndFieldName(Parameters params) throws UnsupportedEncodingException {
+        if (params.getByte() == (byte) 0xFF && params.getByte() == (byte) 0xFF) {
             name = null;
             nameMatchesAny = true;
         } else {
-            name = StringUtils.bytesToCp500(sfData, 0, 8);
+            name = params.getStringCp500(0, 8);
             nameMatchesAny = false;
         }
     }

@@ -2,6 +2,7 @@ package org.afpparser.afp.modca.structuredfields.position;
 
 import static org.junit.Assert.assertEquals;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.ReferenceCoordinateSystem;
 import org.afpparser.afp.modca.common.Rotation;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
@@ -35,7 +36,8 @@ public class ObjectAreaPositionTestCase extends StructuredFieldTestCase<ObjectAr
                 0, 0, // xocaOrent must be 0
                 0x2D, 0, //yocaOrent
                 1);// refCSys
-        sut = new ObjectAreaPosition(intro, data);
+        Parameters params = new Parameters(data);
+        sut = new ObjectAreaPosition(intro, params);
 
         setMembers(sut, intro);
     }

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Begin;
@@ -22,7 +23,8 @@ public class PresentationTextDataTestCase extends StructuredFieldTestCase<Presen
     public void setUp() throws UnsupportedEncodingException {
         SfIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Begin.BPT);
 
-        sut = new PresentationTextData(intro, "Test text".getBytes("Cp500"));
+        Parameters params = new Parameters("Test text".getBytes("Cp500"));
+        sut = new PresentationTextData(intro, params);
         setMembers(sut, intro);
     }
 

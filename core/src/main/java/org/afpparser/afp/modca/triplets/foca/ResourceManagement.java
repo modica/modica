@@ -1,8 +1,8 @@
 package org.afpparser.afp.modca.triplets.foca;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.TripletIdentifiers;
-import org.afpparser.common.ByteUtils;
 
 /**
  * An abstract class for CRCResourceManagement and FontResourceManagement triplets.
@@ -33,13 +33,9 @@ public abstract class ResourceManagement extends Triplet {
         private final int rmValue;
         private final boolean isPublic;
 
-        public CRCResourceManagement(byte[] data, int position) {
-            int byteIndex = position;
-            assert data[byteIndex] == (byte) 0x01;
-            byteIndex++;
-            rmValue = ByteUtils.getLittleEndianUtils().bytesToSignedInt(data, byteIndex, 2);
-            byteIndex++;
-            isPublic = (data[byteIndex] & 0x01) > 0;
+        public CRCResourceManagement(Parameters params) {
+            rmValue = params.getUInt(2);
+            isPublic = (params.getByte() & 0x01) > 0;
         }
 
         /**
@@ -114,39 +110,28 @@ public abstract class ResourceManagement extends Triplet {
         private final int second;
         private final int decSec;
 
-        public FontResourceManagement(byte[] data, int position) {
-            int byteIndex = position;
-            ByteUtils byteUtils = ByteUtils.getLittleEndianUtils();
-            assert data[byteIndex] == (byte) 0x02;
-            byteIndex++;
-            rmValue = byteUtils.bytesToUnsignedInt(data, byteIndex, 4);
-            byteIndex += 4;
-            byte temp = data[byteIndex++];
+        public FontResourceManagement(Parameters params) {
+            rmValue = params.getInt(4);
+            byte temp = params.getByte();
             int yearValue = 0;
             if (temp == (byte) 0x40) {
                 yearValue = 1900;
             } else {
                 yearValue = 2000 + (temp & 0x0F);
             }
-            yearValue += convertToInt(data, byteIndex, 2);
-            byteIndex += 2;
+            yearValue += convertToInt(params, 2);
             year = yearValue;
-            day = convertToInt(data, byteIndex, 3);
-            byteIndex += 3;
-            hour = convertToInt(data, byteIndex, 2);
-            byteIndex += 2;
-            minute = convertToInt(data, byteIndex, 2);
-            byteIndex += 2;
-            second = convertToInt(data, byteIndex, 2);
-            byteIndex += 2;
-            decSec = convertToInt(data, byteIndex, 2);
-            byteIndex += 2;
+            day = convertToInt(params, 3);
+            hour = convertToInt(params, 2);
+            minute = convertToInt(params, 2);
+            second = convertToInt(params, 2);
+            decSec = convertToInt(params, 2);
         }
 
-        private int convertToInt(byte[] data, int position, int length) {
+        private int convertToInt(Parameters params, int length) {
             int value = 0;
             for (int i = 0; i < length; i++) {
-                value = (data[position + i] & 0x0F) * (10 * (length - i));
+                value = (params.getByte() & 0x0F) * (10 * (length - i));
             }
             return value;
         }
@@ -202,14 +187,15 @@ public abstract class ResourceManagement extends Triplet {
         }
     }
 
-    public static ResourceManagement parse(byte[] data, int position) {
-        switch (data[position]) {
+    public static ResourceManagement parse(Parameters params) {
+        byte format = params.getByte();
+        switch (format) {
         case 0x01:
-            return new CRCResourceManagement(data, position);
+            return new CRCResourceManagement(params);
         case 0x02:
-            return new FontResourceManagement(data, position);
+            return new FontResourceManagement(params);
         default:
-            throw new IllegalArgumentException(data[position] + " is not a valid ResourceManagement value");
+            throw new IllegalArgumentException(format + " is not a valid ResourceManagement value");
         }
 
     }

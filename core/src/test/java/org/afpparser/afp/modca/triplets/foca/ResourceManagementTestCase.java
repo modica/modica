@@ -2,6 +2,7 @@ package org.afpparser.afp.modca.triplets.foca;
 
 import static org.junit.Assert.assertEquals;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.triplets.TripletTestCase;
 import org.afpparser.common.ByteUtils;
 import org.junit.Before;
@@ -27,13 +28,13 @@ public class ResourceManagementTestCase extends TripletTestCase<ResourceManageme
                 0xF5, 0xF6, //minute
                 0xF1, 0xF2, //second
                 0xF9, 0xF9); // second / 10
-        x = ResourceManagement.parse(data, 0);
-        ResourceManagement y = ResourceManagement.parse(data, 0);
-        ResourceManagement z = ResourceManagement.parse(data, 0);
+        x = ResourceManagement.parse(new Parameters(data));
+        ResourceManagement y = ResourceManagement.parse(new Parameters(data));
+        ResourceManagement z = ResourceManagement.parse(new Parameters(data));
 
         data[0] = 0x01;
 
-        notEqual = ResourceManagement.parse(data, 0);
+        notEqual = ResourceManagement.parse(new Parameters(data));
         setXYZ(x, y, z, notEqual);
     }
 

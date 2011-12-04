@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.EncodingScheme;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
@@ -28,9 +29,10 @@ public class CodePageDescriptorTestCase extends StructuredFieldTestCase<CodePage
 
         ByteBuffer bb = ByteBuffer.allocate(44);
         bb.put(cpDesc.getBytes("Cp500"));
-        byte[] params = ByteUtils.createByteArray(0, 8, 1, 2, 3, 4, 5, 6, 7, 8, 0x62, 0);
-        bb.put(params);
-        sut = new CodePageDescriptor(intro, bb.array());
+        byte[] paramsBytes = ByteUtils.createByteArray(0, 8, 1, 2, 3, 4, 5, 6, 7, 8, 0x62, 0);
+        bb.put(paramsBytes);
+        Parameters params = new Parameters(bb.array());
+        sut = new CodePageDescriptor(intro, params);
 
         setMembers(sut, intro);
     }

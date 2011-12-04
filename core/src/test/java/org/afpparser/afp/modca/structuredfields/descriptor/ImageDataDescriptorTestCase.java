@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.nio.ByteBuffer;
 import java.util.List;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.ioca.IocaFunctionSetId;
 import org.afpparser.afp.modca.ioca.SelfDefiningField;
 import org.afpparser.afp.modca.ioca.SetBilevelImageColor;
@@ -30,7 +31,8 @@ public class ImageDataDescriptorTestCase extends StructuredFieldTestCase<ImageDa
     public void setUp() {
         SfIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Descriptor.IID);
         byte[] bytes = ByteUtils.createByteArray(0, 1, 2, 3, 4, 5, 6, 7, 8, 0xF7, 2, 1, 0x0A);
-        oneSelfDefiningField = new ImageDataDescriptor(intro, bytes);
+        Parameters params = new Parameters(bytes);
+        oneSelfDefiningField = new ImageDataDescriptor(intro, params);
 
         ByteBuffer bb = ByteBuffer.allocate(32);
         byte[] setBilevelImageColor = ByteUtils.createByteArray(0xF6, 4, 0, 0, 0, 1);
@@ -40,7 +42,8 @@ public class ImageDataDescriptorTestCase extends StructuredFieldTestCase<ImageDa
         bb.put(bytes);
         bb.put(setExtendedBilevelImageColor);
         bb.put(setBilevelImageColor);
-        severalSelfDefiningFields = new ImageDataDescriptor(intro, bb.array());
+        Parameters newParams = new Parameters(bb.array());
+        severalSelfDefiningFields = new ImageDataDescriptor(intro, newParams);
         setMembers(severalSelfDefiningFields, intro);
     }
 

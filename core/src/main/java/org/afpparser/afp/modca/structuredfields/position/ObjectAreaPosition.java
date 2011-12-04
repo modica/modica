@@ -1,10 +1,10 @@
 package org.afpparser.afp.modca.structuredfields.position;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.ReferenceCoordinateSystem;
 import org.afpparser.afp.modca.common.Rotation;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
-import org.afpparser.common.ByteUtils;
 
 /**
  * The Object Area Position structured field specifies the origin and orientation of the object
@@ -20,32 +20,26 @@ public class ObjectAreaPosition extends AbstractStructuredField {
     private final int yocaOset;
     private final ReferenceCoordinateSystem refCSys;
 
-    public ObjectAreaPosition(SfIntroducer introducer, byte[] sfData) {
+    public ObjectAreaPosition(SfIntroducer introducer, Parameters params) {
         super(introducer);
-        ByteUtils byteUtils = ByteUtils.getLittleEndianUtils();
-        int position = 0;
-        oaPosId = sfData[position++];
-        assert sfData[position] == (byte) 23;
-        position++;
-        xoaOset = byteUtils.bytesToSignedInt(sfData, position, 3);
-        position += 3;
-        yoaOset = byteUtils.bytesToSignedInt(sfData, position, 3);
-        position += 3;
-        xoaOrent = Rotation.getValue(sfData[position]);
-        position += 2;
-        yoaOrent = Rotation.getValue(sfData[position]);
-        position += 2;
-        assert sfData[position] == (byte) 0x00;
-        position++;
-        xocaOset = byteUtils.bytesToSignedInt(sfData, position, 3);
-        position += 3;
-        yocaOset = byteUtils.bytesToSignedInt(sfData, position, 3);
-        position += 3;
-        assert sfData[position] == (byte) 0x00; assert sfData[position + 1] == (byte) 0x00;
-        position +=2;
-        assert sfData[position] == (byte) 0x2D; assert sfData[position + 1] == (byte) 0x00;
-        position +=2;
-        refCSys = ReferenceCoordinateSystem.getValue(sfData[position]);
+        oaPosId = params.getByte();
+        int length = params.getByte();
+        assert length == 23;
+        xoaOset = params.getInt(3);
+        yoaOset = params.getInt(3);
+        xoaOrent = Rotation.getValue(params.getByte());
+        params.skip(1);
+        yoaOrent = Rotation.getValue(params.getByte());
+        params.skip(1);
+        byte reserved = params.getByte();
+        assert reserved == (byte) 0x00;
+        xocaOset = params.getInt(3);
+        yocaOset = params.getInt(3);
+        int xocaOrent = params.getUInt(2);
+        int yocaOrent = params.getUInt(2);
+        assert xocaOrent == 0x0000;
+        assert yocaOrent == 0x2D00;
+        refCSys = ReferenceCoordinateSystem.getValue(params.getByte());
     }
 
     /**

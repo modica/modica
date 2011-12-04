@@ -2,11 +2,10 @@ package org.afpparser.afp.modca.structuredfields.descriptor;
 
 import java.io.UnsupportedEncodingException;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.EncodingScheme;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
-import org.afpparser.common.ByteUtils;
-import org.afpparser.common.StringUtils;
 
 /**
  * The Code Page Descriptor (CPD) structured field describes the code page.
@@ -20,26 +19,18 @@ public class CodePageDescriptor extends AbstractStructuredField {
     private final int cpgid;
     private final EncodingScheme encScheme;
 
-    public CodePageDescriptor(SfIntroducer introducer, byte[] sfData)
+    public CodePageDescriptor(SfIntroducer introducer, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer);
-        int byteIndex = 0;
-        ByteUtils byteUtils = ByteUtils.getLittleEndianUtils();
-        cpDesc = StringUtils.bytesToCp500(sfData, byteIndex, 32);
-        byteIndex += 32;
-        assert byteUtils.bytesToSignedInt(sfData, byteIndex, 2) == GCGIDLEN;
-        byteIndex += 2;
+        cpDesc = params.getStringCp500(32);
+        int gcgidLength = params.getUInt(2);
+        assert gcgidLength == GCGIDLEN;
 
-        numCdPts = byteUtils.bytesToSignedInt(sfData, byteIndex, 4);
-        byteIndex += 4;
-
-        gcsgid = byteUtils.bytesToSignedInt(sfData, byteIndex, 2);
-        byteIndex += 2;
-
-        cpgid = byteUtils.bytesToSignedInt(sfData, byteIndex, 2);
-        byteIndex += 2;
-
-        encScheme = EncodingScheme.getValue(sfData[byteIndex]);
+        numCdPts = params.getUInt(4);
+        gcsgid = params.getUInt(2);
+        cpgid = params.getUInt(2);
+        encScheme = EncodingScheme.getValue(params.getByte());
+        params.skip(1); // The encoding scheme only uses the first of 2 bytes
     }
 
     /**

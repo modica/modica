@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.common.ByteUtils;
 import org.junit.Test;
 
@@ -41,6 +42,8 @@ public class FullyQualifiedNameTestCase {
     public static FullyQualifiedName createFQN(String hexData) throws MalformedURLException,
             UnsupportedEncodingException {
         byte[] bytes = ByteUtils.hexToBytes(hexData);
-        return FullyQualifiedName.parse(bytes, 2, (hexData.length() / 2));
+        Parameters params = new Parameters(bytes);
+        params.skip(2);
+        return FullyQualifiedName.parse(params, (hexData.length() / 2));
     }
 }

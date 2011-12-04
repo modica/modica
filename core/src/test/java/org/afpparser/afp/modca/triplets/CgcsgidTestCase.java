@@ -2,6 +2,7 @@ package org.afpparser.afp.modca.triplets;
 
 import static org.junit.Assert.assertEquals;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.triplets.Cgcsgid.Ccsid;
 import org.afpparser.afp.modca.triplets.Cgcsgid.Cpgid;
 import org.afpparser.common.ByteUtils;
@@ -9,36 +10,38 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test case for {@link Cgcsgid}. 
+ * Test case for {@link Cgcsgid}.
  */
 public class CgcsgidTestCase extends TripletTestCase<Cgcsgid> {
     private Cpgid cgcsgid;
     private Ccsid ccsid;
     private final TripletIdentifiers tid = TripletIdentifiers.coded_graphic_character_set_global_identifier;
-    private byte[] cpgidBytes = ByteUtils.createByteArray(0x00, 0x01, 0x01, 0x02);
-    private byte[] ccsidBytes = ByteUtils.createByteArray(0x00, 0x00, 0x01, 0x02);
+    private final Parameters cpgidBytes = new Parameters(ByteUtils.createByteArray(0x00, 0x01,
+            0x01, 0x02));
+    private final Parameters ccsidBytes = new Parameters(ByteUtils.createByteArray(0x00, 0x00,
+            0x01, 0x02));
 
     @Before
     @Override
     public void setUp() {
         // Tests CPGID
-        cgcsgid = (Cpgid) Cgcsgid.parse(cpgidBytes, 0);
-        ccsid = (Ccsid) Cgcsgid.parse(ccsidBytes, 0);
+        cgcsgid = (Cpgid) getValue(cpgidBytes);
+        ccsid = (Ccsid) getValue(ccsidBytes);
 
-        Cgcsgid y = Cgcsgid.parse(cpgidBytes, 0);
-        Cgcsgid z = Cgcsgid.parse(cpgidBytes, 0);
-        byte[] notEqualBytes = ByteUtils.createByteArray(0x00, 0x00, 0x01, 0x03);
-        Cgcsgid notEqual = Cgcsgid.parse(notEqualBytes, 0);
+        Cgcsgid y = getValue(cpgidBytes);
+        Cgcsgid z = getValue(cpgidBytes);
+        Parameters notEqualBytes = new Parameters(ByteUtils.createByteArray(0x00, 0x00, 0x01, 0x03));
+        Cgcsgid notEqual = Cgcsgid.parse(notEqualBytes);
         setXYZ(cgcsgid, y, z, notEqual);
     }
 
     @Test
     public void testCcsidEqualsHashCode() {
-        ccsid = (Ccsid) Cgcsgid.parse(ccsidBytes, 0);
-        Cgcsgid y = Cgcsgid.parse(ccsidBytes, 0);
-        Cgcsgid z = Cgcsgid.parse(ccsidBytes, 0);
-        byte[] notEqualBytes = ByteUtils.createByteArray(0x00, 0x01, 0x01, 0x03);
-        Cgcsgid notEqual = Cgcsgid.parse(notEqualBytes, 0);
+        ccsid = (Ccsid) getValue(ccsidBytes);
+        Cgcsgid y = getValue(ccsidBytes);
+        Cgcsgid z = getValue(ccsidBytes);
+        Parameters notEqualBytes = new Parameters(ByteUtils.createByteArray(0x00, 0x01, 0x01, 0x03));
+        Cgcsgid notEqual = getValue(notEqualBytes);
         setXYZ(ccsid, y, z, notEqual);
         testEqualsHashCode();
     }
@@ -56,4 +59,9 @@ public class CgcsgidTestCase extends TripletTestCase<Cgcsgid> {
         assertEquals(tid, ccsid.getTid());
     }
 
+    private Cgcsgid getValue(Parameters params) {
+        Cgcsgid value = Cgcsgid.parse(params);
+        params.skipTo(0);
+        return value;
+    }
 }

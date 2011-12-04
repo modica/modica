@@ -1,6 +1,6 @@
 package org.afpparser.afp.modca.triplets;
 
-import org.afpparser.common.ByteUtils;
+import org.afpparser.afp.modca.Parameters;
 
 /**
  * The Object Function Set Specification triplet is used to specify the Object Content Architecture
@@ -14,15 +14,13 @@ public class ObjectFunctionSetSpecification extends Triplet {
     private final int dcaFnSet;
     private final OcaFunctionSet ocaFnSet;
 
-    public ObjectFunctionSetSpecification(byte[] data, int position, int length) {
-        ByteUtils byteUtils = ByteUtils.getLittleEndianUtils();
+    public ObjectFunctionSetSpecification(Parameters params, int length) {
         this.length = length;
-        int bytePosition = position;
-        objType = ObjectType.getValue(data[bytePosition++]);
-        archVrsn = data[bytePosition++];
-        dcaFnSet = byteUtils.bytesToUnsignedInt(data, bytePosition, 2);
-        bytePosition += 2;
-        ocaFnSet = OcaFunctionSet.getValue(byteUtils.bytesToUnsignedInt(data, bytePosition, 2));
+        objType = ObjectType.getValue(params.getByte());
+        archVrsn = params.getByte();
+        dcaFnSet = params.getUInt(2);
+        ocaFnSet = OcaFunctionSet.getValue(params.getUInt(2));
+        params.skip(length - 6);
     }
 
     /**
@@ -98,7 +96,7 @@ public class ObjectFunctionSetSpecification extends Triplet {
      * Returns the function set for the group of MO:DCA constructs identified by the ObjType
      * parameter.
      *
-     * @return the function set for the group of MO:DCA constructs 
+     * @return the function set for the group of MO:DCA constructs
      */
     public int getDcaFunctionSet() {
         return dcaFnSet;

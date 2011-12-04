@@ -2,6 +2,7 @@ package org.afpparser.afp.modca.triplets;
 
 import static org.junit.Assert.assertEquals;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.common.ByteUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,12 +18,12 @@ public class ObjectAreaSizeTestCase extends TripletTestCase<ObjectAreaSize> {
     @Override
     public void setUp() {
         byte[] data = ByteUtils.createByteArray(2, 1, 2, 3, 4, 5, 6);
-        x = new ObjectAreaSize(data, 0);
-        ObjectAreaSize y = new ObjectAreaSize(data, 0);
-        ObjectAreaSize z = new ObjectAreaSize(data, 0);
+        x = new ObjectAreaSize(new Parameters(data));
+        ObjectAreaSize y = new ObjectAreaSize(new Parameters(data));
+        ObjectAreaSize z = new ObjectAreaSize(new Parameters(data));
 
         data[1] = 2;
-        ObjectAreaSize notEqual = new ObjectAreaSize(data, 0);
+        ObjectAreaSize notEqual = new ObjectAreaSize(new Parameters(data));
 
         setXYZ(x, y, z, notEqual);
     }

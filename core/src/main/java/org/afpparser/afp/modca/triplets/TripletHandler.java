@@ -5,107 +5,106 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.triplets.foca.ResourceManagement;
 import org.afpparser.afp.modca.triplets.fullyqualifiedname.FullyQualifiedName;
-import org.afpparser.common.ByteUtils;
 
 /**
  * A handler for parsing Structured Field Triplets and Triplet groups.
  */
 public final class TripletHandler {
 
-    private static final ByteUtils BYTE_UTILS = ByteUtils.getLittleEndianUtils();
-
     private TripletHandler() {
     }
 
     /**
-     * Parse the triplet from the byte array starting at offset reading length bytes.
+     * Parse the triplets from the parameters given starting at position reading length bytes.
      *
-     * @param data the triplet data
-     * @param offset the byte offset in the byte array
-     * @param length the number of bytes to read
+     * @param params the triplet parameters
+     * @param position the position in the parameters byte array to begin
+     * @param length the length of the triplet group
      * @return A List of triplets
      * @throws MalformedURLException if an error was thrown parsing a URL
      * @throws UnsupportedEncodingException if an error was thrown decoding a String
      */
-    public static List<Triplet> parseTriplet(byte[] data, int offset, int length)
+    public static List<Triplet> parseTriplet(Parameters params, int position, int length)
             throws MalformedURLException, UnsupportedEncodingException {
-        int position = offset;
+        params.skipTo(position);
         List<Triplet> tripletList = new ArrayList<Triplet>();
         // The length field of the recurring group is included in the
-        int reoccuringGroup = offset + length - 2;
-        while (position < reoccuringGroup) {
-            int tripletLength = data[position++] & 0xFF;
-            TripletIdentifiers tId = TripletIdentifiers.getTripletId(data[position++]);
+        while (params.getPosition() < position + length) {
+            int tripletLength = params.getUInt(1);
+            TripletIdentifiers tId = TripletIdentifiers.getTripletId(params.getByte());
             switch (tId) {
             case coded_graphic_character_set_global_identifier:
-                tripletList.add(Cgcsgid.parse(data, position));
+                tripletList.add(Cgcsgid.parse(params));
                 break;
             case character_rotation:
-                tripletList.add(new CharacterRotation(data, position));
+                tripletList.add(new CharacterRotation(params));
                 break;
             case descriptor_position:
-                tripletList.add(new DescriptorPosition(data[position]));
+                tripletList.add(new DescriptorPosition(params.getByte()));
                 break;
             case fully_qualified_name:
-                tripletList.add(FullyQualifiedName.parse(data, position, tripletLength));
+                tripletList.add(FullyQualifiedName.parse(params, tripletLength));
                 break;
             case mapping_option:
-                tripletList.add(new MappingOption(data[position]));
+                tripletList.add(new MappingOption(params.getByte()));
                 break;
             case measurement_units:
-                tripletList.add(new MeasurementUnits(data, position));
+                tripletList.add(new MeasurementUnits(params));
                 break;
             case object_area_size:
-                tripletList.add(new ObjectAreaSize(data, position));
+                tripletList.add(new ObjectAreaSize(params));
                 break;
             case object_function_set_specification:
-                tripletList.add(new ObjectFunctionSetSpecification(data, position, tripletLength));
+                tripletList.add(new ObjectFunctionSetSpecification(params, tripletLength));
                 break;
             case resource_local_identifier:
-                tripletList.add(new ResourceLocalId(data, position));
+                tripletList.add(new ResourceLocalId(params));
                 break;
             case resource_management:
-                tripletList.add(ResourceManagement.parse(data, position));
+                tripletList.add(ResourceManagement.parse(params));
                 break;
+            default:
+                params.skip(tripletLength - 2);
             }
-            position += tripletLength - 2;
         }
+        params.skipTo(0);
         return tripletList;
     }
 
     /**
-     * Parse the triplet from the byte array starting at offset reading the remainder of bytes in
-     * the data array i.e. (data.length - offset).
+     * Parse the triplet from the parameters starting at position, reading the full byte array.
      *
-     * @param data the triplet data
-     * @param offset the byte offset in the byte array
+     * @param params the triplet parameters
+     * @param position the position in the parameters byte array to begin
      * @return A List of triplets
      * @throws MalformedURLException if an error was thrown parsing a URL
      * @throws UnsupportedEncodingException if an error was thrown decoding a String
      */
-    public static List<Triplet> parseTriplet(byte[] data, int offset) throws MalformedURLException,
-            UnsupportedEncodingException {
-        return parseTriplet(data, offset, data.length - offset);
+    public static List<Triplet> parseTriplet(Parameters params, int position)
+            throws MalformedURLException, UnsupportedEncodingException {
+        return parseTriplet(params, position, params.size() - position);
     }
 
     /**
-     * Parse the repeating group of triplets from the data array given.
+     * Parse the repeating group of triplets from the given parameters data.
      *
-     * @param data the triplet group data
+     * @param params the triplet parameters
      * @return A {@link RepeatingTripletGroup}
      * @throws MalformedURLException if an error was thrown parsing a URL
      * @throws UnsupportedEncodingException if an error was thrown decoding a String
      */
-    public static RepeatingTripletGroup parseRepeatingGroup(byte[] data)
+    public static RepeatingTripletGroup parseRepeatingGroup(Parameters params)
             throws MalformedURLException, UnsupportedEncodingException {
         int byteIndex = 0;
         List<List<Triplet>> repeatingTriplets = new ArrayList<List<Triplet>>();
 
-        while (byteIndex < data.length) {
-            int rgLength = BYTE_UTILS.bytesToUnsignedInt(data, byteIndex, 2);
-            List<Triplet> triplets = TripletHandler.parseTriplet(data, 2, rgLength);
+        while (byteIndex < params.size()) {
+            int rgLength = params.getUInt(2);
+            List<Triplet> triplets = TripletHandler.parseTriplet(params, params.getPosition(),
+                    rgLength - 2);
             repeatingTriplets.add(triplets);
             byteIndex += rgLength;
         }

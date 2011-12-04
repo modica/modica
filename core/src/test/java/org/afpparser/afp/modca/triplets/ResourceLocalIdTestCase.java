@@ -2,6 +2,7 @@ package org.afpparser.afp.modca.triplets;
 
 import static org.junit.Assert.assertEquals;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.triplets.ResourceLocalId.ResourceType;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,10 +17,12 @@ public class ResourceLocalIdTestCase extends TripletTestCase<ResourceLocalId> {
     @Override
     public void setUp() {
         byte[] data = new byte[] { 0x00, 0x02, 0x03 };
-        x = new ResourceLocalId(data, 0);
-        ResourceLocalId y = new ResourceLocalId(data, 0);
-        ResourceLocalId z = new ResourceLocalId(data, 0);
-        ResourceLocalId notEqual = new ResourceLocalId(data, 1);
+        x = new ResourceLocalId(new Parameters(data));
+        ResourceLocalId y = new ResourceLocalId(new Parameters(data));
+        ResourceLocalId z = new ResourceLocalId(new Parameters(data));
+        Parameters params = new Parameters(data);
+        params.skip(1);
+        ResourceLocalId notEqual = new ResourceLocalId(params);
 
         setXYZ(x, y, z, notEqual);
     }
@@ -34,7 +37,7 @@ public class ResourceLocalIdTestCase extends TripletTestCase<ResourceLocalId> {
 
     private void testResourceType(byte typeId, ResourceType type) {
         byte[] data = new byte[] { typeId, 0x01 };
-        ResourceLocalId testSubject = new ResourceLocalId(data, 0);
+        ResourceLocalId testSubject = new ResourceLocalId(new Parameters(data));
         assertEquals(type, testSubject.getResourceType());
     }
 }

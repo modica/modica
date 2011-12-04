@@ -2,6 +2,7 @@ package org.afpparser.afp.modca.ioca;
 
 import static org.junit.Assert.assertEquals;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.ioca.SetBilevelImageColor.NamedColor;
 import org.afpparser.common.ByteUtils;
 import org.junit.Test;
@@ -13,8 +14,8 @@ public class SetBilevelImageColorTestCase {
 
     @Test
     public void testConstructor() {
-        byte[] data = ByteUtils.createByteArray(4, 0, 0, 0, 0);
-        SetBilevelImageColor sut = new SetBilevelImageColor(data, 0);
+        Parameters params = new Parameters(ByteUtils.createByteArray(4, 0, 0, 0, 0));
+        SetBilevelImageColor sut = new SetBilevelImageColor(params);
         assertEquals(5, sut.getLength());
         assertEquals((byte) 0xF6, sut.getId());
         assertEquals(NamedColor.PRESENTATION_PROCESS_DEFAULT, sut.getColour());
@@ -49,8 +50,9 @@ public class SetBilevelImageColorTestCase {
     }
 
     private void testColour(NamedColor expected, int colourValue1, int colourValue2) {
-        byte[] data = ByteUtils.createByteArray(4, 0, 0, colourValue1, colourValue2);
-        SetBilevelImageColor sut = new SetBilevelImageColor(data, 0);
+        Parameters data = new Parameters(ByteUtils.createByteArray(4, 0, 0,
+                colourValue1, colourValue2));
+        SetBilevelImageColor sut = new SetBilevelImageColor(data);
         assertEquals(expected, sut.getColour());
     }
 }

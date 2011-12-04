@@ -3,10 +3,10 @@ package org.afpparser.afp.modca.structuredfields.begin;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
-import org.afpparser.common.StringUtils;
 
 /**
  * The Begin Document structured field names and begins the document.
@@ -16,11 +16,11 @@ public final class BeginDocument extends StructuredFieldWithTriplets {
     private final String documentName;
     private final boolean docNameProvidedBySystem;
 
-    public BeginDocument(SfIntroducer introducer, List<Triplet> triplets, byte[] sfData)
+    public BeginDocument(SfIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
-        if (sfData != null && (sfData[0] != 0xFF && sfData[1] != 0xFF)) {
-            documentName = StringUtils.bytesToCp500(sfData, 0, 8);
+        if (params.getByte() != (byte) 0xFF && params.getByte() != (byte) 0xFF) {
+            documentName = params.getStringCp500(0, 8);
             docNameProvidedBySystem = false;
         } else {
             docNameProvidedBySystem = true;

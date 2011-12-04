@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.List;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
 import org.afpparser.afp.modca.triplets.Triplet;
@@ -13,14 +14,14 @@ public class IncludeHandler {
     private IncludeHandler() {
     }
 
-    public static StructuredField handle(SfIntroducer intro, byte[] sfData) {
+    public static StructuredField handle(SfIntroducer intro, Parameters params) {
         List<Triplet> triplets;
         try {
             StructuredField sf;
             switch (intro.getType().getCategoryCode()) {
             case data_resource:
-                triplets = TripletHandler.parseTriplet(sfData, 27);
-                sf = new IncludeObject(intro, triplets, sfData);
+                triplets = TripletHandler.parseTriplet(params, 27);
+                sf = new IncludeObject(intro, triplets, params);
                 break;
             default:
                 sf = null;

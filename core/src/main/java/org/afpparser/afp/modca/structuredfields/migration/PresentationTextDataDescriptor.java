@@ -2,10 +2,10 @@ package org.afpparser.afp.modca.structuredfields.migration;
 
 import java.util.Collections;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
-import org.afpparser.common.ByteUtils;
 
 /**
  * The Presentation Text Data Descriptor Format 1 structured field specifies the size of a text
@@ -19,18 +19,16 @@ public class PresentationTextDataDescriptor extends StructuredFieldWithTriplets 
     private final int xAxisSize;
     private final int yAxisSize;
 
-    public PresentationTextDataDescriptor(SfIntroducer introducer, byte[] sfData) {
+    public PresentationTextDataDescriptor(SfIntroducer introducer, Parameters params) {
         super(introducer, Collections.<Triplet>emptyList());
-        int position = 2;
-        assert sfData[0] == 0 && sfData[1] == 0;
-        ByteUtils byteUtils = ByteUtils.getLittleEndianUtils();
-        xAxisUnit = byteUtils.bytesToUnsignedInt(sfData, position, 2);
-        position += 2;
-        yAxisUnit = byteUtils.bytesToUnsignedInt(sfData, position, 2);
-        position += 3; // the first byte is ignored
-        xAxisSize = byteUtils.bytesToUnsignedInt(sfData, position, 2);
-        position += 3; // the first byte is ignored
-        yAxisSize = byteUtils.bytesToUnsignedInt(sfData, position, 2);
+        byte xpBase = params.getByte();
+        byte ypBase = params.getByte();
+        assert xpBase == 0 && ypBase == 0;
+        xAxisUnit = params.getUInt(2);
+        yAxisUnit = params.getUInt(2);
+        xAxisSize = params.getUInt(3);
+        yAxisSize = params.getUInt(3);
+        // TODO: add the initial text conditions parsing
     }
 
     /**

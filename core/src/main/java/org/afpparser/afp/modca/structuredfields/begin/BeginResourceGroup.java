@@ -3,10 +3,10 @@ package org.afpparser.afp.modca.structuredfields.begin;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
-import org.afpparser.common.StringUtils;
 
 /**
  * The Begin Resource Group structured field begins a resource group, which becomes the current
@@ -16,10 +16,10 @@ public class BeginResourceGroup extends StructuredFieldWithTriplets {
 
     private final String rGrpName;
 
-    public BeginResourceGroup(SfIntroducer introducer, List<Triplet> triplets, byte[] sfData)
+    public BeginResourceGroup(SfIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
-        rGrpName = StringUtils.bytesToCp500(sfData, 0, 8);
+        rGrpName = params.getStringCp500(0, 8);
     }
 
     /**

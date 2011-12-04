@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.List;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Begin;
@@ -32,7 +33,8 @@ public class BeginPageTestCase extends StructuredFieldWithTripletsTestCase<Begin
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
                 FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);
 
-        sut = new BeginPage(intro, triplets, pageName.getBytes("Cp500"));
+        Parameters params = new Parameters(pageName.getBytes("Cp500"));
+        sut = new BeginPage(intro, triplets, params);
         super.setMembers(sut, intro, triplets);
     }
 

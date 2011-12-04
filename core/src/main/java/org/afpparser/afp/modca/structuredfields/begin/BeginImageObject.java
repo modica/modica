@@ -3,10 +3,10 @@ package org.afpparser.afp.modca.structuredfields.begin;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
-import org.afpparser.common.StringUtils;
 
 /**
  * The Begin Image Object structured field begins an IOCA image data object, which becomes the
@@ -20,10 +20,10 @@ public class BeginImageObject extends StructuredFieldWithTriplets {
 
     private final String idoName;
 
-    public BeginImageObject(SfIntroducer introducer, List<Triplet> triplets, byte[] sfData)
+    public BeginImageObject(SfIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
-        idoName = StringUtils.bytesToCp500(sfData, 0, 8);
+        idoName = params.getStringCp500(0, 8);
     }
 
     /**

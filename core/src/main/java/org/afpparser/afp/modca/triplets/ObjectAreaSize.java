@@ -1,6 +1,6 @@
 package org.afpparser.afp.modca.triplets;
 
-import org.afpparser.common.ByteUtils;
+import org.afpparser.afp.modca.Parameters;
 
 /**
  * The Object Area Size triplet is used to specify the extent of an object area in the X and Y
@@ -12,14 +12,11 @@ public class ObjectAreaSize extends Triplet {
     private final int xoaSize;
     private final int yoaSize;
 
-    public ObjectAreaSize(byte[] data, int position) {
-        int byteIndex = position;
-        ByteUtils byteUtils = ByteUtils.getLittleEndianUtils();
-        assert data[byteIndex] == (byte) 0x02;
-        byteIndex++;
-        xoaSize = byteUtils.bytesToUnsignedInt(data, byteIndex, 3);
-        byteIndex += 3;
-        yoaSize = byteUtils.bytesToUnsignedInt(data, byteIndex, 3);
+    public ObjectAreaSize(Parameters params) {
+        byte b = params.getByte();
+        assert b == (byte) 0x02;
+        xoaSize = params.getUInt(3);
+        yoaSize = params.getUInt(3);
     }
 
     @Override

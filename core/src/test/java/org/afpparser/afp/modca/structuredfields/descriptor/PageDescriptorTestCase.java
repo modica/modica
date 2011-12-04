@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.List;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.PresentationSpaceUnits;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
@@ -36,11 +37,13 @@ public class PageDescriptorTestCase extends StructuredFieldWithTripletsTestCase<
 
         byte[] bytes = ByteUtils.createByteArray(0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0);
 
-        sut = new PageDescriptor(intro, triplets, bytes);
+        Parameters inchesParams = new Parameters(bytes);
+        sut = new PageDescriptor(intro, triplets, inchesParams);
         super.setMembers(sut, intro, triplets);
         bytes[0] = 1;
         bytes[1] = 1;
-        cmSut = new PageDescriptor(intro, triplets, bytes);
+        Parameters cmParams = new Parameters(bytes);
+        cmSut = new PageDescriptor(intro, triplets, cmParams);
     }
 
     @Test

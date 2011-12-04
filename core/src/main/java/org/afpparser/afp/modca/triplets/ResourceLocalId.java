@@ -1,5 +1,7 @@
 package org.afpparser.afp.modca.triplets;
 
+import org.afpparser.afp.modca.Parameters;
+
 /**
  * The Resource Local Identifier triplet may be used to specify a resource type and a one-byte local
  * identifier or LID. The LID usually is associated with a specific resource name by a map
@@ -12,9 +14,9 @@ public class ResourceLocalId extends Triplet {
     private final ResourceType resourceType;
     private final byte resourceLocalId;
 
-    public ResourceLocalId(byte[] data, int position) {
-        resourceType = ResourceType.getValue(data[position]);
-        resourceLocalId = data[position + 1];
+    public ResourceLocalId(Parameters params) {
+        resourceType = ResourceType.getValue(params.getByte());
+        resourceLocalId = params.getByte();
     }
 
     /**

@@ -1,6 +1,6 @@
 package org.afpparser.afp.modca.triplets;
 
-import org.afpparser.common.ByteUtils;
+import org.afpparser.afp.modca.Parameters;
 
 /**
  * Coded Graphical Character Set Global Identifier triplet is used to establish the values of the
@@ -129,10 +129,9 @@ public abstract class Cgcsgid extends Triplet {
      * @param position the byte position in the data array
      * @return the CGCSGID
      */
-    public static Cgcsgid parse(byte[] data, int position) {
-        ByteUtils byteUtils = ByteUtils.getLittleEndianUtils();
-        int gcsgid = byteUtils.bytesToUnsignedInt(data, position, 2);
-        int ccsidOrCpgid = byteUtils.bytesToUnsignedInt(data, position + 2, 2);
+    public static Cgcsgid parse(Parameters params) {
+        int gcsgid = params.getUInt(2);
+        int ccsidOrCpgid = params.getUInt(2);
         if (gcsgid == 0x0000) {
             return new Ccsid(ccsidOrCpgid);
         } else {

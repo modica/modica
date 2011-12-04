@@ -2,6 +2,7 @@ package org.afpparser.afp.modca.ioca;
 
 import static org.junit.Assert.assertEquals;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.common.ByteUtils;
 import org.junit.Test;
 
@@ -12,8 +13,8 @@ public class IocaFunctionSetIdTestCase {
 
     @Test
     public void testConstructor() {
-        byte[] data = ByteUtils.createByteArray(0x02, 0x01, 0x0A);
-        IocaFunctionSetId sut = new IocaFunctionSetId(data, 0);
+        Parameters params = new Parameters(ByteUtils.createByteArray(0x02, 0x01, 0x0A));
+        IocaFunctionSetId sut = new IocaFunctionSetId(params);
         assertEquals(FunctionSet.FS_10, sut.getFunctionSet());
         assertEquals(3, sut.getLength());
         assertEquals((byte) 0xF7, sut.getId());
@@ -26,8 +27,8 @@ public class IocaFunctionSetIdTestCase {
     }
 
     private void testFunctionSetGetter(FunctionSet expected, int id) {
-        byte[] data = ByteUtils.createByteArray(0x02, 0x01, id);
-        IocaFunctionSetId sut = new IocaFunctionSetId(data, 0);
+        Parameters params = new Parameters(ByteUtils.createByteArray(0x02, 0x01, id));
+        IocaFunctionSetId sut = new IocaFunctionSetId(params);
         assertEquals(expected, sut.getFunctionSet());
     }
 }

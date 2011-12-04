@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.List;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.End;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
@@ -18,43 +19,43 @@ public class EndHandler {
     private EndHandler() {
     }
 
-    public static StructuredField handle(SfIntroducer intro, byte[] sfData) {
+    public static StructuredField handle(SfIntroducer intro, Parameters params) {
         List<Triplet> triplets;
         try {
             StructuredField sf;
             switch (intro.getType().getCategoryCode()) {
             case active_environment_group:
-                sf = new EndActiveEnvironmentGroup(intro, sfData);
+                sf = new EndActiveEnvironmentGroup(intro, params);
                 break;
             case document:
-                triplets = TripletHandler.parseTriplet(sfData, 8);
-                sf = new EndDocument(intro, triplets, sfData);
+                triplets = TripletHandler.parseTriplet(params, 8);
+                sf = new EndDocument(intro, triplets, params);
                 break;
             case image:
-                triplets = TripletHandler.parseTriplet(sfData, 8);
-                sf = new EndImageObject(intro, triplets, sfData);
+                triplets = TripletHandler.parseTriplet(params, 8);
+                sf = new EndImageObject(intro, triplets, params);
                 break;
             case name_resource:
-                sf = new EndResource(intro, sfData);
+                sf = new EndResource(intro, params);
                 break;
             case object_environment_group:
-                sf = new EndObjectEnvironmentGroup(intro, sfData);
+                sf = new EndObjectEnvironmentGroup(intro, params);
                 break;
             case page:
-                triplets = TripletHandler.parseTriplet(sfData, 8);
-                sf = new EndPage(intro, triplets, sfData);
+                triplets = TripletHandler.parseTriplet(params, 8);
+                sf = new EndPage(intro, triplets, params);
                 break;
             case page_group:
-                triplets = TripletHandler.parseTriplet(sfData, 8);
-                sf = new EndPageGroup(intro, triplets, sfData);
+                triplets = TripletHandler.parseTriplet(params, 8);
+                sf = new EndPageGroup(intro, triplets, params);
                 break;
             case presentation_text:
-                triplets = TripletHandler.parseTriplet(sfData, 8);
-                sf = new EndPresentationTextObject(intro, triplets, sfData);
+                triplets = TripletHandler.parseTriplet(params, 8);
+                sf = new EndPresentationTextObject(intro, triplets, params);
                 break;
             case resource_group:
-                triplets = TripletHandler.parseTriplet(sfData, 8);
-                sf = new EndResourceGroup(intro, triplets, sfData);
+                triplets = TripletHandler.parseTriplet(params, 8);
+                sf = new EndResourceGroup(intro, triplets, params);
                 break;
             default:
                 sf = null;

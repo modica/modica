@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.List;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.End;
@@ -33,8 +34,10 @@ public class EndDocumentTestCase extends StructuredFieldWithTripletsTestCase<End
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
                 FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);
 
-        sut = new EndDocument(intro, triplets, docName.getBytes("Cp500"));
-        sutMatchesAny = new EndDocument(intro, triplets, ByteUtils.createByteArray(0xff, 0xff));
+        Parameters params = new Parameters(docName.getBytes("Cp500"));
+        sut = new EndDocument(intro, triplets, params);
+        Parameters matchesAnyParams = new Parameters(ByteUtils.createByteArray(0xff, 0xff));
+        sutMatchesAny = new EndDocument(intro, triplets, matchesAnyParams);
         setMembers(sut, intro, triplets);
     }
 

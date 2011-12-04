@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.nio.ByteBuffer;
 import java.util.List;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.ReferenceCoordinateSystem;
 import org.afpparser.afp.modca.common.Rotation;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
@@ -46,7 +47,7 @@ public class IncludeObjectTestCase extends StructuredFieldWithTripletsTestCase<I
 
         ByteBuffer bb = ByteBuffer.allocate(27);
         bb.put(objName.getBytes("Cp500"));
-        byte[] params = ByteUtils.createByteArray(0, 0xBB,
+        byte[] paramByteArray = ByteUtils.createByteArray(0, 0xBB,
                 1, 2, 3,
                 4, 5, 6,
                 0, 0,
@@ -55,28 +56,35 @@ public class IncludeObjectTestCase extends StructuredFieldWithTripletsTestCase<I
                 10, 11, 12,
                 1);
 
-        bb.put(params);
+        bb.put(paramByteArray);
         byte[] constructorArray = bb.array();
-        hasAllParams = new IncludeObject(intro, triplets, constructorArray);
+        Parameters params = new Parameters(constructorArray);
+        hasAllParams = new IncludeObject(intro, triplets, params);
         setMembers(hasAllParams, intro, triplets);
 
         fillWithFF(constructorArray, 10, 3);
-        useXOriginArea = new IncludeObject(intro, triplets, constructorArray);
+        Parameters useXOA = new Parameters(constructorArray);
+        useXOriginArea = new IncludeObject(intro, triplets, useXOA);
 
         fillWithFF(constructorArray, 13, 3);
-        useYOriginArea = new IncludeObject(intro, triplets, constructorArray);
+        params = new Parameters(constructorArray);
+        useYOriginArea = new IncludeObject(intro, triplets, params);
 
         fillWithFF(constructorArray, 16, 2);
-        useXObjectRotation = new IncludeObject(intro, triplets, constructorArray);
+        params = new Parameters(constructorArray);
+        useXObjectRotation = new IncludeObject(intro, triplets, params);
 
         fillWithFF(constructorArray, 18, 2);
-        useYObjectRotation = new IncludeObject(intro, triplets, constructorArray);
+        params = new Parameters(constructorArray);
+        useYObjectRotation = new IncludeObject(intro, triplets, params);
 
         fillWithFF(constructorArray, 20, 3);
-        useXOriginOffset = new IncludeObject(intro, triplets, constructorArray);
+        params = new Parameters(constructorArray);
+        useXOriginOffset = new IncludeObject(intro, triplets, params);
 
         fillWithFF(constructorArray, 23, 3);
-        useYOriginOffset = new IncludeObject(intro, triplets, constructorArray);
+        params = new Parameters(constructorArray);
+        useYOriginOffset = new IncludeObject(intro, triplets, params);
     }
 
     @Test

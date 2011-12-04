@@ -2,6 +2,7 @@ package org.afpparser.afp.modca.structuredfields.data;
 
 import java.io.UnsupportedEncodingException;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 
@@ -12,10 +13,10 @@ public class NoOperation extends AbstractStructuredField {
 
     private final byte[] comment;
 
-    public NoOperation(SfIntroducer introducer, byte[] sfData) throws UnsupportedEncodingException {
+    public NoOperation(SfIntroducer introducer, Parameters params)
+            throws UnsupportedEncodingException {
         super(introducer);
-        comment = new byte[sfData.length];
-        System.arraycopy(sfData, 0, comment, 0, sfData.length);
+        comment = params.getByteArray(params.size());
     }
 
     /**

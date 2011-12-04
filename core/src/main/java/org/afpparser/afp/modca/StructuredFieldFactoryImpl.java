@@ -27,13 +27,13 @@ public class StructuredFieldFactoryImpl implements StructuredFieldFactory {
         this.channel = channel;
     }
 
-    public byte[] createStructuredField(SfIntroducer intro) {
+    public Parameters createStructuredField(SfIntroducer intro) {
         try {
             long byteOffset = intro.getDataOffset();
             ByteBuffer buffer = ByteBuffer.allocate(intro.getLength()
                     - SfIntroducer.SF_Introducer_FIELD - SfIntroducer.Carriage_Control_FIELD);
             channel.read(buffer, byteOffset);
-            return buffer.array();
+            return new Parameters(buffer.array());
         } catch (IOException ioe) {
             throw new IllegalStateException(ioe);
         }
@@ -41,49 +41,49 @@ public class StructuredFieldFactoryImpl implements StructuredFieldFactory {
 
     @Override
     public StructuredField createBegin(SfIntroducer introducer) {
-        byte[] payload = createStructuredField(introducer);
+        Parameters payload = createStructuredField(introducer);
         return BeginHandler.handle(introducer, payload);
     }
 
     @Override
     public StructuredField createMap(SfIntroducer introducer) {
-        byte[] payload = createStructuredField(introducer);
+        Parameters payload = createStructuredField(introducer);
         return MapObjectHandler.handle(introducer, payload);
     }
 
     @Override
     public StructuredField createDescriptor(SfIntroducer introducer) {
-        byte[] payload = createStructuredField(introducer);
+        Parameters payload = createStructuredField(introducer);
         return DescriptorHandler.handle(introducer, payload);
     }
 
     @Override
     public StructuredField createMigration(SfIntroducer introducer) {
-        byte[] payload = createStructuredField(introducer);
+        Parameters payload = createStructuredField(introducer);
         return MigrationHandler.handle(introducer, payload);
     }
 
     @Override
     public StructuredField createEnd(SfIntroducer introducer) {
-        byte[] payload = createStructuredField(introducer);
+        Parameters payload = createStructuredField(introducer);
         return EndHandler.handle(introducer, payload);
     }
 
     @Override
     public StructuredField createData(SfIntroducer introducer) {
-        byte[] payload = createStructuredField(introducer);
+        Parameters payload = createStructuredField(introducer);
         return DataHandler.handle(introducer, payload);
     }
 
     @Override
     public StructuredField createPosition(SfIntroducer introducer) {
-        byte[] payload = createStructuredField(introducer);
+        Parameters payload = createStructuredField(introducer);
         return PositionHandler.handle(introducer, payload);
     }
 
     @Override
     public StructuredField createInclude(SfIntroducer introducer) {
-        byte[] payload = createStructuredField(introducer);
+        Parameters payload = createStructuredField(introducer);
         return IncludeHandler.handle(introducer, payload);
     }
 }

@@ -2,6 +2,7 @@ package org.afpparser.afp.modca.structuredfields.end;
 
 import java.io.UnsupportedEncodingException;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 
@@ -13,10 +14,10 @@ public class EndActiveEnvironmentGroup extends AbstractStructuredField {
 
     private final EndFieldName aegName;
 
-    public EndActiveEnvironmentGroup(SfIntroducer introducer, byte[] sfData)
+    public EndActiveEnvironmentGroup(SfIntroducer introducer, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer);
-        aegName = new EndFieldName(sfData);
+        aegName = new EndFieldName(params);
     }
 
     /**

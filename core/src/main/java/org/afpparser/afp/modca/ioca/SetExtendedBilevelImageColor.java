@@ -1,5 +1,6 @@
 package org.afpparser.afp.modca.ioca;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.common.ByteUtils;
 
 /**
@@ -17,23 +18,17 @@ public class SetExtendedBilevelImageColor implements SelfDefiningField {
     private final int colSize4;
     private final byte[] color;
 
-    public SetExtendedBilevelImageColor(byte[] data, int position) {
-        int byteIndex = position;
-        ByteUtils byteUtils = ByteUtils.getLittleEndianUtils();
+    public SetExtendedBilevelImageColor(Parameters params) {
+        int position = params.getPosition();
         // The length does not include the length field
-        length = data[byteIndex++] + 1;
-        colourSpace = ColorSpace.getValue(data[byteIndex++]);
-        colSize1 = byteUtils.bytesToUnsignedInt(data, byteIndex, 2);
-        byteIndex += 2;
-        colSize2 = byteUtils.bytesToUnsignedInt(data, byteIndex, 2);
-        byteIndex += 2;
-        colSize3 = byteUtils.bytesToUnsignedInt(data, byteIndex, 2);
-        byteIndex += 2;
-        colSize4 = byteUtils.bytesToUnsignedInt(data, byteIndex, 2);
-        byteIndex += 2;
-        int colourLength = length - (byteIndex - position);
-        color = new byte[colourLength];
-        System.arraycopy(data, byteIndex, color, 0, colourLength);
+        length = params.getInt(1) + 1;
+        colourSpace = ColorSpace.getValue(params.getByte());
+        colSize1 = params.getUInt(2);
+        colSize2 = params.getUInt(2);
+        colSize3 = params.getUInt(2);
+        colSize4 = params.getUInt(2);
+        int colourLength = length - (params.getPosition() - position);
+        color = params.getByteArray(colourLength);
     }
 
     @Override

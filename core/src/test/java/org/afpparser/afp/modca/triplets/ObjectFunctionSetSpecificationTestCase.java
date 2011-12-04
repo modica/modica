@@ -2,6 +2,7 @@ package org.afpparser.afp.modca.triplets;
 
 import static org.junit.Assert.assertEquals;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.triplets.ObjectFunctionSetSpecification.ObjectType;
 import org.afpparser.afp.modca.triplets.ObjectFunctionSetSpecification.OcaFunctionSet;
 import org.afpparser.common.ByteUtils;
@@ -9,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test case for {@link ObjectFunctionSetSpecification}. 
+ * Test case for {@link ObjectFunctionSetSpecification}.
  */
 public class ObjectFunctionSetSpecificationTestCase extends
         TripletTestCase<ObjectFunctionSetSpecification> {
@@ -21,14 +22,14 @@ public class ObjectFunctionSetSpecificationTestCase extends
     @Override
     public void setUp() {
         byte[] tripletBytes = ByteUtils.hexToBytes("06000000000000");
-        x = new ObjectFunctionSetSpecification(tripletBytes, 0, 8);
-        ObjectFunctionSetSpecification y = new ObjectFunctionSetSpecification(tripletBytes, 0, 8);
-        ObjectFunctionSetSpecification z = new ObjectFunctionSetSpecification(tripletBytes, 0, 8);
+        x = new ObjectFunctionSetSpecification(new Parameters(tripletBytes), 8);
+        ObjectFunctionSetSpecification y = new ObjectFunctionSetSpecification(new Parameters(tripletBytes), 8);
+        ObjectFunctionSetSpecification z = new ObjectFunctionSetSpecification(new Parameters(tripletBytes), 8);
 
         tripletBytes[0] = 0x05;
         tripletBytes[3] = 0x01;
         tripletBytes[4] = 0x40;
-        notEqual = new ObjectFunctionSetSpecification(tripletBytes, 0, 8);
+        notEqual = new ObjectFunctionSetSpecification(new Parameters(tripletBytes), 8);
         setXYZ(x, y, z, notEqual);
     }
 

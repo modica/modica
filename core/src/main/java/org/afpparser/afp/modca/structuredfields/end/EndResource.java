@@ -2,6 +2,7 @@ package org.afpparser.afp.modca.structuredfields.end;
 
 import java.io.UnsupportedEncodingException;
 
+import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 
@@ -14,9 +15,9 @@ public class EndResource extends AbstractStructuredField {
 
     private final EndFieldName rsName;
 
-    public EndResource(SfIntroducer introducer, byte[] sfData) throws UnsupportedEncodingException {
+    public EndResource(SfIntroducer introducer, Parameters params) throws UnsupportedEncodingException {
         super(introducer);
-        rsName = new EndFieldName(sfData);
+        rsName = new EndFieldName(params);
     }
 
     /**
@@ -41,6 +42,7 @@ public class EndResource extends AbstractStructuredField {
         return rsName.matchesAny();
     }
 
+    @Override
     public String toString() {
         return getType().getName() + " RSName=" + rsName;
     }
