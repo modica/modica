@@ -7,10 +7,11 @@ import static org.junit.Assert.assertTrue;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 
+import org.afpparser.afp.modca.CPIRepeatingGroupLength;
+import org.afpparser.afp.modca.Context;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Control;
 import org.afpparser.afp.modca.structuredfields.control.CodePageControl;
-import org.afpparser.afp.modca.structuredfields.control.CodePageControl.CPIRepeatingGroupLength;
 import org.afpparser.common.ByteUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,26 +39,27 @@ public class CodePageControlTestCase extends StructuredFieldTestCase<CodePageCon
         bb.put(defaultChar.getBytes("Cp500"));
         bb.put(ByteUtils.createByteArray(1, 0x0A, 2, 3, 1));
         byte[] data = bb.array();
-        sut = new CodePageControl(intro, new Parameters(data));
+        Context context = new Context();
+        sut = new CodePageControl(intro, new Parameters(data), context);
         setMembers(sut, intro);
 
         data[8] = 0x02;
-        noPresentation = new CodePageControl(intro, new Parameters(data));
+        noPresentation = new CodePageControl(intro, new Parameters(data), context);
 
         data[8] = 0x04;
-        noIncrement = new CodePageControl(intro, new Parameters(data));
+        noIncrement = new CodePageControl(intro, new Parameters(data), context);
 
         data[9] = 0x0B;
-        doubleByte = new CodePageControl(intro, new Parameters(data));
+        doubleByte = new CodePageControl(intro, new Parameters(data), context);
 
         data[9] = (byte) 0xFE;
-        singleByteUnicode = new CodePageControl(intro, new Parameters(data));
+        singleByteUnicode = new CodePageControl(intro, new Parameters(data), context);
 
         data[9] = (byte) 0xFF;
-        doubleByteUnicode = new CodePageControl(intro, new Parameters(data));
+        doubleByteUnicode = new CodePageControl(intro, new Parameters(data), context);
 
         data[12] = (byte) 0x10;
-        enableVariableSpace = new CodePageControl(intro, new Parameters(data));
+        enableVariableSpace = new CodePageControl(intro, new Parameters(data), context);
     }
 
     @Test

@@ -2,6 +2,7 @@ package org.afpparser.afp.modca.structuredfields.data;
 
 import java.io.UnsupportedEncodingException;
 
+import org.afpparser.afp.modca.Context;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
@@ -11,7 +12,7 @@ public class DataHandler {
     private DataHandler() {
     }
 
-    public static StructuredField handle(SfIntroducer intro, Parameters params) {
+    public static StructuredField handle(SfIntroducer intro, Parameters params, Context context) {
         StructuredField sf;
         try {
             switch (intro.getType().getCategoryCode()) {

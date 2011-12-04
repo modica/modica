@@ -12,6 +12,7 @@ import org.afpparser.afp.modca.structuredfields.data.DataHandler;
 import org.afpparser.afp.modca.structuredfields.descriptor.DescriptorHandler;
 import org.afpparser.afp.modca.structuredfields.end.EndHandler;
 import org.afpparser.afp.modca.structuredfields.include.IncludeHandler;
+import org.afpparser.afp.modca.structuredfields.index.IndexHandler;
 import org.afpparser.afp.modca.structuredfields.map.MapObjectHandler;
 import org.afpparser.afp.modca.structuredfields.migration.MigrationHandler;
 import org.afpparser.afp.modca.structuredfields.position.PositionHandler;
@@ -23,6 +24,7 @@ import org.afpparser.afp.modca.structuredfields.position.PositionHandler;
 public class StructuredFieldFactoryImpl implements StructuredFieldFactory {
 
     private final FileChannel channel;
+    private final Context context = new Context();
 
     public StructuredFieldFactoryImpl(FileChannel channel) {
         this.channel = channel;
@@ -43,19 +45,19 @@ public class StructuredFieldFactoryImpl implements StructuredFieldFactory {
     @Override
     public StructuredField createBegin(SfIntroducer introducer) {
         Parameters payload = createStructuredField(introducer);
-        return BeginHandler.handle(introducer, payload);
+        return BeginHandler.handle(introducer, payload, context);
     }
 
     @Override
     public StructuredField createMap(SfIntroducer introducer) {
         Parameters payload = createStructuredField(introducer);
-        return MapObjectHandler.handle(introducer, payload);
+        return MapObjectHandler.handle(introducer, payload, context);
     }
 
     @Override
     public StructuredField createDescriptor(SfIntroducer introducer) {
         Parameters payload = createStructuredField(introducer);
-        return DescriptorHandler.handle(introducer, payload);
+        return DescriptorHandler.handle(introducer, payload, context);
     }
 
     @Override
@@ -67,30 +69,36 @@ public class StructuredFieldFactoryImpl implements StructuredFieldFactory {
     @Override
     public StructuredField createEnd(SfIntroducer introducer) {
         Parameters payload = createStructuredField(introducer);
-        return EndHandler.handle(introducer, payload);
+        return EndHandler.handle(introducer, payload, context);
     }
 
     @Override
     public StructuredField createData(SfIntroducer introducer) {
         Parameters payload = createStructuredField(introducer);
-        return DataHandler.handle(introducer, payload);
+        return DataHandler.handle(introducer, payload, context);
     }
 
     @Override
     public StructuredField createPosition(SfIntroducer introducer) {
         Parameters payload = createStructuredField(introducer);
-        return PositionHandler.handle(introducer, payload);
+        return PositionHandler.handle(introducer, payload, context);
     }
 
     @Override
     public StructuredField createInclude(SfIntroducer introducer) {
         Parameters payload = createStructuredField(introducer);
-        return IncludeHandler.handle(introducer, payload);
+        return IncludeHandler.handle(introducer, payload, context);
     }
 
     @Override
     public StructuredField createControl(SfIntroducer introducer) {
         Parameters payload = createStructuredField(introducer);
-        return ControlHandler.handle(introducer, payload);
+        return ControlHandler.handle(introducer, payload, context);
+    }
+
+    @Override
+    public StructuredField createIndex(SfIntroducer introducer) {
+        Parameters payload = createStructuredField(introducer);
+        return IndexHandler.handle(introducer, payload, context);
     }
 }

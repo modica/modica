@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.List;
 
+import org.afpparser.afp.modca.Context;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.End;
@@ -19,7 +20,7 @@ public class EndHandler {
     private EndHandler() {
     }
 
-    public static StructuredField handle(SfIntroducer intro, Parameters params) {
+    public static StructuredField handle(SfIntroducer intro, Parameters params, Context context) {
         List<Triplet> triplets;
         try {
             StructuredField sf;

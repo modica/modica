@@ -2,7 +2,11 @@ package org.afpparser.afp.modca.structuredfields.control;
 
 import java.io.UnsupportedEncodingException;
 
+import org.afpparser.afp.modca.CPIRepeatingGroupLength;
+import org.afpparser.afp.modca.Context;
+import org.afpparser.afp.modca.Context.FOCAContext;
 import org.afpparser.afp.modca.Parameters;
+import org.afpparser.afp.modca.common.GraphicalCharacterUseFlags;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 
@@ -24,14 +28,14 @@ public class CodePageControl extends AbstractStructuredField {
     private final boolean isVariableSpaceEnabled;
     private final int defaultUnicodeValue;
 
-    public CodePageControl(SfIntroducer introducer, Parameters params)
+    public CodePageControl(SfIntroducer introducer, Parameters params, Context context)
             throws UnsupportedEncodingException {
         super(introducer);
         defCharId = params.getStringCp500(8);
         printFlags = params.getByte();
-        isInvalidCodedCharacter = PrintFlags.isInvalidCodedCharacter(printFlags);
-        isNoPresentation = PrintFlags.isNoPresentation(printFlags);
-        isNoIncrement = PrintFlags.isNoIncrement(printFlags);
+        isInvalidCodedCharacter = GraphicalCharacterUseFlags.isInvalidCodedCharacter(printFlags);
+        isNoPresentation = GraphicalCharacterUseFlags.isNoPresentation(printFlags);
+        isNoIncrement = GraphicalCharacterUseFlags.isNoIncrement(printFlags);
         cpRgLen = CPIRepeatingGroupLength.getValue(params.getByte());
         vsCharSn = params.getUInt(1);
         vsChar = params.getUInt(1);
@@ -44,63 +48,8 @@ public class CodePageControl extends AbstractStructuredField {
         } else {
             defaultUnicodeValue = 0;
         }
-    }
 
-    /**
-     * The length of the CPI repeating group is dependent on the length of the code point as defined
-     * by the Encoding Scheme parameter in the CPD Structured Field. A single-byte code point would
-     * result in a CPI length of X'0A', while a double-byte code point would result in a length of
-     * X'0B'.
-     * <p>
-     * When GCGID-to-Unicode mappings are provided (values X'FE' or X'FF'), the length of each CPI
-     * repeating group can vary depending on how many Unicode scalar values are associated with each
-     * code point.
-     * </p>
-     */
-    public enum CPIRepeatingGroupLength {
-        SINGLE_BYTE(0x0A),
-        DOUBLE_BYTE(0x0B),
-        SINGLE_BYTE_INC_UNICODE(0xFE),
-        DOUBLE_BYTE_INC_UNICODE(0xFF);
-
-        private final byte id;
-
-        private CPIRepeatingGroupLength(int id) {
-            this.id = (byte) id;
-        }
-
-        private static CPIRepeatingGroupLength getValue(byte id) {
-            for (CPIRepeatingGroupLength len : CPIRepeatingGroupLength.values()) {
-                if (len.id == id) {
-                    return len;
-                }
-            }
-            throw new IllegalArgumentException(id + " is not a valid CPI Repeating Group Length.");
-        }
-    }
-
-    private enum PrintFlags {
-        INVALID_CODED_CHARACTER,
-        NO_PRESENTATION,
-        NO_INCREMENT;
-
-        private final byte bitMask;
-
-        private PrintFlags() {
-            bitMask = (byte) (1 << this.ordinal());
-        }
-
-        private static boolean isInvalidCodedCharacter(byte flag) {
-            return (flag & INVALID_CODED_CHARACTER.bitMask) != 0;
-        }
-
-        private static boolean isNoPresentation(byte flag) {
-            return (flag & NO_PRESENTATION.bitMask) != 0;
-        }
-
-        private static boolean isNoIncrement(byte flag) {
-            return (flag & NO_INCREMENT.bitMask) != 0;
-        }
+        context.put(FOCAContext.CPI_REPEATING_GROUP_LENGTH, cpRgLen);
     }
 
     private enum CodePageUseFlags {
