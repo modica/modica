@@ -2,6 +2,7 @@ package org.afpparser.afp.modca;
 
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Begin;
+import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Control;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Data;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Descriptor;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.End;
@@ -80,5 +81,13 @@ public interface StructuredFieldFactory {
      * @return a Map type structured field
      */
     StructuredField createInclude(SfIntroducer introducer);
+
+    /**
+     * Creates a structured field of the {@link Control} type.
+     *
+     * @param introducer the introducer for the structured field
+     * @return a Map type structured field
+     */
+    StructuredField createControl(SfIntroducer introducer);
 
 }

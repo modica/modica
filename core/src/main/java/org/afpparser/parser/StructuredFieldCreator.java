@@ -72,6 +72,9 @@ public class StructuredFieldCreator implements SFIntroducerHandler {
         case Include:
             structuredField = sfFactory.createInclude(introducer);
             break;
+        case Control:
+            structuredField = sfFactory.createControl(introducer);
+            break;
         default:
             structuredField = null;
         }

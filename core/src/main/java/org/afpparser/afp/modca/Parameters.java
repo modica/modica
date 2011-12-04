@@ -14,7 +14,7 @@ public class Parameters {
 
     private final byte[] sfData;
     private int position = 0;
-    private final ByteUtils byteUtils = ByteUtils.getLittleEndianUtils();
+    private static final ByteUtils byteUtils = ByteUtils.getLittleEndianUtils();
 
     public Parameters(byte[] sfData) {
         this.sfData = sfData;
