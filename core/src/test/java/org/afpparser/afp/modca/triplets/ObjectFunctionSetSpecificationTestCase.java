@@ -21,15 +21,21 @@ public class ObjectFunctionSetSpecificationTestCase extends
     @Before
     @Override
     public void setUp() {
-        byte[] tripletBytes = ByteUtils.hexToBytes("0600000000000000");
-        x = new ObjectFunctionSetSpecification(new Parameters(tripletBytes), 8);
-        ObjectFunctionSetSpecification y = new ObjectFunctionSetSpecification(new Parameters(tripletBytes), 8);
-        ObjectFunctionSetSpecification z = new ObjectFunctionSetSpecification(new Parameters(tripletBytes), 8);
+        byte[] tripletBytes = ByteUtils.hexToBytes("10210600000000000000");
+        Parameters params = new Parameters(tripletBytes);
+        params.skip(2);
+        x = new ObjectFunctionSetSpecification(params, 8);
+        params.skipTo(2);
+        ObjectFunctionSetSpecification y = new ObjectFunctionSetSpecification(params, 8);
+        params.skipTo(2);
+        ObjectFunctionSetSpecification z = new ObjectFunctionSetSpecification(params, 8);
 
-        tripletBytes[0] = 0x05;
-        tripletBytes[3] = 0x01;
-        tripletBytes[4] = 0x40;
-        notEqual = new ObjectFunctionSetSpecification(new Parameters(tripletBytes), 8);
+        tripletBytes[2] = 0x05;
+        tripletBytes[5] = 0x01;
+        tripletBytes[6] = 0x40;
+        params = new Parameters(tripletBytes);
+        params.skipTo(2);
+        notEqual = new ObjectFunctionSetSpecification(params, 8);
         setXYZ(x, y, z, notEqual);
     }
 
