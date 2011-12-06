@@ -40,7 +40,7 @@ public class IncludeObject extends StructuredFieldWithTriplets {
     public IncludeObject(SfIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
-        objName = params.getStringCp500(8);
+        objName = params.getString(8);
         byte reserved = params.getByte();
         assert reserved == (byte) 0x00;
         objType = ObjectType.getValue(params.getByte());

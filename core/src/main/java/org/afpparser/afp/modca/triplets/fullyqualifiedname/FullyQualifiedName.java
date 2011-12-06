@@ -65,7 +65,7 @@ public abstract class FullyQualifiedName extends Triplet {
             ObjectId oid = new ObjectId(params, dataLength);
             return new FQNOidData(length, oid, type);
         case url:
-            String url = params.getStringCp500(dataLength);
+            String url = params.getString(dataLength);
             return new FQNUrlData(length, new URL(url), type);
         default:
             throw new IllegalStateException("The Fully Qualified Name data type is unknown");
@@ -83,7 +83,7 @@ public abstract class FullyQualifiedName extends Triplet {
             byte[] undefData = params.getByteArray(undefLength);
             return new FQNUndefData(stringLength, undefData, type);
         default:
-            return new FQNCharStringData(fqnLength, params.getStringCp500(stringLength), type);
+            return new FQNCharStringData(fqnLength, params.getString(stringLength), type);
         }
     }
 }

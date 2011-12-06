@@ -19,10 +19,10 @@ public class CharacterRotationTestCase extends TripletTestCase<CharacterRotation
     @Override
     public void setUp() {
         byte[] data = new byte[] { 0x00, 0x2D, 0x5A };
-        x = new CharacterRotation(new Parameters(data));
-        CharacterRotation y = new CharacterRotation(new Parameters(data));
-        CharacterRotation z = new CharacterRotation(new Parameters(data));
-        Parameters params = new Parameters(data);
+        x = new CharacterRotation(new Parameters(data, "Cp500"));
+        CharacterRotation y = new CharacterRotation(new Parameters(data, "Cp500"));
+        CharacterRotation z = new CharacterRotation(new Parameters(data, "Cp500"));
+        Parameters params = new Parameters(data, "Cp500");
         params.skip(1);
         CharacterRotation notEqual = new CharacterRotation(params);
 
@@ -31,20 +31,20 @@ public class CharacterRotationTestCase extends TripletTestCase<CharacterRotation
 
     @Test
     public void testGetterMethods() {
-        CharacterRotation zero = new CharacterRotation(new Parameters(data));
+        CharacterRotation zero = new CharacterRotation(new Parameters(data, "Cp500"));
         assertEquals(Rotation.ZERO, zero.getRotation());
 
-        Parameters params1 = new Parameters(data);
+        Parameters params1 = new Parameters(data, "Cp500");
         params1.skip(1);
         CharacterRotation nintey = new CharacterRotation(params1);
         assertEquals(Rotation.NINETY, nintey.getRotation());
 
-        Parameters params2 = new Parameters(data);
+        Parameters params2 = new Parameters(data, "Cp500");
         params2.skip(2);
         CharacterRotation oneeighty = new CharacterRotation(params2);
         assertEquals(Rotation.ONE_EIGHTY, oneeighty.getRotation());
 
-        Parameters params3 = new Parameters(data);
+        Parameters params3 = new Parameters(data, "Cp500");
         params3.skip(3);
         CharacterRotation twoseventy = new CharacterRotation(params3);
         assertEquals(Rotation.TWO_SEVENTY, twoseventy.getRotation());

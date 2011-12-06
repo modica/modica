@@ -27,7 +27,7 @@ public class PresentationTextDataDescriptorTestCase extends
         SfIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Migration.PTD);
 
         byte[] sfData = ByteUtils.createByteArray(0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-        Parameters params = new Parameters(sfData);
+        Parameters params = new Parameters(sfData, "Cp500");
         sut = new PresentationTextDataDescriptor(intro, params);
         setMembers(sut, intro, Collections.<Triplet> emptyList());
     }

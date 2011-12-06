@@ -19,7 +19,7 @@ public class EndFieldNameTestCase {
     public void testGetters() throws UnsupportedEncodingException {
         byte[] bytes = "Only the first 8 characters should be taken".getBytes("Cp500");
 
-        Parameters params = new Parameters(bytes);
+        Parameters params = new Parameters(bytes, "Cp500");
         EndFieldName fieldName = new EndFieldName(params);
         assertEquals("Only the", fieldName.getName());
         assertFalse(fieldName.matchesAny());
@@ -27,7 +27,7 @@ public class EndFieldNameTestCase {
         bytes[0] = (byte) 0xff;
         bytes[1] = (byte) 0xff;
 
-        params = new Parameters(bytes);
+        params = new Parameters(bytes, "Cp500");
         fieldName = new EndFieldName(params);
         assertNull(fieldName.getName());
         assertTrue(fieldName.matchesAny());

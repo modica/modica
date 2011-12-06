@@ -26,43 +26,43 @@ public final class BeginHandler {
             StructuredField sf;
             switch (intro.getType().getCategoryCode()) {
             case active_environment_group:
-                triplets = TripletHandler.parseTriplet(params, 8);
+                triplets = TripletHandler.parseTriplet(params, 8, context);
                 sf = new BeginActiveEnvironmentGroup(intro, triplets, params);
                 break;
             case code_page:
-                triplets = TripletHandler.parseTriplet(params, 8);
+                triplets = TripletHandler.parseTriplet(params, 8, context);
                 sf = new BeginCodePage(intro, triplets, params);
                 break;
             case document:
-                triplets = TripletHandler.parseTriplet(params, 8);
+                triplets = TripletHandler.parseTriplet(params, 8, context);
                 sf = new BeginDocument(intro, triplets, params);
                 break;
             case image:
-                triplets = TripletHandler.parseTriplet(params, 8);
+                triplets = TripletHandler.parseTriplet(params, 8, context);
                 sf = new BeginImageObject(intro, triplets, params);
                 break;
             case object_environment_group:
-                triplets = TripletHandler.parseTriplet(params, 8);
+                triplets = TripletHandler.parseTriplet(params, 8, context);
                 sf = new BeginObjectEnvironmentGroup(intro, triplets, params);
                 break;
             case page_group:
-                triplets = TripletHandler.parseTriplet(params, 8);
+                triplets = TripletHandler.parseTriplet(params, 8, context);
                 sf = new BeginNamedPageGroup(intro, triplets, params);
                 break;
             case page:
-                triplets = TripletHandler.parseTriplet(params, 8);
+                triplets = TripletHandler.parseTriplet(params, 8, context);
                 sf = new BeginPage(intro, triplets, params);
                 break;
             case presentation_text:
-                triplets = TripletHandler.parseTriplet(params, 8);
+                triplets = TripletHandler.parseTriplet(params, 8, context);
                 sf = new BeginPresentationTextObject(intro, triplets, params);
                 break;
             case name_resource:
-                triplets = TripletHandler.parseTriplet(params, 10);
+                triplets = TripletHandler.parseTriplet(params, 10, context);
                 sf = new BeginResource(intro, triplets, params);
                 break;
             case resource_group:
-                triplets = TripletHandler.parseTriplet(params, 8);
+                triplets = TripletHandler.parseTriplet(params, 8, context);
                 sf = new BeginResourceGroup(intro, triplets, params);
                 break;
             default:

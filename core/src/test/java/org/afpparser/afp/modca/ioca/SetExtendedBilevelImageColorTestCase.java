@@ -15,7 +15,7 @@ public class SetExtendedBilevelImageColorTestCase {
     @Test
     public void testConstructor() {
         Parameters params = new Parameters(ByteUtils.createByteArray(11,
-                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11));
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11), "Cp500");
         SetExtendedBilevelImageColor sut = new SetExtendedBilevelImageColor(params);
         assertEquals(12, sut.getLength());
         assertEquals(ColorSpace.RGB, sut.getColourSpace());

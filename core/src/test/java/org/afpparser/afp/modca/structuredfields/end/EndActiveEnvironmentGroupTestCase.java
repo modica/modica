@@ -24,10 +24,10 @@ public class EndActiveEnvironmentGroupTestCase extends
     @Before
     public void setUp() throws UnsupportedEncodingException {
         SfIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(End.EAG);
-        Parameters params = new Parameters("TestStri".getBytes("Cp500"));
+        Parameters params = new Parameters("TestStri".getBytes("Cp500"), "Cp500");
         sut = new EndActiveEnvironmentGroup(intro, params);
 
-        Parameters matchesAnyParams = new Parameters(ByteUtils.createByteArray(0xff, 0xff));
+        Parameters matchesAnyParams = new Parameters(ByteUtils.createByteArray(0xff, 0xff), "Cp500");
         sutMatchesAny = new EndActiveEnvironmentGroup(intro, matchesAnyParams);
 
         setMembers(sut, intro);

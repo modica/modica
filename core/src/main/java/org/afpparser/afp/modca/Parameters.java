@@ -16,7 +16,7 @@ public class Parameters {
     private int position = 0;
     private static final ByteUtils byteUtils = ByteUtils.getLittleEndianUtils();
 
-    public Parameters(byte[] sfData) {
+    public Parameters(byte[] sfData, String stringEncoding) {
         this.sfData = sfData;
     }
 
@@ -89,30 +89,28 @@ public class Parameters {
     }
 
     /**
-     * Returns a string representation encoded with Cp500 encoding of the bytes from the given
-     * position, for length bytes. The file pointer isn't changed with this method call.
+     * Returns a string representation encoded with the encoding in the context object from the
+     * given position, for length bytes. The file pointer isn't changed with this method call.
      *
      * @param position the starting position to encode the returned String
      * @param length the number of bytes in the returned String
      * @return the encoded String
      * @throws UnsupportedEncodingException if for some reason Cp500 encoding isn't supported
      */
-    public String getStringCp500(int position, int length) throws UnsupportedEncodingException {
-        return StringUtils.bytesToCp500(sfData, position, length);
+    public String getString(int position, int length) throws UnsupportedEncodingException {
+        return getString(position, length, "Cp500");
     }
 
     /**
-     * Returns a string representation encoded with Cp500 encoding of the bytes from the current
-     * position, for length bytes.
+     * Returns a string representation encoded with the encoding in the context object from the
+     * current position, for length bytes.
      *
      * @param length the number of bytes in the returned String
      * @return the encoded String
      * @throws UnsupportedEncodingException if for some reason Cp500 encoding isn't supported
      */
-    public String getStringCp500(int length) throws UnsupportedEncodingException {
-        String str = getStringCp500(position, length);
-        position += length;
-        return str;
+    public String getString(int length) throws UnsupportedEncodingException {
+        return getString(length, "Cp500");
     }
 
     /**
@@ -127,6 +125,9 @@ public class Parameters {
      */
     public String getString(int position, int length, String encoding)
             throws UnsupportedEncodingException {
+        if (position + length > size()) {
+            return null;
+        }
         return StringUtils.bytesToString(sfData, position, length, encoding);
     }
 
@@ -141,7 +142,7 @@ public class Parameters {
      */
     public String getString(int length, String encoding) throws UnsupportedEncodingException {
         String str = getString(position, length, encoding);
-        position += length;
+        position += str != null ? length : 0;
         return str;
     }
 
@@ -185,6 +186,15 @@ public class Parameters {
      */
     public int getPosition() {
         return position;
+    }
+
+    /**
+     * Returns the number of bytes left in the data array.
+     *
+     * @return the number of bytes until the end
+     */
+    public int bytesRemaining() {
+        return size() - getPosition();
     }
 
     @Override

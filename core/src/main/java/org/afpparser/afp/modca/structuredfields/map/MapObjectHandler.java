@@ -22,11 +22,11 @@ public final class MapObjectHandler {
             RepeatingTripletGroup tripletGroup;
             switch (intro.getType().getCategoryCode()) {
             case coded_font:
-                tripletGroup = TripletHandler.parseRepeatingGroup(params);
+                tripletGroup = TripletHandler.parseRepeatingGroup(params, context);
                 sf = new MapCodedFont(intro, tripletGroup);
                 break;
             case image:
-                tripletGroup = TripletHandler.parseRepeatingGroup(params);
+                tripletGroup = TripletHandler.parseRepeatingGroup(params, context);
                 sf = new MapImageObject(intro, tripletGroup);
                 break;
             default:

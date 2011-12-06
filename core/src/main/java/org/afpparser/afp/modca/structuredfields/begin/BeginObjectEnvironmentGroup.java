@@ -20,7 +20,7 @@ public class BeginObjectEnvironmentGroup extends StructuredFieldWithTriplets {
     public BeginObjectEnvironmentGroup(SfIntroducer introducer, List<Triplet> triplets,
             Parameters params) throws UnsupportedEncodingException {
         super(introducer, triplets);
-        oegName = params.getStringCp500(0, 8);
+        oegName = params.getString(0, 8);
     }
 
     /**

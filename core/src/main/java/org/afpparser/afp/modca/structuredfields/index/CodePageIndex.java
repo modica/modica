@@ -65,7 +65,7 @@ public class CodePageIndex extends AbstractStructuredField {
 
         private CPI(CPIRepeatingGroupLength cpiRgLength, Parameters params)
                 throws UnsupportedEncodingException {
-            this.gcgid = params.getStringCp500(8);
+            this.gcgid = params.getString(8);
             byte prntFlags = params.getByte();
             this.isInvalidCodedCharacter = GraphicalCharacterUseFlags.isInvalidCodedCharacter(prntFlags);
             this.isNoPresentation = GraphicalCharacterUseFlags.isNoPresentation(prntFlags);

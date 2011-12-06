@@ -29,11 +29,11 @@ public class DescriptorHandler {
                 sf = new ImageDataDescriptor(intro, params);
                 break;
             case object_area:
-                triplets = TripletHandler.parseTriplet(params, 0);
+                triplets = TripletHandler.parseTriplet(params, 0, context);
                 sf = new ObjectAreaDescriptor(intro, triplets);
                 break;
             case page:
-                triplets = TripletHandler.parseTriplet(params, 15);
+                triplets = TripletHandler.parseTriplet(params, 15, context);
                 sf = new PageDescriptor(intro, triplets, params);
                 break;
             case presentation_text:

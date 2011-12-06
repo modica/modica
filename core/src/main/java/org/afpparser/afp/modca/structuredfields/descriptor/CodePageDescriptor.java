@@ -22,15 +22,19 @@ public class CodePageDescriptor extends AbstractStructuredField {
     public CodePageDescriptor(SfIntroducer introducer, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer);
-        cpDesc = params.getStringCp500(32);
+        cpDesc = params.getString(32);
         int gcgidLength = params.getUInt(2);
         assert gcgidLength == GCGIDLEN;
 
         numCdPts = params.getUInt(4);
         gcsgid = params.getUInt(2);
         cpgid = params.getUInt(2);
-        encScheme = EncodingScheme.getValue(params.getByte());
-        params.skip(1); // The encoding scheme only uses the first of 2 bytes
+        if (params.bytesRemaining() > 0) {
+            encScheme = EncodingScheme.getValue(params.getByte());
+            params.skip(1); // The encoding scheme only uses the first of 2 bytes
+        } else {
+            encScheme = null;
+        }
     }
 
     /**

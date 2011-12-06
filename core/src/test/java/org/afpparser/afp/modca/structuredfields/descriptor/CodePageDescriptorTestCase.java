@@ -31,7 +31,7 @@ public class CodePageDescriptorTestCase extends StructuredFieldTestCase<CodePage
         bb.put(cpDesc.getBytes("Cp500"));
         byte[] paramsBytes = ByteUtils.createByteArray(0, 8, 1, 2, 3, 4, 5, 6, 7, 8, 0x62, 0);
         bb.put(paramsBytes);
-        Parameters params = new Parameters(bb.array());
+        Parameters params = new Parameters(bb.array(), "Cp500");
         sut = new CodePageDescriptor(intro, params);
 
         setMembers(sut, intro);

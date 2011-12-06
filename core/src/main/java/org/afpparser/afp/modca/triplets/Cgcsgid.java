@@ -1,5 +1,7 @@
 package org.afpparser.afp.modca.triplets;
 
+import org.afpparser.afp.modca.Context;
+import org.afpparser.afp.modca.Context.MODCAContext;
 import org.afpparser.afp.modca.Parameters;
 
 /**
@@ -125,16 +127,21 @@ public abstract class Cgcsgid extends Triplet {
     /**
      * Returns the Coded Graphic Character Set Global Identifier.
      *
+     * @param context holds contextual information about the structured fields being parsed.This
+     * object will be modified to use the appropriate code page once this triplet has been parsed
      * @param data the triplet data array
      * @param position the byte position in the data array
+     *
      * @return the CGCSGID
      */
-    public static Cgcsgid parse(Parameters params) {
+    public static Cgcsgid parse(Parameters params, Context context) {
         int gcsgid = params.getUInt(2);
         int ccsidOrCpgid = params.getUInt(2);
         if (gcsgid == 0x0000) {
             return new Ccsid(ccsidOrCpgid);
         } else {
+            Cpgid cpgid = new Cpgid(gcsgid, ccsidOrCpgid);
+            context.put(MODCAContext.GCSGID, "Cp" + cpgid.cpgid);
             return new Cpgid(gcsgid, ccsidOrCpgid);
         }
     }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
+import org.afpparser.afp.modca.Context.MODCAContext;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
 import org.afpparser.afp.modca.structuredfields.begin.BeginHandler;
@@ -36,7 +37,7 @@ public class StructuredFieldFactoryImpl implements StructuredFieldFactory {
             ByteBuffer buffer = ByteBuffer.allocate(intro.getLength()
                     - SfIntroducer.SF_Introducer_FIELD - SfIntroducer.Carriage_Control_FIELD);
             channel.read(buffer, byteOffset);
-            return new Parameters(buffer.array());
+            return new Parameters(buffer.array(), (String) context.get(MODCAContext.GCSGID));
         } catch (IOException ioe) {
             throw new IllegalStateException(ioe);
         }

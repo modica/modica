@@ -31,7 +31,7 @@ public class CodePageControl extends AbstractStructuredField {
     public CodePageControl(SfIntroducer introducer, Parameters params, Context context)
             throws UnsupportedEncodingException {
         super(introducer);
-        defCharId = params.getStringCp500(8);
+        defCharId = params.getString(8);
         printFlags = params.getByte();
         isInvalidCodedCharacter = GraphicalCharacterUseFlags.isInvalidCodedCharacter(printFlags);
         isNoPresentation = GraphicalCharacterUseFlags.isNoPresentation(printFlags);

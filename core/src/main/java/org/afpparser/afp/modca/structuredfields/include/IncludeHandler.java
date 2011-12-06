@@ -21,7 +21,7 @@ public class IncludeHandler {
             StructuredField sf;
             switch (intro.getType().getCategoryCode()) {
             case data_resource:
-                triplets = TripletHandler.parseTriplet(params, 27);
+                triplets = TripletHandler.parseTriplet(params, 27, context);
                 sf = new IncludeObject(intro, triplets, params);
                 break;
             default:

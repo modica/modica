@@ -29,11 +29,11 @@ public class EndHandler {
                 sf = new EndActiveEnvironmentGroup(intro, params);
                 break;
             case document:
-                triplets = TripletHandler.parseTriplet(params, 8);
+                triplets = TripletHandler.parseTriplet(params, 8, context);
                 sf = new EndDocument(intro, triplets, params);
                 break;
             case image:
-                triplets = TripletHandler.parseTriplet(params, 8);
+                triplets = TripletHandler.parseTriplet(params, 8, context);
                 sf = new EndImageObject(intro, triplets, params);
                 break;
             case name_resource:
@@ -43,19 +43,19 @@ public class EndHandler {
                 sf = new EndObjectEnvironmentGroup(intro, params);
                 break;
             case page:
-                triplets = TripletHandler.parseTriplet(params, 8);
+                triplets = TripletHandler.parseTriplet(params, 8, context);
                 sf = new EndPage(intro, triplets, params);
                 break;
             case page_group:
-                triplets = TripletHandler.parseTriplet(params, 8);
+                triplets = TripletHandler.parseTriplet(params, 8, context);
                 sf = new EndPageGroup(intro, triplets, params);
                 break;
             case presentation_text:
-                triplets = TripletHandler.parseTriplet(params, 8);
+                triplets = TripletHandler.parseTriplet(params, 8, context);
                 sf = new EndPresentationTextObject(intro, triplets, params);
                 break;
             case resource_group:
-                triplets = TripletHandler.parseTriplet(params, 8);
+                triplets = TripletHandler.parseTriplet(params, 8, context);
                 sf = new EndResourceGroup(intro, triplets, params);
                 break;
             default:

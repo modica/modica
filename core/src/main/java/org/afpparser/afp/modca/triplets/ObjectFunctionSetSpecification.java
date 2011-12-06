@@ -31,7 +31,16 @@ public class ObjectFunctionSetSpecification extends Triplet {
         PRESENTATION_TEXT(0x02),
         GRAPHICS(0x03),
         RETIRED_OBJECT(0x05),
-        IMAGE(0x06);
+        IMAGE(0x06),
+        FONT_CHARACTER_SET_OBJECT(0x40),
+        CODE_PAGE_OBJCT(0x41),
+        CODED_FONT_OBJCT(0x42),
+        OBJECT_CONTAINER(0x92),
+        DOCUMENT_OBJECT(0xA8),
+        PAGE_SEGMENT_OBJECT(0xFB),
+        OVERLAY_OBJECT(0xFC),
+        PAGEDEF_OBJECT(0xFD),
+        FORMDEF_OBJECT(0xFE);
 
         private final byte id;
 

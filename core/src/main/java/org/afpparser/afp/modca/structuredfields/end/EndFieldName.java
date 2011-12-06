@@ -21,7 +21,7 @@ public class EndFieldName {
             name = null;
             nameMatchesAny = true;
         } else {
-            name = params.getStringCp500(0, 8);
+            name = params.getString(0, 8);
             nameMatchesAny = false;
         }
     }

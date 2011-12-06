@@ -18,7 +18,7 @@ public class BeginCodePage extends StructuredFieldWithTriplets {
     public BeginCodePage(SfIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
-        cfName = params.getStringCp500(0, 8);
+        cfName = params.getString(0, 8);
     }
 
     /**

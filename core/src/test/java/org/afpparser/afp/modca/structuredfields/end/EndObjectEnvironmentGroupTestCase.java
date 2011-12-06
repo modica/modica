@@ -25,10 +25,10 @@ public class EndObjectEnvironmentGroupTestCase extends
     @Before
     public void setUp() throws UnsupportedEncodingException {
         SfIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(End.EOG);
-        Parameters params = new Parameters("TestStri".getBytes("Cp500"));
+        Parameters params = new Parameters("TestStri".getBytes("Cp500"), "Cp500");
         sut = new EndObjectEnvironmentGroup(intro, params);
 
-        Parameters matchesAny = new Parameters(ByteUtils.createByteArray(0xff, 0xff));
+        Parameters matchesAny = new Parameters(ByteUtils.createByteArray(0xff, 0xff), "Cp500");
         sutMatchesAny = new EndObjectEnvironmentGroup(intro, matchesAny);
 
         setMembers(sut, intro);

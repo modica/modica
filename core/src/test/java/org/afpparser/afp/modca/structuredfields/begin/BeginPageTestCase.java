@@ -33,7 +33,7 @@ public class BeginPageTestCase extends StructuredFieldWithTripletsTestCase<Begin
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
                 FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);
 
-        Parameters params = new Parameters(pageName.getBytes("Cp500"));
+        Parameters params = new Parameters(pageName.getBytes("Cp500"), "Cp500");
         sut = new BeginPage(intro, triplets, params);
         super.setMembers(sut, intro, triplets);
     }

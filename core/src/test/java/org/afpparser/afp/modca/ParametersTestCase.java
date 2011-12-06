@@ -25,7 +25,7 @@ public class ParametersTestCase {
         bb.put(ByteUtils.createByteArray(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0xff, 0xfe, 0xfd));
         bb.put("Tester".getBytes("Cp500"));
         byteArray = bb.array();
-        sut = new Parameters(byteArray);
+        sut = new Parameters(byteArray, "Cp500");
 
     }
 
@@ -91,11 +91,11 @@ public class ParametersTestCase {
 
     @Test
     public void testGetString() throws UnsupportedEncodingException {
-        assertEquals("Tester", sut.getStringCp500(14, 6));
+        assertEquals("Tester", sut.getString(14, 6));
         assertEquals(0, sut.getPosition());
 
         sut.skip(14);
-        assertEquals("Tester", sut.getStringCp500(6));
+        assertEquals("Tester", sut.getString(6));
         assertEquals(20, sut.getPosition());
 
         sut.skipTo(0);

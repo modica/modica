@@ -31,7 +31,7 @@ public class BeginResourceTestCase extends StructuredFieldWithTripletsTestCase<B
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
                 FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);
 
-        Parameters params = new Parameters("TESTNAME".getBytes("Cp500"));
+        Parameters params = new Parameters("TESTNAME".getBytes("Cp500"), "Cp500");
         sut = new BeginResource(intro, triplets, params);
         setMembers(sut, intro, triplets);
     }

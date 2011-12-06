@@ -28,13 +28,13 @@ public class ResourceManagementTestCase extends TripletTestCase<ResourceManageme
                 0xF5, 0xF6, //minute
                 0xF1, 0xF2, //second
                 0xF9, 0xF9); // second / 10
-        x = ResourceManagement.parse(new Parameters(data));
-        ResourceManagement y = ResourceManagement.parse(new Parameters(data));
-        ResourceManagement z = ResourceManagement.parse(new Parameters(data));
+        x = ResourceManagement.parse(new Parameters(data, "Cp500"));
+        ResourceManagement y = ResourceManagement.parse(new Parameters(data, "Cp500"));
+        ResourceManagement z = ResourceManagement.parse(new Parameters(data, "Cp500"));
 
         data[0] = 0x01;
 
-        notEqual = ResourceManagement.parse(new Parameters(data));
+        notEqual = ResourceManagement.parse(new Parameters(data, "Cp500"));
         setXYZ(x, y, z, notEqual);
     }
 

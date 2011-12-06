@@ -34,9 +34,9 @@ public class EndDocumentTestCase extends StructuredFieldWithTripletsTestCase<End
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
                 FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);
 
-        Parameters params = new Parameters(docName.getBytes("Cp500"));
+        Parameters params = new Parameters(docName.getBytes("Cp500"), "Cp500");
         sut = new EndDocument(intro, triplets, params);
-        Parameters matchesAnyParams = new Parameters(ByteUtils.createByteArray(0xff, 0xff));
+        Parameters matchesAnyParams = new Parameters(ByteUtils.createByteArray(0xff, 0xff), "Cp500");
         sutMatchesAny = new EndDocument(intro, triplets, matchesAnyParams);
         setMembers(sut, intro, triplets);
     }

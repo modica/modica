@@ -13,6 +13,7 @@ public class Context {
     private final Map<FOCAContext, Object> focaContextItems = new EnumMap<FOCAContext, Object>(FOCAContext.class);
 
     public Context() {
+        modcaContextItems.put(MODCAContext.GCSGID, "Cp500");
     }
 
     /**
@@ -26,7 +27,7 @@ public class Context {
      * An enumeration of MODCA context items.
      */
     public enum MODCAContext {
-
+        GCSGID;
     }
 
     /**

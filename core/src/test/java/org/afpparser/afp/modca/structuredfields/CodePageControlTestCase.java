@@ -40,26 +40,26 @@ public class CodePageControlTestCase extends StructuredFieldTestCase<CodePageCon
         bb.put(ByteUtils.createByteArray(1, 0x0A, 2, 3, 1));
         byte[] data = bb.array();
         Context context = new Context();
-        sut = new CodePageControl(intro, new Parameters(data), context);
+        sut = new CodePageControl(intro, new Parameters(data, "Cp500"), context);
         setMembers(sut, intro);
 
         data[8] = 0x02;
-        noPresentation = new CodePageControl(intro, new Parameters(data), context);
+        noPresentation = new CodePageControl(intro, new Parameters(data, "Cp500"), context);
 
         data[8] = 0x04;
-        noIncrement = new CodePageControl(intro, new Parameters(data), context);
+        noIncrement = new CodePageControl(intro, new Parameters(data, "Cp500"), context);
 
         data[9] = 0x0B;
-        doubleByte = new CodePageControl(intro, new Parameters(data), context);
+        doubleByte = new CodePageControl(intro, new Parameters(data, "Cp500"), context);
 
         data[9] = (byte) 0xFE;
-        singleByteUnicode = new CodePageControl(intro, new Parameters(data), context);
+        singleByteUnicode = new CodePageControl(intro, new Parameters(data, "Cp500"), context);
 
         data[9] = (byte) 0xFF;
-        doubleByteUnicode = new CodePageControl(intro, new Parameters(data), context);
+        doubleByteUnicode = new CodePageControl(intro, new Parameters(data, "Cp500"), context);
 
         data[12] = (byte) 0x10;
-        enableVariableSpace = new CodePageControl(intro, new Parameters(data), context);
+        enableVariableSpace = new CodePageControl(intro, new Parameters(data, "Cp500"), context);
     }
 
     @Test

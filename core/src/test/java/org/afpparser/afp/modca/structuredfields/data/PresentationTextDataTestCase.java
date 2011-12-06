@@ -23,7 +23,7 @@ public class PresentationTextDataTestCase extends StructuredFieldTestCase<Presen
     public void setUp() throws UnsupportedEncodingException {
         SfIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Begin.BPT);
 
-        Parameters params = new Parameters("Test text".getBytes("Cp500"));
+        Parameters params = new Parameters("Test text".getBytes("Cp500"), "Cp500");
         sut = new PresentationTextData(intro, params);
         setMembers(sut, intro);
     }
