@@ -12,13 +12,13 @@ import org.junit.Test;
  */
 public class CharacterRotationTestCase extends TripletTestCase<CharacterRotation> {
     private CharacterRotation x;
-    private final byte[] data = new byte[] { 0x00,  0x2D, 0x5A, (byte) 0x87};
+    private final byte[] data = new byte[] { 0x00, 0x2D, 0x5A, (byte) 0x87, 0x00 };
 
 
     @Before
     @Override
     public void setUp() {
-        byte[] data = new byte[] { 0x00,  0x2D};
+        byte[] data = new byte[] { 0x00, 0x2D, 0x5A };
         x = new CharacterRotation(new Parameters(data));
         CharacterRotation y = new CharacterRotation(new Parameters(data));
         CharacterRotation z = new CharacterRotation(new Parameters(data));

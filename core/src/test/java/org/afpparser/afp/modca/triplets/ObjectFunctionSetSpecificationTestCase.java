@@ -21,7 +21,7 @@ public class ObjectFunctionSetSpecificationTestCase extends
     @Before
     @Override
     public void setUp() {
-        byte[] tripletBytes = ByteUtils.hexToBytes("06000000000000");
+        byte[] tripletBytes = ByteUtils.hexToBytes("0600000000000000");
         x = new ObjectFunctionSetSpecification(new Parameters(tripletBytes), 8);
         ObjectFunctionSetSpecification y = new ObjectFunctionSetSpecification(new Parameters(tripletBytes), 8);
         ObjectFunctionSetSpecification z = new ObjectFunctionSetSpecification(new Parameters(tripletBytes), 8);

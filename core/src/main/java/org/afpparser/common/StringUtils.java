@@ -40,4 +40,14 @@ public class StringUtils {
     public static String bytesToCp500(byte[] bytes) throws UnsupportedEncodingException {
         return bytesToCp500(bytes, 0, bytes.length);
     }
+
+    public static String bytesToString(byte[] bytes, int offset, int length, String encoding)
+            throws UnsupportedEncodingException {
+        return new String(bytes, offset, length, encoding);
+    }
+
+    public static String bytesToCp500(byte[] bytes, String encoding)
+            throws UnsupportedEncodingException {
+        return bytesToString(bytes, 0, bytes.length, encoding);
+    }
 }

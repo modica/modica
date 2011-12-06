@@ -116,12 +116,42 @@ public class Parameters {
     }
 
     /**
+     * Returns a string representation given the encoding of the bytes from the given position, for
+     * length bytes. The file pointer isn't changed with this method call.
+     *
+     * @param position the starting position to encode the returned String
+     * @param length the number of bytes in the returned String
+     * @param encoding the encoding scheme of the bytes
+     * @return the encoded String
+     * @throws UnsupportedEncodingException if for some reason the encoding isn't supported
+     */
+    public String getString(int position, int length, String encoding)
+            throws UnsupportedEncodingException {
+        return StringUtils.bytesToString(sfData, position, length, encoding);
+    }
+
+    /**
+     * Returns a string representation encoded with a given encoding of the bytes from the current
+     * position, for length bytes.
+     *
+     * @param length the number of bytes in the returned String
+     * @param encoding the encoding scheme of the bytes
+     * @return the encoded String
+     * @throws UnsupportedEncodingException if for some reason the encoding isn't supported
+     */
+    public String getString(int length, String encoding) throws UnsupportedEncodingException {
+        String str = getString(position, length, encoding);
+        position += length;
+        return str;
+    }
+
+    /**
      * Moves the position in the data array by a given number.
      *
      * @param bytes the number of bytes to skip
      */
     public void skip(int bytes) {
-        position += bytes;
+        skipTo(position + bytes);
     }
 
     /**
@@ -130,6 +160,12 @@ public class Parameters {
      * @param position the position to move to
      */
     public void skipTo(int position) {
+        if (position > sfData.length) {
+            throw new IllegalArgumentException("Cannot skip beyond the size of the byte array.");
+        }
+        if (position < 0) {
+            throw new IllegalArgumentException("Cannot skip to a negative index.");
+        }
         this.position = position;
     }
 
