@@ -7,9 +7,9 @@ import static org.junit.Assert.assertTrue;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 
-import org.afpparser.afp.modca.CPIRepeatingGroupLength;
 import org.afpparser.afp.modca.Context;
 import org.afpparser.afp.modca.Parameters;
+import org.afpparser.afp.modca.common.CPIRepeatingGroupLength;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Control;
 import org.afpparser.afp.modca.structuredfields.control.CodePageControl;
 import org.afpparser.common.ByteUtils;

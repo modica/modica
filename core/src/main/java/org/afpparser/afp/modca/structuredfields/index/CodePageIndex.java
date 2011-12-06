@@ -2,12 +2,13 @@ package org.afpparser.afp.modca.structuredfields.index;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import org.afpparser.afp.modca.CPIRepeatingGroupLength;
 import org.afpparser.afp.modca.Context;
 import org.afpparser.afp.modca.Context.FOCAContext;
 import org.afpparser.afp.modca.Parameters;
+import org.afpparser.afp.modca.common.CPIRepeatingGroupLength;
 import org.afpparser.afp.modca.common.GraphicalCharacterUseFlags;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
@@ -167,6 +168,15 @@ public class CodePageIndex extends AbstractStructuredField {
         public String toString() {
             return "CPI gcgid=" + gcgid + " codepoint=" + codePoint;
         }
+    }
+
+    /**
+     * Returns an unmodifiable list of the code page indices that this object wraps.
+     *
+     * @return the code page indices
+     */
+    public List<CPI> getCodePageIndices() {
+        return Collections.unmodifiableList(cpis);
     }
 
     @Override

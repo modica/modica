@@ -2,10 +2,10 @@ package org.afpparser.afp.modca.structuredfields.control;
 
 import java.io.UnsupportedEncodingException;
 
-import org.afpparser.afp.modca.CPIRepeatingGroupLength;
 import org.afpparser.afp.modca.Context;
 import org.afpparser.afp.modca.Context.FOCAContext;
 import org.afpparser.afp.modca.Parameters;
+import org.afpparser.afp.modca.common.CPIRepeatingGroupLength;
 import org.afpparser.afp.modca.common.GraphicalCharacterUseFlags;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
