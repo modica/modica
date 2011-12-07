@@ -15,9 +15,11 @@ public class Parameters {
     private final byte[] sfData;
     private int position = 0;
     private static final ByteUtils byteUtils = ByteUtils.getLittleEndianUtils();
+    private final String stringEncoding;
 
     public Parameters(byte[] sfData, String stringEncoding) {
         this.sfData = sfData;
+        this.stringEncoding = stringEncoding;
     }
 
     /**
@@ -89,7 +91,7 @@ public class Parameters {
     }
 
     /**
-     * Returns a string representation encoded with the encoding in the context object from the
+     * Returns a string representation encoded with the encoding given in the constructor from the
      * given position, for length bytes. The file pointer isn't changed with this method call.
      *
      * @param position the starting position to encode the returned String
@@ -98,11 +100,11 @@ public class Parameters {
      * @throws UnsupportedEncodingException if for some reason Cp500 encoding isn't supported
      */
     public String getString(int position, int length) throws UnsupportedEncodingException {
-        return getString(position, length, "Cp500");
+        return getString(position, length, stringEncoding);
     }
 
     /**
-     * Returns a string representation encoded with the encoding in the context object from the
+     * Returns a string representation encoded with the encoding given in the constructor from the
      * current position, for length bytes.
      *
      * @param length the number of bytes in the returned String
@@ -110,7 +112,7 @@ public class Parameters {
      * @throws UnsupportedEncodingException if for some reason Cp500 encoding isn't supported
      */
     public String getString(int length) throws UnsupportedEncodingException {
-        return getString(length, "Cp500");
+        return getString(length, stringEncoding);
     }
 
     /**

@@ -11,7 +11,7 @@ public enum GraphicalCharacterUseFlags {
     private final byte bitMask;
 
     private GraphicalCharacterUseFlags() {
-        bitMask = (byte) (1 << this.ordinal());
+        bitMask = (byte) (1 << 7 - this.ordinal());
     }
 
     /**

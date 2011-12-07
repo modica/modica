@@ -12,27 +12,27 @@ public class GraphicalCharacterUseFlagsTestCase {
 
     @Test
     public void testFlagCheckingMethods() {
-        byte flag = 0x07;
+        byte flag = (byte) 0xE0;
         assertTrue(GraphicalCharacterUseFlags.isInvalidCodedCharacter(flag));
         assertTrue(GraphicalCharacterUseFlags.isNoPresentation(flag));
         assertTrue(GraphicalCharacterUseFlags.isNoIncrement(flag));
 
-        flag = 0x01;
+        flag = (byte) 0x80;
         assertTrue(GraphicalCharacterUseFlags.isInvalidCodedCharacter(flag));
         assertFalse(GraphicalCharacterUseFlags.isNoPresentation(flag));
         assertFalse(GraphicalCharacterUseFlags.isNoIncrement(flag));
 
-        flag = 0x02;
+        flag = (byte) 0x40;
         assertFalse(GraphicalCharacterUseFlags.isInvalidCodedCharacter(flag));
         assertTrue(GraphicalCharacterUseFlags.isNoPresentation(flag));
         assertFalse(GraphicalCharacterUseFlags.isNoIncrement(flag));
 
-        flag = 0x04;
+        flag = (byte) 0x20;
         assertFalse(GraphicalCharacterUseFlags.isInvalidCodedCharacter(flag));
         assertFalse(GraphicalCharacterUseFlags.isNoPresentation(flag));
         assertTrue(GraphicalCharacterUseFlags.isNoIncrement(flag));
 
-        flag = 0x00;
+        flag = (byte) 0x00;
         assertFalse(GraphicalCharacterUseFlags.isInvalidCodedCharacter(flag));
         assertFalse(GraphicalCharacterUseFlags.isNoPresentation(flag));
         assertFalse(GraphicalCharacterUseFlags.isNoIncrement(flag));

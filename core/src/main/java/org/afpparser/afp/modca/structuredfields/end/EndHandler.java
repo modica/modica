@@ -28,6 +28,9 @@ public class EndHandler {
             case active_environment_group:
                 sf = new EndActiveEnvironmentGroup(intro, params);
                 break;
+            case code_page:
+                sf = new EndCodePage(intro, params);
+                break;
             case document:
                 triplets = TripletHandler.parseTriplet(params, 8, context);
                 sf = new EndDocument(intro, triplets, params);

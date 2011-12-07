@@ -59,7 +59,7 @@ public class CodePageControl extends AbstractStructuredField {
         private final byte bitMask;
 
         private CodePageUseFlags(int bitNumber) {
-            bitMask = (byte) (1 << bitNumber);
+            bitMask = (byte) (1 << 7 - bitNumber);
         }
 
         private static boolean isAscendingCodePoint(byte flag) {
