@@ -17,7 +17,8 @@ public class EndFieldName {
     private final boolean nameMatchesAny;
 
     public EndFieldName(Parameters params) throws UnsupportedEncodingException {
-        if (params.getByte() == (byte) 0xFF && params.getByte() == (byte) 0xFF) {
+        if (params.size() < 2 ||
+                (params.getByte() == (byte) 0xFF && params.getByte() == (byte) 0xFF)) {
             name = null;
             nameMatchesAny = true;
         } else {
