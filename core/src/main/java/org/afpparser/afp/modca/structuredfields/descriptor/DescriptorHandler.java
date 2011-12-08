@@ -25,6 +25,10 @@ public class DescriptorHandler {
             case code_page:
                 sf = new CodePageDescriptor(intro, params);
                 break;
+            case font:
+                triplets = TripletHandler.parseTriplet(params, 80, context);
+                sf = new FontDescriptor(intro, triplets, params);
+                break;
             case image:
                 sf = new ImageDataDescriptor(intro, params);
                 break;

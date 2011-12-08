@@ -183,7 +183,9 @@ public abstract class ResourceManagement extends Triplet {
 
         @Override
         public String toString() {
-            return getTid() + " type2";
+            return getTid() + " type2" + "year=" + year + " day=" + day + " hour=" + hour
+                    + " minute=" + minute;
+
         }
     }
 
