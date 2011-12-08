@@ -307,4 +307,10 @@ public class FontDescriptor extends StructuredFieldWithTriplets {
     public int getFgid() {
         return fgid;
     }
+
+    @Override
+    public String toString() {
+        return getType().getName() + " description=" + typeFcDesc + " weight=" + fontWeight
+                + " width =" + fontWidth;
+    }
 }

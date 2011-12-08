@@ -37,6 +37,10 @@ public final class BeginHandler {
                 triplets = TripletHandler.parseTriplet(params, 8, context);
                 sf = new BeginDocument(intro, triplets, params);
                 break;
+            case font:
+                triplets = TripletHandler.parseTriplet(params, 8, context);
+                sf = new BeginFont(intro, triplets, params);
+                break;
             case image:
                 triplets = TripletHandler.parseTriplet(params, 8, context);
                 sf = new BeginImageObject(intro, triplets, params);
