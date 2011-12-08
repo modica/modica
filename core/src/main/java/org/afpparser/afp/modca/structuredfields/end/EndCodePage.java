@@ -16,7 +16,7 @@ public class EndCodePage extends AbstractStructuredField {
     public EndCodePage(SfIntroducer introducer, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer);
-        cpName = new EndFieldName(params);
+        cpName = new EndFieldName(params, "Cp500");
     }
 
     /**

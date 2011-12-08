@@ -18,7 +18,7 @@ public class BeginFont extends StructuredFieldWithTriplets {
     public BeginFont(SfIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
-        csName = params.getString(8);
+        csName = params.getString(0, 8, "Cp500");
     }
 
     /**

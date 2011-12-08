@@ -16,6 +16,17 @@ public class EndFieldName {
     private final String name;
     private final boolean nameMatchesAny;
 
+    public EndFieldName(Parameters params, String encoding) throws UnsupportedEncodingException {
+        if (params.size() < 2 ||
+                (params.getByte() == (byte) 0xFF && params.getByte() == (byte) 0xFF)) {
+            name = null;
+            nameMatchesAny = true;
+        } else {
+            name = params.getString(0, 8, encoding);
+            nameMatchesAny = false;
+        }
+    }
+
     public EndFieldName(Parameters params) throws UnsupportedEncodingException {
         if (params.size() < 2 ||
                 (params.getByte() == (byte) 0xFF && params.getByte() == (byte) 0xFF)) {
