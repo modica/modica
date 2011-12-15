@@ -8,7 +8,8 @@ public abstract class SfTypeFactory {
     private static final java.util.Map<Byte, java.util.Map<Byte, SfType>> SF_TYPES = new HashMap<Byte, java.util.Map<Byte, SfType>>();
 
     static {
-        registerHomogenousSfTypes(Attribute.values(),
+        registerStructuredFieldType(
+                Attribute.values(),
                 CopyCount.values(),
                 Descriptor.values(),
                 Control.values(),
@@ -25,10 +26,9 @@ public abstract class SfTypeFactory {
                 Variable.values(),
                 Link.values(),
                 Data.values());
-        registerNonHomogenousSfTypes(Index.values());
     }
 
-    private static void registerHomogenousSfTypes(SfType[]... sfTypes) {
+    private static void registerStructuredFieldType(SfType[]... sfTypes) {
         for (SfType[] sfTypeArray : sfTypes) {
             byte typeID = sfTypeArray[0].getTypeCode().getValue();
 
@@ -37,19 +37,6 @@ public abstract class SfTypeFactory {
                 map.put(sfType.getCategoryCode().getValue(), sfType);
             }
             SF_TYPES.put(typeID, map);
-        }
-    }
-
-    private static void registerNonHomogenousSfTypes(SfType[]... sfTypes) {
-        for (SfType[] sfTypeArray : sfTypes) {
-            for (SfType sfType : sfTypeArray) {
-                java.util.Map<Byte, SfType> map = SF_TYPES.get(sfType.getTypeCode().getValue());
-                if (map == null) {
-                    map = new HashMap<Byte, SfType>();
-                }
-                map.put(sfType.getCategoryCode().getValue(), sfType);
-                SF_TYPES.put(sfType.getTypeCode().getValue(), map);
-            }
         }
     }
 
@@ -88,14 +75,17 @@ public abstract class SfTypeFactory {
             this.name = name;
         }
 
+        @Override
         public CategoryCode getCategoryCode() {
             return category;
         }
 
+        @Override
         public String getName() {
             return name;
         }
 
+        @Override
         public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
@@ -117,14 +107,17 @@ public abstract class SfTypeFactory {
             this.name = name;
         }
 
+        @Override
         public CategoryCode getCategoryCode() {
             return category;
         }
 
+        @Override
         public String getName() {
             return name;
         }
 
+        @Override
         public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
@@ -155,14 +148,17 @@ public abstract class SfTypeFactory {
             this.name = name;
         }
 
+        @Override
         public CategoryCode getCategoryCode() {
             return category;
         }
 
+        @Override
         public String getName() {
             return name;
         }
 
+        @Override
         public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
@@ -189,14 +185,17 @@ public abstract class SfTypeFactory {
             this.name = name;
         }
 
+        @Override
         public CategoryCode getCategoryCode() {
             return category;
         }
 
+        @Override
         public String getName() {
             return name;
         }
 
+        @Override
         public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
@@ -240,14 +239,17 @@ public abstract class SfTypeFactory {
             this.name = "Begin " + name;
         }
 
+        @Override
         public CategoryCode getCategoryCode() {
             return category;
         }
 
+        @Override
         public String getName() {
             return name;
         }
 
+        @Override
         public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
@@ -291,14 +293,17 @@ public abstract class SfTypeFactory {
             this.name = "End " + name;
         }
 
+        @Override
         public CategoryCode getCategoryCode() {
             return category;
         }
 
+        @Override
         public String getName() {
             return name;
         }
 
+        @Override
         public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
@@ -309,29 +314,32 @@ public abstract class SfTypeFactory {
         FNI(CategoryCode.font, "Font Index"),
         CFI(CategoryCode.coded_font, "Coded Font Index");
 
-    
+
         private final String name;
         private final CategoryCode category;
         private static final TypeCode TYPE_CODE = TypeCode.Index;
-    
+
         private Index(CategoryCode category, String name) {
             this.name = name;
             this.category = category;
         }
-    
+
+        @Override
         public CategoryCode getCategoryCode() {
             return category;
         }
-        
+
+        @Override
         public String getName() {
             return name;
         }
-    
+
+        @Override
         public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
     }
-    
+
     public enum Orientation implements SfType {
         FNO(CategoryCode.font, "Font Orientation");
 
@@ -348,12 +356,12 @@ public abstract class SfTypeFactory {
         public CategoryCode getCategoryCode() {
             return category;
         }
-    
+
         @Override
         public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
-    
+
         @Override
         public String getName() {
             return name;
@@ -386,14 +394,17 @@ public abstract class SfTypeFactory {
             this.name = name;
         }
 
+        @Override
         public CategoryCode getCategoryCode() {
             return category;
         }
 
+        @Override
         public String getName() {
             return name;
         }
 
+        @Override
         public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
@@ -416,14 +427,17 @@ public abstract class SfTypeFactory {
             this.name = name;
         }
 
+        @Override
         public CategoryCode getCategoryCode() {
             return category;
         }
 
+        @Override
         public String getName() {
             return name;
         }
 
+        @Override
         public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
@@ -443,14 +457,17 @@ public abstract class SfTypeFactory {
             this.name = name;
         }
 
+        @Override
         public CategoryCode getCategoryCode() {
             return category;
         }
 
+        @Override
         public String getName() {
             return name;
         }
 
+        @Override
         public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
@@ -473,14 +490,17 @@ public abstract class SfTypeFactory {
             this.name = "Include " + name;
         }
 
+        @Override
         public CategoryCode getCategoryCode() {
             return category;
         }
 
+        @Override
         public String getName() {
             return name;
         }
 
+        @Override
         public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
@@ -500,14 +520,17 @@ public abstract class SfTypeFactory {
             this.name = name;
         }
 
+        @Override
         public CategoryCode getCategoryCode() {
             return category;
         }
 
+        @Override
         public String getName() {
             return name;
         }
 
+        @Override
         public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
@@ -531,14 +554,17 @@ public abstract class SfTypeFactory {
             this.name = name;
         }
 
+        @Override
         public CategoryCode getCategoryCode() {
             return category;
         }
 
+        @Override
         public String getName() {
             return name;
         }
 
+        @Override
         public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
@@ -559,14 +585,17 @@ public abstract class SfTypeFactory {
             this.name = name;
         }
 
+        @Override
         public CategoryCode getCategoryCode() {
             return category;
         }
 
+        @Override
         public String getName() {
             return name;
         }
 
+        @Override
         public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
@@ -586,14 +615,17 @@ public abstract class SfTypeFactory {
             this.name = name;
         }
 
+        @Override
         public CategoryCode getCategoryCode() {
             return category;
         }
 
+        @Override
         public String getName() {
             return name;
         }
 
+        @Override
         public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
@@ -622,14 +654,17 @@ public abstract class SfTypeFactory {
             this.name = name;
         }
 
+        @Override
         public CategoryCode getCategoryCode() {
             return category;
         }
 
+        @Override
         public String getName() {
             return name;
         }
 
+        @Override
         public TypeCode getTypeCode() {
             return TYPE_CODE;
         }
