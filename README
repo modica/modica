@@ -1,0 +1,7 @@
+AFP-Parser is a Java library used for parsing IBMs Advanced Function Printing
+document format.
+
+The client API works on two levels, a parser for structured field introducers
+and a separate API for parsing the content of structured fields. The intention
+being that it gives maximum flexibility to the client to control the behaviour
+of the parser.
