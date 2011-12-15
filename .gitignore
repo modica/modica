@@ -2,6 +2,7 @@
 .gradle/
 gradle.properties
 build/
+core/lib/
 
 # eclipse
 .classpath
