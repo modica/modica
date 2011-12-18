@@ -6,9 +6,9 @@ import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
 
 /**
- * This class captures SFIntroduce creating events and delegates the creating of
- * StructuredFields to {@link StructuredFieldFactory} and publishes creation
- * events to a {@link StructuredFieldHandler} for further processing.
+ * This class captures SFIntroduce creating events and delegates the creating of StructuredFields to
+ * {@link StructuredFieldFactory} and publishes creation events to a {@link StructuredFieldHandler}
+ * for further processing.
  */
 public class StructuredFieldCreator implements SFIntroducerHandler {
 
@@ -19,10 +19,8 @@ public class StructuredFieldCreator implements SFIntroducerHandler {
     /**
      * Create a new instance.
      *
-     * @param structuredFieldFactory
-     *            The factory for creating {@link StructuredField}s.
-     * @param structuredFieldHandler
-     *            The handler to publish creation events to.
+     * @param structuredFieldFactory The factory for creating {@link StructuredField}s.
+     * @param structuredFieldHandler The handler to publish creation events to.
      */
     public StructuredFieldCreator(StructuredFieldFactory structuredFieldFactory,
             StructuredFieldHandler structuredFieldHandler) {

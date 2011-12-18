@@ -100,6 +100,7 @@ class DocumentReader implements Iterable<SfIntroducer> {
     /**
      * Returns an iterator used to iterate over each of the structured fields that make the document.
      */
+    @Override
     public Iterator<SfIntroducer> iterator() {
         return sfIterator;
     }
@@ -112,16 +113,19 @@ class DocumentReader implements Iterable<SfIntroducer> {
             nextSf = createStructuredField();
         }
 
+        @Override
         public boolean hasNext() {
             return nextSf != null;
         }
 
+        @Override
         public SfIntroducer next() {
             SfIntroducer sf = nextSf;
             nextSf = createStructuredField();
             return sf;
         }
 
+        @Override
         public void remove() {
             throw new UnsupportedOperationException("remove() not supported");
         }

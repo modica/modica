@@ -1,11 +1,15 @@
 package org.afpparser.afp.modca.structuredfields;
 
+import java.io.Serializable;
+
 import org.afpparser.common.StringUtils;
 
 /**
  * A data object that represents a structured field and holds the data provided in the introducer.
  */
-public class SfIntroducer {
+public class SfIntroducer implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     public static final byte CARRIAGE_CONTROL = 0x5a;
 

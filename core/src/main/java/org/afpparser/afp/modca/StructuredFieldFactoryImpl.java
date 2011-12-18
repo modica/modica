@@ -31,7 +31,7 @@ public class StructuredFieldFactoryImpl implements StructuredFieldFactory {
         this.channel = channel;
     }
 
-    public Parameters createStructuredField(SfIntroducer intro) {
+    private Parameters createStructuredField(SfIntroducer intro) {
         try {
             long byteOffset = intro.getDataOffset();
             ByteBuffer buffer = ByteBuffer.allocate(intro.getLength()
