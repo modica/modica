@@ -114,4 +114,18 @@ public class SetExtendedBilevelImageColor implements SelfDefiningField {
     public String toString() {
         return "SetExtendedBilevelImageColor colourSpace=" + colourSpace;
     }
+
+    @Override
+    public String getName() {
+        return "SetExtendedBilevelImageColour";
+    }
+
+    @Override
+    public String getValueAsString() {
+        return "ColourSpace=" + colourSpace.toString()
+                + " colSize1=" + colSize1
+                + " colSize2=" + colSize2
+                + " colSize3=" + colSize3
+                + " colSize4=" + colSize4;
+    }
 }

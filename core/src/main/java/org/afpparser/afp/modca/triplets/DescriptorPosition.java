@@ -1,5 +1,7 @@
 package org.afpparser.afp.modca.triplets;
 
+import org.afpparser.common.ByteUtils;
+
 /**
  * The Descriptor Position triplet is used to associate an Object Area Position structured field
  * with an Object Area Descriptor structured field.
@@ -53,5 +55,10 @@ public class DescriptorPosition extends Triplet {
     @Override
     public String toString() {
         return getTid().toString() + " DesPosID=" + desPosId;
+    }
+
+    @Override
+    public String valueToString() {
+        return "ObjectAreaPositionId=" + ByteUtils.bytesToHex(desPosId);
     }
 }

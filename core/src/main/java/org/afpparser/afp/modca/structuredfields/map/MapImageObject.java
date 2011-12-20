@@ -1,5 +1,8 @@
 package org.afpparser.afp.modca.structuredfields.map;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletGroup;
 import org.afpparser.afp.modca.triplets.RepeatingTripletGroup;
@@ -17,5 +20,11 @@ public class MapImageObject extends StructuredFieldWithTripletGroup {
     @Override
     public String toString() {
         return getType().toString() + super.toString();
+    }
+
+    @Override
+    public Map<String, String> getParameters() {
+        Map<String, String> params = new LinkedHashMap<String, String>();
+        return params;
     }
 }

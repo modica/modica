@@ -1,6 +1,8 @@
 package org.afpparser.afp.modca.structuredfields.end;
 
 import java.io.UnsupportedEncodingException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
@@ -48,5 +50,12 @@ public class EndActiveEnvironmentGroup extends AbstractStructuredField {
     @Override
     public String toString() {
         return getType().toString() + " AEGName=" + aegName;
+    }
+
+    @Override
+    public Map<String, String> getParameters() {
+        Map<String, String> params = new LinkedHashMap<String, String>();
+        params.put("ActiveEnvironmentGroupName", getAegName());
+        return params;
     }
 }

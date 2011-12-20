@@ -1,7 +1,9 @@
 package org.afpparser.afp.modca.structuredfields.begin;
 
 import java.io.UnsupportedEncodingException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
@@ -42,4 +44,10 @@ public class BeginPage extends StructuredFieldWithTriplets {
         return getType().getName() + " page-name=" + pageName;
     }
 
+    @Override
+    public Map<String, String> getParameters() {
+        Map<String, String> params = new LinkedHashMap<String, String>();
+        params.put("PageName", pageName);
+        return params;
+    }
 }

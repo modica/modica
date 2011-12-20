@@ -56,4 +56,12 @@ public final class GlobalResourceId {
                 && this.fgid == obj.fgid
                 && this.fontWidth == obj.fontWidth;
     }
+
+    @Override
+    public String toString() {
+        return "GCSGID=" + String.valueOf(gcsgid)
+                + " CPGID=" + String.valueOf(cpgid)
+                + " FGID=" + String.valueOf(fgid)
+                + " FontWidth=" + String.valueOf(fontWidth);
+    }
 }

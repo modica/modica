@@ -1,7 +1,11 @@
 package org.afpparser.afp.modca.structuredfields.data;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.common.StringUtils;
 
 /**
  * The Image Picture Data structured field contains the data for an image data object. This class
@@ -29,5 +33,12 @@ public class ImagePictureData extends AbstractStructuredField {
     @Override
     public String toString() {
         return getType().getName() + " dataOffset=" + imageDataOffset;
+    }
+
+    @Override
+    public Map<String, String> getParameters() {
+        Map<String, String> params = new LinkedHashMap<String, String>();
+        params.put("ImageDataOffset", StringUtils.toHex(imageDataOffset, 8));
+        return params;
     }
 }

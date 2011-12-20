@@ -1,5 +1,8 @@
 package org.afpparser.parser;
 
+import java.util.Collections;
+import java.util.Map;
+
 import org.afpparser.afp.modca.StructuredFieldFactory;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
@@ -100,6 +103,11 @@ public class StructuredFieldCreator implements SFIntroducerHandler {
         @Override
         public String toString() {
             return "UNHANDLED SF: introducer " + introducer;
+        }
+
+        @Override
+        public Map<String, String> getParameters() {
+            return Collections.emptyMap();
         }
     }
 }

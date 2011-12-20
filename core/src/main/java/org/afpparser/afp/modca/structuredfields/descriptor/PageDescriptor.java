@@ -1,6 +1,8 @@
 package org.afpparser.afp.modca.structuredfields.descriptor;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.PresentationSpaceUnits;
@@ -122,5 +124,17 @@ public class PageDescriptor extends StructuredFieldWithTriplets {
     @Override
     public String toString() {
         return "Page Descriptor pageWidth=" + xAxisPageSize + " pageHeight=" + yAxisPageSize;
+    }
+
+    @Override
+    public Map<String, String> getParameters() {
+        Map<String, String> params = new LinkedHashMap<String, String>();
+        params.put("X-AxisBaseUnit", xAxisBaseUnit.toString());
+        params.put("Y-AxisBaseUnit", yAxisBaseUnit.toString());
+        params.put("X-AxisPageUnit", String.valueOf(xAxisPageUnit));
+        params.put("Y-AxisPageUnit", String.valueOf(yAxisPageUnit));
+        params.put("X-AxisPageSize", String.valueOf(xAxisPageSize));
+        params.put("Y-AxisPageSize", String.valueOf(yAxisPageSize));
+        return params;
     }
 }

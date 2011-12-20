@@ -1,6 +1,8 @@
 package org.afpparser.afp.modca.structuredfields.data;
 
 import java.io.UnsupportedEncodingException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
@@ -43,5 +45,16 @@ public class PresentationTextData extends AbstractStructuredField {
     @Override
     public String toString() {
         return "PTX";
+    }
+
+    @Override
+    public Map<String, String> getParameters() {
+        Map<String, String> params = new LinkedHashMap<String, String>();
+        try {
+            params.put("Text", getPtocaData());
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+        return params;
     }
 }

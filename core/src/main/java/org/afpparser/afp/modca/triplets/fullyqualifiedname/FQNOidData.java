@@ -40,7 +40,8 @@ final class FQNOidData extends FullyQualifiedName {
             return false;
         }
         FQNOidData obj = (FQNOidData) o;
-        return this.type == obj.type && this.getLength() == obj.getLength()
+        return this.type == obj.type
+                && this.getLength() == obj.getLength()
                 && this.oid.equals(obj.oid);
     }
 
@@ -51,5 +52,10 @@ final class FQNOidData extends FullyQualifiedName {
         result = 31 * result + type.hashCode();
         result = 31 * result + oid.hashCode();
         return result;
+    }
+
+    @Override
+    public String valueToString() {
+        return "ObjectId=" + oid.toString();
     }
 }

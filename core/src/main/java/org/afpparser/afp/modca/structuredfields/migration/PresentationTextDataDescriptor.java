@@ -1,6 +1,8 @@
 package org.afpparser.afp.modca.structuredfields.migration;
 
 import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
@@ -28,6 +30,7 @@ public class PresentationTextDataDescriptor extends StructuredFieldWithTriplets 
         yAxisUnit = params.getUInt(2);
         xAxisSize = params.getUInt(3);
         yAxisSize = params.getUInt(3);
+        assert params.getUInt(2) == 0; // text flags, reserved
         // TODO: add the initial text conditions parsing
     }
 
@@ -72,5 +75,15 @@ public class PresentationTextDataDescriptor extends StructuredFieldWithTriplets 
     @Override
     public String toString() {
         return "PTD: x-axis size:" + xAxisSize + " y-axis size:" + yAxisSize;
+    }
+
+    @Override
+    public Map<String, String> getParameters() {
+        Map<String, String> params = new LinkedHashMap<String, String>();
+        params.put("X-AxisUnits", String.valueOf(xAxisUnit));
+        params.put("Y-AxisUnits", String.valueOf(yAxisUnit));
+        params.put("X-AxisSize", String.valueOf(xAxisSize));
+        params.put("Y-AxisSize", String.valueOf(yAxisSize));
+        return params;
     }
 }

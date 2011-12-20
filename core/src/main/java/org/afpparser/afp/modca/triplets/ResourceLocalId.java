@@ -1,6 +1,7 @@
 package org.afpparser.afp.modca.triplets;
 
 import org.afpparser.afp.modca.Parameters;
+import org.afpparser.common.ByteUtils;
 
 /**
  * The Resource Local Identifier triplet may be used to specify a resource type and a one-byte local
@@ -101,6 +102,12 @@ public class ResourceLocalId extends Triplet {
         result = 31 * result + resourceLocalId;
         result = 31 * result + getTid().hashCode();
         return result;
+    }
+
+    @Override
+    public String valueToString() {
+        return "ResourceType=" + resourceType.toString()
+                + " ResourceLocalId=" + ByteUtils.bytesToHex(resourceLocalId);
     }
 
 }

@@ -7,9 +7,26 @@ package org.afpparser.afp.modca.triplets;
  */
 public abstract class Triplet {
 
+    /**
+     * Returns the length of this triplet.
+     *
+     * @return the length of the triplet
+     */
     public abstract int getLength();
 
+    /**
+     * Returns the triplet identifier.
+     *
+     * @return the triplet identifier
+     */
     public abstract TripletIdentifiers getTid();
+
+    /**
+     * The value of the triplet as a String.
+     *
+     * @return the string representation of this triplet
+     */
+    public abstract String valueToString();
 
     @Override
     public abstract boolean equals(Object o);

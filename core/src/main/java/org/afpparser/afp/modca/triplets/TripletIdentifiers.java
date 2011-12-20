@@ -66,9 +66,10 @@ public enum TripletIdentifiers {
     cmr_tag_fidelity(0x96),
     device_appearance(0x97);
 
-    private static int MAX_LENGTH = 254;
+    private static final int MAX_LENGTH = 254;
 
-    private byte id;
+    private final byte id;
+    private final String name;
 
     private static final Map<Byte, TripletIdentifiers> CACHE = new HashMap<Byte, TripletIdentifiers>();
 
@@ -80,10 +81,15 @@ public enum TripletIdentifiers {
 
     private TripletIdentifiers(int id) {
         this.id = (byte) id;
+        this.name = this.toString();
     }
 
     public byte getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public static int getmaxlength() {

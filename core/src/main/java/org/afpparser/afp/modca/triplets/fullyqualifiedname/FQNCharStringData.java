@@ -56,4 +56,9 @@ final class FQNCharStringData extends FullyQualifiedName {
     public FQNType getFQNType() {
         return type;
     }
+
+    @Override
+    public String valueToString() {
+        return data;
+    }
 }

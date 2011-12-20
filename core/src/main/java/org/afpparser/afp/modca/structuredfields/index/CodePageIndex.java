@@ -3,7 +3,9 @@ package org.afpparser.afp.modca.structuredfields.index;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Context;
 import org.afpparser.afp.modca.Context.FOCAContext;
@@ -12,6 +14,7 @@ import org.afpparser.afp.modca.common.CPIRepeatingGroupLength;
 import org.afpparser.afp.modca.common.GraphicalCharacterUseFlags;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.common.StringUtils;
 
 /**
  * In a series of repeating groups, the Code Page Index (CPI) associates character IDs with code
@@ -186,5 +189,18 @@ public class CodePageIndex extends AbstractStructuredField {
             sb.append("\n" + cpi.toString());
         }
         return getType().getName() + sb.toString();
+    }
+
+    @Override
+    public Map<String, String> getParameters() {
+        Map<String, String> params = new LinkedHashMap<String, String>();
+        for (CPI cpi : cpis) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("GCGID=" + cpi.gcgid);
+            sb.append(" CodePoint=" + StringUtils.toHex(cpi.codePoint, 2));
+            sb.append(" UnicodeIndex=" + StringUtils.toHex(cpi.unicodeIndex, 2));
+            params.put("CodePageIndex", sb.toString());
+        }
+        return params;
     }
 }

@@ -51,7 +51,7 @@ public class EndHandler {
                 break;
             case page_group:
                 triplets = TripletHandler.parseTriplet(params, 8, context);
-                sf = new EndPageGroup(intro, triplets, params);
+                sf = new EndNamedPageGroup(intro, triplets, params);
                 break;
             case presentation_text:
                 triplets = TripletHandler.parseTriplet(params, 8, context);

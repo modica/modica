@@ -90,11 +90,20 @@ public class MeasurementUnits extends Triplet {
         hashCode = 31 * hashCode + yoaBase.hashCode();
         hashCode = 31 * hashCode + xoaUnits;
         hashCode = 31 * hashCode + yoaUnits;
+        hashCode = 31 * hashCode + getTid().hashCode();
         return hashCode;
     }
 
     @Override
     public String toString() {
         return getTid().toString() + " xoaUnits=" + xoaUnits + " yoaUnits=" + yoaUnits;
+    }
+
+    @Override
+    public String valueToString() {
+        return "X-AxisBase=" + xoaBase.toString()
+                + " Y-AxisBase=" + yoaBase.toString()
+                + " X-AxisSize=" + String.valueOf(xoaUnits)
+                + " Y-AxisSize=" + String.valueOf(yoaUnits);
     }
 }

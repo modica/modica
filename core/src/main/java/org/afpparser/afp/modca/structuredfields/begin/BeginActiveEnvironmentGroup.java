@@ -1,7 +1,9 @@
 package org.afpparser.afp.modca.structuredfields.begin;
 
 import java.io.UnsupportedEncodingException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
@@ -35,5 +37,12 @@ public final class BeginActiveEnvironmentGroup extends StructuredFieldWithTriple
     @Override
     public String toString() {
         return getType().getName() + " aeg-name=" + aegName + "\t" + tripletsToString();
+    }
+
+    @Override
+    public Map<String, String> getParameters() {
+        Map<String, String> params = new LinkedHashMap<String, String>();
+        params.put("ActiveEnvironmentGroupName", aegName);
+        return params;
     }
 }

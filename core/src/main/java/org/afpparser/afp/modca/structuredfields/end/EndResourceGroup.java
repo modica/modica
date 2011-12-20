@@ -1,7 +1,9 @@
 package org.afpparser.afp.modca.structuredfields.end;
 
 import java.io.UnsupportedEncodingException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
@@ -48,5 +50,12 @@ public class EndResourceGroup extends StructuredFieldWithTriplets {
     @Override
     public String toString() {
         return getType().getName() + " RGrpName=" + rGrpName;
+    }
+
+    @Override
+    public Map<String, String> getParameters() {
+        Map<String, String> params = new LinkedHashMap<String, String>();
+        params.put("ResourceGroupName", getRGrpName());
+        return params;
     }
 }

@@ -1,6 +1,8 @@
 package org.afpparser.afp.modca.structuredfields.end;
 
 import java.io.UnsupportedEncodingException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
@@ -42,5 +44,12 @@ public class EndCodePage extends AbstractStructuredField {
     @Override
     public String toString() {
         return getType().getName() + " cpName=" + cpName.getName();
+    }
+
+    @Override
+    public Map<String, String> getParameters() {
+        Map<String, String> params = new LinkedHashMap<String, String>();
+        params.put("CodePageName", getCodePageName());
+        return params;
     }
 }

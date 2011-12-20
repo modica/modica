@@ -1,6 +1,8 @@
 package org.afpparser.afp.modca.structuredfields.data;
 
 import java.io.UnsupportedEncodingException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
@@ -33,5 +35,16 @@ public class NoOperation extends AbstractStructuredField {
     @Override
     public String toString() {
         return getType().getName();
+    }
+
+    @Override
+    public Map<String, String> getParameters() {
+        Map<String, String> params = new LinkedHashMap<String, String>();
+        try {
+            params.put("Comment", getComment("Cp500"));
+        } catch (UnsupportedEncodingException uee) {
+            throw new RuntimeException(uee);
+        }
+        return params;
     }
 }

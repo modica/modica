@@ -72,4 +72,10 @@ public class ObjectAreaSize extends Triplet {
     public String toString() {
         return getTid().toString() + " xoaSize=" + xoaSize + " yoaSize=" + yoaSize;
     }
+
+    @Override
+    public String valueToString() {
+        return "X-AxisSize=" + String.valueOf(xoaSize)
+                + " Y-AxisSize=" + String.valueOf(yoaSize);
+    }
 }

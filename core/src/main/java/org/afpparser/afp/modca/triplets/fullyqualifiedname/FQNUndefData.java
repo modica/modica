@@ -60,4 +60,9 @@ public class FQNUndefData extends FullyQualifiedName {
 
     }
 
+    @Override
+    public String valueToString() {
+        return "Undefined Data";
+    }
+
 }

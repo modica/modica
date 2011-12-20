@@ -3,6 +3,7 @@ package org.afpparser.afp.modca.triplets;
 import org.afpparser.afp.modca.Context;
 import org.afpparser.afp.modca.Context.MODCAContext;
 import org.afpparser.afp.modca.Parameters;
+import org.afpparser.common.StringUtils;
 
 /**
  * Coded Graphical Character Set Global Identifier triplet is used to establish the values of the
@@ -81,7 +82,14 @@ public abstract class Cgcsgid extends Triplet {
             int result = 17;
             result = 31 * result + gcsgid;
             result = 31 * result + cpgid;
+            result = 31 * result + getTid().hashCode();
             return result;
+        }
+
+        @Override
+        public String valueToString() {
+            return "GCSGID=" + StringUtils.toHex(gcsgid, 2)
+                    + " CPGID=" + StringUtils.toHex(cpgid, 2);
         }
     }
 
@@ -121,6 +129,11 @@ public abstract class Cgcsgid extends Triplet {
             int result = 17;
             result = 31 * result + ccsid;
             return result;
+        }
+
+        @Override
+        public String valueToString() {
+            return "CCSID=" + StringUtils.toHex(ccsid, 2);
         }
     }
 

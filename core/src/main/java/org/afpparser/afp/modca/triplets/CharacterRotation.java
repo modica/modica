@@ -60,4 +60,8 @@ public class CharacterRotation extends Triplet {
         return hashCode;
     }
 
+    @Override
+    public String valueToString() {
+        return "Rotation=" + rotation.toString();
+    }
 }

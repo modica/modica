@@ -1,6 +1,8 @@
 package org.afpparser.afp.modca.structuredfields.descriptor;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
@@ -19,5 +21,11 @@ public class ObjectAreaDescriptor extends StructuredFieldWithTriplets {
     @Override
     public String toString() {
         return getType().toString() + tripletsToString();
+    }
+
+    @Override
+    public Map<String, String> getParameters() {
+        Map<String, String> params = new LinkedHashMap<String, String>();
+        return params;
     }
 }

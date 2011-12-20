@@ -1,10 +1,14 @@
 package org.afpparser.afp.modca.structuredfields.position;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.ReferenceCoordinateSystem;
 import org.afpparser.afp.modca.common.Rotation;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.common.ByteUtils;
 
 /**
  * The Object Area Position structured field specifies the origin and orientation of the object
@@ -152,5 +156,19 @@ public class ObjectAreaPosition extends AbstractStructuredField {
     public String toString() {
         return getType().toString() + " xoaOset=" + xoaOset + " yoaOset=" + yoaOset
                 + " xocaOset=" + xocaOset + " yocaOset=" + yocaOset;
+    }
+
+    @Override
+    public Map<String, String> getParameters() {
+        Map<String, String> params = new LinkedHashMap<String, String>();
+        params.put("ObjectAreaPositionId", ByteUtils.bytesToHex(oaPosId));
+        params.put("X-AxisObjectAreaOffset", String.valueOf(xoaOset));
+        params.put("Y-AxisObjectAreaOffset", String.valueOf(yoaOset));
+        params.put("X-AxisObjectOrientation", xoaOrent.toString());
+        params.put("Y-AxisObjectOrientation", yoaOrent.toString());
+        params.put("X-AxisObjectOffset", String.valueOf(xocaOset));
+        params.put("Y-AxisObjectOffset", String.valueOf(yocaOset));
+        params.put("ReferenceCoordSystem", refCSys.toString());
+        return params;
     }
 }

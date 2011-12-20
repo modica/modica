@@ -1,6 +1,6 @@
 package org.afpparser.afp.modca.structuredfields;
 
-
+import java.util.Map;
 
 /**
  * A structured field is the building block of an AFP document.
@@ -62,5 +62,12 @@ public interface StructuredField {
      * @return the number of bytes to the next structured field
      */
     int bytesToNextStructuredField();
+
+    /**
+     * Returns a map of parameter names with their corresponding values.
+     *
+     * @return parameters and their values
+     */
+    Map<String, String> getParameters();
 
 }

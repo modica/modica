@@ -1,7 +1,9 @@
 package org.afpparser.afp.modca.structuredfields.include;
 
 import java.io.UnsupportedEncodingException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.ReferenceCoordinateSystem;
@@ -337,5 +339,20 @@ public class IncludeObject extends StructuredFieldWithTriplets {
     @Override
     public String toString() {
         return getType().getName() + " objtype=" + objType + " objName=" + objName;
+    }
+
+    @Override
+    public Map<String, String> getParameters() {
+        Map<String, String> params = new LinkedHashMap<String, String>();
+        params.put("ObjectName", objName);
+        params.put("ObjectType", objType.toString());
+        params.put("X-AxisObjectAreaOffset", String.valueOf(xoaOset));
+        params.put("Y-AxisObjectAreaOffset", String.valueOf(yoaOset));
+        params.put("X-AxisObjectOrientation", xoaOrent.toString());
+        params.put("Y-AxisObjectOrientation", yoaOrent.toString());
+        params.put("X-AxisObjectOffset", String.valueOf(xocaOset));
+        params.put("Y-AxisObjectOffset", String.valueOf(yocaOset));
+        params.put("ReferenceCoordSystem", refCSys.toString());
+        return params;
     }
 }

@@ -18,4 +18,8 @@ public interface SelfDefiningField {
      * @return the byte id
      */
     public byte getId();
+
+    public String getName();
+
+    public String getValueAsString();
 }

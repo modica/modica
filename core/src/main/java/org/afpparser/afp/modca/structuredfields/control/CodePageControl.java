@@ -1,6 +1,8 @@
 package org.afpparser.afp.modca.structuredfields.control;
 
 import java.io.UnsupportedEncodingException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Context;
 import org.afpparser.afp.modca.Context.FOCAContext;
@@ -23,7 +25,6 @@ public class CodePageControl extends AbstractStructuredField {
     private final CPIRepeatingGroupLength cpRgLen;
     private final int vsCharSn;
     private final int vsChar;
-    private final byte vsFlags;
     private final boolean isAscendingCodePoint;
     private final boolean isVariableSpaceEnabled;
     private final int defaultUnicodeValue;
@@ -39,7 +40,7 @@ public class CodePageControl extends AbstractStructuredField {
         cpRgLen = CPIRepeatingGroupLength.getValue(params.getByte());
         vsCharSn = params.getUInt(1);
         vsChar = params.getUInt(1);
-        vsFlags = params.getByte();
+        byte vsFlags = params.getByte();
         isAscendingCodePoint = CodePageUseFlags.isAscendingCodePoint(vsFlags);
         isVariableSpaceEnabled = CodePageUseFlags.isVariableSpaceEnabled(vsFlags);
         if (cpRgLen == CPIRepeatingGroupLength.SINGLE_BYTE_INC_UNICODE
@@ -197,5 +198,21 @@ public class CodePageControl extends AbstractStructuredField {
     @Override
     public String toString() {
         return getType().getName() + " defGCGID=" + defCharId + " rgLen=" + cpRgLen;
+    }
+
+    @Override
+    public Map<String, String> getParameters() {
+        Map<String, String> params = new LinkedHashMap<String, String>();
+        params.put("DefaultGCGID", defCharId);
+        params.put("isInvalidCodedCharacter", String.valueOf(isInvalidCodedCharacter));
+        params.put("isNoPresentation", String.valueOf(isNoPresentation));
+        params.put("isNoIncrement", String.valueOf(isNoIncrement));
+        params.put("CPIRepeatingGroupLength", cpRgLen.toString());
+        params.put("SpaceCharSectionNumber", String.valueOf(vsCharSn));
+        params.put("SpaceCharCodePoint", String.valueOf(vsChar));
+        params.put("isAscendingCodePoint", String.valueOf(isAscendingCodePoint));
+        params.put("isVariableSpaceEnabled", String.valueOf(isVariableSpaceEnabled));
+        params.put("DefaultUnicodeValue", String.valueOf(defaultUnicodeValue));
+        return params;
     }
 }

@@ -91,6 +91,12 @@ public abstract class ResourceManagement extends Triplet {
         public String toString() {
             return getTid() + " type1, isPublic=" + isPublic;
         }
+
+        @Override
+        public String valueToString() {
+            return "ResourceManagementValue=" + String.valueOf(rmValue)
+                    + " isPublic=" + String.valueOf(isPublic);
+        }
     }
 
     /**
@@ -181,11 +187,20 @@ public abstract class ResourceManagement extends Triplet {
             return hashCode;
         }
 
+        private String dateToString() {
+            return "year=" + year + " day=" + day + " hour=" + hour
+                    + " minute=" + minute;
+        }
+
         @Override
         public String toString() {
-            return getTid() + " type2" + "year=" + year + " day=" + day + " hour=" + hour
-                    + " minute=" + minute;
+            return getTid() + " type2" + dateToString();
 
+        }
+
+        @Override
+        public String valueToString() {
+            return dateToString();
         }
     }
 

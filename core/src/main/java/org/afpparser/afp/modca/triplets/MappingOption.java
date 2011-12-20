@@ -121,7 +121,7 @@ public class MappingOption extends Triplet {
 
         /**
          * Default constructor.
-         * @param value the integer map value 
+         * @param value the integer map value
          */
         private MapValue(int value) {
             this.value = (byte) value;
@@ -138,7 +138,7 @@ public class MappingOption extends Triplet {
         /**
          * Converts a byte into the associated MapValue object, if byte is given that doesn't
          * correspond to a map value, null is returned.
-         * 
+         *
          * @param mvByte the MapValue byte
          * @return the MapValue object
          */
@@ -192,5 +192,10 @@ public class MappingOption extends Triplet {
     @Override
     public String toString() {
         return getTid().name() + " mapValue=" + mapValue;
+    }
+
+    @Override
+    public String valueToString() {
+        return "MapValue=" + mapValue.toString();
     }
 }

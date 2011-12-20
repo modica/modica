@@ -2,7 +2,9 @@ package org.afpparser.afp.modca.structuredfields.descriptor;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.PresentationSpaceUnits;
@@ -122,5 +124,18 @@ public class ImageDataDescriptor extends AbstractStructuredField {
     @Override
     public String toString() {
         return getType().getName() + " xSize=" + xSize + " ySize=" + ySize + sdfToString();
+    }
+
+    @Override
+    public Map<String, String> getParameters() {
+        Map<String, String> params = new LinkedHashMap<String, String>();
+        params.put("XResolution", String.valueOf(xResol));
+        params.put("YResolution", String.valueOf(yResol));
+        params.put("XSize", String.valueOf(xSize));
+        params.put("YSize", String.valueOf(ySize));
+        for (SelfDefiningField sdf : selfDefiningFields) {
+            params.put(sdf.getName(), sdf.getValueAsString());
+        }
+        return params;
     }
 }

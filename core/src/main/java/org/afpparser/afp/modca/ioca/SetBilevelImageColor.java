@@ -89,4 +89,14 @@ public class SetBilevelImageColor implements SelfDefiningField {
     public String toString() {
         return "SetBilevelImageColor area=" + area + " colour=" + colour;
     }
+
+    @Override
+    public String getName() {
+        return "SetBilevelImageColor";
+    }
+
+    @Override
+    public String getValueAsString() {
+        return colour.toString();
+    }
 }

@@ -1,6 +1,8 @@
 package org.afpparser.afp.modca.structuredfields.descriptor;
 
 import java.io.UnsupportedEncodingException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.EncodingScheme;
@@ -96,5 +98,16 @@ public class CodePageDescriptor extends AbstractStructuredField {
     public String toString() {
         return getType().toString() + " gcsgid=" + gcsgid + " cpgid=" + cpgid
                 + " encoding=" + encScheme;
+    }
+
+    @Override
+    public Map<String, String> getParameters() {
+        Map<String, String> params = new LinkedHashMap<String, String>();
+        params.put("Description", cpDesc);
+        params.put("NumberOfCodePoints", String.valueOf(numCdPts));
+        params.put("GCSGID", String.valueOf(gcsgid));
+        params.put("CPGID", String.valueOf(cpgid));
+        params.put("EncodingScheme", "Cp" + String.valueOf(encScheme));
+        return params;
     }
 }

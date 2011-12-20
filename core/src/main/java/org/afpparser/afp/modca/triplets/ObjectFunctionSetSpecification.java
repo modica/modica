@@ -1,6 +1,7 @@
 package org.afpparser.afp.modca.triplets;
 
 import org.afpparser.afp.modca.Parameters;
+import org.afpparser.common.ByteUtils;
 
 /**
  * The Object Function Set Specification triplet is used to specify the Object Content Architecture
@@ -160,4 +161,11 @@ public class ObjectFunctionSetSpecification extends Triplet {
         return hashCode;
     }
 
+    @Override
+    public String valueToString() {
+        return "ObjectType=" + objType.toString()
+                + " ArchVersion=" + ByteUtils.bytesToHex(archVrsn)
+                + " MODCAFunctionSet=" + dcaFnSet
+                + " OCAFuntionSet=" + ocaFnSet.toString();
+    }
 }

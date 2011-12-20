@@ -1,7 +1,9 @@
 package org.afpparser.afp.modca.structuredfields.descriptor;
 
 import java.io.UnsupportedEncodingException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.foca.FontWeightClass;
@@ -9,6 +11,7 @@ import org.afpparser.afp.modca.foca.FontWidthClass;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
+import org.afpparser.common.ByteUtils;
 
 /**
  * The Font Descriptor (FND) specifies the overall characteristics of a font character set.
@@ -312,5 +315,28 @@ public class FontDescriptor extends StructuredFieldWithTriplets {
     public String toString() {
         return getType().getName() + " description=" + typeFcDesc + " weight=" + fontWeight
                 + " width =" + fontWidth;
+    }
+
+    @Override
+    public Map<String, String> getParameters() {
+        Map<String, String> params = new LinkedHashMap<String, String>();
+        params.put("TypefaceDescription", typeFcDesc);
+        params.put("FontWeight", fontWeight.toString());
+        params.put("FontWidth", fontWidth.toString());
+        params.put("MaxPointSize", String.valueOf(maxPtSize));
+        params.put("NominalPointSize", String.valueOf(nomPtSize));
+        params.put("MinPointSize", String.valueOf(minPtSize));
+        params.put("MaxHorizontalSize", String.valueOf(maxHSize));
+        params.put("NominalHorizontalSize", String.valueOf(nomHSize));
+        params.put("MinHorizontalSize", String.valueOf(minHSize));
+        params.put("DesignGeneralClass", ByteUtils.bytesToHex(designGeneralClass));
+        params.put("DesignSubClass", ByteUtils.bytesToHex(designSubClass));
+        params.put("DesignSpecificClass", ByteUtils.bytesToHex(designSpecificClass));
+        params.put("isItalic", String.valueOf(isItalic));
+        params.put("isHollow", String.valueOf(isHollow));
+        params.put("isOverStruck", String.valueOf(isOverstruck));
+        params.put("GCSGID", String.valueOf(gcsgid));
+        params.put("FGID", String.valueOf(fgid));
+        return params;
     }
 }

@@ -58,4 +58,14 @@ public class IocaFunctionSetId implements SelfDefiningField {
     public String toString() {
         return "IOCAFunctionSetId functionset=" + fs;
     }
+
+    @Override
+    public String getName() {
+        return "IOCAFunctionsetId";
+    }
+
+    @Override
+    public String getValueAsString() {
+        return fs.name();
+    }
 }
