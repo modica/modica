@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.EncodingScheme;
@@ -43,5 +45,17 @@ public class CodePageDescriptorTestCase extends StructuredFieldTestCase<CodePage
         assertEquals(0x506, sut.getGcsgid());
         assertEquals(0x708, sut.getCpgid());
         assertEquals(EncodingScheme.DOUBLE_BYTE_EBCDIC, sut.getEncodingScheme());
+    }
+
+    @Test
+    @Override
+    public void testGetParameters() {
+        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
+        expectedParams.put("Description", cpDesc);
+        expectedParams.put("NumberOfCodePoints", "16909060");
+        expectedParams.put("GCSGID", String.valueOf("1286"));
+        expectedParams.put("CPGID", String.valueOf("1800"));
+        expectedParams.put("EncodingScheme", EncodingScheme.DOUBLE_BYTE_EBCDIC.toString());
+        testParameters(expectedParams, sut);
     }
 }

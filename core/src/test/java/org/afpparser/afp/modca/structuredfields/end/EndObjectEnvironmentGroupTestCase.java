@@ -3,6 +3,8 @@ package org.afpparser.afp.modca.structuredfields.end;
 import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
@@ -21,11 +23,12 @@ public class EndObjectEnvironmentGroupTestCase extends
 
     private EndObjectEnvironmentGroup sut;
     private EndObjectEnvironmentGroup sutMatchesAny;
+    private final String oegName = "Blahblah";
 
     @Before
     public void setUp() throws UnsupportedEncodingException {
         SfIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(End.EOG);
-        Parameters params = new Parameters("TestStri".getBytes("Cp500"), "Cp500");
+        Parameters params = new Parameters(oegName.getBytes("Cp500"), "Cp500");
         sut = new EndObjectEnvironmentGroup(intro, params);
 
         Parameters matchesAny = new Parameters(ByteUtils.createByteArray(0xff, 0xff), "Cp500");
@@ -36,9 +39,17 @@ public class EndObjectEnvironmentGroupTestCase extends
 
     @Test
     public void testGetterMethods() {
-        assertEquals("TestStri", sut.getOegName());
+        assertEquals(oegName, sut.getOegName());
         assertEquals(false, sut.nameMatchesAny());
         assertEquals(null, sutMatchesAny.getOegName());
         assertEquals(true, sutMatchesAny.nameMatchesAny());
+    }
+
+    @Test
+    @Override
+    public void testGetParameters() {
+        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
+        expectedParams.put("ObjectEnvironmentGroupName", oegName);
+        testParameters(expectedParams, sut);
     }
 }

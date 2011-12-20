@@ -3,6 +3,8 @@ package org.afpparser.afp.modca.structuredfields.migration;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
@@ -26,7 +28,7 @@ public class PresentationTextDataDescriptorTestCase extends
     public void setUp() {
         SfIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Migration.PTD);
 
-        byte[] sfData = ByteUtils.createByteArray(0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        byte[] sfData = ByteUtils.createByteArray(0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0);
         Parameters params = new Parameters(sfData, "Cp500");
         sut = new PresentationTextDataDescriptor(intro, params);
         setMembers(sut, intro, Collections.<Triplet> emptyList());
@@ -40,4 +42,14 @@ public class PresentationTextDataDescriptorTestCase extends
         assertEquals(0x8090A, sut.getYptSize());
     }
 
+    @Test
+    @Override
+    public void testGetParameters() {
+        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
+        expectedParams.put("X-AxisUnits", String.valueOf(0x102));
+        expectedParams.put("Y-AxisUnits", String.valueOf(0x304));
+        expectedParams.put("X-AxisSize", String.valueOf(0x50607));
+        expectedParams.put("Y-AxisSize", String.valueOf(0x8090A));
+        testParameters(expectedParams, sut);
+    }
 }

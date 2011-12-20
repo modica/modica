@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
@@ -25,7 +27,7 @@ public class EndPresentationTextObjectTestCase extends
 
     private EndPresentationTextObject sut;
     private EndPresentationTextObject sutMatchesAny;
-    private final String pageName = "Testpage";
+    private final String ptxName = "12345678";
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
@@ -35,7 +37,7 @@ public class EndPresentationTextObjectTestCase extends
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
                 FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);
 
-        Parameters params = new Parameters(pageName.getBytes("Cp500"), "Cp500");
+        Parameters params = new Parameters(ptxName.getBytes("Cp500"), "Cp500");
         Parameters matchesAny = new Parameters(ByteUtils.createByteArray(0xff, 0xff), "Cp500");
         sut = new EndPresentationTextObject(intro, triplets, params);
         sutMatchesAny = new EndPresentationTextObject(intro, triplets, matchesAny);
@@ -44,10 +46,18 @@ public class EndPresentationTextObjectTestCase extends
 
     @Test
     public void testGetterMethods() {
-        assertEquals(pageName, sut.getPTdoName());
+        assertEquals(ptxName, sut.getPTdoName());
         assertEquals(false, sut.nameMatchesAny());
 
         assertEquals(null, sutMatchesAny.getPTdoName());
         assertEquals(true, sutMatchesAny.nameMatchesAny());
+    }
+
+    @Test
+    @Override
+    public void testGetParameters() {
+        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
+        expectedParams.put("PresentationTextObjectName", ptxName);
+        testParameters(expectedParams, sut);
     }
 }

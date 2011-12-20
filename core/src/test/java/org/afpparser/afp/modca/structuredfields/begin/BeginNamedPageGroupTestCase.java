@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
@@ -21,7 +23,7 @@ public class BeginNamedPageGroupTestCase extends
 
     private BeginNamedPageGroup sut;
     private SfIntroducer intro;
-    private final String docName = "TESTNAME";
+    private final String pageGroupName = "TESTNAME";
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
@@ -31,13 +33,21 @@ public class BeginNamedPageGroupTestCase extends
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
                 FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);
 
-        Parameters params = new Parameters(docName.getBytes("Cp500"), "Cp500");
+        Parameters params = new Parameters(pageGroupName.getBytes("Cp500"), "Cp500");
         sut = new BeginNamedPageGroup(intro, triplets, params);
         super.setMembers(sut, intro, triplets);
     }
 
     @Test
     public void testDocName() {
-        assertEquals(docName, sut.getPageGroupName());
+        assertEquals(pageGroupName, sut.getPageGroupName());
+    }
+
+    @Test
+    @Override
+    public void testGetParameters() {
+        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
+        expectedParams.put("PageGroupName", pageGroupName);
+        testParameters(expectedParams, sut);
     }
 }

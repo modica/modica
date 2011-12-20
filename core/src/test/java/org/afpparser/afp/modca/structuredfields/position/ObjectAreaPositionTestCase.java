@@ -2,6 +2,9 @@ package org.afpparser.afp.modca.structuredfields.position;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.ReferenceCoordinateSystem;
 import org.afpparser.afp.modca.common.Rotation;
@@ -54,5 +57,20 @@ public class ObjectAreaPositionTestCase extends StructuredFieldTestCase<ObjectAr
         assertEquals(Rotation.ZERO, sut.getXocaOrent());
         assertEquals(Rotation.NINETY, sut.getYocaOrent());
         assertEquals(ReferenceCoordinateSystem.ORIGIN, sut.getRefCSys());
+    }
+
+    @Test
+    @Override
+    public void testGetParameters() {
+        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
+        expectedParams.put("ObjectAreaPositionId", ByteUtils.bytesToHex((byte) 0x01));
+        expectedParams.put("X-AxisObjectAreaOffset", String.valueOf(0x20304));
+        expectedParams.put("Y-AxisObjectAreaOffset", String.valueOf(0x50607));
+        expectedParams.put("X-AxisObjectOrientation", Rotation.ZERO.toString());
+        expectedParams.put("Y-AxisObjectOrientation", Rotation.NINETY.toString());
+        expectedParams.put("X-AxisObjectOffset", String.valueOf(0x10203));
+        expectedParams.put("Y-AxisObjectOffset", String.valueOf(0x40506));
+        expectedParams.put("ReferenceCoordSystem", ReferenceCoordinateSystem.ORIGIN.toString());
+        testParameters(expectedParams, sut);
     }
 }

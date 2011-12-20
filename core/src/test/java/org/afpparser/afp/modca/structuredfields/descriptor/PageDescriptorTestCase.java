@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.PresentationSpaceUnits;
@@ -61,5 +63,23 @@ public class PageDescriptorTestCase extends StructuredFieldWithTripletsTestCase<
         assertEquals(0x08090A, cmSut.getYpgSize());
         assertEquals(PresentationSpaceUnits.CENTIMETRE_10, cmSut.getXpgBase());
         assertEquals(PresentationSpaceUnits.CENTIMETRE_10, cmSut.getYpgBase());
+    }
+
+    @Test
+    @Override
+    public void testGetParameters() {
+        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
+        expectedParams.put("X-AxisBaseUnit", PresentationSpaceUnits.INCHES_10.toString());
+        expectedParams.put("Y-AxisBaseUnit", PresentationSpaceUnits.INCHES_10.toString());
+        expectedParams.put("X-AxisPageUnit", String.valueOf(0x102));
+        expectedParams.put("Y-AxisPageUnit", String.valueOf(0x304));
+        expectedParams.put("X-AxisPageSize", String.valueOf(0x50607));
+        expectedParams.put("Y-AxisPageSize", String.valueOf(0x8090A));
+        testParameters(expectedParams, sut);
+
+        expectedParams.put("X-AxisBaseUnit", PresentationSpaceUnits.CENTIMETRE_10.toString());
+        expectedParams.put("Y-AxisBaseUnit", PresentationSpaceUnits.CENTIMETRE_10.toString());
+        assertEquals(PresentationSpaceUnits.CENTIMETRE_10, cmSut.getYpgBase());
+        testParameters(expectedParams, cmSut);
     }
 }

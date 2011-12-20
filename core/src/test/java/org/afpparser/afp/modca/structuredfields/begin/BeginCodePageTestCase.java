@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
@@ -41,5 +43,13 @@ public class BeginCodePageTestCase extends StructuredFieldWithTripletsTestCase<B
     @Test
     public void testGetterMethods() {
         assertEquals(cfName, sut.getCFName());
+    }
+
+    @Test
+    @Override
+    public void testGetParameters() {
+        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
+        expectedParams.put("CodePageName", cfName);
+        testParameters(expectedParams, sut);
     }
 }

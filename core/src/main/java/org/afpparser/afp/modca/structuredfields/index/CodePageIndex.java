@@ -194,12 +194,14 @@ public class CodePageIndex extends AbstractStructuredField {
     @Override
     public Map<String, String> getParameters() {
         Map<String, String> params = new LinkedHashMap<String, String>();
+        int counter = 1;
         for (CPI cpi : cpis) {
             StringBuilder sb = new StringBuilder();
             sb.append("GCGID=" + cpi.gcgid);
             sb.append(" CodePoint=" + StringUtils.toHex(cpi.codePoint, 2));
             sb.append(" UnicodeIndex=" + StringUtils.toHex(cpi.unicodeIndex, 2));
-            params.put("CodePageIndex", sb.toString());
+            params.put("CodePageIndex#" + String.valueOf(counter++), sb.toString());
+            //TODO: may want to change how this is done, this implementation is very primitive
         }
         return params;
     }

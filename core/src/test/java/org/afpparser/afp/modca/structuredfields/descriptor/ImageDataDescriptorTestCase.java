@@ -4,9 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.nio.ByteBuffer;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
+import org.afpparser.afp.modca.ioca.FunctionSet;
 import org.afpparser.afp.modca.ioca.IocaFunctionSetId;
 import org.afpparser.afp.modca.ioca.SelfDefiningField;
 import org.afpparser.afp.modca.ioca.SetBilevelImageColor;
@@ -62,5 +65,17 @@ public class ImageDataDescriptorTestCase extends StructuredFieldTestCase<ImageDa
         assertTrue(severalSdfs.get(0) instanceof IocaFunctionSetId);
         assertTrue(severalSdfs.get(1) instanceof SetExtendedBilevelImageColor);
         assertTrue(severalSdfs.get(2) instanceof SetBilevelImageColor);
+    }
+
+    @Test
+    @Override
+    public void testGetParameters() {
+        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
+        expectedParams.put("XResolution", String.valueOf(0x102));
+        expectedParams.put("YResolution", String.valueOf(0x304));
+        expectedParams.put("XSize", String.valueOf(0x506));
+        expectedParams.put("YSize", String.valueOf(0x708));
+        expectedParams.put("IOCAFunctionsetId", FunctionSet.FS_10.toString());
+        testParameters(expectedParams, oneSelfDefiningField);
     }
 }

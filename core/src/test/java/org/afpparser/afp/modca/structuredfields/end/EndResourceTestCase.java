@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
@@ -41,5 +43,13 @@ public class EndResourceTestCase extends StructuredFieldTestCase<EndResource> {
 
         assertEquals(null, sutMatchesAny.getRSName());
         assertEquals(true, sutMatchesAny.nameMatchesAny());
+    }
+
+    @Test
+    @Override
+    public void testGetParameters() {
+        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
+        expectedParams.put("ResourceName", resourceName);
+        testParameters(expectedParams, sut);
     }
 }

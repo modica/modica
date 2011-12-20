@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Context;
 import org.afpparser.afp.modca.Context.FOCAContext;
@@ -17,6 +19,7 @@ import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Index;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldTestCase;
 import org.afpparser.afp.modca.structuredfields.index.CodePageIndex.CPI;
 import org.afpparser.common.ByteUtils;
+import org.afpparser.common.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,6 +31,9 @@ public class CodePageIndexTestCase extends StructuredFieldTestCase<CodePageIndex
     private CodePageIndex sut;
 
     private CodePageIndex doubleByteUnicodeSut;
+    private final String char1Name = "TestChar";
+    private final String char2Name = "TestCTwo";
+    private final String char3Name = "TestTree";
 
     @Before
     public void setUp() throws UnsupportedEncodingException {
@@ -45,11 +51,11 @@ public class CodePageIndexTestCase extends StructuredFieldTestCase<CodePageIndex
             throws UnsupportedEncodingException {
         SfIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Index.CPI);
         ByteBuffer bb = ByteBuffer.allocate(30);
-        bb.put("TestChar".getBytes("Cp500"));
+        bb.put(char1Name.getBytes("Cp500"));
         bb.put(ByteUtils.createByteArray(1, 4));
-        bb.put("TestCTwo".getBytes("Cp500"));
+        bb.put(char2Name.getBytes("Cp500"));
         bb.put(ByteUtils.createByteArray(2, 5));
-        bb.put("TestTree".getBytes("Cp500"));
+        bb.put(char3Name.getBytes("Cp500"));
         bb.put(ByteUtils.createByteArray(4, 6));
         Context context = new Context();
         context.put(FOCAContext.CPI_REPEATING_GROUP_LENGTH, cpiRLen);
@@ -60,11 +66,11 @@ public class CodePageIndexTestCase extends StructuredFieldTestCase<CodePageIndex
             throws UnsupportedEncodingException {
         SfIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Index.CPI);
         ByteBuffer bb = ByteBuffer.allocate(42);
-        bb.put("TestChar".getBytes("Cp500"));
+        bb.put(char1Name.getBytes("Cp500"));
         bb.put(ByteUtils.createByteArray(1, 2, 3, 1, 5));
-        bb.put("TestCTwo".getBytes("Cp500"));
+        bb.put(char2Name.getBytes("Cp500"));
         bb.put(ByteUtils.createByteArray(2, 3, 4, 2, 6, 7));
-        bb.put("TestTree".getBytes("Cp500"));
+        bb.put(char3Name.getBytes("Cp500"));
         bb.put(ByteUtils.createByteArray(4, 1, 2, 3, 1, 2, 3));
         Context context = new Context();
         context.put(FOCAContext.CPI_REPEATING_GROUP_LENGTH, cpiRLen);
@@ -74,14 +80,14 @@ public class CodePageIndexTestCase extends StructuredFieldTestCase<CodePageIndex
     @Test
     public void testGetterMethods() {
         List<CPI> singleByteCPIs = sut.getCodePageIndices();
-        testCPI(singleByteCPIs.get(0), "TestChar", 4, 0, (byte) 1);
-        testCPI(singleByteCPIs.get(1), "TestCTwo", 5, 0, (byte) 2);
-        testCPI(singleByteCPIs.get(2), "TestTree", 6, 0, (byte) 4);
+        testCPI(singleByteCPIs.get(0), char1Name, 4, 0, (byte) 1);
+        testCPI(singleByteCPIs.get(1), char2Name, 5, 0, (byte) 2);
+        testCPI(singleByteCPIs.get(2), char3Name, 6, 0, (byte) 4);
 
         List<CPI> doubleByteCPIs = doubleByteUnicodeSut.getCodePageIndices();
-        testCPI(doubleByteCPIs.get(0), "TestChar", 0x203, 5, (byte) 1);
-        testCPI(doubleByteCPIs.get(1), "TestCTwo", 0x304, 0x607, (byte) 2);
-        testCPI(doubleByteCPIs.get(2), "TestTree", 0x102, 0x10203, (byte) 4);
+        testCPI(doubleByteCPIs.get(0), char1Name, 0x203, 5, (byte) 1);
+        testCPI(doubleByteCPIs.get(1), char2Name, 0x304, 0x607, (byte) 2);
+        testCPI(doubleByteCPIs.get(2), char3Name, 0x102, 0x10203, (byte) 4);
     }
 
     private void testCPI(CPI cpi, String gcgid, int codePoint, int unicode, byte flag) {
@@ -92,5 +98,28 @@ public class CodePageIndexTestCase extends StructuredFieldTestCase<CodePageIndex
                 cpi.isInvalidCodedCharacter());
         assertEquals(GraphicalCharacterUseFlags.isNoPresentation(flag), cpi.isNoPresentation());
         assertEquals(GraphicalCharacterUseFlags.isNoIncrement(flag), cpi.isNoIncrement());
+    }
+
+    @Test
+    @Override
+    public void testGetParameters() {
+        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
+        expectedParams.put("CodePageIndex#1", createParameterString(char1Name, 4, 0));
+        expectedParams.put("CodePageIndex#2", createParameterString(char2Name, 5, 0));
+        expectedParams.put("CodePageIndex#3", createParameterString(char3Name, 6, 0));
+        testParameters(expectedParams, sut);
+
+        expectedParams.put("CodePageIndex#1", createParameterString(char1Name, 0x203, 5));
+        expectedParams.put("CodePageIndex#2", createParameterString(char2Name, 0x304, 0x607));
+        expectedParams.put("CodePageIndex#3", createParameterString(char3Name, 0x102, 0x10203));
+        testParameters(expectedParams, doubleByteUnicodeSut);
+    }
+
+    private String createParameterString(String gcgid, int codePoint, int unicodeIndex) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("GCGID=" + gcgid)
+          .append(" CodePoint=" + StringUtils.toHex(codePoint, 2))
+          .append(" UnicodeIndex=" + StringUtils.toHex(unicodeIndex, 2));
+        return sb.toString();
     }
 }

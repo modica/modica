@@ -7,7 +7,9 @@ import static org.junit.Assert.assertTrue;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.nio.ByteBuffer;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.foca.FontWeightClass;
@@ -28,7 +30,7 @@ import org.junit.Test;
 public class FontDescriptorTestCase extends StructuredFieldWithTripletsTestCase<FontDescriptor> {
 
     private FontDescriptor sut;
-    private String description = "Typeface descriptor has 32 chars";
+    private final String description = "Typeface descriptor has 32 chars";
     private SfIntroducer intro;
     byte[] sutBytes;
 
@@ -128,5 +130,29 @@ public class FontDescriptorTestCase extends StructuredFieldWithTripletsTestCase<
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
                 FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);
         return new FontDescriptor(intro, triplets, new Parameters(sutBytes, "Cp500"));
+    }
+
+    @Test
+    @Override
+    public void testGetParameters() {
+        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
+        expectedParams.put("TypefaceDescription", description);
+        expectedParams.put("FontWeight", FontWeightClass.ULTRALIGHT.toString());
+        expectedParams.put("FontWidth", FontWidthClass.EXTRACONDENSED.toString());
+        expectedParams.put("MaxPointSize", String.valueOf(0x304));
+        expectedParams.put("NominalPointSize", String.valueOf(0x506));
+        expectedParams.put("MinPointSize", String.valueOf(0x708));
+        expectedParams.put("MaxHorizontalSize", String.valueOf(0x90A));
+        expectedParams.put("NominalHorizontalSize", String.valueOf(0xB0C));
+        expectedParams.put("MinHorizontalSize", String.valueOf(0xD0E));
+        expectedParams.put("DesignGeneralClass", ByteUtils.bytesToHex((byte) 0x0F));
+        expectedParams.put("DesignSubClass", ByteUtils.bytesToHex((byte) 0x10));
+        expectedParams.put("DesignSpecificClass", ByteUtils.bytesToHex((byte) 0x11));
+        expectedParams.put("isItalic", String.valueOf(true));
+        expectedParams.put("isHollow", String.valueOf(true));
+        expectedParams.put("isOverStruck", String.valueOf(true));
+        expectedParams.put("GCSGID", String.valueOf(0x102));
+        expectedParams.put("FGID", String.valueOf(0x304));
+        testParameters(expectedParams, sut);
     }
 }

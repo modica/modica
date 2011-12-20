@@ -3,6 +3,8 @@ package org.afpparser.afp.modca.structuredfields.data;
 import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
@@ -32,5 +34,13 @@ public class NoOperationTestCase extends StructuredFieldTestCase<NoOperation> {
     @Test
     public void testGetterMethod() throws UnsupportedEncodingException {
         assertEquals(comment, sut.getComment("Cp500"));
+    }
+
+    @Test
+    @Override
+    public void testGetParameters() {
+        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
+        expectedParams.put("Comment", comment);
+        testParameters(expectedParams, sut);
     }
 }

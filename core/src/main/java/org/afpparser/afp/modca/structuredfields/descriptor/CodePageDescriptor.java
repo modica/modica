@@ -107,7 +107,7 @@ public class CodePageDescriptor extends AbstractStructuredField {
         params.put("NumberOfCodePoints", String.valueOf(numCdPts));
         params.put("GCSGID", String.valueOf(gcsgid));
         params.put("CPGID", String.valueOf(cpgid));
-        params.put("EncodingScheme", "Cp" + String.valueOf(encScheme));
+        params.put("EncodingScheme", encScheme.toString());
         return params;
     }
 }

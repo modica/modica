@@ -5,7 +5,9 @@ import static org.junit.Assert.assertEquals;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.nio.ByteBuffer;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.ReferenceCoordinateSystem;
@@ -130,4 +132,19 @@ public class IncludeObjectTestCase extends StructuredFieldWithTripletsTestCase<I
         }
     }
 
+    @Test
+    @Override
+    public void testGetParameters() {
+        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
+        expectedParams.put("ObjectName", objName);
+        expectedParams.put("ObjectType", ObjectType.GRAPHICS_GOCA.toString());
+        expectedParams.put("X-AxisObjectAreaOffset", String.valueOf(0x10203));
+        expectedParams.put("Y-AxisObjectAreaOffset", String.valueOf(0x40506));
+        expectedParams.put("X-AxisObjectOrientation", Rotation.ZERO.toString());
+        expectedParams.put("Y-AxisObjectOrientation", Rotation.NINETY.toString());
+        expectedParams.put("X-AxisObjectOffset", String.valueOf(0x70809));
+        expectedParams.put("Y-AxisObjectOffset", String.valueOf(0xA0B0C));
+        expectedParams.put("ReferenceCoordSystem", ReferenceCoordinateSystem.ORIGIN.toString());
+        testParameters(expectedParams, hasAllParams);
+    }
 }

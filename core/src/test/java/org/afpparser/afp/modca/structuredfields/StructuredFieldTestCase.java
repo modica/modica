@@ -2,9 +2,9 @@ package org.afpparser.afp.modca.structuredfields;
 
 import static org.junit.Assert.assertEquals;
 
-import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
-import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletGroup;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import org.junit.Test;
 
 /**
@@ -31,4 +31,19 @@ public abstract class StructuredFieldTestCase<S extends AbstractStructuredField>
         assertEquals(intro.getExtLength(), sut.getExtLength());
     }
 
+    public abstract void testGetParameters();
+
+    @SuppressWarnings("unchecked")
+    protected void testParameters(Map<String, String> expectedParameters, StructuredField sf) {
+        Map<String, String> sutParams = sf.getParameters();
+        assertEquals(expectedParameters.size(), sutParams.size());
+        Entry<String, String>[] sutEntryArray = sutParams.entrySet().toArray(new Entry[0]);
+        Entry<String, String>[] expectedEntryArray =
+                expectedParameters.entrySet().toArray(new Entry[0]);
+        for (int i = 0; i < expectedEntryArray.length; i++) {
+            String key = expectedEntryArray[i].getKey();
+            assertEquals(key, sutEntryArray[i].getKey());
+            assertEquals(key, expectedEntryArray[i].getValue(), sutEntryArray[i].getValue());
+        }
+    }
 }

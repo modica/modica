@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
@@ -40,5 +42,13 @@ public class BeginFontTestCase extends StructuredFieldWithTripletsTestCase<Begin
     @Test
     public void testDocName() {
         assertEquals(charsetName, sut.getCharacterSetName());
+    }
+
+    @Test
+    @Override
+    public void testGetParameters() {
+        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
+        expectedParams.put("CharactersetName", charsetName);
+        testParameters(expectedParams, sut);
     }
 }
