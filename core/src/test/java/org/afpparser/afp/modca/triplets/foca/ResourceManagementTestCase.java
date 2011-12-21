@@ -46,9 +46,9 @@ public class ResourceManagementTestCase extends TripletTestCase<ResourceManageme
 
     @Test
     @Override
-    public void testValueAsString() {
+    public void testGetValueAsString() {
         String expectedString = "year=" + 2312 + " day=" + 345 + " hour=" + 34
                 + " minute=" + 56;
-        assertEquals(expectedString, x.valueToString());
+        assertEquals(expectedString, x.getValueAsString());
     }
 }

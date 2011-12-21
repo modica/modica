@@ -85,12 +85,12 @@ public class CgcsgidTestCase extends TripletTestCase<Cgcsgid> {
 
     @Test
     @Override
-    public void testValueAsString() {
+    public void testGetValueAsString() {
         String expectedCgcsgid = "GCSGID=" + StringUtils.toHex(0x0001, 4)
                 + " CPGID=" + StringUtils.toHex(0x102, 4);
-        assertEquals(expectedCgcsgid, cgcsgid.valueToString());
+        assertEquals(expectedCgcsgid, cgcsgid.getValueAsString());
 
         String expectedCcsid = "CCSID=" + StringUtils.toHex(0x102, 4);
-        assertEquals(expectedCcsid, ccsid.valueToString());
+        assertEquals(expectedCcsid, ccsid.getValueAsString());
     }
 }

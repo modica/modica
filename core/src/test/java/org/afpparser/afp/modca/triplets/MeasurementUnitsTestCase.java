@@ -45,11 +45,11 @@ public class MeasurementUnitsTestCase extends TripletTestCase<MeasurementUnits> 
 
     @Test
     @Override
-    public void testValueAsString() {
+    public void testGetValueAsString() {
         String expectedString = "X-AxisBase=" + x.getXoaBase().toString()
                 + " Y-AxisBase=" + x.getYoaBase().toString()
                 + " X-AxisSize=" + String.valueOf(x.getXoaUnit())
                 + " Y-AxisSize=" + String.valueOf(x.getYoaUnit());
-        assertEquals(expectedString, x.valueToString());
+        assertEquals(expectedString, x.getValueAsString());
     }
 }

@@ -52,7 +52,7 @@ public class CharacterRotationTestCase extends TripletTestCase<CharacterRotation
 
     @Test
     @Override
-    public void testValueAsString() {
-        assertEquals("Rotation=" + Rotation.ZERO.toString(), x.valueToString());
+    public void testGetValueAsString() {
+        assertEquals("Rotation=" + Rotation.ZERO.toString(), x.getValueAsString());
     }
 }

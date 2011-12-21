@@ -55,7 +55,7 @@ public abstract class StructuredFieldWithTriplets extends AbstractStructuredFiel
     public Map<String, String> getTripletsAsStrings() {
         Map<String, String> tripletStrings = new HashMap<String, String>();
         for (Triplet t : getTriplets()) {
-            tripletStrings.put(t.getTid().getName(), t.valueToString());
+            tripletStrings.put(t.getTid().getName(), t.getValueAsString());
         }
         return tripletStrings;
     }

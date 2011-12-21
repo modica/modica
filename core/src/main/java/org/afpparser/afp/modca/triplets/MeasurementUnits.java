@@ -100,7 +100,7 @@ public class MeasurementUnits extends Triplet {
     }
 
     @Override
-    public String valueToString() {
+    public String getValueAsString() {
         return "X-AxisBase=" + xoaBase.toString()
                 + " Y-AxisBase=" + yoaBase.toString()
                 + " X-AxisSize=" + String.valueOf(xoaUnits)

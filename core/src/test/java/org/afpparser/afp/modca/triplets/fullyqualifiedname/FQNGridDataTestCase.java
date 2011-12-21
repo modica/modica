@@ -44,9 +44,9 @@ public class FQNGridDataTestCase extends TripletTestCase<FQNGridData> {
 
     @Test
     @Override
-    public void testValueAsString() {
+    public void testGetValueAsString() {
         String expectedString = "GlobalResourceId=[" + x.getGrid().toString() + "]";
-        assertEquals(expectedString, x.valueToString());
+        assertEquals(expectedString, x.getValueAsString());
     }
 
 }

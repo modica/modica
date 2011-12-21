@@ -32,8 +32,8 @@ public class DescriptorPositionTestCase extends TripletTestCase<DescriptorPositi
 
     @Test
     @Override
-    public void testValueAsString() {
+    public void testGetValueAsString() {
         String expectedString = "ObjectAreaPositionId=" + ByteUtils.bytesToHex((byte) 0x04);
-        assertEquals(expectedString, x.valueToString());
+        assertEquals(expectedString, x.getValueAsString());
     }
 }

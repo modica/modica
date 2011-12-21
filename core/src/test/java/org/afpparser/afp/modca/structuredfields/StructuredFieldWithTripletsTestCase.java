@@ -64,7 +64,7 @@ public abstract class StructuredFieldWithTripletsTestCase<T extends StructuredFi
     public final void testGetTripletsAsStrings() {
         Map<String, String> tripletMap = new HashMap<String, String>();
         for (Triplet t : triplets) {
-            tripletMap.put(t.getTid().getName(), t.valueToString());
+            tripletMap.put(t.getTid().getName(), t.getValueAsString());
         }
         assertEquals(tripletMap, sut.getTripletsAsStrings());
     }

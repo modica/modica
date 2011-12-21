@@ -162,7 +162,7 @@ public class ObjectFunctionSetSpecification extends Triplet {
     }
 
     @Override
-    public String valueToString() {
+    public String getValueAsString() {
         return "ObjectType=" + objType.toString()
                 + " ArchVersion=" + ByteUtils.bytesToHex(archVrsn)
                 + " MODCAFunctionSet=" + dcaFnSet

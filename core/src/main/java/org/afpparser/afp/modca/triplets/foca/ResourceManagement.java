@@ -93,7 +93,7 @@ public abstract class ResourceManagement extends Triplet {
         }
 
         @Override
-        public String valueToString() {
+        public String getValueAsString() {
             return "ResourceManagementValue=" + String.valueOf(rmValue)
                     + " isPublic=" + String.valueOf(isPublic);
         }
@@ -199,7 +199,7 @@ public abstract class ResourceManagement extends Triplet {
         }
 
         @Override
-        public String valueToString() {
+        public String getValueAsString() {
             return dateToString();
         }
     }

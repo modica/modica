@@ -58,7 +58,7 @@ public class DescriptorPosition extends Triplet {
     }
 
     @Override
-    public String valueToString() {
+    public String getValueAsString() {
         return "ObjectAreaPositionId=" + ByteUtils.bytesToHex(desPosId);
     }
 }

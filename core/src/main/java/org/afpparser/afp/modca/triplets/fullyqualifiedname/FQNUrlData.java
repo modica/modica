@@ -57,7 +57,7 @@ public class FQNUrlData extends FullyQualifiedName {
     }
 
     @Override
-    public String valueToString() {
+    public String getValueAsString() {
         return "URL=" + data.toString();
     }
 }

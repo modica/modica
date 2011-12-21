@@ -37,7 +37,7 @@ public class FQNCharStringDataTestCase extends TripletTestCase<FQNCharStringData
 
     @Test
     @Override
-    public void testValueAsString() {
-        assertEquals(expectedString, x.valueToString());
+    public void testGetValueAsString() {
+        assertEquals(expectedString, x.getValueAsString());
     }
 }

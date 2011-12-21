@@ -61,7 +61,7 @@ public class CharacterRotation extends Triplet {
     }
 
     @Override
-    public String valueToString() {
+    public String getValueAsString() {
         return "Rotation=" + rotation.toString();
     }
 }

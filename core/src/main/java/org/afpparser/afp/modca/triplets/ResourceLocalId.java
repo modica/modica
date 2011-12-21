@@ -105,7 +105,7 @@ public class ResourceLocalId extends Triplet {
     }
 
     @Override
-    public String valueToString() {
+    public String getValueAsString() {
         return "ResourceType=" + resourceType.toString()
                 + " ResourceLocalId=" + ByteUtils.bytesToHex(resourceLocalId);
     }

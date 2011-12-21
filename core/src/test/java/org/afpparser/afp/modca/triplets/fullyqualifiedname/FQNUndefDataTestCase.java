@@ -43,8 +43,8 @@ public class FQNUndefDataTestCase extends TripletTestCase<FQNUndefData> {
 
     @Test
     @Override
-    public void testValueAsString() {
-        assertEquals("Undefined Data", x.valueToString());
+    public void testGetValueAsString() {
+        assertEquals("Undefined Data", x.getValueAsString());
     }
 
 }

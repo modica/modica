@@ -52,5 +52,5 @@ public abstract class TripletTestCase<T> {
         assertNotSame(x.hashCode(), notEqual.hashCode());
     }
 
-    public abstract void testValueAsString();
+    public abstract void testGetValueAsString();
 }

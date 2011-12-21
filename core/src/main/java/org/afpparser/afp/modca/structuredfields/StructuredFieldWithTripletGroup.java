@@ -63,7 +63,7 @@ public abstract class StructuredFieldWithTripletGroup extends AbstractStructured
         for (List<Triplet> tripletList : getTripletGroup()) {
             Map<String, String> triplets = new LinkedHashMap<String, String>();
             for (Triplet t : tripletList) {
-                triplets.put(t.getTid().getName(), t.valueToString());
+                triplets.put(t.getTid().getName(), t.getValueAsString());
             }
             tripletStrings.add(triplets);
         }

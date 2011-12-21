@@ -53,7 +53,7 @@ public class FQNGridData extends FullyQualifiedName {
     }
 
     @Override
-    public String valueToString() {
+    public String getValueAsString() {
         return "GlobalResourceId=[" + grid.toString() + "]";
     }
 

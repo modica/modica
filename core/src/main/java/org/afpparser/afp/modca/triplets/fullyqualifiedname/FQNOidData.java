@@ -55,7 +55,7 @@ final class FQNOidData extends FullyQualifiedName {
     }
 
     @Override
-    public String valueToString() {
+    public String getValueAsString() {
         return "ObjectId=" + oid.toString();
     }
 }

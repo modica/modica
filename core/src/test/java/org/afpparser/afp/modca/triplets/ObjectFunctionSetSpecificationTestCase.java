@@ -59,12 +59,12 @@ public class ObjectFunctionSetSpecificationTestCase extends
 
     @Test
     @Override
-    public void testValueAsString() {
+    public void testGetValueAsString() {
         // TODO Auto-generated method stub
         String expectedString = "ObjectType=" + x.getObjType().toString()
                 + " ArchVersion=" + ByteUtils.bytesToHex(x.getArchVersion())
                 + " MODCAFunctionSet=" + x.getDcaFunctionSet()
                 + " OCAFuntionSet=" + x.getOcaFunctionSet().toString();
-        assertEquals(expectedString, x.valueToString());
+        assertEquals(expectedString, x.getValueAsString());
     }
 }

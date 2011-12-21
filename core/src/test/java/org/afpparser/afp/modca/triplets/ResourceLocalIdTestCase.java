@@ -44,9 +44,9 @@ public class ResourceLocalIdTestCase extends TripletTestCase<ResourceLocalId> {
 
     @Test
     @Override
-    public void testValueAsString() {
+    public void testGetValueAsString() {
         String expectedString = "ResourceType=" + x.getResourceType().toString()
                 + " ResourceLocalId=" + ByteUtils.bytesToHex(x.getResourceLocalId());
-        assertEquals(expectedString, x.valueToString());
+        assertEquals(expectedString, x.getValueAsString());
     }
 }

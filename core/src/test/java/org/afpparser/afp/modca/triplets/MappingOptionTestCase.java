@@ -55,7 +55,7 @@ public class MappingOptionTestCase extends TripletTestCase<MappingOption> {
 
     @Test
     @Override
-    public void testValueAsString() {
-        assertEquals("MapValue=" + mapValue.toString(), x.valueToString());
+    public void testGetValueAsString() {
+        assertEquals("MapValue=" + mapValue.toString(), x.getValueAsString());
     }
 }

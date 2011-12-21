@@ -87,7 +87,7 @@ public abstract class Cgcsgid extends Triplet {
         }
 
         @Override
-        public String valueToString() {
+        public String getValueAsString() {
             return "GCSGID=" + StringUtils.toHex(gcsgid, 4)
                     + " CPGID=" + StringUtils.toHex(cpgid, 4);
         }
@@ -132,7 +132,7 @@ public abstract class Cgcsgid extends Triplet {
         }
 
         @Override
-        public String valueToString() {
+        public String getValueAsString() {
             return "CCSID=" + StringUtils.toHex(ccsid, 4);
         }
     }

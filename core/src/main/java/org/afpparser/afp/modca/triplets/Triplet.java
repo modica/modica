@@ -26,7 +26,7 @@ public abstract class Triplet {
      *
      * @return the string representation of this triplet
      */
-    public abstract String valueToString();
+    public abstract String getValueAsString();
 
     @Override
     public abstract boolean equals(Object o);

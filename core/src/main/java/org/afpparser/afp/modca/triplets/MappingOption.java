@@ -195,7 +195,7 @@ public class MappingOption extends Triplet {
     }
 
     @Override
-    public String valueToString() {
+    public String getValueAsString() {
         return "MapValue=" + mapValue.toString();
     }
 }
