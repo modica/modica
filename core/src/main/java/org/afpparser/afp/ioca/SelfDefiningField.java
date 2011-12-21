@@ -1,4 +1,4 @@
-package org.afpparser.afp.modca.ioca;
+package org.afpparser.afp.ioca;
 
 /**
  * An interface for self defining fields.

@@ -11,9 +11,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.afpparser.afp.foca.FontWeightClass;
+import org.afpparser.afp.foca.FontWidthClass;
 import org.afpparser.afp.modca.Parameters;
-import org.afpparser.afp.modca.foca.FontWeightClass;
-import org.afpparser.afp.modca.foca.FontWidthClass;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Descriptor;

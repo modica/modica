@@ -1,4 +1,4 @@
-package org.afpparser.afp.modca.foca;
+package org.afpparser.afp.foca;
 
 /**
  * The Weight Class parameter indicates the visual weight (degree or thickness of strokes) of the

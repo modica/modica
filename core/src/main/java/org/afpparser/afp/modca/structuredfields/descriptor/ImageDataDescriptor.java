@@ -6,12 +6,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.afpparser.afp.ioca.IocaFunctionSetId;
+import org.afpparser.afp.ioca.SelfDefiningField;
+import org.afpparser.afp.ioca.SetBilevelImageColor;
+import org.afpparser.afp.ioca.SetExtendedBilevelImageColor;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.PresentationSpaceUnits;
-import org.afpparser.afp.modca.ioca.IocaFunctionSetId;
-import org.afpparser.afp.modca.ioca.SelfDefiningField;
-import org.afpparser.afp.modca.ioca.SetBilevelImageColor;
-import org.afpparser.afp.modca.ioca.SetExtendedBilevelImageColor;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
 

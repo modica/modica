@@ -1,4 +1,4 @@
-package org.afpparser.afp.modca.foca;
+package org.afpparser.afp.foca;
 
 /**
  * The Width Class parameter indicates a relative change from the normal aspect ratio

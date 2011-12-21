@@ -1,4 +1,4 @@
-package org.afpparser.afp.modca.ioca;
+package org.afpparser.afp.ioca;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.common.ByteUtils;

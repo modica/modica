@@ -1,7 +1,8 @@
-package org.afpparser.afp.modca.foca;
+package org.afpparser.afp.foca;
 
 import static org.junit.Assert.assertEquals;
 
+import org.afpparser.afp.foca.FontWidthClass;
 import org.junit.Test;
 
 /**

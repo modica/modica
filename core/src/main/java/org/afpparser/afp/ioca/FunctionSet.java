@@ -1,4 +1,4 @@
-package org.afpparser.afp.modca.ioca;
+package org.afpparser.afp.ioca;
 
 /**
  * A function set is a set of self-defining fields that describes an image object. Specifically, it

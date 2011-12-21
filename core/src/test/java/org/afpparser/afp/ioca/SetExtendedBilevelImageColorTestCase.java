@@ -1,9 +1,10 @@
-package org.afpparser.afp.modca.ioca;
+package org.afpparser.afp.ioca;
 
 import static org.junit.Assert.assertEquals;
 
+import org.afpparser.afp.ioca.SetExtendedBilevelImageColor;
+import org.afpparser.afp.ioca.SetExtendedBilevelImageColor.ColorSpace;
 import org.afpparser.afp.modca.Parameters;
-import org.afpparser.afp.modca.ioca.SetExtendedBilevelImageColor.ColorSpace;
 import org.afpparser.common.ByteUtils;
 import org.junit.Test;
 
