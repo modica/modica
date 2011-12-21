@@ -30,5 +30,6 @@ public class IocaFunctionSetIdTestCase {
         Parameters params = new Parameters(ByteUtils.createByteArray(0x02, 0x01, id), "Cp500");
         IocaFunctionSetId sut = new IocaFunctionSetId(params);
         assertEquals(expected, sut.getFunctionSet());
+        assertEquals(expected.toString(), sut.getValueAsString());
     }
 }

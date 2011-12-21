@@ -24,5 +24,12 @@ public class SetExtendedBilevelImageColorTestCase {
         assertEquals(0x607, sut.getColourSize3());
         assertEquals(0x809, sut.getColourSize4());
         assertEquals(0xA0B, sut.getColor());
+
+        String expectedString = "ColourSpace=" + ColorSpace.RGB.toString()
+                + " colSize1=" + 0x203
+                + " colSize2=" + 0x405
+                + " colSize3=" + 0x607
+                + " colSize4=" + 0x809;
+        assertEquals(expectedString, sut.getValueAsString());
     }
 }

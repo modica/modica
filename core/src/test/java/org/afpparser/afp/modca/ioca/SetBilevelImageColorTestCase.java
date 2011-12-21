@@ -54,5 +54,6 @@ public class SetBilevelImageColorTestCase {
                 colourValue1, colourValue2), "Cp500");
         SetBilevelImageColor sut = new SetBilevelImageColor(data);
         assertEquals(expected, sut.getColour());
+        assertEquals(expected.toString(), sut.getValueAsString());
     }
 }
