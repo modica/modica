@@ -8,6 +8,7 @@ import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.triplets.Cgcsgid.Ccsid;
 import org.afpparser.afp.modca.triplets.Cgcsgid.Cpgid;
 import org.afpparser.common.ByteUtils;
+import org.afpparser.common.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -80,5 +81,16 @@ public class CgcsgidTestCase extends TripletTestCase<Cgcsgid> {
         Cgcsgid value = Cgcsgid.parse(params, context);
         params.skipTo(0);
         return value;
+    }
+
+    @Test
+    @Override
+    public void testValueAsString() {
+        String expectedCgcsgid = "GCSGID=" + StringUtils.toHex(0x0001, 4)
+                + " CPGID=" + StringUtils.toHex(0x102, 4);
+        assertEquals(expectedCgcsgid, cgcsgid.valueToString());
+
+        String expectedCcsid = "CCSID=" + StringUtils.toHex(0x102, 4);
+        assertEquals(expectedCcsid, ccsid.valueToString());
     }
 }

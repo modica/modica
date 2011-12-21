@@ -49,4 +49,10 @@ public class CharacterRotationTestCase extends TripletTestCase<CharacterRotation
         CharacterRotation twoseventy = new CharacterRotation(params3);
         assertEquals(Rotation.TWO_SEVENTY, twoseventy.getRotation());
     }
+
+    @Test
+    @Override
+    public void testValueAsString() {
+        assertEquals("Rotation=" + Rotation.ZERO.toString(), x.valueToString());
+    }
 }

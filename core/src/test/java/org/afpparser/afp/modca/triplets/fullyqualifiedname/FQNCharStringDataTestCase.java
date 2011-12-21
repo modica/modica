@@ -2,8 +2,8 @@ package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 
 import static org.junit.Assert.assertEquals;
 
-import org.afpparser.afp.modca.triplets.TripletTestCase;
 import org.afpparser.afp.modca.triplets.TripletIdentifiers;
+import org.afpparser.afp.modca.triplets.TripletTestCase;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,7 +12,8 @@ public class FQNCharStringDataTestCase extends TripletTestCase<FQNCharStringData
     private FQNType type;
     private String expectedString;
     private int length;
-    
+
+    @Override
     @Before
     public void setUp() {
         expectedString = "Test String";
@@ -32,5 +33,11 @@ public class FQNCharStringDataTestCase extends TripletTestCase<FQNCharStringData
         assertEquals(FQNFmt.character_string, x.getFormat());
         assertEquals(length, x.getLength());
         assertEquals(TripletIdentifiers.fully_qualified_name, x.getTid());
+    }
+
+    @Test
+    @Override
+    public void testValueAsString() {
+        assertEquals(expectedString, x.valueToString());
     }
 }

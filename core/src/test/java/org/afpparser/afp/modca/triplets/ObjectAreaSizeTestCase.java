@@ -33,4 +33,12 @@ public class ObjectAreaSizeTestCase extends TripletTestCase<ObjectAreaSize> {
         assertEquals(0x10203, x.getXoaSize());
         assertEquals(0x40506, x.getYoaSize());
     }
+
+    @Test
+    @Override
+    public void testValueAsString() {
+        String expectedString = "X-AxisSize=" + String.valueOf(x.getXoaSize())
+                + " Y-AxisSize=" + String.valueOf(x.getYoaSize());
+        assertEquals(expectedString, x.valueToString());
+    }
 }

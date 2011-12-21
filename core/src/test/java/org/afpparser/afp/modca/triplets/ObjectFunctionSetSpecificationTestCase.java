@@ -56,4 +56,15 @@ public class ObjectFunctionSetSpecificationTestCase extends
         assertEquals(OcaFunctionSet.PRESENTATION_TEXT_DATA_PT1, x.getOcaFunctionSet());
         assertEquals(OcaFunctionSet.GRAPHICS_DATA_DR2V0, notEqual.getOcaFunctionSet());
     }
+
+    @Test
+    @Override
+    public void testValueAsString() {
+        // TODO Auto-generated method stub
+        String expectedString = "ObjectType=" + x.getObjType().toString()
+                + " ArchVersion=" + ByteUtils.bytesToHex(x.getArchVersion())
+                + " MODCAFunctionSet=" + x.getDcaFunctionSet()
+                + " OCAFuntionSet=" + x.getOcaFunctionSet().toString();
+        assertEquals(expectedString, x.valueToString());
+    }
 }

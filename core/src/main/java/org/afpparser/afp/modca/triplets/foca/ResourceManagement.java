@@ -123,7 +123,7 @@ public abstract class ResourceManagement extends Triplet {
             if (temp == (byte) 0x40) {
                 yearValue = 1900;
             } else {
-                yearValue = 2000 + (temp & 0x0F);
+                yearValue = 2000 + ((temp & 0x0F) * 100);
             }
             yearValue += convertToInt(params, 2);
             year = yearValue;
@@ -137,7 +137,7 @@ public abstract class ResourceManagement extends Triplet {
         private int convertToInt(Parameters params, int length) {
             int value = 0;
             for (int i = 0; i < length; i++) {
-                value = (params.getByte() & 0x0F) * (10 * (length - i));
+                value += (params.getByte() & 0x0F) * (int) Math.pow(10, (length - i - 1));
             }
             return value;
         }

@@ -51,4 +51,6 @@ public abstract class TripletTestCase<T> {
         assertEquals(y.hashCode(), z.hashCode());
         assertNotSame(x.hashCode(), notEqual.hashCode());
     }
+
+    public abstract void testValueAsString();
 }

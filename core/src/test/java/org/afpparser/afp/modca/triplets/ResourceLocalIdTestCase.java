@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.triplets.ResourceLocalId.ResourceType;
+import org.afpparser.common.ByteUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -39,5 +40,13 @@ public class ResourceLocalIdTestCase extends TripletTestCase<ResourceLocalId> {
         byte[] data = new byte[] { typeId, 0x01 };
         ResourceLocalId testSubject = new ResourceLocalId(new Parameters(data, "Cp500"));
         assertEquals(type, testSubject.getResourceType());
+    }
+
+    @Test
+    @Override
+    public void testValueAsString() {
+        String expectedString = "ResourceType=" + x.getResourceType().toString()
+                + " ResourceLocalId=" + ByteUtils.bytesToHex(x.getResourceLocalId());
+        assertEquals(expectedString, x.valueToString());
     }
 }

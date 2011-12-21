@@ -7,11 +7,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test case for {@link MappingOption}. 
+ * Test case for {@link MappingOption}.
  */
 public class MappingOptionTestCase extends TripletTestCase<MappingOption> {
     private MappingOption x;
-    private MapValue mapValue = MapValue.CenterAndTrim;
+    private final MapValue mapValue = MapValue.CenterAndTrim;
 
     @Before
     @Override
@@ -51,5 +51,11 @@ public class MappingOptionTestCase extends TripletTestCase<MappingOption> {
         assertEquals(MapValue.ReplicateAndTrim, MapValue.getMapValue((byte) 0x50));
         assertEquals(MapValue.ScaleToFill, MapValue.getMapValue((byte) 0x60));
         assertEquals(MapValue.UP3iPrintDataMapping, MapValue.getMapValue((byte) 0x70));
+    }
+
+    @Test
+    @Override
+    public void testValueAsString() {
+        assertEquals("MapValue=" + mapValue.toString(), x.valueToString());
     }
 }

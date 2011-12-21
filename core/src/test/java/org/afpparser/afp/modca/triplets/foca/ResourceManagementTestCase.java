@@ -21,7 +21,7 @@ public class ResourceManagementTestCase extends TripletTestCase<ResourceManageme
     public void setUp() {
         byte[] data = ByteUtils.createByteArray(2,
                 3, 4, 5, 6, // rmValue
-                0xF0, // year1
+                0xF3, // year1
                 0xF1, 0xF2, // year2
                 0xF3, 0xF4, 0xF5, // day
                 0xF3, 0xF4, //hour
@@ -42,5 +42,13 @@ public class ResourceManagementTestCase extends TripletTestCase<ResourceManageme
     public void testGetterMethods() {
         assertEquals(0x3040506, x.getResourceManagementValue());
         assertEquals(0x304, notEqual.getResourceManagementValue());
+    }
+
+    @Test
+    @Override
+    public void testValueAsString() {
+        String expectedString = "year=" + 2312 + " day=" + 345 + " hour=" + 34
+                + " minute=" + 56;
+        assertEquals(expectedString, x.valueToString());
     }
 }

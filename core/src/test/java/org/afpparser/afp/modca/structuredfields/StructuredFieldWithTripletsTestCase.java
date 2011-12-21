@@ -1,12 +1,15 @@
 package org.afpparser.afp.modca.structuredfields;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.fullyqualifiedname.FullyQualifiedNameTestCase;
@@ -55,5 +58,14 @@ public abstract class StructuredFieldWithTripletsTestCase<T extends StructuredFi
         } catch (UnsupportedOperationException e) {
             // Pass
         }
+    }
+
+    @Test
+    public final void testGetTripletsAsStrings() {
+        Map<String, String> tripletMap = new HashMap<String, String>();
+        for (Triplet t : triplets) {
+            tripletMap.put(t.getTid().getName(), t.valueToString());
+        }
+        assertEquals(tripletMap, sut.getTripletsAsStrings());
     }
 }

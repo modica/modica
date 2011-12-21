@@ -2,11 +2,12 @@ package org.afpparser.afp.modca.triplets;
 
 import static org.junit.Assert.assertEquals;
 
+import org.afpparser.common.ByteUtils;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test case for {@link DescriptorPosition}. 
+ * Test case for {@link DescriptorPosition}.
  */
 public class DescriptorPositionTestCase extends TripletTestCase<DescriptorPosition> {
 
@@ -27,5 +28,12 @@ public class DescriptorPositionTestCase extends TripletTestCase<DescriptorPositi
     @Test
     public void testGetterMethods() {
         assertEquals(testByte, x.getDesPosId());
+    }
+
+    @Test
+    @Override
+    public void testValueAsString() {
+        String expectedString = "ObjectAreaPositionId=" + ByteUtils.bytesToHex((byte) 0x04);
+        assertEquals(expectedString, x.valueToString());
     }
 }

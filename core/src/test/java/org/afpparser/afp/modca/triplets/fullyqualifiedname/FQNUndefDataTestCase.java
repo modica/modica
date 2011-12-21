@@ -3,13 +3,14 @@ package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import org.afpparser.afp.modca.triplets.TripletTestCase;
 import org.afpparser.afp.modca.triplets.TripletIdentifiers;
+import org.afpparser.afp.modca.triplets.TripletTestCase;
 import org.afpparser.common.ByteUtils;
 import org.junit.Before;
+import org.junit.Test;
 
 /**
- * Test case for {@link FQNUndefData}. 
+ * Test case for {@link FQNUndefData}.
  */
 public class FQNUndefDataTestCase extends TripletTestCase<FQNUndefData> {
     private FQNUndefData x;
@@ -38,6 +39,12 @@ public class FQNUndefDataTestCase extends TripletTestCase<FQNUndefData> {
         // data. Since we return a byte array (which are mutable), we need to make sure a different
         // object is returned.
         assertFalse(undefData == x.getUndefData());
+    }
+
+    @Test
+    @Override
+    public void testValueAsString() {
+        assertEquals("Undefined Data", x.valueToString());
     }
 
 }

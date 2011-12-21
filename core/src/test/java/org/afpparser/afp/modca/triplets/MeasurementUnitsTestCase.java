@@ -42,4 +42,14 @@ public class MeasurementUnitsTestCase extends TripletTestCase<MeasurementUnits> 
         assertEquals(0x0102, notEqual.getXoaUnit());
         assertEquals(0x0304, notEqual.getYoaUnit());
     }
+
+    @Test
+    @Override
+    public void testValueAsString() {
+        String expectedString = "X-AxisBase=" + x.getXoaBase().toString()
+                + " Y-AxisBase=" + x.getYoaBase().toString()
+                + " X-AxisSize=" + String.valueOf(x.getXoaUnit())
+                + " Y-AxisSize=" + String.valueOf(x.getYoaUnit());
+        assertEquals(expectedString, x.valueToString());
+    }
 }
