@@ -1,10 +1,7 @@
 package org.afpparser.afp.ptoca;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
-import org.afpparser.afp.ptoca.ControlSequence.ControlSequenceIdentifier;
 import org.junit.Test;
 
 /**
@@ -46,13 +43,7 @@ public class ControlSequenceTestCase {
     }
 
     private void testControlSequence(int id, ControlSequenceIdentifier csid) {
-        ControlSequence cs = new ControlSequence((byte) id);
-        assertEquals(csid, cs.getControlSequenceIdentifier());
-        assertFalse(cs.isChained());
-
-        ControlSequence chainedCs = new ControlSequence((byte) (id + 1));
-        assertEquals(csid, chainedCs.getControlSequenceIdentifier());
-        assertTrue(chainedCs.isChained());
+        assertEquals(csid, ControlSequenceIdentifier.getCsId((byte) id));
     }
 
 }

@@ -105,12 +105,12 @@ public final class TripletHandler {
      */
     public static RepeatingTripletGroup parseRepeatingGroup(Parameters params, Context context)
             throws MalformedURLException, UnsupportedEncodingException {
-        int byteIndex = 0;
+        int byteIndex = 2;
         List<List<Triplet>> repeatingTriplets = new ArrayList<List<Triplet>>();
 
         while (byteIndex < params.size()) {
             int rgLength = params.getUInt(2);
-            List<Triplet> triplets = TripletHandler.parseTriplet(params, params.getPosition(),
+            List<Triplet> triplets = TripletHandler.parseTriplet(params, byteIndex,
                     rgLength - 2, context);
             repeatingTriplets.add(triplets);
             byteIndex += rgLength;

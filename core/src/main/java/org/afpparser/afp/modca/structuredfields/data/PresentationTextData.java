@@ -1,13 +1,15 @@
 package org.afpparser.afp.modca.structuredfields.data;
 
-import java.io.UnsupportedEncodingException;
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
 import org.afpparser.afp.modca.structuredfields.SfIntroducer;
-import org.afpparser.common.StringUtils;
+import org.afpparser.afp.ptoca.ControlSequence;
+import org.afpparser.afp.ptoca.ControlSequenceParser;
 
 /**
  * The Presentation Text Data structured field contains the data for a presentation text data
@@ -15,31 +17,20 @@ import org.afpparser.common.StringUtils;
  */
 public class PresentationTextData extends AbstractStructuredField {
 
-    private final byte[] ptocaData;
+    private final List<ControlSequence> ptocaData;
 
     public PresentationTextData(SfIntroducer introducer, Parameters params) {
         super(introducer);
-        ptocaData = params.getByteArray(params.size());
+        ptocaData = ControlSequenceParser.parse(params);
     }
 
     /**
-     * Returns the PTOCA-defined text descriptor encoded,
+     * Returns the PTOCA-defined control sequences that this object wraps.
      *
      * @return the PTOCA data
-     * @throws UnsupportedEncodingException if there was an encoding error
      */
-    public String getPtocaData(String encoding) throws UnsupportedEncodingException {
-        return new String(ptocaData, encoding);
-    }
-
-    /**
-     * Returns the PTOCA-defined text descriptor encoded using the standard "Cp500" encoding.
-     *
-     * @return the PTOCA data
-     * @throws UnsupportedEncodingException if there was an encoding error
-     */
-    public String getPtocaData() throws UnsupportedEncodingException {
-        return StringUtils.bytesToCp500(ptocaData);
+    public List<ControlSequence> getPtocaData() {
+        return Collections.unmodifiableList(ptocaData);
     }
 
     @Override
@@ -50,10 +41,10 @@ public class PresentationTextData extends AbstractStructuredField {
     @Override
     public Map<String, String> getParameters() {
         Map<String, String> params = new LinkedHashMap<String, String>();
-        try {
-            params.put("Text", getPtocaData());
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
+        int counter = 0;
+        for (ControlSequence cs : ptocaData) {
+            params.put(counter++ + " " + cs.getControlSequenceIdentifier().getName(),
+                    cs.getValueAsString());
         }
         return params;
     }
