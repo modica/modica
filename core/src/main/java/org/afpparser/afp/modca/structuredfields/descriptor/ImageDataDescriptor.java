@@ -30,10 +30,10 @@ public class ImageDataDescriptor extends AbstractStructuredField {
     public ImageDataDescriptor(SfIntroducer introducer, Parameters params) {
         super(introducer);
         unitsBase = PresentationSpaceUnits.getValue(params.getByte());
-        xResol = params.getUInt(2);
-        yResol = params.getUInt(2);
-        xSize = params.getUInt(2);
-        ySize = params.getUInt(2);
+        xResol = (int) params.getUInt(2);
+        yResol = (int) params.getUInt(2);
+        xSize = (int) params.getUInt(2);
+        ySize = (int) params.getUInt(2);
         selfDefiningFields = getFields(params);
     }
 

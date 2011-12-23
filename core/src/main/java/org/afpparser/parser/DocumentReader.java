@@ -42,7 +42,7 @@ class DocumentReader implements Iterable<SfIntroducer> {
      */
     public DocumentReader(FileInputStream afpDoc) {
         channel = afpDoc.getChannel();
-        byteUtils = ByteUtils.getLittleEndianUtils();
+        byteUtils = ByteUtils.getBigEndianUtils();
         sfIterator = new SfIterator();
     }
 
@@ -77,7 +77,8 @@ class DocumentReader implements Iterable<SfIntroducer> {
             ByteBuffer buffer = ByteBuffer.allocate(SfIntroducer.SF_Introducer_FIELD);
             channel.read(buffer);
             byte[] introducer = buffer.array();
-            int sfLength = byteUtils.bytesToUnsignedInt(introducer, 0, SfIntroducer.SFLength_FIELD);
+            int sfLength = (int) byteUtils.bytesToUnsignedInt(introducer, 0,
+                    SfIntroducer.SFLength_FIELD);
             byte[] id = new byte[3];
             System.arraycopy(introducer, 2, id, 0, SfIntroducer.SFType_ID_FIELD);
             byte flags = introducer[5];
@@ -85,7 +86,7 @@ class DocumentReader implements Iterable<SfIntroducer> {
             if (SfIntroducer.hasSfiExtension(flags)) {
                 buffer = ByteBuffer.allocate(SfIntroducer.ExtLength_FIELD);
                 channel.read(buffer);
-                extLength = byteUtils.bytesToUnsignedInt(buffer.array());
+                extLength = (int) byteUtils.bytesToUnsignedInt(buffer.array());
             }
             SfIntroducer sf = new SfIntroducer(offset, sfLength, id, flags, extLength);
             channel.position(offset += sf.bytesToNextStructuredField());

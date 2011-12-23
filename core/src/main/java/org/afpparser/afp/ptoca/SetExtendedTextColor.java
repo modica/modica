@@ -25,10 +25,10 @@ public class SetExtendedTextColor extends ControlSequence {
         params.getByte(); // reserved
         colourSpace = ColorSpace.getValue(params.getByte());
         params.skip(4);
-        colourSize1 = params.getUInt(1);
-        colourSize2 = params.getUInt(1);
-        colourSize3 = params.getUInt(1);
-        colourSize4 = params.getUInt(1);
+        colourSize1 = (int) params.getUInt(1);
+        colourSize2 = (int) params.getUInt(1);
+        colourSize3 = (int) params.getUInt(1);
+        colourSize4 = (int) params.getUInt(1);
         // length and type fields are included in the length
         int colourLength = length - (params.getPosition() - position) - 2;
         color = params.getByteArray(colourLength);
@@ -54,8 +54,8 @@ public class SetExtendedTextColor extends ControlSequence {
         return colourSize4;
     }
 
-    public int getColor() {
-        ByteUtils byteUtils = ByteUtils.getLittleEndianUtils();
+    public long getColor() {
+        ByteUtils byteUtils = ByteUtils.getBigEndianUtils();
         return byteUtils.bytesToUnsignedInt(color);
     }
 

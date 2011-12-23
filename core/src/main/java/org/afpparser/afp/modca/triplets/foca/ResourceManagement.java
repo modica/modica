@@ -34,7 +34,7 @@ public abstract class ResourceManagement extends Triplet {
         private final boolean isPublic;
 
         public CRCResourceManagement(Parameters params) {
-            rmValue = params.getUInt(2);
+            rmValue = (int) params.getUInt(2);
             isPublic = (params.getByte() & 0x01) > 0;
         }
 

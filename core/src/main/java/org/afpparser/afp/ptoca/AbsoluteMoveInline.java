@@ -14,7 +14,7 @@ public class AbsoluteMoveInline extends ControlSequence {
     public AbsoluteMoveInline(ControlSequenceIdentifier csId, int length, boolean isChained,
             Parameters params) {
         super(csId, length, isChained);
-        displacement = params.getUInt(2);
+        displacement = (int) params.getUInt(2);
     }
 
     /**

@@ -13,10 +13,10 @@ public final class GlobalResourceId {
     private final int fontWidth;
 
     GlobalResourceId(Parameters params) {
-        gcsgid = params.getUInt(2);
-        cpgid = params.getUInt(2);
-        fgid = params.getUInt(2);
-        fontWidth = params.getUInt(2);
+        gcsgid = (int) params.getUInt(2);
+        cpgid = (int) params.getUInt(2);
+        fgid = (int) params.getUInt(2);
+        fontWidth = (int) params.getUInt(2);
     }
 
     public int getGcsgid() {

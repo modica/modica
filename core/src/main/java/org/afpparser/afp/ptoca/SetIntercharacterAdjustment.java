@@ -17,7 +17,7 @@ public class SetIntercharacterAdjustment extends ControlSequence {
     public SetIntercharacterAdjustment(ControlSequenceIdentifier csId, int length,
             boolean isChained, Parameters params) {
         super(csId, length, isChained);
-        adjustment = params.getUInt(2);
+        adjustment = (int) params.getUInt(2);
         if (length > 4) {
             directionIsPositive = params.getByte() == 0;
         } else {

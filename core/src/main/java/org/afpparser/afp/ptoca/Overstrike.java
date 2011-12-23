@@ -23,7 +23,7 @@ public class Overstrike extends ControlSequence {
             Parameters params) {
         super(csId, length, isChained);
         bypassFlags = new BypassFlags(params.getByte());
-        overStrikeChar = params.getUInt(2);
+        overStrikeChar = (int) params.getUInt(2);
     }
 
     /**

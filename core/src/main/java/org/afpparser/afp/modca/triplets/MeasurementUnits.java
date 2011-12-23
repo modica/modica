@@ -19,8 +19,8 @@ public class MeasurementUnits extends Triplet {
     public MeasurementUnits(Parameters params) {
         xoaBase = PresentationSpaceUnits.getValue(params.getByte());
         yoaBase = PresentationSpaceUnits.getValue(params.getByte());
-        xoaUnits = params.getUInt(2);
-        yoaUnits = params.getUInt(2);
+        xoaUnits = (int) params.getUInt(2);
+        yoaUnits = (int) params.getUInt(2);
     }
 
     /**

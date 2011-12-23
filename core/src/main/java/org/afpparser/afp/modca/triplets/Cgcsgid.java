@@ -148,8 +148,8 @@ public abstract class Cgcsgid extends Triplet {
      * @return the CGCSGID
      */
     public static Cgcsgid parse(Parameters params, Context context) {
-        int gcsgid = params.getUInt(2);
-        int ccsidOrCpgid = params.getUInt(2);
+        int gcsgid = (int) params.getUInt(2);
+        int ccsidOrCpgid = (int) params.getUInt(2);
         if (gcsgid == 0x0000) {
             return new Ccsid(ccsidOrCpgid);
         } else {

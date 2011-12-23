@@ -18,7 +18,7 @@ public class RepeatString extends ControlSequence {
     public RepeatString(ControlSequenceIdentifier csId, int length, boolean isChained,
             Parameters params) {
         super(csId, length, isChained);
-        repeatLength = params.getUInt(2);
+        repeatLength = (int) params.getUInt(2);
         if (getLength() > 4) {
             repeatData = params.getByteArray(getLength() - 4);
         } else {

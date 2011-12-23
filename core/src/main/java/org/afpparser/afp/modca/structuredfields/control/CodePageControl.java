@@ -27,7 +27,7 @@ public class CodePageControl extends AbstractStructuredField {
     private final int vsChar;
     private final boolean isAscendingCodePoint;
     private final boolean isVariableSpaceEnabled;
-    private final int defaultUnicodeValue;
+    private final long defaultUnicodeValue;
 
     public CodePageControl(SfIntroducer introducer, Parameters params, Context context)
             throws UnsupportedEncodingException {
@@ -38,8 +38,8 @@ public class CodePageControl extends AbstractStructuredField {
         isNoPresentation = GraphicalCharacterUseFlags.isNoPresentation(printFlags);
         isNoIncrement = GraphicalCharacterUseFlags.isNoIncrement(printFlags);
         cpRgLen = CPIRepeatingGroupLength.getValue(params.getByte());
-        vsCharSn = params.getUInt(1);
-        vsChar = params.getUInt(1);
+        vsCharSn = (int) params.getUInt(1);
+        vsChar = (int) params.getUInt(1);
         byte vsFlags = params.getByte();
         isAscendingCodePoint = CodePageUseFlags.isAscendingCodePoint(vsFlags);
         isVariableSpaceEnabled = CodePageUseFlags.isVariableSpaceEnabled(vsFlags);
@@ -191,7 +191,7 @@ public class CodePageControl extends AbstractStructuredField {
      *
      * @return the default Unicode index
      */
-    public int getDefaultUnicodeIndex() {
+    public long getDefaultUnicodeIndex() {
         return defaultUnicodeValue;
     }
 

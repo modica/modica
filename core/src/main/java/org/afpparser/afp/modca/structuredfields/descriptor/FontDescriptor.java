@@ -43,12 +43,12 @@ public class FontDescriptor extends StructuredFieldWithTriplets {
         typeFcDesc = params.getString(32, "Cp500");
         fontWeight = FontWeightClass.getValue(params.getByte());
         fontWidth = FontWidthClass.getValue(params.getByte());
-        maxPtSize = params.getUInt(2);
-        nomPtSize = params.getUInt(2);
-        minPtSize = params.getUInt(2);
-        maxHSize = params.getUInt(2);
-        nomHSize = params.getUInt(2);
-        minHSize = params.getUInt(2);
+        maxPtSize = (int) params.getUInt(2);
+        nomPtSize = (int) params.getUInt(2);
+        minPtSize = (int) params.getUInt(2);
+        maxHSize = (int) params.getUInt(2);
+        nomHSize = (int) params.getUInt(2);
+        minHSize = (int) params.getUInt(2);
         designGeneralClass = params.getByte();
         designSubClass = params.getByte();
         designSpecificClass = params.getByte();
@@ -60,8 +60,8 @@ public class FontDescriptor extends StructuredFieldWithTriplets {
         isHollow = DesignFlags.isHollow(designFlag);
         isOverstruck = DesignFlags.isOverstruck(designFlag);
         params.skip(10);
-        gcsgid = params.getUInt(2);
-        fgid = params.getUInt(2);
+        gcsgid = (int) params.getUInt(2);
+        fgid = (int) params.getUInt(2);
     }
 
     /**

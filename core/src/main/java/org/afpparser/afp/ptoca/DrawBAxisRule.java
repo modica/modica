@@ -15,7 +15,7 @@ public class DrawBAxisRule extends ControlSequence {
     public DrawBAxisRule(ControlSequenceIdentifier csId, int length, boolean isChained,
             Parameters params) {
         super(csId, length, isChained);
-        this.length = params.getUInt(2);
+        this.length = (int) params.getUInt(2);
         if (getLength() > 4) {
             int integerPart = params.getInt(2);
             double fraction = getFraction(params.getByte());

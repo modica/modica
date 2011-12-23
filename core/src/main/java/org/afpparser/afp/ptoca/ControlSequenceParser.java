@@ -52,7 +52,7 @@ public class ControlSequenceParser {
     }
 
     private static ControlSequence createControlSequence(Parameters params) {
-        int length = params.getUInt(1);
+        int length = (int) params.getUInt(1);
         byte id = params.getByte();
         boolean isChained;
         if (id % 2 != 0) {

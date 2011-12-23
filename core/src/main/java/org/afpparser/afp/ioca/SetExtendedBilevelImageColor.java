@@ -24,10 +24,10 @@ public class SetExtendedBilevelImageColor implements SelfDefiningField {
         // The length does not include the length field
         length = params.getInt(1) + 1;
         colourSpace = ColorSpace.getValue(params.getByte());
-        colSize1 = params.getUInt(2);
-        colSize2 = params.getUInt(2);
-        colSize3 = params.getUInt(2);
-        colSize4 = params.getUInt(2);
+        colSize1 = (int) params.getUInt(2);
+        colSize2 = (int) params.getUInt(2);
+        colSize3 = (int) params.getUInt(2);
+        colSize4 = (int) params.getUInt(2);
         int colourLength = length - (params.getPosition() - position);
         color = params.getByteArray(colourLength);
     }
@@ -63,8 +63,8 @@ public class SetExtendedBilevelImageColor implements SelfDefiningField {
     }
 
     public int getColor() {
-        ByteUtils byteUtils = ByteUtils.getLittleEndianUtils();
-        return byteUtils.bytesToUnsignedInt(color);
+        ByteUtils byteUtils = ByteUtils.getBigEndianUtils();
+        return (int) byteUtils.bytesToUnsignedInt(color);
     }
 
     @Override

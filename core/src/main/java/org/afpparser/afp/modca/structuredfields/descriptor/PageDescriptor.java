@@ -56,10 +56,10 @@ public class PageDescriptor extends StructuredFieldWithTriplets {
         super(introducer, triplets);
         xAxisBaseUnit = PresentationSpaceUnits.getValue(params.getByte());
         yAxisBaseUnit = PresentationSpaceUnits.getValue(params.getByte());
-        xAxisPageUnit = params.getUInt(2);
-        yAxisPageUnit = params.getUInt(2);
-        xAxisPageSize = params.getUInt(3);
-        yAxisPageSize = params.getUInt(3);
+        xAxisPageUnit = (int) params.getUInt(2);
+        yAxisPageUnit = (int) params.getUInt(2);
+        xAxisPageSize = (int) params.getUInt(3);
+        yAxisPageSize = (int) params.getUInt(3);
         assert params.getByte() == 0 && params.getByte() == 0;
     }
 

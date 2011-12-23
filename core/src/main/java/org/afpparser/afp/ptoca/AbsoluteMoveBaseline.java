@@ -15,7 +15,7 @@ public class AbsoluteMoveBaseline extends ControlSequence {
     public AbsoluteMoveBaseline(ControlSequenceIdentifier csId, int length, boolean isChained,
             Parameters params) {
         super(csId, length, isChained);
-        displacement = params.getUInt(2);
+        displacement = (int) params.getUInt(2);
     }
 
     /**
