@@ -35,6 +35,6 @@ public class BeginSuppression extends ControlSequence {
 
     @Override
     public String getValueAsString() {
-        return "lid=" + ByteUtils.bytesToHex(lid);
+        return "lid=0x" + ByteUtils.bytesToHex(lid);
     }
 }

@@ -59,7 +59,9 @@ public abstract class ControlSequence {
     double getFraction(byte b) {
         double fraction = 0;
         for (int i = 7; i >= 0; i--) {
-            fraction += 1 / (2 << (i + 1));
+            if ((b & (1 << i)) > 0) {
+                fraction += 1.0 / (1 << (8 - i));
+            }
         }
         return fraction;
     }

@@ -35,7 +35,7 @@ class BypassFlags {
         private final byte bitMask;
 
         private Flags() {
-            bitMask = (byte) (1 << (4 - this.ordinal()));
+            bitMask = (byte) (1 << (3 - this.ordinal()));
         }
 
         public boolean isSet(byte flags) {
@@ -48,7 +48,7 @@ class BypassFlags {
     private final boolean bypassSpaceChars;
 
     BypassFlags(byte flags) {
-        if (Flags.NO_BYPASS_IN_EFFECT.isSet(flags)) {
+        if (!Flags.NO_BYPASS_IN_EFFECT.isSet(flags)) {
             bypassRelativeMoveInline = Flags.RELATIVE_MOVE_INLINE.isSet(flags);
             bypassAbsoluteMoveInline = Flags.ABSOLUTE_MOVE_INLINE.isSet(flags);
             bypassSpaceChars = Flags.SPACE_CHARACTERS.isSet(flags);
