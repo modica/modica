@@ -22,7 +22,7 @@ public class RepeatString extends ControlSequence {
         if (getLength() > 4) {
             repeatData = params.getByteArray(getLength() - 4);
         } else {
-            repeatData = null;
+            repeatData = new byte[] {};
         }
     }
 
@@ -48,6 +48,11 @@ public class RepeatString extends ControlSequence {
 
     @Override
     public String getValueAsString() {
-        return "";
+        try {
+            return "RepeatString=\"" + new String(repeatData, "Cp500") + " to fill "
+                    + repeatLength + "bytes";
+        } catch (UnsupportedEncodingException uee) {
+            return "RepeatString to fill " + repeatLength + "bytes";
+        }
     }
 }

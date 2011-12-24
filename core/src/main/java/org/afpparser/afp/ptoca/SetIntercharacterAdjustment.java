@@ -52,7 +52,7 @@ public class SetIntercharacterAdjustment extends ControlSequence {
 
     @Override
     public String getValueAsString() {
-        return "adjustment=" + String.valueOf(adjustment)
-                + (directionIsPositive ? "" : " Negative direction");
+        return "move " + String.valueOf(adjustment)
+                + (directionIsPositive ? "" : " negative direction");
     }
 }

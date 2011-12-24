@@ -1,6 +1,7 @@
 package org.afpparser.afp.ioca;
 
 import org.afpparser.afp.modca.Parameters;
+import org.afpparser.afp.modca.common.NamedColor;
 
 /**
  * Sets the bi-level image colour.
@@ -38,51 +39,6 @@ public class SetBilevelImageColor implements SelfDefiningField {
      */
     public NamedColor getColour() {
         return colour;
-    }
-
-    /**
-     * An enumeration of standard colours.
-     */
-    public enum NamedColor {
-        PRESENTATION_PROCESS_DEFAULT,
-        BLUE,
-        RED,
-        MAGENTA_PINK,
-        GREEN,
-        CYAN_TURQUOISE,
-        YELLOW,
-        WHITE,
-        BLACK,
-        DARK_BLUE,
-        ORANGE,
-        PURPLE,
-        DARK_GREEN,
-        DARK_TURQUOISE,
-        MUSTARD,
-        GRAY,
-        BROWN,
-        COLOUR_OF_MEDIUM;
-
-        public static NamedColor getValue(Parameters params) {
-            int firstByte = params.getByte();
-            if (firstByte == (byte) 0xFF) {
-                return getAlternateValues(params.getByte());
-            } else if (firstByte < 0x10) {
-                return NamedColor.values()[params.getByte()];
-            }
-            throw new IllegalArgumentException("Invalid Named Color ID given.");
-        }
-
-        private static NamedColor getAlternateValues(byte id) {
-            if ((id & 0xFF) <= 0x06) {
-                return NamedColor.values()[id];
-            } else if (id == 0x07 || id == (byte) 0xFF) {
-                return PRESENTATION_PROCESS_DEFAULT;
-            } else if (id == 0x08) {
-                return COLOUR_OF_MEDIUM;
-            }
-            throw new IllegalArgumentException("Invalid Named Color ID given.");
-        }
     }
 
     @Override

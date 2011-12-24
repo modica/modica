@@ -31,6 +31,6 @@ public class SetCodedFontLocal extends ControlSequence {
 
     @Override
     public String getValueAsString() {
-        return "lid=" + ByteUtils.bytesToHex(lid);
+        return "localid=0x" + ByteUtils.bytesToHex(lid);
     }
 }

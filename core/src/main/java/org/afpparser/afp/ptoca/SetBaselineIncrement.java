@@ -31,6 +31,6 @@ public class SetBaselineIncrement extends ControlSequence {
 
     @Override
     public String getValueAsString() {
-        return "increment " + String.valueOf(increment);
+        return "move " + String.valueOf(increment);
     }
 }

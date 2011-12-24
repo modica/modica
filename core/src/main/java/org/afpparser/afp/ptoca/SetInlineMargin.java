@@ -29,6 +29,6 @@ public class SetInlineMargin extends ControlSequence {
 
     @Override
     public String getValueAsString() {
-        return "displace " + displacement;
+        return "move " + displacement;
     }
 }
