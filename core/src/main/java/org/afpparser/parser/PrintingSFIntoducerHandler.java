@@ -21,13 +21,13 @@ package org.afpparser.parser;
 
 import java.io.PrintStream;
 
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.common.StringUtils;
 
 /**
  * This class is used for printing SFIntroducerHandler events to a PrintStream.
  */
-public class PrintingSFIntoducerHandler implements SFIntroducerHandler {
+public class PrintingSFIntoducerHandler implements StructuredFieldIntroducerHandler {
 
     private final PrintStream out;
 
@@ -42,18 +42,18 @@ public class PrintingSFIntoducerHandler implements SFIntroducerHandler {
     }
 
     @Override
-    public void handle(SfIntroducer sf) {
+    public void handle(StructuredFieldIntroducer sf) {
         printSf(sf);
     }
 
     @Override
-    public void handleBegin(SfIntroducer sf) {
+    public void handleBegin(StructuredFieldIntroducer sf) {
         printSf(sf);
         indent += "  ";
     }
 
     @Override
-    public void handleEnd(SfIntroducer sf) {
+    public void handleEnd(StructuredFieldIntroducer sf) {
         indent = indent.substring(0, indent.length() - 2);
         printSf(sf);
     }
@@ -66,7 +66,7 @@ public class PrintingSFIntoducerHandler implements SFIntroducerHandler {
     public void endAfp() {
     }
 
-    private void printSf(SfIntroducer sf) {
+    private void printSf(StructuredFieldIntroducer sf) {
         out.println("\u001B[34m" + StringUtils.toHex(sf.getOffset(), 8) + "\u001B[0m" + indent
                 + sf.getType().getName());
     }
@@ -76,7 +76,7 @@ public class PrintingSFIntoducerHandler implements SFIntroducerHandler {
      * 
      * @return
      */
-    public static SFIntroducerHandler newInstance() {
+    public static StructuredFieldIntroducerHandler newInstance() {
         return new PrintingSFIntoducerHandler();
     }
 
@@ -87,7 +87,7 @@ public class PrintingSFIntoducerHandler implements SFIntroducerHandler {
      *            OutputStream to print to.
      * @return
      */
-    public static SFIntroducerHandler newInstance(PrintStream out) {
+    public static StructuredFieldIntroducerHandler newInstance(PrintStream out) {
         return new PrintingSFIntoducerHandler(out);
     }
 }

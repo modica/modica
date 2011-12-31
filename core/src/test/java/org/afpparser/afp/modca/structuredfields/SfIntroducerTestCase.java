@@ -11,14 +11,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class SfIntroducerTestCase {
-    private SfIntroducer sut;
+    private StructuredFieldIntroducer sut;
     private SfType sutType;
 
     @Before
     public void setUp() {
         byte[] typeId = ByteUtils.createByteArray(0xD3, 0xAE, 0x89);
         sutType = SfTypeFactory.getValue(typeId);
-        sut = new SfIntroducer(1L, 2, typeId, (byte) 3, 5);
+        sut = new StructuredFieldIntroducer(1L, 2, typeId, (byte) 3, 5);
     }
 
     @Test
@@ -35,9 +35,9 @@ public class SfIntroducerTestCase {
     public void testHashCodeEquals() {
         // Consistency
         for (int i = 0; i < 100; i++) {
-            SfIntroducer x = createGenericIntroducer();
-            SfIntroducer y = createGenericIntroducer();
-            SfIntroducer z = createGenericIntroducer();
+            StructuredFieldIntroducer x = createGenericIntroducer();
+            StructuredFieldIntroducer y = createGenericIntroducer();
+            StructuredFieldIntroducer z = createGenericIntroducer();
 
             // Reflectivity
             assertTrue(x.equals(x));
@@ -61,29 +61,29 @@ public class SfIntroducerTestCase {
 
     @Test
     public void testEqualsHashCodeFailureCases() {
-        SfIntroducer subject = createGenericIntroducer();
-        SfIntroducer offsetNotEqual = new SfIntroducer(2L, 2, ByteUtils.createByteArray(0xD3,
+        StructuredFieldIntroducer subject = createGenericIntroducer();
+        StructuredFieldIntroducer offsetNotEqual = new StructuredFieldIntroducer(2L, 2, ByteUtils.createByteArray(0xD3,
                 0xA0, 0x88), (byte) 3, 5);
         checkNotEquals(subject, offsetNotEqual);
 
-        SfIntroducer lengthNotEquals = new SfIntroducer(1L, 1, ByteUtils.createByteArray(
+        StructuredFieldIntroducer lengthNotEquals = new StructuredFieldIntroducer(1L, 1, ByteUtils.createByteArray(
                 0xD3, 0xA0, 0x88), (byte) 3, 5);
         checkNotEquals(subject, lengthNotEquals);
 
-        SfIntroducer typeNotEquals = new SfIntroducer(1L, 2, ByteUtils.createByteArray(0xD3,
+        StructuredFieldIntroducer typeNotEquals = new StructuredFieldIntroducer(1L, 2, ByteUtils.createByteArray(0xD3,
                 0xA0, 0x90), (byte) 3, 5);
         checkNotEquals(subject, typeNotEquals);
 
-        SfIntroducer flagsNotEquals = new SfIntroducer(1L, 2, ByteUtils.createByteArray(0xD3,
+        StructuredFieldIntroducer flagsNotEquals = new StructuredFieldIntroducer(1L, 2, ByteUtils.createByteArray(0xD3,
                 0xA0, 0x88), (byte) 4, 5);
         checkNotEquals(subject, flagsNotEquals);
 
-        SfIntroducer extLengthNotEquals = new SfIntroducer(1L, 2, ByteUtils.createByteArray(
+        StructuredFieldIntroducer extLengthNotEquals = new StructuredFieldIntroducer(1L, 2, ByteUtils.createByteArray(
                 0xD3, 0xA0, 0x88), (byte) 3, 6);
         checkNotEquals(subject, extLengthNotEquals);
     }
 
-    private void checkNotEquals(SfIntroducer o1, SfIntroducer o2) {
+    private void checkNotEquals(StructuredFieldIntroducer o1, StructuredFieldIntroducer o2) {
         assertFalse(o1.equals(o2));
         assertNotSame(o1.hashCode(), o2.hashCode());
     }
@@ -93,7 +93,7 @@ public class SfIntroducerTestCase {
      *
      * @return the introducer
      */
-    public static SfIntroducer createGenericIntroducer() {
+    public static StructuredFieldIntroducer createGenericIntroducer() {
         return createGenericIntroducer(Attribute.MFC);
     }
 
@@ -103,12 +103,12 @@ public class SfIntroducerTestCase {
      * @param type the SfType
      * @return the introducer
      */
-    public static SfIntroducer createGenericIntroducer(SfType type) {
+    public static StructuredFieldIntroducer createGenericIntroducer(SfType type) {
         byte[] bytes = ByteUtils.createByteArray(
                 0xD3,
                 type.getTypeCode().getValue() & 0xFF,
                 type.getCategoryCode().getValue() & 0xFF);
-        return new SfIntroducer(1L, 2, bytes, (byte) 3, 5);
+        return new StructuredFieldIntroducer(1L, 2, bytes, (byte) 3, 5);
     }
 
     @Test
@@ -124,7 +124,7 @@ public class SfIntroducerTestCase {
     private void testSFWithFlag(int flag, boolean hasExtData, boolean hasSegData,
             boolean hasDataPadding) {
         byte[] id = ByteUtils.createByteArray(0xD3, 0xA0, 0x88);
-        SfIntroducer field = new SfIntroducer(0, 1, id, (byte) flag, 0);
+        StructuredFieldIntroducer field = new StructuredFieldIntroducer(0, 1, id, (byte) flag, 0);
         assertEquals(hasExtData, field.hasExtData());
         assertEquals(hasSegData, field.hasSegmentedData());
         assertEquals(hasDataPadding, field.hasDataPadding());

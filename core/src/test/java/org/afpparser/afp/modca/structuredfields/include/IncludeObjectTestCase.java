@@ -12,7 +12,7 @@ import java.util.Map;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.ReferenceCoordinateSystem;
 import org.afpparser.afp.modca.common.Rotation;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Include;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
@@ -41,7 +41,7 @@ public class IncludeObjectTestCase extends StructuredFieldWithTripletsTestCase<I
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
-        SfIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Include.IOB);
+        StructuredFieldIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Include.IOB);
 
         List<Triplet> triplets = addTripletToList(
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,

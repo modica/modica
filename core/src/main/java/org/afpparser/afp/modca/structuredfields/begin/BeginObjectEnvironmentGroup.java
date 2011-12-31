@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
 
@@ -19,7 +19,7 @@ public class BeginObjectEnvironmentGroup extends StructuredFieldWithTriplets {
 
     private final String oegName;
 
-    public BeginObjectEnvironmentGroup(SfIntroducer introducer, List<Triplet> triplets,
+    public BeginObjectEnvironmentGroup(StructuredFieldIntroducer introducer, List<Triplet> triplets,
             Parameters params) throws UnsupportedEncodingException {
         super(introducer, triplets);
         oegName = params.getString(0, 8);

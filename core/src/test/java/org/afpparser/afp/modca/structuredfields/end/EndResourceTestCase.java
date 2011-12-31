@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.End;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldTestCase;
@@ -27,7 +27,7 @@ public class EndResourceTestCase extends StructuredFieldTestCase<EndResource> {
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
-        SfIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(End.ERS);
+        StructuredFieldIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(End.ERS);
 
         Parameters params = new Parameters(resourceName.getBytes("Cp500"), "Cp500");
         Parameters matchesAny = new Parameters(ByteUtils.createByteArray(0xff, 0xff), "Cp500");

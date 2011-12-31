@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 
 /**
  * The No Operation field performs no function.
@@ -15,7 +15,7 @@ public class NoOperation extends AbstractStructuredField {
 
     private final byte[] comment;
 
-    public NoOperation(SfIntroducer introducer, Parameters params)
+    public NoOperation(StructuredFieldIntroducer introducer, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer);
         comment = params.getByteArray(params.size());

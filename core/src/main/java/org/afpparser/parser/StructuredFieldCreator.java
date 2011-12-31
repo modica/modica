@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.afpparser.afp.modca.StructuredFieldFactory;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
 
 /**
@@ -13,7 +13,7 @@ import org.afpparser.afp.modca.structuredfields.StructuredField;
  * {@link StructuredFieldFactory} and publishes creation events to a {@link StructuredFieldHandler}
  * for further processing.
  */
-public class StructuredFieldCreator implements SFIntroducerHandler {
+public class StructuredFieldCreator implements StructuredFieldIntroducerHandler {
 
     private final StructuredFieldHandler creationHandler;
 
@@ -40,19 +40,19 @@ public class StructuredFieldCreator implements SFIntroducerHandler {
     }
 
     @Override
-    public void handleBegin(SfIntroducer introducer) {
+    public void handleBegin(StructuredFieldIntroducer introducer) {
         StructuredField structuredField = sfFactory.createBegin(introducer);
         handle(introducer, structuredField);
     }
 
     @Override
-    public void handleEnd(SfIntroducer introducer) {
+    public void handleEnd(StructuredFieldIntroducer introducer) {
         StructuredField structuredField = sfFactory.createEnd(introducer);
         handle(introducer, structuredField);
     }
 
     @Override
-    public void handle(SfIntroducer introducer) {
+    public void handle(StructuredFieldIntroducer introducer) {
         StructuredField structuredField;
         switch (introducer.getType().getTypeCode()) {
         case Map:
@@ -85,7 +85,7 @@ public class StructuredFieldCreator implements SFIntroducerHandler {
         handle(introducer, structuredField);
     }
 
-    private void handle(SfIntroducer introducer, StructuredField structuredField) {
+    private void handle(StructuredFieldIntroducer introducer, StructuredField structuredField) {
         // TODO remove UnhandledStructuredField when all structured fields can
         // be created
         creationHandler.handle(structuredField != null ? structuredField
@@ -93,9 +93,9 @@ public class StructuredFieldCreator implements SFIntroducerHandler {
     }
 
     private static class UnhandledStructuredField extends AbstractStructuredField {
-        private final SfIntroducer introducer;
+        private final StructuredFieldIntroducer introducer;
 
-        public UnhandledStructuredField(SfIntroducer introducer) {
+        public UnhandledStructuredField(StructuredFieldIntroducer introducer) {
             super(introducer);
             this.introducer = introducer;
         }

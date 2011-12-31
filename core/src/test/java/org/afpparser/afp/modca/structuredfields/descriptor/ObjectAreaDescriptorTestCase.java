@@ -6,7 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Descriptor;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
@@ -24,7 +24,7 @@ public class ObjectAreaDescriptorTestCase extends
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
-        SfIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Descriptor.OBD);
+        StructuredFieldIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Descriptor.OBD);
 
         List<Triplet> triplets = addTripletToList(
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,

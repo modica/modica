@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
 
@@ -20,7 +20,7 @@ public class BeginNamedPageGroup extends StructuredFieldWithTriplets {
 
     private final String pGrpName;
 
-    public BeginNamedPageGroup(SfIntroducer introducer, List<Triplet> triplets, Parameters params)
+    public BeginNamedPageGroup(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
         pGrpName = params.getString(0, 8);

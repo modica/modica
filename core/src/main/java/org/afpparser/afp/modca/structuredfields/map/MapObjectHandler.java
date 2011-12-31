@@ -2,7 +2,7 @@ package org.afpparser.afp.modca.structuredfields.map;
 
 import org.afpparser.afp.modca.Context;
 import org.afpparser.afp.modca.Parameters;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Map;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
 import org.afpparser.afp.modca.triplets.RepeatingTripletGroup;
@@ -16,7 +16,7 @@ public final class MapObjectHandler {
     private MapObjectHandler() {
     }
 
-    public static StructuredField handle(SfIntroducer intro, Parameters params, Context context) {
+    public static StructuredField handle(StructuredFieldIntroducer intro, Parameters params, Context context) {
         try {
             StructuredField sf;
             RepeatingTripletGroup tripletGroup;

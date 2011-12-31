@@ -1,5 +1,5 @@
 package org.afpparser.parser;
 
 
-public interface AfpHandler extends StructuredFieldHandler, SFIntroducerHandler {
+public interface AfpHandler extends StructuredFieldHandler, StructuredFieldIntroducerHandler {
 }

@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.common.StringUtils;
 
 /**
@@ -16,7 +16,7 @@ public class ImagePictureData extends AbstractStructuredField {
 
     private final long imageDataOffset;
 
-    public ImagePictureData(SfIntroducer introducer) {
+    public ImagePictureData(StructuredFieldIntroducer introducer) {
         super(introducer);
         imageDataOffset = introducer.getDataOffset();
     }

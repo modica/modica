@@ -5,7 +5,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
 import org.afpparser.afp.modca.Context.MODCAContext;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
 import org.afpparser.afp.modca.structuredfields.begin.BeginHandler;
 import org.afpparser.afp.modca.structuredfields.control.ControlHandler;
@@ -31,11 +31,11 @@ public class StructuredFieldFactoryImpl implements StructuredFieldFactory {
         this.channel = channel;
     }
 
-    private Parameters createStructuredField(SfIntroducer intro) {
+    private Parameters createStructuredField(StructuredFieldIntroducer intro) {
         try {
             long byteOffset = intro.getDataOffset();
             ByteBuffer buffer = ByteBuffer.allocate(intro.getLength()
-                    - SfIntroducer.SF_Introducer_FIELD - SfIntroducer.Carriage_Control_FIELD);
+                    - StructuredFieldIntroducer.SF_Introducer_FIELD - StructuredFieldIntroducer.Carriage_Control_FIELD);
             channel.read(buffer, byteOffset);
             return new Parameters(buffer.array(), (String) context.get(MODCAContext.GCSGID));
         } catch (IOException ioe) {
@@ -44,61 +44,61 @@ public class StructuredFieldFactoryImpl implements StructuredFieldFactory {
     }
 
     @Override
-    public StructuredField createBegin(SfIntroducer introducer) {
+    public StructuredField createBegin(StructuredFieldIntroducer introducer) {
         Parameters payload = createStructuredField(introducer);
         return BeginHandler.handle(introducer, payload, context);
     }
 
     @Override
-    public StructuredField createMap(SfIntroducer introducer) {
+    public StructuredField createMap(StructuredFieldIntroducer introducer) {
         Parameters payload = createStructuredField(introducer);
         return MapObjectHandler.handle(introducer, payload, context);
     }
 
     @Override
-    public StructuredField createDescriptor(SfIntroducer introducer) {
+    public StructuredField createDescriptor(StructuredFieldIntroducer introducer) {
         Parameters payload = createStructuredField(introducer);
         return DescriptorHandler.handle(introducer, payload, context);
     }
 
     @Override
-    public StructuredField createMigration(SfIntroducer introducer) {
+    public StructuredField createMigration(StructuredFieldIntroducer introducer) {
         Parameters payload = createStructuredField(introducer);
         return MigrationHandler.handle(introducer, payload);
     }
 
     @Override
-    public StructuredField createEnd(SfIntroducer introducer) {
+    public StructuredField createEnd(StructuredFieldIntroducer introducer) {
         Parameters payload = createStructuredField(introducer);
         return EndHandler.handle(introducer, payload, context);
     }
 
     @Override
-    public StructuredField createData(SfIntroducer introducer) {
+    public StructuredField createData(StructuredFieldIntroducer introducer) {
         Parameters payload = createStructuredField(introducer);
         return DataHandler.handle(introducer, payload, context);
     }
 
     @Override
-    public StructuredField createPosition(SfIntroducer introducer) {
+    public StructuredField createPosition(StructuredFieldIntroducer introducer) {
         Parameters payload = createStructuredField(introducer);
         return PositionHandler.handle(introducer, payload, context);
     }
 
     @Override
-    public StructuredField createInclude(SfIntroducer introducer) {
+    public StructuredField createInclude(StructuredFieldIntroducer introducer) {
         Parameters payload = createStructuredField(introducer);
         return IncludeHandler.handle(introducer, payload, context);
     }
 
     @Override
-    public StructuredField createControl(SfIntroducer introducer) {
+    public StructuredField createControl(StructuredFieldIntroducer introducer) {
         Parameters payload = createStructuredField(introducer);
         return ControlHandler.handle(introducer, payload, context);
     }
 
     @Override
-    public StructuredField createIndex(SfIntroducer introducer) {
+    public StructuredField createIndex(StructuredFieldIntroducer introducer) {
         Parameters payload = createStructuredField(introducer);
         return IndexHandler.handle(introducer, payload, context);
     }

@@ -13,7 +13,7 @@ import org.afpparser.afp.modca.Context.FOCAContext;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.CPIRepeatingGroupLength;
 import org.afpparser.afp.modca.common.GraphicalCharacterUseFlags;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Index;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldTestCase;
@@ -37,7 +37,7 @@ public class CodePageIndexTestCase extends StructuredFieldTestCase<CodePageIndex
 
     @Before
     public void setUp() throws UnsupportedEncodingException {
-        SfIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Index.CPI);
+        StructuredFieldIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Index.CPI);
 
         Context context = new Context();
         context.put(FOCAContext.CPI_REPEATING_GROUP_LENGTH, CPIRepeatingGroupLength.SINGLE_BYTE);
@@ -49,7 +49,7 @@ public class CodePageIndexTestCase extends StructuredFieldTestCase<CodePageIndex
 
     private CodePageIndex createSingleByteCPI(CPIRepeatingGroupLength cpiRLen)
             throws UnsupportedEncodingException {
-        SfIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Index.CPI);
+        StructuredFieldIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Index.CPI);
         ByteBuffer bb = ByteBuffer.allocate(30);
         bb.put(char1Name.getBytes("Cp500"));
         bb.put(ByteUtils.createByteArray(1, 4));
@@ -64,7 +64,7 @@ public class CodePageIndexTestCase extends StructuredFieldTestCase<CodePageIndex
 
     private CodePageIndex createDoubleByteCPI(CPIRepeatingGroupLength cpiRLen)
             throws UnsupportedEncodingException {
-        SfIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Index.CPI);
+        StructuredFieldIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Index.CPI);
         ByteBuffer bb = ByteBuffer.allocate(42);
         bb.put(char1Name.getBytes("Cp500"));
         bb.put(ByteUtils.createByteArray(1, 2, 3, 1, 5));

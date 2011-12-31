@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 
 /**
  * The End Active Environment Group structured field terminates the definition of an Active
@@ -16,7 +16,7 @@ public class EndActiveEnvironmentGroup extends AbstractStructuredField {
 
     private final EndFieldName aegName;
 
-    public EndActiveEnvironmentGroup(SfIntroducer introducer, Parameters params)
+    public EndActiveEnvironmentGroup(StructuredFieldIntroducer introducer, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer);
         aegName = new EndFieldName(params);

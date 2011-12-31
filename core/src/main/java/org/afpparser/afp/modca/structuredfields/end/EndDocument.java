@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
 
@@ -18,7 +18,7 @@ public class EndDocument extends StructuredFieldWithTriplets {
 
     private final EndFieldName docName;
 
-    public EndDocument(SfIntroducer introducer, List<Triplet> triplets, Parameters params)
+    public EndDocument(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
         docName = new EndFieldName(params);

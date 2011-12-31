@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
 
@@ -21,7 +21,7 @@ public class PresentationTextDataDescriptor extends StructuredFieldWithTriplets 
     private final int xAxisSize;
     private final int yAxisSize;
 
-    public PresentationTextDataDescriptor(SfIntroducer introducer, Parameters params) {
+    public PresentationTextDataDescriptor(StructuredFieldIntroducer introducer, Parameters params) {
         super(introducer, Collections.<Triplet>emptyList());
         byte xpBase = params.getByte();
         byte ypBase = params.getByte();

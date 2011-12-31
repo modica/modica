@@ -1,6 +1,6 @@
 package org.afpparser.parser;
 
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
 
 /**
@@ -21,18 +21,18 @@ public final class AfpHandlers {
      * @param structuredFieldHandler Handles all structure field events.
      * @return 
      */
-    public static AfpHandler delegateTo(SFIntroducerHandler sFIntroducerHandler,
+    public static AfpHandler delegateTo(StructuredFieldIntroducerHandler sFIntroducerHandler,
             StructuredFieldHandler structuredFieldHandler) {
         return new DelegatingAfpHandler(sFIntroducerHandler, structuredFieldHandler);
     }
 
     private static class DelegatingAfpHandler implements AfpHandler {
 
-        private final SFIntroducerHandler sFIHandler;
+        private final StructuredFieldIntroducerHandler sFIHandler;
         
         private final StructuredFieldHandler sFHandler;
         
-        private DelegatingAfpHandler(SFIntroducerHandler sFIHandler,
+        private DelegatingAfpHandler(StructuredFieldIntroducerHandler sFIHandler,
                 StructuredFieldHandler sFHandler) {
             this.sFHandler = sFHandler;
             this.sFIHandler = sFIHandler;
@@ -49,17 +49,17 @@ public final class AfpHandlers {
         }
 
         @Override
-        public void handleBegin(SfIntroducer sf) {
+        public void handleBegin(StructuredFieldIntroducer sf) {
             sFIHandler.handleBegin(sf);
         }
 
         @Override
-        public void handleEnd(SfIntroducer sf) {
+        public void handleEnd(StructuredFieldIntroducer sf) {
             sFIHandler.handleEnd(sf);
         }
 
         @Override
-        public void handle(SfIntroducer sf) {
+        public void handle(StructuredFieldIntroducer sf) {
             sFIHandler.handle(sf);
         }
         

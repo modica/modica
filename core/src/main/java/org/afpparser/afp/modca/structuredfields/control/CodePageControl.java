@@ -10,7 +10,7 @@ import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.CPIRepeatingGroupLength;
 import org.afpparser.afp.modca.common.GraphicalCharacterUseFlags;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 
 /**
  * The Code Page Control (CPC) contains information about the code page.
@@ -29,7 +29,7 @@ public class CodePageControl extends AbstractStructuredField {
     private final boolean isVariableSpaceEnabled;
     private final int defaultUnicodeValue;
 
-    public CodePageControl(SfIntroducer introducer, Parameters params, Context context)
+    public CodePageControl(StructuredFieldIntroducer introducer, Parameters params, Context context)
             throws UnsupportedEncodingException {
         super(introducer);
         defCharId = params.getString(8);

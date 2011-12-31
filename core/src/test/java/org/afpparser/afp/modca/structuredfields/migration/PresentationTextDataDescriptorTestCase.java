@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Migration;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
@@ -26,7 +26,7 @@ public class PresentationTextDataDescriptorTestCase extends
 
     @Before
     public void setUp() {
-        SfIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Migration.PTD);
+        StructuredFieldIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Migration.PTD);
 
         byte[] sfData = ByteUtils.createByteArray(0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0);
         Parameters params = new Parameters(sfData, "Cp500");

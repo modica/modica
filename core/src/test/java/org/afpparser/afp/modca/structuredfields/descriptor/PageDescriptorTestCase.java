@@ -10,7 +10,7 @@ import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.PresentationSpaceUnits;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Descriptor;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
@@ -27,7 +27,7 @@ public class PageDescriptorTestCase extends StructuredFieldWithTripletsTestCase<
 
     private PageDescriptor sut;
     private PageDescriptor cmSut;
-    private SfIntroducer intro;
+    private StructuredFieldIntroducer intro;
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {

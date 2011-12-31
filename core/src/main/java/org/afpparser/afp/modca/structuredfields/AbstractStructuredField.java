@@ -6,9 +6,9 @@ package org.afpparser.afp.modca.structuredfields;
  */
 public abstract class AbstractStructuredField implements StructuredField {
 
-    private final SfIntroducer introducer;
+    private final StructuredFieldIntroducer introducer;
 
-    public AbstractStructuredField(SfIntroducer introducer) {
+    public AbstractStructuredField(StructuredFieldIntroducer introducer) {
         this.introducer = introducer;
     }
 

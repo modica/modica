@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 
 /**
  * The End Code Page (ECP) structured field ends the code page object.
@@ -15,7 +15,7 @@ public class EndCodePage extends AbstractStructuredField {
 
     private final EndFieldName cpName;
 
-    public EndCodePage(SfIntroducer introducer, Parameters params)
+    public EndCodePage(StructuredFieldIntroducer introducer, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer);
         cpName = new EndFieldName(params, "Cp500");

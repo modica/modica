@@ -4,55 +4,56 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 
 /**
  * This class reads from a fileInputStream, identifying structured field
- * introducers, creating the light-weight {@link SfIntroducer} and delegating
- * further processing to a {@link SFIntroducerHandler}.
+ * introducers, creating the light-weight {@link StructuredFieldIntroducer} and delegating
+ * further processing to a {@link StructuredFieldIntroducerHandler}.
  * 
  */
 public final class AFPDocumentParser {
 
-    private final DocumentReader documentReader;
+    private final StructuredFieldIntroducerReader reader;
 
-    private final SFIntroducerHandler afpHandler;
+    private final StructuredFieldIntroducerHandler handler;
 
     /**
      * 
-     * @param afpFile
+     * @param afpFileInputStream
      *            An AFP file stream.
-     * @param afpHandler
-     *            An SFIntroducerHandler to handle {@link SfIntroducer} parsing
+     * @param handler
+     *            An SFIntroducerHandler to handle {@link StructuredFieldIntroducer} parsing
      *            events.
      * @throws FileNotFoundException
      *             Thrown if the AFP file is invalid.
      */
-    public AFPDocumentParser(FileInputStream afpFile, SFIntroducerHandler afpHandler)
+    public AFPDocumentParser(FileInputStream afpFileInputStream, StructuredFieldIntroducerHandler handler)
             throws FileNotFoundException {
-        this.documentReader = new DocumentReader(afpFile);
-        this.afpHandler = afpHandler;
+        this.reader = new StructuredFieldIntroducerReader(afpFileInputStream);
+        this.handler = handler;
     }
 
     /**
-     * Parse the AFP document.
+     * Iterates through the StructruredFieldIntroducers parsed by the reader
+     * and dispatches them to the handler.
      * 
      * @throws IOException
      */
     public void parse() throws IOException {
-        afpHandler.startAfp();
-        for (SfIntroducer sf : documentReader) {
+        handler.startAfp();
+        for (StructuredFieldIntroducer sf : reader) {
             switch (sf.getType().getTypeCode()) {
             case Begin:
-                afpHandler.handleBegin(sf);
+                handler.handleBegin(sf);
                 break;
             case End:
-                afpHandler.handleEnd(sf);
+                handler.handleEnd(sf);
                 break;
             default:
-                afpHandler.handle(sf);
+                handler.handle(sf);
             }
         }
-        afpHandler.endAfp();
+        handler.endAfp();
     }
 }

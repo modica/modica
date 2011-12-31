@@ -5,7 +5,7 @@ import java.net.MalformedURLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletGroup;
 import org.afpparser.afp.modca.triplets.RepeatingTripletGroup;
 
@@ -21,7 +21,7 @@ import org.afpparser.afp.modca.triplets.RepeatingTripletGroup;
  */
 public class MapCodedFont extends StructuredFieldWithTripletGroup {
 
-    public MapCodedFont(SfIntroducer introducer, RepeatingTripletGroup tripletGroup)
+    public MapCodedFont(StructuredFieldIntroducer introducer, RepeatingTripletGroup tripletGroup)
             throws UnsupportedEncodingException, MalformedURLException {
         super(introducer, tripletGroup);
     }

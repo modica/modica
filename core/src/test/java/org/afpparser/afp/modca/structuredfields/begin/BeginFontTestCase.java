@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Begin;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
@@ -23,7 +23,7 @@ import org.junit.Test;
  */
 public class BeginFontTestCase extends StructuredFieldWithTripletsTestCase<BeginFont> {
     private BeginFont sut;
-    private SfIntroducer intro;
+    private StructuredFieldIntroducer intro;
     private final String charsetName = "Charsets";
 
     @Before

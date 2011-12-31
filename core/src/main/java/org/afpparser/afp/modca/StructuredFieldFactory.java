@@ -1,6 +1,6 @@
 package org.afpparser.afp.modca;
 
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Begin;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Control;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Data;
@@ -15,7 +15,7 @@ import org.afpparser.afp.modca.structuredfields.StructuredField;
 
 /**
  * An interface for factories that create {@link StructuredField} objects given a
- * {@link SfIntroducer} with the data pay-load.
+ * {@link StructuredFieldIntroducer} with the data pay-load.
  */
 public interface StructuredFieldFactory {
 
@@ -25,7 +25,7 @@ public interface StructuredFieldFactory {
      * @param introducer the introducer for the structured field
      * @return a Begin type structured field
      */
-    StructuredField createBegin(SfIntroducer introducer);
+    StructuredField createBegin(StructuredFieldIntroducer introducer);
 
     /**
      * Creates a structured field of the {@link Map} type.
@@ -33,7 +33,7 @@ public interface StructuredFieldFactory {
      * @param introducer the introducer for the structured field
      * @return a Map type structured field
      */
-    StructuredField createMap(SfIntroducer introducer);
+    StructuredField createMap(StructuredFieldIntroducer introducer);
 
     /**
      * Creates a structured field of the {@link Descriptor} type.
@@ -41,7 +41,7 @@ public interface StructuredFieldFactory {
      * @param introducer the introducer for the structured field
      * @return a Map type structured field
      */
-    StructuredField createDescriptor(SfIntroducer introducer);
+    StructuredField createDescriptor(StructuredFieldIntroducer introducer);
 
     /**
      * Creates a structured field of the {@link Migration} type.
@@ -49,7 +49,7 @@ public interface StructuredFieldFactory {
      * @param introducer the introducer for the structured field
      * @return a Map type structured field
      */
-    StructuredField createMigration(SfIntroducer introducer);
+    StructuredField createMigration(StructuredFieldIntroducer introducer);
 
     /**
      * Creates a structured field of the {@link End} type.
@@ -57,7 +57,7 @@ public interface StructuredFieldFactory {
      * @param introducer the introducer for the structured field
      * @return a Map type structured field
      */
-    StructuredField createEnd(SfIntroducer introducer);
+    StructuredField createEnd(StructuredFieldIntroducer introducer);
 
     /**
      * Creates a structured field of the {@link Data} type.
@@ -65,7 +65,7 @@ public interface StructuredFieldFactory {
      * @param introducer the introducer for the structured field
      * @return a Map type structured field
      */
-    StructuredField createData(SfIntroducer introducer);
+    StructuredField createData(StructuredFieldIntroducer introducer);
 
     /**
      * Creates a structured field of the {@link Position} type.
@@ -73,7 +73,7 @@ public interface StructuredFieldFactory {
      * @param introducer the introducer for the structured field
      * @return a Map type structured field
      */
-    StructuredField createPosition(SfIntroducer introducer);
+    StructuredField createPosition(StructuredFieldIntroducer introducer);
 
     /**
      * Creates a structured field of the {@link Include} type.
@@ -81,7 +81,7 @@ public interface StructuredFieldFactory {
      * @param introducer the introducer for the structured field
      * @return a Map type structured field
      */
-    StructuredField createInclude(SfIntroducer introducer);
+    StructuredField createInclude(StructuredFieldIntroducer introducer);
 
     /**
      * Creates a structured field of the {@link Control} type.
@@ -89,7 +89,7 @@ public interface StructuredFieldFactory {
      * @param introducer the introducer for the structured field
      * @return a Map type structured field
      */
-    StructuredField createControl(SfIntroducer introducer);
+    StructuredField createControl(StructuredFieldIntroducer introducer);
 
     /**
      * Creates a structured field of the {@link Index} type.
@@ -97,6 +97,6 @@ public interface StructuredFieldFactory {
      * @param introducer the introducer for the structured field
      * @return a Map type structured field
      */
-    StructuredField createIndex(SfIntroducer introducer);
+    StructuredField createIndex(StructuredFieldIntroducer introducer);
 
 }

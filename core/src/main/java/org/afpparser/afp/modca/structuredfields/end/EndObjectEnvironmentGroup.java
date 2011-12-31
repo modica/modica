@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 
 /**
  * The End Object Environment Group structured field terminates the definition of an Object
@@ -16,7 +16,7 @@ public class EndObjectEnvironmentGroup extends AbstractStructuredField {
 
     private final EndFieldName oegName;
 
-    public EndObjectEnvironmentGroup(SfIntroducer introducer, Parameters params)
+    public EndObjectEnvironmentGroup(StructuredFieldIntroducer introducer, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer);
         oegName = new EndFieldName(params);

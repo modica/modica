@@ -12,7 +12,7 @@ import java.util.Map;
 import org.afpparser.afp.modca.Context;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.CPIRepeatingGroupLength;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Control;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldTestCase;
@@ -37,7 +37,7 @@ public class CodePageControlTestCase extends StructuredFieldTestCase<CodePageCon
 
     @Before
     public void setUp() throws UnsupportedEncodingException {
-        SfIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Control.CPC);
+        StructuredFieldIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Control.CPC);
 
         ByteBuffer bb = ByteBuffer.allocate(15);
 

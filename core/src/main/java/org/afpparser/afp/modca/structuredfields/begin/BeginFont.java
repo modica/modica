@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
 
@@ -17,7 +17,7 @@ public class BeginFont extends StructuredFieldWithTriplets {
 
     private final String csName;
 
-    public BeginFont(SfIntroducer introducer, List<Triplet> triplets, Parameters params)
+    public BeginFont(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
         csName = params.getString(0, 8, "Cp500");

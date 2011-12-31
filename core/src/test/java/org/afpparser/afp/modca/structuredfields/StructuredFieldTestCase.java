@@ -13,9 +13,9 @@ import org.junit.Test;
 public abstract class StructuredFieldTestCase<S extends AbstractStructuredField> {
 
     private AbstractStructuredField sut;
-    private SfIntroducer intro;
+    private StructuredFieldIntroducer intro;
 
-    public void setMembers(AbstractStructuredField sut, SfIntroducer intro) {
+    public void setMembers(AbstractStructuredField sut, StructuredFieldIntroducer intro) {
         this.sut = sut;
         this.intro = intro;
     }

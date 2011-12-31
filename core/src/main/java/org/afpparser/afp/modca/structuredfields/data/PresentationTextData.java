@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.common.StringUtils;
 
 /**
@@ -17,7 +17,7 @@ public class PresentationTextData extends AbstractStructuredField {
 
     private final byte[] ptocaData;
 
-    public PresentationTextData(SfIntroducer introducer, Parameters params) {
+    public PresentationTextData(StructuredFieldIntroducer introducer, Parameters params) {
         super(introducer);
         ptocaData = params.getByteArray(params.size());
     }

@@ -4,14 +4,14 @@ import java.io.UnsupportedEncodingException;
 
 import org.afpparser.afp.modca.Context;
 import org.afpparser.afp.modca.Parameters;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
 
 public class ControlHandler {
     private ControlHandler() {
     }
 
-    public static StructuredField handle(SfIntroducer intro, Parameters params, Context context) {
+    public static StructuredField handle(StructuredFieldIntroducer intro, Parameters params, Context context) {
         try {
             StructuredField sf;
             switch (intro.getType().getCategoryCode()) {

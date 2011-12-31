@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.PresentationSpaceUnits;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
 
@@ -52,7 +52,7 @@ public class PageDescriptor extends StructuredFieldWithTriplets {
     private final int xAxisPageSize;
     private final int yAxisPageSize;
 
-    public PageDescriptor(SfIntroducer introducer, List<Triplet> triplets, Parameters params) {
+    public PageDescriptor(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params) {
         super(introducer, triplets);
         xAxisBaseUnit = PresentationSpaceUnits.getValue(params.getByte());
         yAxisBaseUnit = PresentationSpaceUnits.getValue(params.getByte());

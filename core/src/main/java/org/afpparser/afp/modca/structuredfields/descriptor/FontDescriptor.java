@@ -8,7 +8,7 @@ import java.util.Map;
 import org.afpparser.afp.foca.FontWeightClass;
 import org.afpparser.afp.foca.FontWidthClass;
 import org.afpparser.afp.modca.Parameters;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.common.ByteUtils;
@@ -37,7 +37,7 @@ public class FontDescriptor extends StructuredFieldWithTriplets {
     private final int gcsgid;
     private final int fgid;
 
-    public FontDescriptor(SfIntroducer introducer, List<Triplet> triplets, Parameters params)
+    public FontDescriptor(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
         typeFcDesc = params.getString(32, "Cp500");

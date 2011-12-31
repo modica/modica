@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 
 /**
  * The End Resource structured field terminates an envelope that is used to carry resource objects
@@ -17,7 +17,7 @@ public class EndResource extends AbstractStructuredField {
 
     private final EndFieldName rsName;
 
-    public EndResource(SfIntroducer introducer, Parameters params) throws UnsupportedEncodingException {
+    public EndResource(StructuredFieldIntroducer introducer, Parameters params) throws UnsupportedEncodingException {
         super(introducer);
         rsName = new EndFieldName(params);
     }

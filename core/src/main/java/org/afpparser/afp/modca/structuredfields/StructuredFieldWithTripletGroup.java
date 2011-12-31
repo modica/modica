@@ -15,7 +15,7 @@ public abstract class StructuredFieldWithTripletGroup extends AbstractStructured
 
     private final RepeatingTripletGroup tripletGroup;
 
-    public StructuredFieldWithTripletGroup(SfIntroducer introducer,
+    public StructuredFieldWithTripletGroup(StructuredFieldIntroducer introducer,
             RepeatingTripletGroup tripletGroup) {
         super(introducer);
         this.tripletGroup = tripletGroup;

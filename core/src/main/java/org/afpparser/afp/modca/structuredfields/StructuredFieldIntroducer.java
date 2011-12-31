@@ -7,7 +7,7 @@ import org.afpparser.common.StringUtils;
 /**
  * A data object that represents a structured field and holds the data provided in the introducer.
  */
-public class SfIntroducer implements Serializable {
+public class StructuredFieldIntroducer implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -20,10 +20,10 @@ public class SfIntroducer implements Serializable {
     public static final int Reserved_FIELD = 1;
     public static final int ExtLength_FIELD = 1;
 
-    public static final int SF_Introducer_FIELD = SfIntroducer.SFLength_FIELD
-            + SfIntroducer.SFType_ID_FIELD
-            + SfIntroducer.Flag_Byte_FIELD
-            + SfIntroducer.Reserved_FIELD;
+    public static final int SF_Introducer_FIELD = StructuredFieldIntroducer.SFLength_FIELD
+            + StructuredFieldIntroducer.SFType_ID_FIELD
+            + StructuredFieldIntroducer.Flag_Byte_FIELD
+            + StructuredFieldIntroducer.Reserved_FIELD;
 
     private final long offset;
     private final int length;
@@ -40,7 +40,7 @@ public class SfIntroducer implements Serializable {
      * @param flags the bit-mapped flags
      * @param extLength the length of SFI extension data
      */
-    public SfIntroducer(long offset, int length, byte[] type, byte flags, int extLength) {
+    public StructuredFieldIntroducer(long offset, int length, byte[] type, byte flags, int extLength) {
         this.offset = offset;
         this.length = length;
         this.type = SfTypeFactory.getValue(type);
@@ -130,10 +130,10 @@ public class SfIntroducer implements Serializable {
      * @return the byte offset of the structured field data
      */
     public long getDataOffset() {
-        long dataOffset = this.offset + SfIntroducer.SF_Introducer_FIELD
-                + SfIntroducer.Carriage_Control_FIELD;
+        long dataOffset = this.offset + StructuredFieldIntroducer.SF_Introducer_FIELD
+                + StructuredFieldIntroducer.Carriage_Control_FIELD;
         if (hasExtData()) {
-            dataOffset += getExtLength() + SfIntroducer.ExtLength_FIELD;
+            dataOffset += getExtLength() + StructuredFieldIntroducer.ExtLength_FIELD;
         }
         return dataOffset;
     }
@@ -169,10 +169,10 @@ public class SfIntroducer implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof SfIntroducer)) {
+        if (!(o instanceof StructuredFieldIntroducer)) {
             return false;
         }
-        SfIntroducer sf = (SfIntroducer) o;
+        StructuredFieldIntroducer sf = (StructuredFieldIntroducer) o;
         return this.offset == sf.offset && this.length == sf.length && this.type.equals(sf.type)
                 && this.flags == sf.flags && this.extLength == sf.extLength;
     }

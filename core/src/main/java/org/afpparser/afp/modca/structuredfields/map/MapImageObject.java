@@ -3,7 +3,7 @@ package org.afpparser.afp.modca.structuredfields.map;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletGroup;
 import org.afpparser.afp.modca.triplets.RepeatingTripletGroup;
 
@@ -13,7 +13,7 @@ import org.afpparser.afp.modca.triplets.RepeatingTripletGroup;
  */
 public class MapImageObject extends StructuredFieldWithTripletGroup {
 
-    public MapImageObject(SfIntroducer introducer, RepeatingTripletGroup tripletGroup) {
+    public MapImageObject(StructuredFieldIntroducer introducer, RepeatingTripletGroup tripletGroup) {
         super(introducer, tripletGroup);
     }
 

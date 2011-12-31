@@ -11,9 +11,9 @@ import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
 
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.common.ByteUtils;
-import org.afpparser.parser.SFIntroducerHandler;
+import org.afpparser.parser.StructuredFieldIntroducerHandler;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
@@ -21,7 +21,7 @@ import org.xml.sax.helpers.AttributesImpl;
 /**
  * A StructuredFieldHandler that transforms AFP SF parsing to XML written to an output stream.
  */
-class XmlSerializingSFIntroducerHandler implements SFIntroducerHandler {
+class XmlSerializingSFIntroducerHandler implements StructuredFieldIntroducerHandler {
 
     public static final String URI = "http://afpparser.org";
 
@@ -75,17 +75,17 @@ class XmlSerializingSFIntroducerHandler implements SFIntroducerHandler {
 
 
     @Override
-    public void handleBegin(SfIntroducer sf) {
+    public void handleBegin(StructuredFieldIntroducer sf) {
         startElement(SF_ELEM_NAME, getAttributes(sf));
     }
 
     @Override
-    public void handleEnd(SfIntroducer sf) {
+    public void handleEnd(StructuredFieldIntroducer sf) {
         endElement(SF_ELEM_NAME);
     }
 
     @Override
-    public void handle(SfIntroducer sf) {
+    public void handle(StructuredFieldIntroducer sf) {
         startElement(SF_ELEM_NAME, getAttributes(sf));
         endElement(SF_ELEM_NAME);
     }
@@ -110,7 +110,7 @@ class XmlSerializingSFIntroducerHandler implements SFIntroducerHandler {
         return PREFIX + ":" + name;
     }
 
-    private static Attributes getAttributes(SfIntroducer sf) {
+    private static Attributes getAttributes(StructuredFieldIntroducer sf) {
         AttributesImpl atts = new AttributesImpl();
         addAttribute(atts, "type-code", ByteUtils.bytesToHex(sf.getType().getTypeCode().getValue()));
         addAttribute(atts, "category-code",

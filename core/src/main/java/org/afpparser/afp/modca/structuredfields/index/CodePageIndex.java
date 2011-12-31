@@ -13,7 +13,7 @@ import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.CPIRepeatingGroupLength;
 import org.afpparser.afp.modca.common.GraphicalCharacterUseFlags;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.common.StringUtils;
 
 /**
@@ -39,7 +39,7 @@ public class CodePageIndex extends AbstractStructuredField {
 
     private final List<CPI> cpis;
 
-    public CodePageIndex(SfIntroducer introducer, Parameters params, Context context)
+    public CodePageIndex(StructuredFieldIntroducer introducer, Parameters params, Context context)
             throws UnsupportedEncodingException {
         super(introducer);
         cpis = new ArrayList<CodePageIndex.CPI>();

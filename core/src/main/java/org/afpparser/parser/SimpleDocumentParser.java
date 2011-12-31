@@ -30,10 +30,10 @@ public class SimpleDocumentParser {
         StructuredFieldFactory structuredFieldFactory = new StructuredFieldFactoryImpl(
                 afpFile.getChannel());
         
-        StructuredFieldCreator structuredFieldCreator = new StructuredFieldCreator(
+        StructuredFieldIntroducerHandler structuredFieldCreator = new StructuredFieldCreator(
                 structuredFieldFactory, structuredFieldHandler);
         
-        SFIntroducerHandler sFIntroducerHandler= SFIntroducerHandlers.aggregate(
+        StructuredFieldIntroducerHandler sFIntroducerHandler = StructuredFieldIntroducerHandlers.aggregate(
                 handlers, structuredFieldCreator);
         
         parser = new AFPDocumentParser(afpFile, sFIntroducerHandler);

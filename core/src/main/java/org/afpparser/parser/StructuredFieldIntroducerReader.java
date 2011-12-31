@@ -9,7 +9,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.Iterator;
 
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.common.ByteUtils;
 
 /**
@@ -17,7 +17,7 @@ import org.afpparser.common.ByteUtils;
  * structured fields within the document and return a collection of skeletal Structured Field
  * objects.
  */
-class DocumentReader implements Iterable<SfIntroducer> {
+class StructuredFieldIntroducerReader implements Iterable<StructuredFieldIntroducer> {
 
     private final FileChannel channel;
 
@@ -31,7 +31,7 @@ class DocumentReader implements Iterable<SfIntroducer> {
      * @param afpDoc an AFP document file.
      * @throws FileNotFoundException if the document was not found
      */
-    public DocumentReader(File afpDoc) throws FileNotFoundException {
+    public StructuredFieldIntroducerReader(File afpDoc) throws FileNotFoundException {
         this(new FileInputStream(afpDoc));
     }
 
@@ -40,7 +40,7 @@ class DocumentReader implements Iterable<SfIntroducer> {
      *
      * @param afpDoc the file input stream wrapping the AFP document
      */
-    public DocumentReader(FileInputStream afpDoc) {
+    public StructuredFieldIntroducerReader(FileInputStream afpDoc) {
         channel = afpDoc.getChannel();
         byteUtils = ByteUtils.getLittleEndianUtils();
         sfIterator = new SfIterator();
@@ -56,38 +56,38 @@ class DocumentReader implements Iterable<SfIntroducer> {
         ByteBuffer buffer = ByteBuffer.allocate(1);
         channel.read(buffer);
         byte[] fiveA = buffer.array();
-        return fiveA[0] == SfIntroducer.CARRIAGE_CONTROL;
+        return fiveA[0] == StructuredFieldIntroducer.CARRIAGE_CONTROL;
     }
 
     /**
      * Reads the file channel and returns the structured field that begins at the current position
      * in the file (channel.position()). No validation is done at this point other than checking
      * that the type is a valid structured field ID. Also no parsing is performed at this stage,
-     * only a skeletal {@link SfIntroducer} that contains primitive data relevant to all
+     * only a skeletal {@link StructuredFieldIntroducer} that contains primitive data relevant to all
      * structured field objects.
      *
      * @return a structured field
      */
-    private SfIntroducer createStructuredField() {
+    private StructuredFieldIntroducer createStructuredField() {
         try {
             if (!hasStructuredField()) {
                 return null;
             }
             long offset = channel.position();
-            ByteBuffer buffer = ByteBuffer.allocate(SfIntroducer.SF_Introducer_FIELD);
+            ByteBuffer buffer = ByteBuffer.allocate(StructuredFieldIntroducer.SF_Introducer_FIELD);
             channel.read(buffer);
             byte[] introducer = buffer.array();
-            int sfLength = byteUtils.bytesToUnsignedInt(introducer, 0, SfIntroducer.SFLength_FIELD);
+            int sfLength = byteUtils.bytesToUnsignedInt(introducer, 0, StructuredFieldIntroducer.SFLength_FIELD);
             byte[] id = new byte[3];
-            System.arraycopy(introducer, 2, id, 0, SfIntroducer.SFType_ID_FIELD);
+            System.arraycopy(introducer, 2, id, 0, StructuredFieldIntroducer.SFType_ID_FIELD);
             byte flags = introducer[5];
             int extLength = 0;
-            if (SfIntroducer.hasSfiExtension(flags)) {
-                buffer = ByteBuffer.allocate(SfIntroducer.ExtLength_FIELD);
+            if (StructuredFieldIntroducer.hasSfiExtension(flags)) {
+                buffer = ByteBuffer.allocate(StructuredFieldIntroducer.ExtLength_FIELD);
                 channel.read(buffer);
                 extLength = byteUtils.bytesToUnsignedInt(buffer.array());
             }
-            SfIntroducer sf = new SfIntroducer(offset, sfLength, id, flags, extLength);
+            StructuredFieldIntroducer sf = new StructuredFieldIntroducer(offset, sfLength, id, flags, extLength);
             channel.position(offset += sf.bytesToNextStructuredField());
             return sf;
         } catch (EOFException eof) {
@@ -101,13 +101,13 @@ class DocumentReader implements Iterable<SfIntroducer> {
      * Returns an iterator used to iterate over each of the structured fields that make the document.
      */
     @Override
-    public Iterator<SfIntroducer> iterator() {
+    public Iterator<StructuredFieldIntroducer> iterator() {
         return sfIterator;
     }
 
-    private final class SfIterator implements Iterator<SfIntroducer> {
+    private final class SfIterator implements Iterator<StructuredFieldIntroducer> {
 
-        private SfIntroducer nextSf;
+        private StructuredFieldIntroducer nextSf;
 
         private SfIterator() {
             nextSf = createStructuredField();
@@ -119,8 +119,8 @@ class DocumentReader implements Iterable<SfIntroducer> {
         }
 
         @Override
-        public SfIntroducer next() {
-            SfIntroducer sf = nextSf;
+        public StructuredFieldIntroducer next() {
+            StructuredFieldIntroducer sf = nextSf;
             nextSf = createStructuredField();
             return sf;
         }

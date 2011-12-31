@@ -7,7 +7,7 @@ import java.util.Map;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.EncodingScheme;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 
 /**
  * The Code Page Descriptor (CPD) structured field describes the code page.
@@ -21,7 +21,7 @@ public class CodePageDescriptor extends AbstractStructuredField {
     private final int cpgid;
     private final EncodingScheme encScheme;
 
-    public CodePageDescriptor(SfIntroducer introducer, Parameters params)
+    public CodePageDescriptor(StructuredFieldIntroducer introducer, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer);
         cpDesc = params.getString(32);

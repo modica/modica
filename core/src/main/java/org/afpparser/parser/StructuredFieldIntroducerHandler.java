@@ -1,6 +1,6 @@
 package org.afpparser.parser;
 
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Begin;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.End;
 
@@ -9,7 +9,7 @@ import org.afpparser.afp.modca.structuredfields.SfTypeFactory.End;
  * {@link AFPDocumentParser} to publish structured field introducer parsing
  * events.
  */
-public interface SFIntroducerHandler {
+public interface StructuredFieldIntroducerHandler {
 
     /**
      * Called before the AFP document is parsed.
@@ -33,7 +33,7 @@ public interface SFIntroducerHandler {
      * @param sf
      *            the structured field introducer
      */
-    void handleBegin(SfIntroducer sf);
+    void handleBegin(StructuredFieldIntroducer sf);
 
     /**
      * Called after a SF introducer with type code {@link End} is parsed.
@@ -41,7 +41,7 @@ public interface SFIntroducerHandler {
      * @param sf
      *            the structured field introducer
      */
-    void handleEnd(SfIntroducer sf);
+    void handleEnd(StructuredFieldIntroducer sf);
 
     /**
      * Called after a SF introducer with a code other than {@link Begin} and
@@ -50,5 +50,5 @@ public interface SFIntroducerHandler {
      * @param sf
      *            the structured field introducer
      */
-    void handle(SfIntroducer sf);
+    void handle(StructuredFieldIntroducer sf);
 }

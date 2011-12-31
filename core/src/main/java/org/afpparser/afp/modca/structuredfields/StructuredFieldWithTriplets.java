@@ -14,7 +14,7 @@ public abstract class StructuredFieldWithTriplets extends AbstractStructuredFiel
 
     private final List<Triplet> triplets;
 
-    public StructuredFieldWithTriplets(SfIntroducer introducer, List<Triplet> triplets) {
+    public StructuredFieldWithTriplets(StructuredFieldIntroducer introducer, List<Triplet> triplets) {
         super(introducer);
         this.triplets = Collections.unmodifiableList(triplets);
     }

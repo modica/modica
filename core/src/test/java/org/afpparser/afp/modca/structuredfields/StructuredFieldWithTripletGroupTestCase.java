@@ -22,7 +22,7 @@ public abstract class StructuredFieldWithTripletGroupTestCase<T extends Structur
     private StructuredFieldWithTripletGroup sut;
     private RepeatingTripletGroup rGroup;
 
-    public void setMembers(StructuredFieldWithTripletGroup sut, SfIntroducer intro,
+    public void setMembers(StructuredFieldWithTripletGroup sut, StructuredFieldIntroducer intro,
             RepeatingTripletGroup rGroup) {
         super.setMembers(sut, intro);
         this.sut = sut;

@@ -7,7 +7,7 @@ import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.ReferenceCoordinateSystem;
 import org.afpparser.afp.modca.common.Rotation;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.common.ByteUtils;
 
 /**
@@ -24,7 +24,7 @@ public class ObjectAreaPosition extends AbstractStructuredField {
     private final int yocaOset;
     private final ReferenceCoordinateSystem refCSys;
 
-    public ObjectAreaPosition(SfIntroducer introducer, Parameters params) {
+    public ObjectAreaPosition(StructuredFieldIntroducer introducer, Parameters params) {
         super(introducer);
         oaPosId = params.getByte();
         int length = params.getByte();

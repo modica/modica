@@ -8,7 +8,7 @@ import java.util.Map;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.ReferenceCoordinateSystem;
 import org.afpparser.afp.modca.common.Rotation;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.afp.modca.triplets.Triplet;
 
@@ -39,7 +39,7 @@ public class IncludeObject extends StructuredFieldWithTriplets {
     private final boolean useYOriginOffset;
     private final ReferenceCoordinateSystem refCSys;
 
-    public IncludeObject(SfIntroducer introducer, List<Triplet> triplets, Parameters params)
+    public IncludeObject(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
         objName = params.getString(8);

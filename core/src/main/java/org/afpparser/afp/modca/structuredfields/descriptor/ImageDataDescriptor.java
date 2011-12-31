@@ -13,7 +13,7 @@ import org.afpparser.afp.ioca.SetExtendedBilevelImageColor;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.PresentationSpaceUnits;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 
 /**
  * The Image Data Descriptor structured field contains the descriptor data for an image data object.
@@ -27,7 +27,7 @@ public class ImageDataDescriptor extends AbstractStructuredField {
     private final int ySize;
     private final List<SelfDefiningField> selfDefiningFields;
 
-    public ImageDataDescriptor(SfIntroducer introducer, Parameters params) {
+    public ImageDataDescriptor(StructuredFieldIntroducer introducer, Parameters params) {
         super(introducer);
         unitsBase = PresentationSpaceUnits.getValue(params.getByte());
         xResol = params.getUInt(2);

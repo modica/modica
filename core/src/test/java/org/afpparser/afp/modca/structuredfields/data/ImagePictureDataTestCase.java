@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.afpparser.afp.modca.structuredfields.SfIntroducer;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Data;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldTestCase;
@@ -18,7 +18,7 @@ import org.junit.Test;
 public class ImagePictureDataTestCase extends StructuredFieldTestCase<ImagePictureData> {
 
     private ImagePictureData sut;
-    private SfIntroducer intro;
+    private StructuredFieldIntroducer intro;
 
     @Before
     public void setUp() {
