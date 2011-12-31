@@ -8,27 +8,25 @@ import java.util.List;
 import org.afpparser.afp.modca.StructuredFieldFactory;
 import org.afpparser.afp.modca.StructuredFieldFactoryImpl;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
+import org.afpparser.model.builder.ModelBuildingSFHandler;
 
 /**
  * This class is performs a full parse of an AFP document producing the object model.  
  * Parsing and creation events are also published to the  {@link AfpHandler} constructor parameters.
  *
  */
-public class SimpleDocumentParser {
+public class AfpParser {
 
-    private final AFPDocumentParser parser;
+    private final StructuredFieldIntroducerParser parser;
     
-    private final ObjectModelCreator objectModelCreatingHandler;
-    
-    public SimpleDocumentParser(FileInputStream afpFile, AfpHandler... handlers)
+    public AfpParser(FileInputStream afpFileInputStream, AfpHandler... handlers)
             throws FileNotFoundException {
-        objectModelCreatingHandler = new ObjectModelCreator();
-        
+
         StructuredFieldHandler structuredFieldHandler = StructuredFieldHandlers.aggregate(
-                handlers, objectModelCreatingHandler);
+                handlers);
        
         StructuredFieldFactory structuredFieldFactory = new StructuredFieldFactoryImpl(
-                afpFile.getChannel());
+                afpFileInputStream.getChannel());
         
         StructuredFieldIntroducerHandler structuredFieldCreator = new StructuredFieldCreator(
                 structuredFieldFactory, structuredFieldHandler);
@@ -36,7 +34,7 @@ public class SimpleDocumentParser {
         StructuredFieldIntroducerHandler sFIntroducerHandler = StructuredFieldIntroducerHandlers.aggregate(
                 handlers, structuredFieldCreator);
         
-        parser = new AFPDocumentParser(afpFile, sFIntroducerHandler);
+        parser = new StructuredFieldIntroducerParser(afpFileInputStream, sFIntroducerHandler);
     }
     
     /**
@@ -46,14 +44,4 @@ public class SimpleDocumentParser {
     public void parse() throws IOException {
         parser.parse();
     }
-    
-    /**
-     * Returns the object model.  The client code must call parse first.
-     * 
-     * @return
-     */
-    public List<StructuredField> getObjectModel() {
-        return objectModelCreatingHandler.getObjectModel();
-    }
-    
 }

@@ -6,7 +6,7 @@ import org.afpparser.afp.modca.structuredfields.SfTypeFactory.End;
 
 /**
  * Implementations of this interface are registered with a
- * {@link AFPDocumentParser} to publish structured field introducer parsing
+ * {@link StructuredFieldIntroducerParser} to publish structured field introducer parsing
  * events.
  */
 public interface StructuredFieldIntroducerHandler {

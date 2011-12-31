@@ -7,7 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.afpparser.parser.AFPDocumentParser;
+import org.afpparser.parser.StructuredFieldIntroducerParser;
 import org.afpparser.serializer.SFIntroducerSerializer;
 
 /**
@@ -37,6 +37,6 @@ public class XmlSFIntroducerSerializer implements SFIntroducerSerializer {
     @Override
     public void writeTo(OutputStream out) throws IOException {
         XmlSerializingSFIntroducerHandler handler = new XmlSerializingSFIntroducerHandler(out);
-        new AFPDocumentParser(afpInputStream, handler).parse();
+        new StructuredFieldIntroducerParser(afpInputStream, handler).parse();
     }
 }

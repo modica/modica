@@ -12,7 +12,7 @@ import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
  * further processing to a {@link StructuredFieldIntroducerHandler}.
  * 
  */
-public final class AFPDocumentParser {
+public final class StructuredFieldIntroducerParser {
 
     private final StructuredFieldIntroducerReader reader;
 
@@ -28,7 +28,7 @@ public final class AFPDocumentParser {
      * @throws FileNotFoundException
      *             Thrown if the AFP file is invalid.
      */
-    public AFPDocumentParser(FileInputStream afpFileInputStream, StructuredFieldIntroducerHandler handler)
+    public StructuredFieldIntroducerParser(FileInputStream afpFileInputStream, StructuredFieldIntroducerHandler handler)
             throws FileNotFoundException {
         this.reader = new StructuredFieldIntroducerReader(afpFileInputStream);
         this.handler = handler;

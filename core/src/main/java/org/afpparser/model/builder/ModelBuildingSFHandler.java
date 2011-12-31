@@ -1,19 +1,20 @@
-package org.afpparser.parser;
+package org.afpparser.model.builder;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import org.afpparser.afp.modca.structuredfields.StructuredField;
+import org.afpparser.parser.StructuredFieldHandler;
 
 /**
  * This class constructs an object model.
  */
-public class ObjectModelCreator implements StructuredFieldHandler {
+public class ModelBuildingSFHandler implements StructuredFieldHandler {
 
     private final List<StructuredField> structuredFields;
 
-    public ObjectModelCreator() {
+    public ModelBuildingSFHandler() {
         structuredFields = new ArrayList<StructuredField>();
     }
 
