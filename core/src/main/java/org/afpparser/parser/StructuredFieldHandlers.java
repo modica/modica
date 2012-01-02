@@ -17,7 +17,11 @@ public final class StructuredFieldHandlers {
     }
 
     public static StructuredFieldHandler aggregate(StructuredFieldHandler... handlers) {
-        return new AggregateStructuredFieldHandler(handlers);
+        if ( handlers.length == 1) {
+            return handlers[0];
+        } else {
+            return new AggregateStructuredFieldHandler(handlers);
+        }
     }
 
     public static StructuredFieldHandler aggregate(StructuredFieldHandler[] handlerArray,

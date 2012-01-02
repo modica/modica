@@ -25,7 +25,11 @@ public final class StructuredFieldIntroducerHandlers {
      * @return
      */
     public static StructuredFieldIntroducerHandler aggregate(StructuredFieldIntroducerHandler... handlers) {
-        return new AggregateSFIntroducerHandler(handlers);
+        if (handlers.length == 1) {
+            return handlers[0];
+        } else {
+            return new AggregateSFIntroducerHandler(handlers);
+        }
     }
 
     public static StructuredFieldIntroducerHandler aggregate(StructuredFieldIntroducerHandler[] handlerArray,
