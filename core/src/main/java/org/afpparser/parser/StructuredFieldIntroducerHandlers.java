@@ -6,10 +6,10 @@ import java.util.List;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 
 /**
- * 
+ *
  * This class consists exclusively of static methods that operate on or return
  * {@link StructuredFieldIntroducerHandler}s.
- * 
+ *
  */
 public final class StructuredFieldIntroducerHandlers {
 
@@ -19,13 +19,15 @@ public final class StructuredFieldIntroducerHandlers {
     /**
      * Returns a SFIntroducerHandler that delegates to the handlers in their
      * sequential order.
-     * 
+     *
      * @param handlers
      *            An array of SFIntroducerHandler
      * @return
      */
     public static StructuredFieldIntroducerHandler aggregate(StructuredFieldIntroducerHandler... handlers) {
-        if (handlers.length == 1) {
+        if (handlers.length == 0) {
+            throw new IllegalArgumentException("Requires 1 or more  StructuredFieldIntroducerHandlers");
+        } else if ( handlers.length == 1) {
             return handlers[0];
         } else {
             return new AggregateSFIntroducerHandler(handlers);

@@ -6,10 +6,10 @@ import java.util.List;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
 
 /**
- * 
+ *
  * This class consists exclusively of static methods that operate on or return
  * {@link StructuredFieldHandler}s.
- * 
+ *
  */
 public final class StructuredFieldHandlers {
     private StructuredFieldHandlers() {
@@ -17,7 +17,9 @@ public final class StructuredFieldHandlers {
     }
 
     public static StructuredFieldHandler aggregate(StructuredFieldHandler... handlers) {
-        if ( handlers.length == 1) {
+        if (handlers.length == 0) {
+            throw new IllegalArgumentException("Requires 1 or more  StructuredFieldHandlers");
+        } else if ( handlers.length == 1) {
             return handlers[0];
         } else {
             return new AggregateStructuredFieldHandler(handlers);

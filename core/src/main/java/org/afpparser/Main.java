@@ -7,12 +7,11 @@ import java.util.List;
 
 import org.afpparser.afp.modca.structuredfields.StructuredField;
 import org.afpparser.model.builder.ModelBuildingSFHandler;
-import org.afpparser.parser.StructuredFieldHandlers;
-import org.afpparser.parser.StructuredFieldIntroducerParser;
-import org.afpparser.parser.AfpHandlers;
+import org.afpparser.parser.AfpParser;
 import org.afpparser.parser.PrintingSFHandler;
 import org.afpparser.parser.PrintingSFIntoducerHandler;
-import org.afpparser.parser.AfpParser;
+import org.afpparser.parser.StructuredFieldIntroducerParser;
+
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -46,13 +45,11 @@ public class Main {
 
                 inStream = new FileInputStream(afpDoc);
                 ModelBuildingSFHandler modelBuilder = new ModelBuildingSFHandler();
-                new AfpParser(inStream,
-                       AfpHandlers.delegateTo(
-                                PrintingSFIntoducerHandler.newInstance(),
-                                StructuredFieldHandlers.aggregate(PrintingSFHandler.newInstance(),
-                                        modelBuilder)
-                        )
-                ).parse();
+                AfpParser.builder(inStream)
+                        .with(PrintingSFIntoducerHandler.newInstance())
+                        .with(PrintingSFHandler.newInstance())
+                        .with(modelBuilder)
+                        .build().parse();
                 List<StructuredField> model = modelBuilder.getObjectModel();
                 System.out.println("This document contains " + model.size() + " structured fields.");
 
