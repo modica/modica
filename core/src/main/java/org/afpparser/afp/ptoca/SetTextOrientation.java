@@ -28,8 +28,9 @@ public class SetTextOrientation extends ControlSequence {
     }
 
     private int getDegrees(byte byte1, byte byte2) {
+        // bits 0-9 are the degrees field
         int degrees = (byte1 & 0xff) << 1;
-        degrees += byte2 >>> 7;
+        degrees += (byte2 & 0xff) >>> 7;
         return degrees;
     }
 
@@ -75,7 +76,7 @@ public class SetTextOrientation extends ControlSequence {
 
     @Override
     public String getValueAsString() {
-        return "I-Axis=" + iOrientationDegrees + "\"" + iOrientationMinutes
-                + "B-Axis=" + bOrientationDegrees + "\"" + bOrientationMinutes;
+        return "I-Axis=" + iOrientationDegrees + "\"" + iOrientationMinutes + "' "
+                + "B-Axis=" + bOrientationDegrees + "\"" + bOrientationMinutes + "'";
     }
 }
