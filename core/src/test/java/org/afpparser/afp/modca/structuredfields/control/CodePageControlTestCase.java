@@ -6,15 +6,16 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.afpparser.afp.modca.Context;
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.CPIRepeatingGroupLength;
-import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Control;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldTestCase;
 import org.afpparser.common.ByteUtils;
 import org.junit.Before;
@@ -102,39 +103,39 @@ public class CodePageControlTestCase extends StructuredFieldTestCase<CodePageCon
     @Test
     @Override
     public void testGetParameters() {
-        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
-        expectedParams.put("DefaultGCGID", defaultChar);
-        expectedParams.put("isInvalidCodedCharacter", String.valueOf(true));
-        expectedParams.put("isNoPresentation", String.valueOf(false));
-        expectedParams.put("isNoIncrement", String.valueOf(false));
-        expectedParams.put("CPIRepeatingGroupLength",
-                CPIRepeatingGroupLength.SINGLE_BYTE.toString());
-        expectedParams.put("SpaceCharSectionNumber", String.valueOf(2));
-        expectedParams.put("SpaceCharCodePoint", String.valueOf(3));
-        expectedParams.put("isAscendingCodePoint", String.valueOf(true));
-        expectedParams.put("isVariableSpaceEnabled", String.valueOf(false));
-        expectedParams.put("DefaultUnicodeValue", String.valueOf(0));
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
+        expectedParams.add(new ParameterAsString("DefaultGCGID", defaultChar));
+        expectedParams.add(new ParameterAsString("isInvalidCodedCharacter", true));
+        expectedParams.add(new ParameterAsString("isNoPresentation", false));
+        expectedParams.add(new ParameterAsString("isNoIncrement", false));
+        expectedParams.add(new ParameterAsString("CPIRepeatingGroupLength",
+                CPIRepeatingGroupLength.SINGLE_BYTE));
+        expectedParams.add(new ParameterAsString("SpaceCharSectionNumber", 2));
+        expectedParams.add(new ParameterAsString("SpaceCharCodePoint", 3));
+        expectedParams.add(new ParameterAsString("isAscendingCodePoint", true));
+        expectedParams.add(new ParameterAsString("isVariableSpaceEnabled", false));
+        expectedParams.add(new ParameterAsString("DefaultUnicodeValue", 0));
         testParameters(expectedParams, sut);
 
-        expectedParams.put("isInvalidCodedCharacter", String.valueOf(false));
+        expectedParams.set(1, new ParameterAsString("isInvalidCodedCharacter", false));
         testParameters(expectedParams, notInvalid);
 
-        expectedParams.put("isNoPresentation", String.valueOf(true));
+        expectedParams.set(2, new ParameterAsString("isNoPresentation", true));
         testParameters(expectedParams, noPresentation);
 
-        expectedParams.put("isNoIncrement", String.valueOf(true));
+        expectedParams.set(3, new ParameterAsString("isNoIncrement", true));
         testParameters(expectedParams, noIncrement);
 
-        expectedParams.put("CPIRepeatingGroupLength",
-                CPIRepeatingGroupLength.DOUBLE_BYTE.toString());
+        expectedParams.set(4, new ParameterAsString("CPIRepeatingGroupLength",
+                CPIRepeatingGroupLength.DOUBLE_BYTE));
         testParameters(expectedParams, doubleByte);
 
-        expectedParams.put("CPIRepeatingGroupLength",
-                CPIRepeatingGroupLength.SINGLE_BYTE_INC_UNICODE.toString());
+        expectedParams.set(4, new ParameterAsString("CPIRepeatingGroupLength",
+                CPIRepeatingGroupLength.SINGLE_BYTE_INC_UNICODE));
         testParameters(expectedParams, singleByteUnicode);
 
-        expectedParams.put("CPIRepeatingGroupLength",
-                CPIRepeatingGroupLength.DOUBLE_BYTE_INC_UNICODE.toString());
+        expectedParams.set(4, new ParameterAsString("CPIRepeatingGroupLength",
+                CPIRepeatingGroupLength.DOUBLE_BYTE_INC_UNICODE));
         testParameters(expectedParams, doubleByteUnicode);
     }
 }

@@ -1,9 +1,10 @@
 package org.afpparser.afp.modca.structuredfields.descriptor;
 
 import java.io.UnsupportedEncodingException;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.EncodingScheme;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
@@ -101,13 +102,13 @@ public class CodePageDescriptor extends AbstractStructuredField {
     }
 
     @Override
-    public Map<String, String> getParameters() {
-        Map<String, String> params = new LinkedHashMap<String, String>();
-        params.put("Description", cpDesc);
-        params.put("NumberOfCodePoints", String.valueOf(numCdPts));
-        params.put("GCSGID", String.valueOf(gcsgid));
-        params.put("CPGID", String.valueOf(cpgid));
-        params.put("EncodingScheme", encScheme.toString());
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+        params.add(new ParameterAsString("Description", cpDesc));
+        params.add(new ParameterAsString("NumberOfCodePoints", numCdPts));
+        params.add(new ParameterAsString("GCSGID", gcsgid));
+        params.add(new ParameterAsString("CPGID", cpgid));
+        params.add(new ParameterAsString("EncodingScheme", encScheme));
         return params;
     }
 }

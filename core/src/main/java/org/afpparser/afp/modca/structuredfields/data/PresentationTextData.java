@@ -1,10 +1,10 @@
 package org.afpparser.afp.modca.structuredfields.data;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
@@ -39,12 +39,11 @@ public class PresentationTextData extends AbstractStructuredField {
     }
 
     @Override
-    public Map<String, String> getParameters() {
-        Map<String, String> params = new LinkedHashMap<String, String>();
-        int counter = 0;
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         for (ControlSequence cs : ptocaData) {
-            params.put(counter++ + " " + cs.getControlSequenceIdentifier().getName(),
-                    cs.getValueAsString());
+            params.add(new ParameterAsString(cs.getControlSequenceIdentifier().getName(),
+                    cs.getValueAsString()));
         }
         return params;
     }

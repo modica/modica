@@ -1,8 +1,9 @@
 package org.afpparser.afp.modca.structuredfields.position;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.ReferenceCoordinateSystem;
 import org.afpparser.afp.modca.common.Rotation;
@@ -159,16 +160,16 @@ public class ObjectAreaPosition extends AbstractStructuredField {
     }
 
     @Override
-    public Map<String, String> getParameters() {
-        Map<String, String> params = new LinkedHashMap<String, String>();
-        params.put("ObjectAreaPositionId", ByteUtils.bytesToHex(oaPosId));
-        params.put("X-AxisObjectAreaOffset", String.valueOf(xoaOset));
-        params.put("Y-AxisObjectAreaOffset", String.valueOf(yoaOset));
-        params.put("X-AxisObjectOrientation", xoaOrent.toString());
-        params.put("Y-AxisObjectOrientation", yoaOrent.toString());
-        params.put("X-AxisObjectOffset", String.valueOf(xocaOset));
-        params.put("Y-AxisObjectOffset", String.valueOf(yocaOset));
-        params.put("ReferenceCoordSystem", refCSys.toString());
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+        params.add(new ParameterAsString("ObjectAreaPositionId", ByteUtils.bytesToHex(oaPosId)));
+        params.add(new ParameterAsString("X-AxisObjectAreaOffset", xoaOset));
+        params.add(new ParameterAsString("Y-AxisObjectAreaOffset", yoaOset));
+        params.add(new ParameterAsString("X-AxisObjectOrientation", xoaOrent));
+        params.add(new ParameterAsString("Y-AxisObjectOrientation", yoaOrent));
+        params.add(new ParameterAsString("X-AxisObjectOffset", xocaOset));
+        params.add(new ParameterAsString("Y-AxisObjectOffset", yocaOset));
+        params.add(new ParameterAsString("ReferenceCoordSystem", refCSys));
         return params;
     }
 }

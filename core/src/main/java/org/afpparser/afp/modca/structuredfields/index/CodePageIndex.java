@@ -3,12 +3,11 @@ package org.afpparser.afp.modca.structuredfields.index;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.afpparser.afp.modca.Context;
 import org.afpparser.afp.modca.Context.FOCAContext;
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.CPIRepeatingGroupLength;
 import org.afpparser.afp.modca.common.GraphicalCharacterUseFlags;
@@ -192,15 +191,14 @@ public class CodePageIndex extends AbstractStructuredField {
     }
 
     @Override
-    public Map<String, String> getParameters() {
-        Map<String, String> params = new LinkedHashMap<String, String>();
-        int counter = 1;
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         for (CPI cpi : cpis) {
             StringBuilder sb = new StringBuilder();
             sb.append("GCGID=" + cpi.gcgid);
             sb.append(" CodePoint=" + StringUtils.toHex(cpi.codePoint, 2));
             sb.append(" UnicodeIndex=" + StringUtils.toHex(cpi.unicodeIndex, 2));
-            params.put("CodePageIndex#" + String.valueOf(counter++), sb.toString());
+            params.add(new ParameterAsString("CodePageIndex", sb.toString()));
             //TODO: may want to change how this is done, this implementation is very primitive
         }
         return params;

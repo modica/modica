@@ -2,9 +2,9 @@ package org.afpparser.afp.modca.structuredfields;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.List;
 
+import org.afpparser.afp.modca.ParameterAsString;
 import org.junit.Test;
 
 /**
@@ -33,17 +33,12 @@ public abstract class StructuredFieldTestCase<S extends AbstractStructuredField>
 
     public abstract void testGetParameters();
 
-    @SuppressWarnings("unchecked")
-    protected void testParameters(Map<String, String> expectedParameters, StructuredField sf) {
-        Map<String, String> sutParams = sf.getParameters();
+    protected void testParameters(List<ParameterAsString> expectedParameters, StructuredField sf) {
+        List<ParameterAsString> sutParams = sf.getParameters();
         assertEquals(expectedParameters.size(), sutParams.size());
-        Entry<String, String>[] sutEntryArray = sutParams.entrySet().toArray(new Entry[0]);
-        Entry<String, String>[] expectedEntryArray =
-                expectedParameters.entrySet().toArray(new Entry[0]);
-        for (int i = 0; i < expectedEntryArray.length; i++) {
-            String key = expectedEntryArray[i].getKey();
-            assertEquals(key, sutEntryArray[i].getKey());
-            assertEquals(key, expectedEntryArray[i].getValue(), sutEntryArray[i].getValue());
+        for (int i = 0; i < expectedParameters.size(); i++) {
+            assertEquals(expectedParameters.get(i).getKey(), sutParams.get(i).getKey());
+            assertEquals(expectedParameters.get(i).getValue(), sutParams.get(i).getValue());
         }
     }
 }

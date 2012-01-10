@@ -4,14 +4,15 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.EncodingScheme;
-import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Descriptor;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldTestCase;
 import org.afpparser.common.ByteUtils;
 import org.junit.Before;
@@ -50,12 +51,13 @@ public class CodePageDescriptorTestCase extends StructuredFieldTestCase<CodePage
     @Test
     @Override
     public void testGetParameters() {
-        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
-        expectedParams.put("Description", cpDesc);
-        expectedParams.put("NumberOfCodePoints", "16909060");
-        expectedParams.put("GCSGID", String.valueOf("1286"));
-        expectedParams.put("CPGID", String.valueOf("1800"));
-        expectedParams.put("EncodingScheme", EncodingScheme.DOUBLE_BYTE_EBCDIC.toString());
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
+        expectedParams.add(new ParameterAsString("Description", cpDesc));
+        expectedParams.add(new ParameterAsString("NumberOfCodePoints", 16909060));
+        expectedParams.add(new ParameterAsString("GCSGID", 1286));
+        expectedParams.add(new ParameterAsString("CPGID", 1800));
+        expectedParams.add(new ParameterAsString("EncodingScheme",
+                EncodingScheme.DOUBLE_BYTE_EBCDIC));
         testParameters(expectedParams, sut);
     }
 }

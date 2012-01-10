@@ -1,9 +1,9 @@
 package org.afpparser.afp.modca.structuredfields.descriptor;
 
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.PresentationSpaceUnits;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
@@ -127,14 +127,14 @@ public class PageDescriptor extends StructuredFieldWithTriplets {
     }
 
     @Override
-    public Map<String, String> getParameters() {
-        Map<String, String> params = new LinkedHashMap<String, String>();
-        params.put("X-AxisBaseUnit", xAxisBaseUnit.toString());
-        params.put("Y-AxisBaseUnit", yAxisBaseUnit.toString());
-        params.put("X-AxisPageUnit", String.valueOf(xAxisPageUnit));
-        params.put("Y-AxisPageUnit", String.valueOf(yAxisPageUnit));
-        params.put("X-AxisPageSize", String.valueOf(xAxisPageSize));
-        params.put("Y-AxisPageSize", String.valueOf(yAxisPageSize));
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+        params.add(new ParameterAsString("X-AxisBaseUnit", xAxisBaseUnit));
+        params.add(new ParameterAsString("Y-AxisBaseUnit", yAxisBaseUnit));
+        params.add(new ParameterAsString("X-AxisPageUnit", xAxisPageUnit));
+        params.add(new ParameterAsString("Y-AxisPageUnit", yAxisPageUnit));
+        params.add(new ParameterAsString("X-AxisPageSize", xAxisPageSize));
+        params.add(new ParameterAsString("Y-AxisPageSize", yAxisPageSize));
         return params;
     }
 }

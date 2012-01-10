@@ -3,14 +3,14 @@ package org.afpparser.afp.modca.structuredfields.data;
 import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
-import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Begin;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldTestCase;
 import org.afpparser.afp.ptoca.AbsoluteMoveBaseline;
 import org.afpparser.afp.ptoca.ControlSequence;
@@ -47,9 +47,9 @@ public class PresentationTextDataTestCase extends StructuredFieldTestCase<Presen
     @Test
     @Override
     public void testGetParameters() {
-        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
-        expectedParams.put("0 " + ControlSequenceIdentifier.ABSOLUTE_MOVE_BASELINE.getName(),
-                "moveto 880");
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
+        expectedParams.add(new ParameterAsString(
+                ControlSequenceIdentifier.ABSOLUTE_MOVE_BASELINE.getName(), "moveto 880"));
         testParameters(expectedParams, sut);
     }
 }

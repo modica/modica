@@ -2,15 +2,16 @@ package org.afpparser.afp.modca.structuredfields.position;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.ReferenceCoordinateSystem;
 import org.afpparser.afp.modca.common.Rotation;
-import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Position;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldTestCase;
 import org.afpparser.common.ByteUtils;
 import org.junit.Before;
@@ -62,15 +63,15 @@ public class ObjectAreaPositionTestCase extends StructuredFieldTestCase<ObjectAr
     @Test
     @Override
     public void testGetParameters() {
-        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
-        expectedParams.put("ObjectAreaPositionId", ByteUtils.bytesToHex((byte) 0x01));
-        expectedParams.put("X-AxisObjectAreaOffset", String.valueOf(0x20304));
-        expectedParams.put("Y-AxisObjectAreaOffset", String.valueOf(0x50607));
-        expectedParams.put("X-AxisObjectOrientation", Rotation.ZERO.toString());
-        expectedParams.put("Y-AxisObjectOrientation", Rotation.NINETY.toString());
-        expectedParams.put("X-AxisObjectOffset", String.valueOf(0x10203));
-        expectedParams.put("Y-AxisObjectOffset", String.valueOf(0x40506));
-        expectedParams.put("ReferenceCoordSystem", ReferenceCoordinateSystem.ORIGIN.toString());
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
+        expectedParams.add(new ParameterAsString("ObjectAreaPositionId", ByteUtils.bytesToHex((byte) 0x01)));
+        expectedParams.add(new ParameterAsString("X-AxisObjectAreaOffset", 0x20304));
+        expectedParams.add(new ParameterAsString("Y-AxisObjectAreaOffset", 0x50607));
+        expectedParams.add(new ParameterAsString("X-AxisObjectOrientation", Rotation.ZERO));
+        expectedParams.add(new ParameterAsString("Y-AxisObjectOrientation", Rotation.NINETY));
+        expectedParams.add(new ParameterAsString("X-AxisObjectOffset", 0x10203));
+        expectedParams.add(new ParameterAsString("Y-AxisObjectOffset", 0x40506));
+        expectedParams.add(new ParameterAsString("ReferenceCoordSystem", ReferenceCoordinateSystem.ORIGIN));
         testParameters(expectedParams, sut);
     }
 }
