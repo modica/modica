@@ -16,7 +16,7 @@ public class CodePageDescriptor extends AbstractStructuredField {
 
     private final String cpDesc;
     private static final int GCGIDLEN = 8;
-    private final int numCdPts;
+    private final long numCdPts;
     private final int gcsgid;
     private final int cpgid;
     private final EncodingScheme encScheme;
@@ -25,12 +25,12 @@ public class CodePageDescriptor extends AbstractStructuredField {
             throws UnsupportedEncodingException {
         super(introducer);
         cpDesc = params.getString(32);
-        int gcgidLength = params.getUInt(2);
+        int gcgidLength = (int) params.getUInt(2);
         assert gcgidLength == GCGIDLEN;
 
         numCdPts = params.getUInt(4);
-        gcsgid = params.getUInt(2);
-        cpgid = params.getUInt(2);
+        gcsgid = (int) params.getUInt(2);
+        cpgid = (int) params.getUInt(2);
         if (params.bytesRemaining() > 0) {
             encScheme = EncodingScheme.getValue(params.getByte());
             params.skip(1); // The encoding scheme only uses the first of 2 bytes
@@ -58,7 +58,7 @@ public class CodePageDescriptor extends AbstractStructuredField {
      *
      * @return the number of coded graphic characters
      */
-    public int getNumCdPts() {
+    public long getNumCdPts() {
         return numCdPts;
     }
 

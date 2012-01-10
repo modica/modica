@@ -35,7 +35,7 @@ public final class TripletHandler {
         List<Triplet> tripletList = new ArrayList<Triplet>();
         // The length field of the recurring group is included in the
         while (params.getPosition() < position + length) {
-            int tripletLength = params.getUInt(1);
+            int tripletLength = (int) params.getUInt(1);
             TripletIdentifiers tId = TripletIdentifiers.getTripletId(params.getByte());
             switch (tId) {
             case coded_graphic_character_set_global_identifier:
@@ -105,12 +105,12 @@ public final class TripletHandler {
      */
     public static RepeatingTripletGroup parseRepeatingGroup(Parameters params, Context context)
             throws MalformedURLException, UnsupportedEncodingException {
-        int byteIndex = 0;
+        int byteIndex = 2;
         List<List<Triplet>> repeatingTriplets = new ArrayList<List<Triplet>>();
 
         while (byteIndex < params.size()) {
-            int rgLength = params.getUInt(2);
-            List<Triplet> triplets = TripletHandler.parseTriplet(params, params.getPosition(),
+            int rgLength = (int) params.getUInt(2);
+            List<Triplet> triplets = TripletHandler.parseTriplet(params, byteIndex,
                     rgLength - 2, context);
             repeatingTriplets.add(triplets);
             byteIndex += rgLength;

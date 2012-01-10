@@ -64,7 +64,7 @@ public class CodePageIndex extends AbstractStructuredField {
         private final boolean isNoPresentation;
         private final boolean isNoIncrement;
         private final int codePoint;
-        private final int unicodeIndex;
+        private final long unicodeIndex;
 
         private CPI(CPIRepeatingGroupLength cpiRgLength, Parameters params)
                 throws UnsupportedEncodingException {
@@ -75,13 +75,13 @@ public class CodePageIndex extends AbstractStructuredField {
             this.isNoIncrement = GraphicalCharacterUseFlags.isNoIncrement(prntFlags);
             if (cpiRgLength == CPIRepeatingGroupLength.DOUBLE_BYTE
                     || cpiRgLength == CPIRepeatingGroupLength.DOUBLE_BYTE_INC_UNICODE) {
-                this.codePoint = params.getUInt(2);
+                this.codePoint = (int) params.getUInt(2);
             } else {
-                this.codePoint = params.getUInt(1);
+                this.codePoint = (int) params.getUInt(1);
             }
             if (cpiRgLength == CPIRepeatingGroupLength.SINGLE_BYTE_INC_UNICODE
                     || cpiRgLength == CPIRepeatingGroupLength.DOUBLE_BYTE_INC_UNICODE) {
-                int unicodeLength = params.getUInt(1);
+                int unicodeLength = (int) params.getUInt(1);
                 this.unicodeIndex = params.getUInt(unicodeLength);
             } else {
                 unicodeIndex = 0;
@@ -163,7 +163,7 @@ public class CodePageIndex extends AbstractStructuredField {
          *
          * @return the Unicode index
          */
-        public int getUnicodeIndex() {
+        public long getUnicodeIndex() {
             return unicodeIndex;
         }
 

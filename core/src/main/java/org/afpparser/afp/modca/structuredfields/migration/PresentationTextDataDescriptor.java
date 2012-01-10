@@ -26,10 +26,10 @@ public class PresentationTextDataDescriptor extends StructuredFieldWithTriplets 
         byte xpBase = params.getByte();
         byte ypBase = params.getByte();
         assert xpBase == 0 && ypBase == 0;
-        xAxisUnit = params.getUInt(2);
-        yAxisUnit = params.getUInt(2);
-        xAxisSize = params.getUInt(3);
-        yAxisSize = params.getUInt(3);
+        xAxisUnit = (int) params.getUInt(2);
+        yAxisUnit = (int) params.getUInt(2);
+        xAxisSize = (int) params.getUInt(3);
+        yAxisSize = (int) params.getUInt(3);
         assert params.getUInt(2) == 0; // text flags, reserved
         // TODO: add the initial text conditions parsing
     }

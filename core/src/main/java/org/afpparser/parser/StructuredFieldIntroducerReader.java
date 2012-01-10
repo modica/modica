@@ -42,7 +42,7 @@ class StructuredFieldIntroducerReader implements Iterable<StructuredFieldIntrodu
      */
     public StructuredFieldIntroducerReader(FileInputStream afpDoc) {
         channel = afpDoc.getChannel();
-        byteUtils = ByteUtils.getLittleEndianUtils();
+        byteUtils = ByteUtils.getBigEndianUtils();
         sfIterator = new SfIterator();
     }
 
@@ -77,7 +77,8 @@ class StructuredFieldIntroducerReader implements Iterable<StructuredFieldIntrodu
             ByteBuffer buffer = ByteBuffer.allocate(StructuredFieldIntroducer.SF_Introducer_FIELD);
             channel.read(buffer);
             byte[] introducer = buffer.array();
-            int sfLength = byteUtils.bytesToUnsignedInt(introducer, 0, StructuredFieldIntroducer.SFLength_FIELD);
+            int sfLength = (int) byteUtils.bytesToUnsignedInt(introducer, 0,
+                    StructuredFieldIntroducer.SFLength_FIELD);
             byte[] id = new byte[3];
             System.arraycopy(introducer, 2, id, 0, StructuredFieldIntroducer.SFType_ID_FIELD);
             byte flags = introducer[5];
@@ -85,7 +86,7 @@ class StructuredFieldIntroducerReader implements Iterable<StructuredFieldIntrodu
             if (StructuredFieldIntroducer.hasSfiExtension(flags)) {
                 buffer = ByteBuffer.allocate(StructuredFieldIntroducer.ExtLength_FIELD);
                 channel.read(buffer);
-                extLength = byteUtils.bytesToUnsignedInt(buffer.array());
+                extLength = (int) byteUtils.bytesToUnsignedInt(buffer.array());
             }
             StructuredFieldIntroducer sf = new StructuredFieldIntroducer(offset, sfLength, id, flags, extLength);
             channel.position(offset += sf.bytesToNextStructuredField());

@@ -14,7 +14,7 @@ public class Parameters {
 
     private final byte[] sfData;
     private int position = 0;
-    private static final ByteUtils byteUtils = ByteUtils.getLittleEndianUtils();
+    private static final ByteUtils byteUtils = ByteUtils.getBigEndianUtils();
     private final String stringEncoding;
 
     public Parameters(byte[] sfData, String stringEncoding) {
@@ -28,8 +28,8 @@ public class Parameters {
      * @param numberOfBytes the number of bytes that comprise the unsigned integer
      * @return an unsigned integer
      */
-    public int getUInt(int numberOfBytes) {
-        int number = byteUtils.bytesToUnsignedInt(sfData, position, numberOfBytes);
+    public long getUInt(int numberOfBytes) {
+        long number = byteUtils.bytesToUnsignedInt(sfData, position, numberOfBytes);
         position += numberOfBytes;
         return number;
     }

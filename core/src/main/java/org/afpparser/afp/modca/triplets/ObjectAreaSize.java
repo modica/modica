@@ -15,8 +15,8 @@ public class ObjectAreaSize extends Triplet {
     public ObjectAreaSize(Parameters params) {
         byte b = params.getByte();
         assert b == (byte) 0x02;
-        xoaSize = params.getUInt(3);
-        yoaSize = params.getUInt(3);
+        xoaSize = (int) params.getUInt(3);
+        yoaSize = (int) params.getUInt(3);
     }
 
     @Override

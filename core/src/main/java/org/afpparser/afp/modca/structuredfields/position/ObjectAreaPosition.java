@@ -39,8 +39,8 @@ public class ObjectAreaPosition extends AbstractStructuredField {
         assert reserved == (byte) 0x00;
         xocaOset = params.getInt(3);
         yocaOset = params.getInt(3);
-        int xocaOrent = params.getUInt(2);
-        int yocaOrent = params.getUInt(2);
+        int xocaOrent = (int) params.getUInt(2);
+        int yocaOrent = (int) params.getUInt(2);
         assert xocaOrent == 0x0000;
         assert yocaOrent == 0x2D00;
         refCSys = ReferenceCoordinateSystem.getValue(params.getByte());
@@ -124,7 +124,7 @@ public class ObjectAreaPosition extends AbstractStructuredField {
     }
 
     /**
-     * Specifies the amount of rotation of the object content’s X axis about  its defined origin
+     * Specifies the amount of rotation of the object content’s X axis about its defined origin
      * relative to the X axis of the object area coordinate system.
      *
      * @return the rotation of the x-axis from the x-axis

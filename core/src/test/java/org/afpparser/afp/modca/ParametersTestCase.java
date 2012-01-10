@@ -26,7 +26,27 @@ public class ParametersTestCase {
         bb.put("Tester".getBytes("Cp500"));
         byteArray = bb.array();
         sut = new Parameters(byteArray, "Cp500");
+    }
 
+    @Test
+    public void testsInSpec() {
+        byte[] testData = ByteUtils.createByteArray(
+                0x7F, 0xFE,
+                0x7F, 0xFF, 0xFF, 0xFE,
+                0x7F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFE,
+                0x7F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFE);
+        Parameters params = new Parameters(testData, "Cp500");
+        assertEquals(127, params.getInt(1));
+        assertEquals(254, params.getUInt(1));
+
+        assertEquals(32767, params.getInt(2));
+        assertEquals(65534, params.getUInt(2));
+
+        assertEquals(8388607, params.getInt(3));
+        assertEquals(16777214, params.getUInt(3));
+
+        assertEquals(2147483647, params.getInt(4));
+        assertEquals(4294967294L, params.getUInt(4));
     }
 
     @Test
@@ -51,11 +71,11 @@ public class ParametersTestCase {
         assertEquals(3, sut.getPosition());
         assertEquals(0x30405, sut.getInt(3));
         assertEquals(6, sut.getPosition());
-        assertEquals(0x06070809, sut.getInt(4));
+        assertEquals(0x6070809, sut.getInt(4));
         assertEquals(10, sut.getPosition());
         assertEquals(0x0A, sut.getInt(1));
         assertEquals(11, sut.getPosition());
-        assertEquals(-66051, sut.getInt(3));
+        assertEquals(-16776957, sut.getInt(3));
         assertEquals(14, sut.getPosition());
     }
 

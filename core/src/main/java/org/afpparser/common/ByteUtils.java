@@ -24,7 +24,7 @@ public abstract class ByteUtils {
      * @param length the number of bytes to create the integer from
      * @return an unsigned integer
      */
-    public abstract int bytesToUnsignedInt(byte[] bytes, int position, int length);
+    public abstract long bytesToUnsignedInt(byte[] bytes, int position, int length);
 
     /**
      * Takes an array of bytes within <code>bytes</code> starting at <code>position</code> with
@@ -47,30 +47,30 @@ public abstract class ByteUtils {
      * @param bytes the byte array to extract the integer from
      * @return an unsigned integer
      */
-    public abstract int bytesToUnsignedInt(byte[] bytes);
+    public abstract long bytesToUnsignedInt(byte[] bytes);
 
-    private static final int bytesToUInt(byte[] bytes, int position, int length, int bitShiftStart,
-            int bitShitIncrement) {
-        int num = 0;
+    private static final long bytesToUInt(byte[] bytes, int position, int length,
+            int bitShiftStart, int bitShitIncrement) {
+        long num = 0;
         if (length > 4) {
             throw new IllegalArgumentException("The maximum capacity for an int is 32 bytes");
         }
         for (int i = 0, bitShift = bitShiftStart; i < length; i++, bitShift += bitShitIncrement) {
-            num += (bytes[position + i] & 0xff) << bitShift;
+            long tempVal = (bytes[position + i] & 0xff);
+            num += tempVal << bitShift;
         }
         return num;
     }
 
     private static final int bytesToInt(byte[] bytes, int position, int length, int bitShiftStart,
             int bitShitIncrement) {
-        int num = 0;
         if (length > 4) {
             throw new IllegalArgumentException("The maximum capacity for an int is 32 bytes");
         }
-        for (int i = 0, bitShift = bitShiftStart; i < length; i++, bitShift += bitShitIncrement) {
-            num += (bytes[position + i]) << bitShift;
-        }
-        return num;
+        int signum = bytes[position] < 0 ? -1 : 1;
+        int positiveNum = (int) bytesToUInt(bytes, position, length, bitShiftStart,
+                bitShitIncrement);
+        return signum * positiveNum;
     }
 
     /**
@@ -156,10 +156,10 @@ public abstract class ByteUtils {
      * Checks that the byte array given matches the series of elements given as the varargs
      * parameters. This returns false only if any elements are different, it does not check the
      * length of the byte array.
-     *  
+     *
      * @param array the byte array
      * @param elements the byte elements to compare
-     * @return true if the 
+     * @return true if the subsets are equal
      */
     public static boolean arrayEqualsSubset(byte[] array, int... elements) {
         try {
@@ -180,19 +180,19 @@ public abstract class ByteUtils {
         }
 
         @Override
-        public int bytesToUnsignedInt(byte[] bytes, int position, int length) {
-            return bytesToUInt(bytes, position, length, (length - 1) * 8, -8);
+        public long bytesToUnsignedInt(byte[] bytes, int position, int length) {
+            return bytesToUInt(bytes, position, length, 0, 8);
         }
 
         @Override
-        public int bytesToUnsignedInt(byte[] bytes) {
+        public long bytesToUnsignedInt(byte[] bytes) {
             return bytesToUnsignedInt(bytes, 0, bytes.length);
         }
-
         @Override
         public int bytesToSignedInt(byte[] bytes, int position, int length) {
-            return bytesToInt(bytes, position, length, (length - 1) * 8, -8);
+            return bytesToInt(bytes, position, length, 0, 8);
         }
+
     }
 
     private static class BigEndianByteUtils extends ByteUtils {
@@ -201,20 +201,19 @@ public abstract class ByteUtils {
         }
 
         @Override
-        public int bytesToUnsignedInt(byte[] bytes, int position, int length) {
-            return bytesToUInt(bytes, position, length, 0, 8);
+        public long bytesToUnsignedInt(byte[] bytes, int position, int length) {
+            return bytesToUInt(bytes, position, length, (length - 1) * 8, -8);
         }
 
         @Override
-        public int bytesToUnsignedInt(byte[] bytes) {
+        public long bytesToUnsignedInt(byte[] bytes) {
             return bytesToUnsignedInt(bytes, 0, bytes.length);
         }
 
         @Override
         public int bytesToSignedInt(byte[] bytes, int position, int length) {
-            return bytesToInt(bytes, position, length, 0, 8);
+            return bytesToInt(bytes, position, length, (length - 1) * 8, -8);
         }
-
     }
 
     /**

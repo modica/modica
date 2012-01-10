@@ -19,8 +19,8 @@ public class ObjectFunctionSetSpecification extends Triplet {
         this.length = length;
         objType = ObjectType.getValue(params.getByte());
         archVrsn = params.getByte();
-        dcaFnSet = params.getUInt(2);
-        ocaFnSet = OcaFunctionSet.getValue(params.getUInt(2));
+        dcaFnSet = (int) params.getUInt(2);
+        ocaFnSet = OcaFunctionSet.getValue((int) params.getUInt(2));
         // the length and triplet id fields are included in the length
         params.skip(length - 6 - 2);
     }
