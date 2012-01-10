@@ -28,6 +28,9 @@ public class TemporaryBaselineMove extends ControlSequence {
         }
     }
 
+    /**
+     * An enumeration that describes the direction of the base line move.
+     */
     public enum Direction {
         /** Do not change the baseline. */
         NO_CHANGE,

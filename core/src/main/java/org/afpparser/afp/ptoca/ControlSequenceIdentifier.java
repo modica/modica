@@ -3,6 +3,9 @@ package org.afpparser.afp.ptoca;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * An enumeration of the PTOCA control sequences that perform text drawing commands.
+ */
 public enum ControlSequenceIdentifier {
     /**
      * Establishes the baseline and the current presentation position at a new B-axis

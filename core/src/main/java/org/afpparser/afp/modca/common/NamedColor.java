@@ -25,6 +25,12 @@ public enum NamedColor {
     BROWN,
     COLOUR_OF_MEDIUM;
 
+    /**
+     * Get the color by reading 2 bytes within the parameters object.
+     *
+     * @param params the parameters
+     * @return the named color as an enumeration
+     */
     public static NamedColor getValue(Parameters params) {
         byte firstByte = params.getByte();
         byte secondByte = params.getByte();
