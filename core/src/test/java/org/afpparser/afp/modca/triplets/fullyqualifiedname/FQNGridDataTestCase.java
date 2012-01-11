@@ -2,6 +2,10 @@ package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.triplets.TripletTestCase;
 import org.afpparser.common.ByteUtils;
@@ -44,9 +48,9 @@ public class FQNGridDataTestCase extends TripletTestCase<FQNGridData> {
 
     @Test
     @Override
-    public void testGetValueAsString() {
-        String expectedString = "GlobalResourceId=[" + x.getGrid().toString() + "]";
-        assertEquals(expectedString, x.getValueAsString());
+    public void testGetParameters() {
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
+        expectedParams.add(new ParameterAsString("GlobalResourceId", x.getGrid()));
+        parameterTester(expectedParams, x);
     }
-
 }

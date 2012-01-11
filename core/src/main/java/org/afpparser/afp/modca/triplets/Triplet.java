@@ -1,5 +1,9 @@
 package org.afpparser.afp.modca.triplets;
 
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
+
 /**
  * A triplets is a self-identifying parameter that contains three components, the length of the
  * triplet, the ID identifying a triplet and the associated parameters. Triplets are also
@@ -26,7 +30,7 @@ public abstract class Triplet {
      *
      * @return the string representation of this triplet
      */
-    public abstract String getValueAsString();
+    public abstract List<ParameterAsString> getParameters();
 
     @Override
     public abstract boolean equals(Object o);

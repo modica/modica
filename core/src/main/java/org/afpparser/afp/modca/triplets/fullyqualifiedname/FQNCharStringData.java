@@ -1,5 +1,10 @@
 package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
+
 /**
  * Provides functionality for the Fully Qualified Name triplets that have character string data.
  */
@@ -58,7 +63,9 @@ final class FQNCharStringData extends FullyQualifiedName {
     }
 
     @Override
-    public String getValueAsString() {
-        return data;
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+        params.add(new ParameterAsString("Data", data));
+        return params;
     }
 }

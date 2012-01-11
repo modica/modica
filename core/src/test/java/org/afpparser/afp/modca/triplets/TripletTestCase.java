@@ -5,6 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
 import org.junit.Test;
 
 public abstract class TripletTestCase<T> {
@@ -52,5 +55,13 @@ public abstract class TripletTestCase<T> {
         assertNotSame(x.hashCode(), notEqual.hashCode());
     }
 
-    public abstract void testGetValueAsString();
+    public abstract void testGetParameters();
+
+    public void parameterTester(List<ParameterAsString> expectedParams, Triplet triplet) {
+        List<ParameterAsString> actualParams = triplet.getParameters();
+        for (int i = 0; i < expectedParams.size(); i++) {
+            assertEquals(expectedParams.get(i).getKey(), actualParams.get(i).getKey());
+            assertEquals(expectedParams.get(i).getValue(), actualParams.get(i).getValue());
+        }
+    }
 }

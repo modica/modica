@@ -1,5 +1,10 @@
 package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
+
 /**
  * This fully qualified name object has an OID data type; The GID is an ASN.1 Object Identifier
  * (OID), defined in ISO/IEC 8824:1990(E). The data type is CODE. The OID is encoded using the
@@ -55,7 +60,9 @@ final class FQNOidData extends FullyQualifiedName {
     }
 
     @Override
-    public String getValueAsString() {
-        return "ObjectId=" + oid.toString();
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+        params.add(new ParameterAsString("ObjectId", oid));
+        return params;
     }
 }

@@ -1,5 +1,9 @@
 package org.afpparser.afp.modca.triplets;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.common.ByteUtils;
 
@@ -105,9 +109,11 @@ public class ResourceLocalId extends Triplet {
     }
 
     @Override
-    public String getValueAsString() {
-        return "ResourceType=" + resourceType.toString()
-                + " ResourceLocalId=" + ByteUtils.bytesToHex(resourceLocalId);
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+        params.add(new ParameterAsString("ResourceType", resourceType));
+        params.add(new ParameterAsString("ResourceLocalId", ByteUtils.bytesToHex(resourceLocalId)));
+        return params;
     }
 
 }

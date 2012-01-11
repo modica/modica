@@ -2,6 +2,10 @@ package org.afpparser.afp.modca.triplets;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.triplets.ObjectFunctionSetSpecification.ObjectType;
 import org.afpparser.afp.modca.triplets.ObjectFunctionSetSpecification.OcaFunctionSet;
@@ -59,12 +63,13 @@ public class ObjectFunctionSetSpecificationTestCase extends
 
     @Test
     @Override
-    public void testGetValueAsString() {
-        // TODO Auto-generated method stub
-        String expectedString = "ObjectType=" + x.getObjType().toString()
-                + " ArchVersion=" + ByteUtils.bytesToHex(x.getArchVersion())
-                + " MODCAFunctionSet=" + x.getDcaFunctionSet()
-                + " OCAFuntionSet=" + x.getOcaFunctionSet().toString();
-        assertEquals(expectedString, x.getValueAsString());
+    public void testGetParameters() {
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
+        expectedParams.add(new ParameterAsString("ObjectType", x.getObjType()));
+        expectedParams.add(new ParameterAsString("ArchVersion",
+                ByteUtils.bytesToHex(x.getArchVersion())));
+        expectedParams.add(new ParameterAsString("MODCAFunctionSet", x.getDcaFunctionSet()));
+        expectedParams.add(new ParameterAsString("OCAFuntionSet", x.getOcaFunctionSet()));
+        parameterTester(expectedParams, x);
     }
 }

@@ -1,5 +1,9 @@
 package org.afpparser.afp.modca.triplets;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.PresentationSpaceUnits;
 
@@ -100,10 +104,12 @@ public class MeasurementUnits extends Triplet {
     }
 
     @Override
-    public String getValueAsString() {
-        return "X-AxisBase=" + xoaBase.toString()
-                + " Y-AxisBase=" + yoaBase.toString()
-                + " X-AxisSize=" + String.valueOf(xoaUnits)
-                + " Y-AxisSize=" + String.valueOf(yoaUnits);
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+        params.add(new ParameterAsString("X-AxisBase", xoaBase));
+        params.add(new ParameterAsString("Y-AxisBase", yoaBase));
+        params.add(new ParameterAsString("X-AxisSize", xoaUnits));
+        params.add(new ParameterAsString("Y-AxisSize", yoaUnits));
+        return params;
     }
 }

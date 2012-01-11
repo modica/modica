@@ -1,5 +1,9 @@
 package org.afpparser.afp.modca.triplets;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.Rotation;
 
@@ -61,7 +65,9 @@ public class CharacterRotation extends Triplet {
     }
 
     @Override
-    public String getValueAsString() {
-        return "Rotation=" + rotation.toString();
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+        params.add(new ParameterAsString("Rotation", rotation));
+        return params;
     }
 }

@@ -1,5 +1,9 @@
 package org.afpparser.afp.modca.triplets;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 
 /**
@@ -74,8 +78,10 @@ public class ObjectAreaSize extends Triplet {
     }
 
     @Override
-    public String getValueAsString() {
-        return "X-AxisSize=" + String.valueOf(xoaSize)
-                + " Y-AxisSize=" + String.valueOf(yoaSize);
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+        params.add(new ParameterAsString("X-AxisSize", xoaSize));
+        params.add(new ParameterAsString("Y-AxisSize", yoaSize));
+        return params;
     }
 }

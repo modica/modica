@@ -1,8 +1,11 @@
 package org.afpparser.afp.modca.triplets;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.afpparser.afp.modca.ParameterAsString;
 
 /**
  * The Mapping Option is used to specify the mapping of a data object presentation space to an
@@ -195,7 +198,9 @@ public class MappingOption extends Triplet {
     }
 
     @Override
-    public String getValueAsString() {
-        return "MapValue=" + mapValue.toString();
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+        params.add(new ParameterAsString("MapValue", mapValue));
+        return params;
     }
 }

@@ -1,7 +1,11 @@
 package org.afpparser.afp.modca.triplets;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.afpparser.afp.modca.Context;
 import org.afpparser.afp.modca.Context.MODCAContext;
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.common.StringUtils;
 
@@ -87,9 +91,11 @@ public abstract class Cgcsgid extends Triplet {
         }
 
         @Override
-        public String getValueAsString() {
-            return "GCSGID=" + StringUtils.toHex(gcsgid, 4)
-                    + " CPGID=" + StringUtils.toHex(cpgid, 4);
+        public List<ParameterAsString> getParameters() {
+            List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+            params.add(new ParameterAsString("GCSGID", StringUtils.toHex(gcsgid, 4)));
+            params.add(new ParameterAsString("CPGID", StringUtils.toHex(cpgid, 4)));
+            return params;
         }
     }
 
@@ -132,8 +138,10 @@ public abstract class Cgcsgid extends Triplet {
         }
 
         @Override
-        public String getValueAsString() {
-            return "CCSID=" + StringUtils.toHex(ccsid, 4);
+        public List<ParameterAsString> getParameters() {
+            List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+            params.add(new ParameterAsString("CCSID", StringUtils.toHex(ccsid, 4)));
+            return params;
         }
     }
 

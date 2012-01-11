@@ -2,6 +2,10 @@ package org.afpparser.afp.modca.triplets.foca;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.triplets.TripletTestCase;
 import org.afpparser.common.ByteUtils;
@@ -46,9 +50,12 @@ public class ResourceManagementTestCase extends TripletTestCase<ResourceManageme
 
     @Test
     @Override
-    public void testGetValueAsString() {
+    public void testGetParameters() {
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
+
         String expectedString = "year=" + 2312 + " day=" + 345 + " hour=" + 34
                 + " minute=" + 56;
-        assertEquals(expectedString, x.getValueAsString());
+        expectedParams.add(new ParameterAsString("Date", expectedString));
+        parameterTester(expectedParams, x);
     }
 }

@@ -2,6 +2,10 @@ package org.afpparser.afp.modca.triplets;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.Rotation;
 import org.junit.Before;
@@ -52,7 +56,9 @@ public class CharacterRotationTestCase extends TripletTestCase<CharacterRotation
 
     @Test
     @Override
-    public void testGetValueAsString() {
-        assertEquals("Rotation=" + Rotation.ZERO.toString(), x.getValueAsString());
+    public void testGetParameters() {
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
+        expectedParams.add(new ParameterAsString("Rotation", Rotation.ZERO));
+        parameterTester(expectedParams, x);
     }
 }

@@ -2,8 +2,12 @@ package org.afpparser.afp.modca.triplets;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.afpparser.afp.modca.Context;
 import org.afpparser.afp.modca.Context.MODCAContext;
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.triplets.Cgcsgid.Ccsid;
 import org.afpparser.afp.modca.triplets.Cgcsgid.Cpgid;
@@ -85,12 +89,14 @@ public class CgcsgidTestCase extends TripletTestCase<Cgcsgid> {
 
     @Test
     @Override
-    public void testGetValueAsString() {
-        String expectedCgcsgid = "GCSGID=" + StringUtils.toHex(0x0001, 4)
-                + " CPGID=" + StringUtils.toHex(0x102, 4);
-        assertEquals(expectedCgcsgid, cgcsgid.getValueAsString());
+    public void testGetParameters() {
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
+        expectedParams.add(new ParameterAsString("GCSGID", StringUtils.toHex(0x0001, 4)));
+        expectedParams.add(new ParameterAsString("CPGID", StringUtils.toHex(0x102, 4)));
+        parameterTester(expectedParams, cgcsgid);
 
-        String expectedCcsid = "CCSID=" + StringUtils.toHex(0x102, 4);
-        assertEquals(expectedCcsid, ccsid.getValueAsString());
+        expectedParams = new ArrayList<ParameterAsString>();
+        expectedParams.add(new ParameterAsString("CCSID", StringUtils.toHex(0x102, 4)));
+        parameterTester(expectedParams, ccsid);
     }
 }

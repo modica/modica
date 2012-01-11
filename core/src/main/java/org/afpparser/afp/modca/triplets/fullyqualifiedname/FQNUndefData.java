@@ -1,6 +1,10 @@
 package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
 
 /**
  * In the case of FQN type X'BE'—Other Object Internal Resource Reference, the data type of the GID
@@ -61,8 +65,10 @@ public class FQNUndefData extends FullyQualifiedName {
     }
 
     @Override
-    public String getValueAsString() {
-        return "Undefined Data";
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+        params.add(new ParameterAsString("Undefined Data", ""));
+        return params;
     }
 
 }

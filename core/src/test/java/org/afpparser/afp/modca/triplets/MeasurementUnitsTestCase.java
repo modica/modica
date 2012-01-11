@@ -2,6 +2,10 @@ package org.afpparser.afp.modca.triplets;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.PresentationSpaceUnits;
 import org.afpparser.common.ByteUtils;
@@ -45,11 +49,12 @@ public class MeasurementUnitsTestCase extends TripletTestCase<MeasurementUnits> 
 
     @Test
     @Override
-    public void testGetValueAsString() {
-        String expectedString = "X-AxisBase=" + x.getXoaBase().toString()
-                + " Y-AxisBase=" + x.getYoaBase().toString()
-                + " X-AxisSize=" + String.valueOf(x.getXoaUnit())
-                + " Y-AxisSize=" + String.valueOf(x.getYoaUnit());
-        assertEquals(expectedString, x.getValueAsString());
+    public void testGetParameters() {
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
+        expectedParams.add(new ParameterAsString("X-AxisBase", x.getXoaBase()));
+        expectedParams.add(new ParameterAsString("Y-AxisBase", x.getYoaBase()));
+        expectedParams.add(new ParameterAsString("X-AxisSize", x.getXoaUnit()));
+        expectedParams.add(new ParameterAsString("Y-AxisSize", x.getYoaUnit()));
+        parameterTester(expectedParams, x);
     }
 }
