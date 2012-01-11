@@ -4,12 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.afpparser.afp.modca.Context;
 import org.afpparser.afp.modca.Context.FOCAContext;
-import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.CPIRepeatingGroupLength;
 import org.afpparser.afp.modca.common.GraphicalCharacterUseFlags;
@@ -19,7 +17,6 @@ import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldTestCase;
 import org.afpparser.afp.modca.structuredfields.index.CodePageIndex.CPI;
 import org.afpparser.common.ByteUtils;
-import org.afpparser.common.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -103,29 +100,5 @@ public class CodePageIndexTestCase extends StructuredFieldTestCase<CodePageIndex
     @Test
     @Override
     public void testGetParameters() {
-        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
-        expectedParams.add(new ParameterAsString("CodePageIndex", createParameterString(char1Name,
-                4, 0)));
-        expectedParams.add(new ParameterAsString("CodePageIndex", createParameterString(char2Name,
-                5, 0)));
-        expectedParams.add(new ParameterAsString("CodePageIndex", createParameterString(char3Name,
-                6, 0)));
-        testParameters(expectedParams, sut);
-
-        expectedParams.set(0, new ParameterAsString("CodePageIndex",
-                createParameterString(char1Name, 0x203, 5)));
-        expectedParams.set(1, new ParameterAsString("CodePageIndex",
-                createParameterString(char2Name, 0x304, 0x607)));
-        expectedParams.set(2, new ParameterAsString("CodePageIndex",
-                createParameterString(char3Name, 0x102, 0x10203)));
-        testParameters(expectedParams, doubleByteUnicodeSut);
-    }
-
-    private String createParameterString(String gcgid, int codePoint, int unicodeIndex) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("GCGID=" + gcgid)
-          .append(" CodePoint=" + StringUtils.toHex(codePoint, 2))
-          .append(" UnicodeIndex=" + StringUtils.toHex(unicodeIndex, 2));
-        return sb.toString();
     }
 }

@@ -41,10 +41,6 @@ public class PresentationTextData extends AbstractStructuredField {
     @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
-        for (ControlSequence cs : ptocaData) {
-            params.add(new ParameterAsString(cs.getControlSequenceIdentifier().getName(),
-                    cs.getValueAsString()));
-        }
         return params;
     }
 }
