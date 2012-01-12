@@ -43,7 +43,7 @@ public class FQNCharStringDataTestCase extends TripletTestCase<FQNCharStringData
     @Override
     public void testGetParameters() {
         List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
-        expectedParams.add(new ParameterAsString("Data", expectedString));
+        expectedParams.add(new ParameterAsString(type.name(), expectedString));
         parameterTester(expectedParams, x);
     }
 }

@@ -65,7 +65,7 @@ final class FQNCharStringData extends FullyQualifiedName {
     @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
-        params.add(new ParameterAsString("Data", data));
+        params.add(new ParameterAsString(getFQNType().name(), data));
         return params;
     }
 }

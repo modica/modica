@@ -62,7 +62,7 @@ final class FQNOidData extends FullyQualifiedName {
     @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
-        params.add(new ParameterAsString("ObjectId", oid));
+        params.add(new ParameterAsString(getFQNType().name(), oid));
         return params;
     }
 }
