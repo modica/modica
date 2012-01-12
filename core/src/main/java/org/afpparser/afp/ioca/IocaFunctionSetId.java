@@ -1,5 +1,9 @@
 package org.afpparser.afp.ioca;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 
 /**
@@ -65,7 +69,9 @@ public class IocaFunctionSetId implements SelfDefiningField {
     }
 
     @Override
-    public String getValueAsString() {
-        return fs.name();
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+        params.add(new ParameterAsString("FunctionSet", fs.name()));
+        return params;
     }
 }

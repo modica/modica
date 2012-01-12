@@ -2,6 +2,10 @@ package org.afpparser.afp.ioca;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.ColorSpace;
 import org.afpparser.common.ByteUtils;
@@ -25,11 +29,15 @@ public class SetExtendedBilevelImageColorTestCase {
         assertEquals(0x809, sut.getColourSize4());
         assertEquals(0xA0B, sut.getColor());
 
-        String expectedString = "ColourSpace=" + ColorSpace.RGB.toString()
-                + " colSize1=" + 0x203
-                + " colSize2=" + 0x405
-                + " colSize3=" + 0x607
-                + " colSize4=" + 0x809;
-        assertEquals(expectedString, sut.getValueAsString());
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
+        expectedParams.add(new ParameterAsString("ColourSpace", ColorSpace.RGB));
+        expectedParams.add(new ParameterAsString("colourSize1", 0x203));
+        expectedParams.add(new ParameterAsString("colourSize2", 0x405));
+        expectedParams.add(new ParameterAsString("colourSize3", 0x607));
+        expectedParams.add(new ParameterAsString("colourSize4", 0x809));
+        for (int i = 0; i < expectedParams.size(); i++) {
+            assertEquals(expectedParams.get(i).getKey(), sut.getParameters().get(i).getKey());
+            assertEquals(expectedParams.get(i).getValue(), sut.getParameters().get(i).getValue());
+        }
     }
 }

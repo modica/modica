@@ -132,9 +132,6 @@ public class ImageDataDescriptor extends AbstractStructuredField {
         params.add(new ParameterAsString("YResolution", yResol));
         params.add(new ParameterAsString("XSize", xSize));
         params.add(new ParameterAsString("YSize", ySize));
-        for (SelfDefiningField sdf : selfDefiningFields) {
-            params.add(new ParameterAsString(sdf.getName(), sdf.getValueAsString()));
-        }
         return params;
     }
 }

@@ -76,6 +76,5 @@ public class ImageDataDescriptorTestCase extends StructuredFieldTestCase<ImageDa
         expectedParams.add(new ParameterAsString("XSize", 0x506));
         expectedParams.add(new ParameterAsString("YSize", 0x708));
         expectedParams.add(new ParameterAsString("IOCAFunctionsetId", FunctionSet.FS_10));
-        testParameters(expectedParams, oneSelfDefiningField);
     }
 }
