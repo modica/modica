@@ -1,10 +1,9 @@
 package org.afpparser.afp.modca.structuredfields;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.triplets.RepeatingTripletGroup;
 import org.afpparser.afp.modca.triplets.Triplet;
 
@@ -58,14 +57,12 @@ public abstract class StructuredFieldWithTripletGroup extends AbstractStructured
      *
      * @return all the contained triplet information in String form
      */
-    public List<Map<String, String>> getRepeatingGroupAsStrings() {
-        List<Map<String, String>> tripletStrings = new ArrayList<Map<String, String>>();
+    public List<List<ParameterAsString>> getRepeatingGroupParameters() {
+        List<List<ParameterAsString>> tripletStrings = new ArrayList<List<ParameterAsString>>();
         for (List<Triplet> tripletList : getTripletGroup()) {
-            Map<String, String> triplets = new HashMap<String, String>();
             for (Triplet t : tripletList) {
-                triplets.put(t.getTid().getName(), t.getValueAsString());
+                tripletStrings.add(t.getParameters());
             }
-            tripletStrings.add(triplets);
         }
         return tripletStrings;
     }

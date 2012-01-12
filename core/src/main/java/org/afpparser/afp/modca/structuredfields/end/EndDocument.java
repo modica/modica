@@ -1,10 +1,10 @@
 package org.afpparser.afp.modca.structuredfields.end;
 
 import java.io.UnsupportedEncodingException;
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
@@ -52,9 +52,9 @@ public class EndDocument extends StructuredFieldWithTriplets {
     }
 
     @Override
-    public Map<String, String> getParameters() {
-        Map<String, String> params = new LinkedHashMap<String, String>();
-        params.put("DocumentName", getDocName());
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+        params.add(new ParameterAsString("DocumentName", getDocName()));
         return params;
     }
 }

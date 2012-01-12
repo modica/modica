@@ -1,10 +1,10 @@
 package org.afpparser.afp.modca.structuredfields;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.triplets.Triplet;
 
 /**
@@ -52,10 +52,10 @@ public abstract class StructuredFieldWithTriplets extends AbstractStructuredFiel
      *
      * @return the triplets as Strings
      */
-    public Map<String, String> getTripletsAsStrings() {
-        Map<String, String> tripletStrings = new HashMap<String, String>();
+    public List<List<ParameterAsString>> getTripletParameters() {
+        List<List<ParameterAsString>> tripletStrings = new ArrayList<List<ParameterAsString>>();
         for (Triplet t : getTriplets()) {
-            tripletStrings.put(t.getTid().getName(), t.getValueAsString());
+            tripletStrings.add(t.getParameters());
         }
         return tripletStrings;
     }

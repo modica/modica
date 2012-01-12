@@ -1,5 +1,9 @@
 package org.afpparser.afp.modca.triplets.foca;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.TripletIdentifiers;
@@ -93,9 +97,11 @@ public abstract class ResourceManagement extends Triplet {
         }
 
         @Override
-        public String getValueAsString() {
-            return "ResourceManagementValue=" + String.valueOf(rmValue)
-                    + " isPublic=" + String.valueOf(isPublic);
+        public List<ParameterAsString> getParameters() {
+            List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+            params.add(new ParameterAsString("ResourceManagementValue", rmValue));
+            params.add(new ParameterAsString("isPublic", isPublic));
+            return params;
         }
     }
 
@@ -199,8 +205,10 @@ public abstract class ResourceManagement extends Triplet {
         }
 
         @Override
-        public String getValueAsString() {
-            return dateToString();
+        public List<ParameterAsString> getParameters() {
+            List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+            params.add(new ParameterAsString("Date", dateToString()));
+            return params;
         }
     }
 

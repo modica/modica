@@ -1,6 +1,10 @@
 package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
 
 public class FQNUrlData extends FullyQualifiedName {
     private final URL data;
@@ -57,7 +61,9 @@ public class FQNUrlData extends FullyQualifiedName {
     }
 
     @Override
-    public String getValueAsString() {
-        return "URL=" + data.toString();
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+        params.add(new ParameterAsString("URL", data));
+        return params;
     }
 }

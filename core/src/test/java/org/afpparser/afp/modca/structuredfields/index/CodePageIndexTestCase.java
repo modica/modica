@@ -4,22 +4,19 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.afpparser.afp.modca.Context;
 import org.afpparser.afp.modca.Context.FOCAContext;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.CPIRepeatingGroupLength;
 import org.afpparser.afp.modca.common.GraphicalCharacterUseFlags;
-import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Index;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldTestCase;
 import org.afpparser.afp.modca.structuredfields.index.CodePageIndex.CPI;
 import org.afpparser.common.ByteUtils;
-import org.afpparser.common.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -103,23 +100,5 @@ public class CodePageIndexTestCase extends StructuredFieldTestCase<CodePageIndex
     @Test
     @Override
     public void testGetParameters() {
-        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
-        expectedParams.put("CodePageIndex#1", createParameterString(char1Name, 4, 0));
-        expectedParams.put("CodePageIndex#2", createParameterString(char2Name, 5, 0));
-        expectedParams.put("CodePageIndex#3", createParameterString(char3Name, 6, 0));
-        testParameters(expectedParams, sut);
-
-        expectedParams.put("CodePageIndex#1", createParameterString(char1Name, 0x203, 5));
-        expectedParams.put("CodePageIndex#2", createParameterString(char2Name, 0x304, 0x607));
-        expectedParams.put("CodePageIndex#3", createParameterString(char3Name, 0x102, 0x10203));
-        testParameters(expectedParams, doubleByteUnicodeSut);
-    }
-
-    private String createParameterString(String gcgid, int codePoint, int unicodeIndex) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("GCGID=" + gcgid)
-          .append(" CodePoint=" + StringUtils.toHex(codePoint, 2))
-          .append(" UnicodeIndex=" + StringUtils.toHex(unicodeIndex, 2));
-        return sb.toString();
     }
 }

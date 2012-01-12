@@ -2,12 +2,13 @@ package org.afpparser.afp.modca.structuredfields.data;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Data;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldTestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,8 +36,8 @@ public class ImagePictureDataTestCase extends StructuredFieldTestCase<ImagePictu
     @Test
     @Override
     public void testGetParameters() {
-        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
-        expectedParams.put("ImageDataOffset", "0000000f");
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
+        expectedParams.add(new ParameterAsString("ImageDataOffset", "0000000f"));
         testParameters(expectedParams, sut);
     }
 }

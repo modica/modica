@@ -2,6 +2,10 @@ package org.afpparser.afp.modca.triplets;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.common.ByteUtils;
 import org.junit.Before;
@@ -36,9 +40,10 @@ public class ObjectAreaSizeTestCase extends TripletTestCase<ObjectAreaSize> {
 
     @Test
     @Override
-    public void testGetValueAsString() {
-        String expectedString = "X-AxisSize=" + String.valueOf(x.getXoaSize())
-                + " Y-AxisSize=" + String.valueOf(x.getYoaSize());
-        assertEquals(expectedString, x.getValueAsString());
+    public void testGetParameters() {
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
+        expectedParams.add(new ParameterAsString("X-AxisSize", x.getXoaSize()));
+        expectedParams.add(new ParameterAsString("Y-AxisSize", x.getYoaSize()));
+        parameterTester(expectedParams, x);
     }
 }

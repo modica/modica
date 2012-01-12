@@ -1,11 +1,12 @@
 package org.afpparser.afp.modca.structuredfields.control;
 
 import java.io.UnsupportedEncodingException;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.afpparser.afp.modca.Context;
 import org.afpparser.afp.modca.Context.FOCAContext;
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.CPIRepeatingGroupLength;
 import org.afpparser.afp.modca.common.GraphicalCharacterUseFlags;
@@ -201,18 +202,18 @@ public class CodePageControl extends AbstractStructuredField {
     }
 
     @Override
-    public Map<String, String> getParameters() {
-        Map<String, String> params = new LinkedHashMap<String, String>();
-        params.put("DefaultGCGID", defCharId);
-        params.put("isInvalidCodedCharacter", String.valueOf(isInvalidCodedCharacter));
-        params.put("isNoPresentation", String.valueOf(isNoPresentation));
-        params.put("isNoIncrement", String.valueOf(isNoIncrement));
-        params.put("CPIRepeatingGroupLength", cpRgLen.toString());
-        params.put("SpaceCharSectionNumber", String.valueOf(vsCharSn));
-        params.put("SpaceCharCodePoint", String.valueOf(vsChar));
-        params.put("isAscendingCodePoint", String.valueOf(isAscendingCodePoint));
-        params.put("isVariableSpaceEnabled", String.valueOf(isVariableSpaceEnabled));
-        params.put("DefaultUnicodeValue", String.valueOf(defaultUnicodeValue));
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+        params.add(new ParameterAsString("DefaultGCGID", defCharId));
+        params.add(new ParameterAsString("isInvalidCodedCharacter", isInvalidCodedCharacter));
+        params.add(new ParameterAsString("isNoPresentation", isNoPresentation));
+        params.add(new ParameterAsString("isNoIncrement", isNoIncrement));
+        params.add(new ParameterAsString("CPIRepeatingGroupLength", cpRgLen));
+        params.add(new ParameterAsString("SpaceCharSectionNumber", vsCharSn));
+        params.add(new ParameterAsString("SpaceCharCodePoint", vsChar));
+        params.add(new ParameterAsString("isAscendingCodePoint", isAscendingCodePoint));
+        params.add(new ParameterAsString("isVariableSpaceEnabled", isVariableSpaceEnabled));
+        params.add(new ParameterAsString("DefaultUnicodeValue", defaultUnicodeValue));
         return params;
     }
 }

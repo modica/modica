@@ -4,14 +4,14 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
-import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.End;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.fullyqualifiedname.FullyQualifiedNameTestCase;
@@ -54,8 +54,8 @@ public class EndImageObjectTestCase extends StructuredFieldWithTripletsTestCase<
     @Test
     @Override
     public void testGetParameters() {
-        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
-        expectedParams.put("ImageDataObjectName", idoName);
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
+        expectedParams.add(new ParameterAsString("ImageDataObjectName", idoName));
         testParameters(expectedParams, sut);
     }
 }

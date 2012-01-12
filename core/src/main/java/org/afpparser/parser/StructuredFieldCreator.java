@@ -1,12 +1,13 @@
 package org.afpparser.parser;
 
 import java.util.Collections;
-import java.util.Map;
+import java.util.List;
 
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.StructuredFieldFactory;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
-import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 
 /**
  * This class captures SFIntroduce creating events and delegates the creating of StructuredFields to
@@ -106,8 +107,8 @@ public class StructuredFieldCreator implements StructuredFieldIntroducerHandler 
         }
 
         @Override
-        public Map<String, String> getParameters() {
-            return Collections.emptyMap();
+        public List<ParameterAsString> getParameters() {
+            return Collections.emptyList();
         }
     }
 }

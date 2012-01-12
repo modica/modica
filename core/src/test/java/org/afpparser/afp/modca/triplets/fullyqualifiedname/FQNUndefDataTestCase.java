@@ -3,6 +3,10 @@ package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.triplets.TripletIdentifiers;
 import org.afpparser.afp.modca.triplets.TripletTestCase;
 import org.afpparser.common.ByteUtils;
@@ -43,8 +47,9 @@ public class FQNUndefDataTestCase extends TripletTestCase<FQNUndefData> {
 
     @Test
     @Override
-    public void testGetValueAsString() {
-        assertEquals("Undefined Data", x.getValueAsString());
+    public void testGetParameters() {
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
+        expectedParams.add(new ParameterAsString("Undefined Data", ""));
+        parameterTester(expectedParams, x);
     }
-
 }

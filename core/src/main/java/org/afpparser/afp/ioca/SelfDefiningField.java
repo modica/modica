@@ -1,5 +1,9 @@
 package org.afpparser.afp.ioca;
 
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
+
 /**
  * An interface for self defining fields.
  */
@@ -21,5 +25,5 @@ public interface SelfDefiningField {
 
     public String getName();
 
-    public String getValueAsString();
+    public List<ParameterAsString> getParameters();
 }

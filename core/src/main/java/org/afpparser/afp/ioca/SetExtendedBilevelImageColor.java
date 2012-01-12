@@ -1,5 +1,9 @@
 package org.afpparser.afp.ioca;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.ColorSpace;
 import org.afpparser.common.ByteUtils;
@@ -78,11 +82,13 @@ public class SetExtendedBilevelImageColor implements SelfDefiningField {
     }
 
     @Override
-    public String getValueAsString() {
-        return "ColourSpace=" + colourSpace.toString()
-                + " colSize1=" + colSize1
-                + " colSize2=" + colSize2
-                + " colSize3=" + colSize3
-                + " colSize4=" + colSize4;
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+        params.add(new ParameterAsString("ColourSpace", colourSpace));
+        params.add(new ParameterAsString("colourSize1", colSize1));
+        params.add(new ParameterAsString("colourSize2", colSize2));
+        params.add(new ParameterAsString("colourSize3", colSize3));
+        params.add(new ParameterAsString("colourSize4", colSize4));
+        return params;
     }
 }

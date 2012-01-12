@@ -1,5 +1,10 @@
 package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
+
 /**
  * A Fully Qualified Name that contains a Global Resource Identification.
  */
@@ -53,8 +58,10 @@ public class FQNGridData extends FullyQualifiedName {
     }
 
     @Override
-    public String getValueAsString() {
-        return "GlobalResourceId=[" + grid.toString() + "]";
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+        params.add(new ParameterAsString("GlobalResourceId", grid));
+        return params;
     }
 
 }

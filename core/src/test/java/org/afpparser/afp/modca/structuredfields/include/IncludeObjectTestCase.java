@@ -5,16 +5,16 @@ import static org.junit.Assert.assertEquals;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.nio.ByteBuffer;
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.ReferenceCoordinateSystem;
 import org.afpparser.afp.modca.common.Rotation;
-import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Include;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
 import org.afpparser.afp.modca.structuredfields.include.IncludeObject.ObjectType;
 import org.afpparser.afp.modca.triplets.Triplet;
@@ -135,16 +135,16 @@ public class IncludeObjectTestCase extends StructuredFieldWithTripletsTestCase<I
     @Test
     @Override
     public void testGetParameters() {
-        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
-        expectedParams.put("ObjectName", objName);
-        expectedParams.put("ObjectType", ObjectType.GRAPHICS_GOCA.toString());
-        expectedParams.put("X-AxisObjectAreaOffset", String.valueOf(0x10203));
-        expectedParams.put("Y-AxisObjectAreaOffset", String.valueOf(0x40506));
-        expectedParams.put("X-AxisObjectOrientation", Rotation.ZERO.toString());
-        expectedParams.put("Y-AxisObjectOrientation", Rotation.NINETY.toString());
-        expectedParams.put("X-AxisObjectOffset", String.valueOf(0x70809));
-        expectedParams.put("Y-AxisObjectOffset", String.valueOf(0xA0B0C));
-        expectedParams.put("ReferenceCoordSystem", ReferenceCoordinateSystem.ORIGIN.toString());
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
+        expectedParams.add(new ParameterAsString("ObjectName", objName));
+        expectedParams.add(new ParameterAsString("ObjectType", ObjectType.GRAPHICS_GOCA));
+        expectedParams.add(new ParameterAsString("X-AxisObjectAreaOffset", 0x10203));
+        expectedParams.add(new ParameterAsString("Y-AxisObjectAreaOffset", 0x40506));
+        expectedParams.add(new ParameterAsString("X-AxisObjectOrientation", Rotation.ZERO));
+        expectedParams.add(new ParameterAsString("Y-AxisObjectOrientation", Rotation.NINETY));
+        expectedParams.add(new ParameterAsString("X-AxisObjectOffset", 0x70809));
+        expectedParams.add(new ParameterAsString("Y-AxisObjectOffset", 0xA0B0C));
+        expectedParams.add(new ParameterAsString("ReferenceCoordSystem", ReferenceCoordinateSystem.ORIGIN));
         testParameters(expectedParams, hasAllParams);
     }
 }

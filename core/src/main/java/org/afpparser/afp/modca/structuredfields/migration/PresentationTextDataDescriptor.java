@@ -1,9 +1,10 @@
 package org.afpparser.afp.modca.structuredfields.migration;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.List;
 
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
@@ -78,12 +79,12 @@ public class PresentationTextDataDescriptor extends StructuredFieldWithTriplets 
     }
 
     @Override
-    public Map<String, String> getParameters() {
-        Map<String, String> params = new LinkedHashMap<String, String>();
-        params.put("X-AxisUnits", String.valueOf(xAxisUnit));
-        params.put("Y-AxisUnits", String.valueOf(yAxisUnit));
-        params.put("X-AxisSize", String.valueOf(xAxisSize));
-        params.put("Y-AxisSize", String.valueOf(yAxisSize));
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+        params.add(new ParameterAsString("X-AxisUnits", xAxisUnit));
+        params.add(new ParameterAsString("Y-AxisUnits", yAxisUnit));
+        params.add(new ParameterAsString("X-AxisSize", xAxisSize));
+        params.add(new ParameterAsString("Y-AxisSize", yAxisSize));
         return params;
     }
 }

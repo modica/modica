@@ -4,19 +4,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.nio.ByteBuffer;
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.afpparser.afp.ioca.FunctionSet;
 import org.afpparser.afp.ioca.IocaFunctionSetId;
 import org.afpparser.afp.ioca.SelfDefiningField;
 import org.afpparser.afp.ioca.SetBilevelImageColor;
 import org.afpparser.afp.ioca.SetExtendedBilevelImageColor;
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
-import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Descriptor;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldTestCase;
 import org.afpparser.common.ByteUtils;
 import org.junit.Before;
@@ -70,12 +70,11 @@ public class ImageDataDescriptorTestCase extends StructuredFieldTestCase<ImageDa
     @Test
     @Override
     public void testGetParameters() {
-        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
-        expectedParams.put("XResolution", String.valueOf(0x102));
-        expectedParams.put("YResolution", String.valueOf(0x304));
-        expectedParams.put("XSize", String.valueOf(0x506));
-        expectedParams.put("YSize", String.valueOf(0x708));
-        expectedParams.put("IOCAFunctionsetId", FunctionSet.FS_10.toString());
-        testParameters(expectedParams, oneSelfDefiningField);
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
+        expectedParams.add(new ParameterAsString("XResolution", 0x102));
+        expectedParams.add(new ParameterAsString("YResolution", 0x304));
+        expectedParams.add(new ParameterAsString("XSize", 0x506));
+        expectedParams.add(new ParameterAsString("YSize", 0x708));
+        expectedParams.add(new ParameterAsString("IOCAFunctionsetId", FunctionSet.FS_10));
     }
 }

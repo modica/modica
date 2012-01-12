@@ -4,15 +4,15 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.PresentationSpaceUnits;
-import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Descriptor;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.fullyqualifiedname.FullyQualifiedNameTestCase;
@@ -68,17 +68,19 @@ public class PageDescriptorTestCase extends StructuredFieldWithTripletsTestCase<
     @Test
     @Override
     public void testGetParameters() {
-        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
-        expectedParams.put("X-AxisBaseUnit", PresentationSpaceUnits.INCHES_10.toString());
-        expectedParams.put("Y-AxisBaseUnit", PresentationSpaceUnits.INCHES_10.toString());
-        expectedParams.put("X-AxisPageUnit", String.valueOf(0x102));
-        expectedParams.put("Y-AxisPageUnit", String.valueOf(0x304));
-        expectedParams.put("X-AxisPageSize", String.valueOf(0x50607));
-        expectedParams.put("Y-AxisPageSize", String.valueOf(0x8090A));
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
+        expectedParams.add(new ParameterAsString("X-AxisBaseUnit", PresentationSpaceUnits.INCHES_10));
+        expectedParams.add(new ParameterAsString("Y-AxisBaseUnit", PresentationSpaceUnits.INCHES_10));
+        expectedParams.add(new ParameterAsString("X-AxisPageUnit", 0x102));
+        expectedParams.add(new ParameterAsString("Y-AxisPageUnit", 0x304));
+        expectedParams.add(new ParameterAsString("X-AxisPageSize", 0x50607));
+        expectedParams.add(new ParameterAsString("Y-AxisPageSize", 0x8090A));
         testParameters(expectedParams, sut);
 
-        expectedParams.put("X-AxisBaseUnit", PresentationSpaceUnits.CENTIMETRE_10.toString());
-        expectedParams.put("Y-AxisBaseUnit", PresentationSpaceUnits.CENTIMETRE_10.toString());
+        expectedParams.set(0, new ParameterAsString("X-AxisBaseUnit",
+                PresentationSpaceUnits.CENTIMETRE_10));
+        expectedParams.set(1, new ParameterAsString("Y-AxisBaseUnit",
+                PresentationSpaceUnits.CENTIMETRE_10));
         assertEquals(PresentationSpaceUnits.CENTIMETRE_10, cmSut.getYpgBase());
         testParameters(expectedParams, cmSut);
     }

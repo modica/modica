@@ -2,14 +2,13 @@ package org.afpparser.afp.modca.structuredfields.descriptor;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.afpparser.afp.ioca.IocaFunctionSetId;
 import org.afpparser.afp.ioca.SelfDefiningField;
 import org.afpparser.afp.ioca.SetBilevelImageColor;
 import org.afpparser.afp.ioca.SetExtendedBilevelImageColor;
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.PresentationSpaceUnits;
 import org.afpparser.afp.modca.structuredfields.AbstractStructuredField;
@@ -127,15 +126,12 @@ public class ImageDataDescriptor extends AbstractStructuredField {
     }
 
     @Override
-    public Map<String, String> getParameters() {
-        Map<String, String> params = new LinkedHashMap<String, String>();
-        params.put("XResolution", String.valueOf(xResol));
-        params.put("YResolution", String.valueOf(yResol));
-        params.put("XSize", String.valueOf(xSize));
-        params.put("YSize", String.valueOf(ySize));
-        for (SelfDefiningField sdf : selfDefiningFields) {
-            params.put(sdf.getName(), sdf.getValueAsString());
-        }
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+        params.add(new ParameterAsString("XResolution", xResol));
+        params.add(new ParameterAsString("YResolution", yResol));
+        params.add(new ParameterAsString("XSize", xSize));
+        params.add(new ParameterAsString("YSize", ySize));
         return params;
     }
 }

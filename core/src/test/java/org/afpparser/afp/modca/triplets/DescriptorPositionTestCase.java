@@ -2,6 +2,10 @@ package org.afpparser.afp.modca.triplets;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.common.ByteUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,8 +36,10 @@ public class DescriptorPositionTestCase extends TripletTestCase<DescriptorPositi
 
     @Test
     @Override
-    public void testGetValueAsString() {
-        String expectedString = "ObjectAreaPositionId=" + ByteUtils.bytesToHex((byte) 0x04);
-        assertEquals(expectedString, x.getValueAsString());
+    public void testGetParameters() {
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
+        expectedParams.add(new ParameterAsString("ObjectAreaPositionId",
+                ByteUtils.bytesToHex((byte) 0x04)));
+        parameterTester(expectedParams, x);
     }
 }

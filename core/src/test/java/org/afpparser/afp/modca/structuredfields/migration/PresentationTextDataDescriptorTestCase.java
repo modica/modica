@@ -2,14 +2,15 @@ package org.afpparser.afp.modca.structuredfields.migration;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.List;
 
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
-import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Migration;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.common.ByteUtils;
@@ -45,11 +46,11 @@ public class PresentationTextDataDescriptorTestCase extends
     @Test
     @Override
     public void testGetParameters() {
-        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
-        expectedParams.put("X-AxisUnits", String.valueOf(0x102));
-        expectedParams.put("Y-AxisUnits", String.valueOf(0x304));
-        expectedParams.put("X-AxisSize", String.valueOf(0x50607));
-        expectedParams.put("Y-AxisSize", String.valueOf(0x8090A));
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
+        expectedParams.add(new ParameterAsString("X-AxisUnits", 0x102));
+        expectedParams.add(new ParameterAsString("Y-AxisUnits", 0x304));
+        expectedParams.add(new ParameterAsString("X-AxisSize", 0x50607));
+        expectedParams.add(new ParameterAsString("Y-AxisSize", 0x8090A));
         testParameters(expectedParams, sut);
     }
 }

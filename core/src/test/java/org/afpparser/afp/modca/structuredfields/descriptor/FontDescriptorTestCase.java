@@ -7,16 +7,16 @@ import static org.junit.Assert.assertTrue;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.nio.ByteBuffer;
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.afpparser.afp.foca.FontWeightClass;
 import org.afpparser.afp.foca.FontWidthClass;
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
-import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Descriptor;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.fullyqualifiedname.FullyQualifiedNameTestCase;
@@ -135,24 +135,24 @@ public class FontDescriptorTestCase extends StructuredFieldWithTripletsTestCase<
     @Test
     @Override
     public void testGetParameters() {
-        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
-        expectedParams.put("TypefaceDescription", description);
-        expectedParams.put("FontWeight", FontWeightClass.ULTRALIGHT.toString());
-        expectedParams.put("FontWidth", FontWidthClass.EXTRACONDENSED.toString());
-        expectedParams.put("MaxPointSize", String.valueOf(0x304));
-        expectedParams.put("NominalPointSize", String.valueOf(0x506));
-        expectedParams.put("MinPointSize", String.valueOf(0x708));
-        expectedParams.put("MaxHorizontalSize", String.valueOf(0x90A));
-        expectedParams.put("NominalHorizontalSize", String.valueOf(0xB0C));
-        expectedParams.put("MinHorizontalSize", String.valueOf(0xD0E));
-        expectedParams.put("DesignGeneralClass", ByteUtils.bytesToHex((byte) 0x0F));
-        expectedParams.put("DesignSubClass", ByteUtils.bytesToHex((byte) 0x10));
-        expectedParams.put("DesignSpecificClass", ByteUtils.bytesToHex((byte) 0x11));
-        expectedParams.put("isItalic", String.valueOf(true));
-        expectedParams.put("isHollow", String.valueOf(true));
-        expectedParams.put("isOverStruck", String.valueOf(true));
-        expectedParams.put("GCSGID", String.valueOf(0x102));
-        expectedParams.put("FGID", String.valueOf(0x304));
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
+        expectedParams.add(new ParameterAsString("TypefaceDescription", description));
+        expectedParams.add(new ParameterAsString("FontWeight", FontWeightClass.ULTRALIGHT));
+        expectedParams.add(new ParameterAsString("FontWidth", FontWidthClass.EXTRACONDENSED));
+        expectedParams.add(new ParameterAsString("MaxPointSize", 0x304));
+        expectedParams.add(new ParameterAsString("NominalPointSize", 0x506));
+        expectedParams.add(new ParameterAsString("MinPointSize", 0x708));
+        expectedParams.add(new ParameterAsString("MaxHorizontalSize", 0x90A));
+        expectedParams.add(new ParameterAsString("NominalHorizontalSize", 0xB0C));
+        expectedParams.add(new ParameterAsString("MinHorizontalSize", 0xD0E));
+        expectedParams.add(new ParameterAsString("DesignGeneralClass", ByteUtils.bytesToHex((byte) 0x0F)));
+        expectedParams.add(new ParameterAsString("DesignSubClass", ByteUtils.bytesToHex((byte) 0x10)));
+        expectedParams.add(new ParameterAsString("DesignSpecificClass", ByteUtils.bytesToHex((byte) 0x11)));
+        expectedParams.add(new ParameterAsString("isItalic", true));
+        expectedParams.add(new ParameterAsString("isHollow", true));
+        expectedParams.add(new ParameterAsString("isOverStruck", true));
+        expectedParams.add(new ParameterAsString("GCSGID", 0x102));
+        expectedParams.add(new ParameterAsString("FGID", 0x304));
         testParameters(expectedParams, sut);
     }
 }

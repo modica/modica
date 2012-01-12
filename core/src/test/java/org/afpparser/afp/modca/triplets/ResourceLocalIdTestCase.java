@@ -2,6 +2,10 @@ package org.afpparser.afp.modca.triplets;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.triplets.ResourceLocalId.ResourceType;
 import org.afpparser.common.ByteUtils;
@@ -44,9 +48,11 @@ public class ResourceLocalIdTestCase extends TripletTestCase<ResourceLocalId> {
 
     @Test
     @Override
-    public void testGetValueAsString() {
-        String expectedString = "ResourceType=" + x.getResourceType().toString()
-                + " ResourceLocalId=" + ByteUtils.bytesToHex(x.getResourceLocalId());
-        assertEquals(expectedString, x.getValueAsString());
+    public void testGetParameters() {
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
+        expectedParams.add(new ParameterAsString("ResourceType", x.getResourceType()));
+        expectedParams.add(new ParameterAsString("ResourceLocalId",
+                ByteUtils.bytesToHex(x.getResourceLocalId())));
+        parameterTester(expectedParams, x);
     }
 }

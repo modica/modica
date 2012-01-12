@@ -2,6 +2,10 @@ package org.afpparser.afp.modca.triplets;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.triplets.MappingOption.MapValue;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,7 +59,9 @@ public class MappingOptionTestCase extends TripletTestCase<MappingOption> {
 
     @Test
     @Override
-    public void testGetValueAsString() {
-        assertEquals("MapValue=" + mapValue.toString(), x.getValueAsString());
+    public void testGetParameters() {
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
+        expectedParams.add(new ParameterAsString("MapValue", mapValue));
+        parameterTester(expectedParams, x);
     }
 }

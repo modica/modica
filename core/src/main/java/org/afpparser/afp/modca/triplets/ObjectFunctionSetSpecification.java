@@ -1,5 +1,9 @@
 package org.afpparser.afp.modca.triplets;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.common.ByteUtils;
 
@@ -162,10 +166,12 @@ public class ObjectFunctionSetSpecification extends Triplet {
     }
 
     @Override
-    public String getValueAsString() {
-        return "ObjectType=" + objType.toString()
-                + " ArchVersion=" + ByteUtils.bytesToHex(archVrsn)
-                + " MODCAFunctionSet=" + dcaFnSet
-                + " OCAFuntionSet=" + ocaFnSet.toString();
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+        params.add(new ParameterAsString("ObjectType", objType));
+        params.add(new ParameterAsString("ArchVersion", ByteUtils.bytesToHex(archVrsn)));
+        params.add(new ParameterAsString("MODCAFunctionSet", dcaFnSet));
+        params.add(new ParameterAsString("OCAFuntionSet", ocaFnSet));
+        return params;
     }
 }

@@ -1,5 +1,9 @@
 package org.afpparser.afp.ioca;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.NamedColor;
 
@@ -52,7 +56,9 @@ public class SetBilevelImageColor implements SelfDefiningField {
     }
 
     @Override
-    public String getValueAsString() {
-        return colour.toString();
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+        params.add(new ParameterAsString("Colour", colour));
+        return params;
     }
 }

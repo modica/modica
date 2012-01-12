@@ -2,11 +2,13 @@ package org.afpparser.afp.modca.structuredfields.map;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Map;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletGroupTestCase;
 import org.afpparser.afp.modca.triplets.RepeatingTripletGroup;
 import org.junit.Before;
@@ -32,7 +34,7 @@ public class MapCodedFontTestCase extends StructuredFieldWithTripletGroupTestCas
     @Test
     @Override
     public void testGetParameters() {
-        java.util.Map<String, String> expectedParams = new LinkedHashMap<String, String>();
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
         testParameters(expectedParams, sut);
     }
 }

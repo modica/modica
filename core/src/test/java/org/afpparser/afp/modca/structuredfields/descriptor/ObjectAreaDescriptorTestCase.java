@@ -2,13 +2,13 @@ package org.afpparser.afp.modca.structuredfields.descriptor;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Descriptor;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.fullyqualifiedname.FullyQualifiedNameTestCase;
@@ -37,7 +37,7 @@ public class ObjectAreaDescriptorTestCase extends
     @Test
     @Override
     public void testGetParameters() {
-        Map<String, String> expectedParams = new LinkedHashMap<String, String>();
+        List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
         testParameters(expectedParams, sut);
     }
 }

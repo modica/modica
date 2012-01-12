@@ -1,12 +1,12 @@
 package org.afpparser.afp.modca.structuredfields.descriptor;
 
 import java.io.UnsupportedEncodingException;
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.afpparser.afp.foca.FontWeightClass;
 import org.afpparser.afp.foca.FontWidthClass;
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
@@ -318,25 +318,25 @@ public class FontDescriptor extends StructuredFieldWithTriplets {
     }
 
     @Override
-    public Map<String, String> getParameters() {
-        Map<String, String> params = new LinkedHashMap<String, String>();
-        params.put("TypefaceDescription", typeFcDesc);
-        params.put("FontWeight", fontWeight.toString());
-        params.put("FontWidth", fontWidth.toString());
-        params.put("MaxPointSize", String.valueOf(maxPtSize));
-        params.put("NominalPointSize", String.valueOf(nomPtSize));
-        params.put("MinPointSize", String.valueOf(minPtSize));
-        params.put("MaxHorizontalSize", String.valueOf(maxHSize));
-        params.put("NominalHorizontalSize", String.valueOf(nomHSize));
-        params.put("MinHorizontalSize", String.valueOf(minHSize));
-        params.put("DesignGeneralClass", ByteUtils.bytesToHex(designGeneralClass));
-        params.put("DesignSubClass", ByteUtils.bytesToHex(designSubClass));
-        params.put("DesignSpecificClass", ByteUtils.bytesToHex(designSpecificClass));
-        params.put("isItalic", String.valueOf(isItalic));
-        params.put("isHollow", String.valueOf(isHollow));
-        params.put("isOverStruck", String.valueOf(isOverstruck));
-        params.put("GCSGID", String.valueOf(gcsgid));
-        params.put("FGID", String.valueOf(fgid));
+    public List<ParameterAsString> getParameters() {
+        List<ParameterAsString> params = new ArrayList<ParameterAsString>();
+        params.add(new ParameterAsString("TypefaceDescription", typeFcDesc));
+        params.add(new ParameterAsString("FontWeight", fontWeight));
+        params.add(new ParameterAsString("FontWidth", fontWidth));
+        params.add(new ParameterAsString("MaxPointSize", maxPtSize));
+        params.add(new ParameterAsString("NominalPointSize", nomPtSize));
+        params.add(new ParameterAsString("MinPointSize", minPtSize));
+        params.add(new ParameterAsString("MaxHorizontalSize", maxHSize));
+        params.add(new ParameterAsString("NominalHorizontalSize", nomHSize));
+        params.add(new ParameterAsString("MinHorizontalSize", minHSize));
+        params.add(new ParameterAsString("DesignGeneralClass", ByteUtils.bytesToHex(designGeneralClass)));
+        params.add(new ParameterAsString("DesignSubClass", ByteUtils.bytesToHex(designSubClass)));
+        params.add(new ParameterAsString("DesignSpecificClass", ByteUtils.bytesToHex(designSpecificClass)));
+        params.add(new ParameterAsString("isItalic", isItalic));
+        params.add(new ParameterAsString("isHollow", isHollow));
+        params.add(new ParameterAsString("isOverStruck", isOverstruck));
+        params.add(new ParameterAsString("GCSGID", gcsgid));
+        params.add(new ParameterAsString("FGID", fgid));
         return params;
     }
 }

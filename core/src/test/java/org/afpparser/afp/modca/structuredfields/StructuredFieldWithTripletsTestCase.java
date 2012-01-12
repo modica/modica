@@ -7,10 +7,9 @@ import static org.junit.Assert.fail;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.fullyqualifiedname.FullyQualifiedNameTestCase;
 import org.junit.Test;
@@ -62,10 +61,14 @@ public abstract class StructuredFieldWithTripletsTestCase<T extends StructuredFi
 
     @Test
     public final void testGetTripletsAsStrings() {
-        Map<String, String> tripletMap = new HashMap<String, String>();
-        for (Triplet t : triplets) {
-            tripletMap.put(t.getTid().getName(), t.getValueAsString());
+        assertEquals(triplets.size(), sut.getTripletParameters().size());
+        for (int i = 0; i < sut.getTripletParameters().size(); i++) {
+            List<ParameterAsString> tripletParams = sut.getTripletParameters().get(i);
+            for (int j = 0; j < tripletParams.size(); j++) {
+                ParameterAsString param = triplets.get(i).getParameters().get(j);
+                assertEquals(param.getKey(), tripletParams.get(j).getKey());
+                assertEquals(param.getValue(), tripletParams.get(j).getValue());
+            }
         }
-        assertEquals(tripletMap, sut.getTripletsAsStrings());
     }
 }
