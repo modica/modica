@@ -1,5 +1,13 @@
 apply plugin: 'groovy'
 
+repositories{
+    mavenCentral()
+}
+
+dependencies{
+  testCompile "junit:junit:4.7"
+}
+
 configurations {
     integrationTestCompile.extendsFrom(testCompile)
     integrationTestRuntime {extendsFrom integrationTestCompile, testRuntime }
@@ -31,5 +39,3 @@ task integrationTest(type: Test) {
     testClassesDir = sourceSets.integrationTest.output.classesDir
     classpath = (files(sourceSets.main.output.classesDir)) + sourceSets.integrationTest.runtimeClasspath
 }
-
-

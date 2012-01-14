@@ -1,7 +1,11 @@
 defaultTasks 'clean', 'test', 'integrationTest','assemble'
+
+def emmaPlugin = "file:$projectDir/emma.gradle"
+
 subprojects {subProject ->
     apply plugin: 'java'
     apply plugin: 'eclipse'
+    apply from: emmaPlugin
     compileJava.options.fork([memoryMaximumSize: '1024m'])
     jar.baseName = "afp-parse_$subProject.name"
     
@@ -14,10 +18,18 @@ subprojects {subProject ->
         mavenCentral()
     }
 
+    dependencies {
+        emma 'emma:emma:+', 'emma:emma_ant:+'
+    }
+
     classes.doLast {
         copy {
             into 'build/libs/lib'
             from configurations.runtime
         }
+    }
+
+    emma {
+        reportPath = new File(reportsDir, 'emma')
     }
 }
