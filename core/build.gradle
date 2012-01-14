@@ -19,17 +19,17 @@ jar {
 
 sourceSets {
     integrationTest {
-        classesDir = main.classesDir
+        output.classesDir = main.output.classesDir
         compileClasspath = configurations.testCompile
-        runtimeClasspath = classes + sourceSets.main.classes + configurations.integrationTestRuntime
+        runtimeClasspath = output + sourceSets.main.output + configurations.integrationTestRuntime
         groovy { srcDir 'src/integrationTest/groovy' }
     }
 }
 
 task integrationTest(type: Test) {
     testReportDir = new File(testReportDir.parent, 'integrationTests')
-    testClassesDir = sourceSets.integrationTest.classesDir
-    classpath = (files(sourceSets.main.classesDir)) + sourceSets.integrationTest.runtimeClasspath
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = (files(sourceSets.main.output.classesDir)) + sourceSets.integrationTest.runtimeClasspath
 }
 
 
