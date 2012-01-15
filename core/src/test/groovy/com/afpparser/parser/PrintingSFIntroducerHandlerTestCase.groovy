@@ -4,6 +4,7 @@ import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer
 import org.afpparser.common.ByteUtils
 import org.afpparser.common.StringUtils
 import org.afpparser.parser.PrintingSFIntroducerHandler
+import org.afpparser.afp.modca.structuredfields.TypeCode
 import org.junit.Test
 
 class PrintingSFIntroducerHandlerTestCase {
@@ -11,7 +12,7 @@ class PrintingSFIntroducerHandlerTestCase {
     void handle() {
         def baos = new ByteArrayOutputStream()
         def sut = new PrintingSFIntroducerHandler(new PrintStream(baos, true))
-        def sf = [0L, 0, ByteUtils.createByteArray(0xD3,  0xA0, 0x88), (byte) 0, 0] as StructuredFieldIntroducer
+        def sf = [0L, 0, [0xD3, 0xA0, 0x88] as byte[], (byte) 0, 0] as StructuredFieldIntroducer
 
         def expected = new ByteArrayOutputStream()
         printSF (new PrintStream(expected, true), sf)
@@ -26,8 +27,8 @@ class PrintingSFIntroducerHandlerTestCase {
     void handleBeginAndEnd() {
         def baos = new ByteArrayOutputStream()
         def sut = new PrintingSFIntroducerHandler(new PrintStream(baos, true))
-        def beginSF = [0L, 0, ByteUtils.createByteArray(0xD3, 0xA8, 0xAF), (byte) 0, 0] as StructuredFieldIntroducer
-        def endSF = [0L, 0, ByteUtils.createByteArray(0xD3, 0xA9, 0xAF), (byte) 0, 0] as StructuredFieldIntroducer
+        def beginSF = [0L, 0, [0xD3, TypeCode.Begin.value, 0xAF] as byte[], (byte) 0, 0] as StructuredFieldIntroducer
+        def endSF = [0L, 0, [0xD3, TypeCode.End.value, 0xAF] as byte[], (byte) 0, 0] as StructuredFieldIntroducer
 
         def expected = new ByteArrayOutputStream()
         def ps = new PrintStream(expected, true)
