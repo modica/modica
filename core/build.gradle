@@ -15,7 +15,7 @@ configurations {
 
 dependencies {
     groovy 'org.codehaus.groovy:groovy:1.8.0'
-    compile 'commons-cli:commons-cli:+'
+    compile 'commons-cli:commons-cli:+', 'com.google.guava:guava:11.0.1'
     testCompile 'junit:junit:4.+', 'xmlunit:xmlunit:1.3'
 }
 

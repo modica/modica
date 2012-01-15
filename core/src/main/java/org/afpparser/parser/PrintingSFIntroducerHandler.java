@@ -24,17 +24,31 @@ import java.io.PrintStream;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.common.StringUtils;
 
+import com.google.common.base.Strings;
+
 /**
  * This class is used for printing SFIntroducerHandler events to a PrintStream.
  */
 public class PrintingSFIntroducerHandler implements StructuredFieldIntroducerHandler {
 
+    private static final String SF_TMPL = "\u001B[34m%s\u001B[0m  %s%s\n";
+
     private final PrintStream out;
 
-    private String indent = "  ";
+    private final int indentSize;
+
+    private final String indentShift;
+
+    private String indent = "";
 
     public PrintingSFIntroducerHandler(PrintStream out) {
+        this(out, 2);
+    }
+
+    public PrintingSFIntroducerHandler(PrintStream out, int indentSize) {
         this.out = out;
+        this.indentSize = indentSize;
+        this.indentShift = Strings.repeat(" ", indentSize);
     }
 
     @Override
@@ -45,13 +59,21 @@ public class PrintingSFIntroducerHandler implements StructuredFieldIntroducerHan
     @Override
     public void handleBegin(StructuredFieldIntroducer sf) {
         printSf(sf);
-        indent += "  ";
+        incrementIndent();
     }
 
     @Override
     public void handleEnd(StructuredFieldIntroducer sf) {
-        indent = indent.substring(0, indent.length() - 2);
+        decrementIndent();
         printSf(sf);
+    }
+
+    private void incrementIndent() {
+        indent += indentShift;
+    }
+
+    private void decrementIndent() {
+        indent = indent.substring(0, indent.length() - indentSize);
     }
 
     @Override
@@ -63,9 +85,6 @@ public class PrintingSFIntroducerHandler implements StructuredFieldIntroducerHan
     }
 
     private void printSf(StructuredFieldIntroducer sf) {
-        out.println("\u001B[34m" + StringUtils.toHex(sf.getOffset(), 8) + "\u001B[0m" + indent
-                + sf.getType().getName());
+        out.printf(SF_TMPL, StringUtils.toHex(sf.getOffset(), 8), indent, sf.getType().getName());
     }
-
-
 }
