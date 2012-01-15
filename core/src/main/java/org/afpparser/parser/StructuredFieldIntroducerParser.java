@@ -14,7 +14,7 @@ import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
  */
 public final class StructuredFieldIntroducerParser {
 
-    private final StructuredFieldIntroducerReader reader;
+    private final Iterable<StructuredFieldIntroducer> introducers;
 
     private final StructuredFieldIntroducerHandler handler;
 
@@ -30,7 +30,19 @@ public final class StructuredFieldIntroducerParser {
      */
     public StructuredFieldIntroducerParser(FileInputStream afpFileInputStream, StructuredFieldIntroducerHandler handler)
             throws FileNotFoundException {
-        this.reader = new StructuredFieldIntroducerReader(afpFileInputStream);
+        this(new StructuredFieldIntroducerReader(afpFileInputStream), handler);
+    }
+
+    /**
+     * 
+     * @param introducers
+     *            iterable over {@link StructuredFieldIntroducer}.
+     * @param handler
+     *            An SFIntroducerHandler to handle {@link StructuredFieldIntroducer} parsing
+     *            events.
+     */
+    public StructuredFieldIntroducerParser(Iterable<StructuredFieldIntroducer> introducers, StructuredFieldIntroducerHandler handler) {
+        this.introducers = introducers;
         this.handler = handler;
     }
 
@@ -42,7 +54,7 @@ public final class StructuredFieldIntroducerParser {
      */
     public void parse() throws IOException {
         handler.startAfp();
-        for (StructuredFieldIntroducer sf : reader) {
+        for (StructuredFieldIntroducer sf : introducers) {
             switch (sf.getType().getTypeCode()) {
             case Begin:
                 handler.handleBegin(sf);
