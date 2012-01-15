@@ -9,7 +9,7 @@ import org.afpparser.afp.modca.structuredfields.StructuredField;
 import org.afpparser.model.builder.ModelBuildingSFHandler;
 import org.afpparser.parser.AfpParser;
 import org.afpparser.parser.PrintingSFHandler;
-import org.afpparser.parser.PrintingSFIntoducerHandler;
+import org.afpparser.parser.PrintingSFIntroducerHandler;
 import org.afpparser.parser.StructuredFieldIntroducerParser;
 
 import org.apache.commons.cli.BasicParser;
@@ -35,7 +35,7 @@ public class Main {
                     return;
                 }
                 inStream = new FileInputStream(afpDoc);
-                new StructuredFieldIntroducerParser(inStream, PrintingSFIntoducerHandler.newInstance()).parse();
+                new StructuredFieldIntroducerParser(inStream, PrintingSFIntroducerHandler.newInstance()).parse();
             } else if (cmd.hasOption('f')) {
                 File afpDoc = new File(cmd.getOptionValue('f'));
                 if (!afpDoc.isFile()) {
@@ -46,7 +46,7 @@ public class Main {
                 inStream = new FileInputStream(afpDoc);
                 ModelBuildingSFHandler modelBuilder = new ModelBuildingSFHandler();
                 AfpParser.builder(inStream)
-                        .with(PrintingSFIntoducerHandler.newInstance())
+                        .with(PrintingSFIntroducerHandler.newInstance())
                         .with(PrintingSFHandler.newInstance())
                         .with(modelBuilder)
                         .build().parse();

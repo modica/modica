@@ -27,17 +27,17 @@ import org.afpparser.common.StringUtils;
 /**
  * This class is used for printing SFIntroducerHandler events to a PrintStream.
  */
-public class PrintingSFIntoducerHandler implements StructuredFieldIntroducerHandler {
+public class PrintingSFIntroducerHandler implements StructuredFieldIntroducerHandler {
 
     private final PrintStream out;
 
     private String indent = "  ";
 
-    private PrintingSFIntoducerHandler(PrintStream out) {
+    private PrintingSFIntroducerHandler(PrintStream out) {
         this.out = out;
     }
 
-    private PrintingSFIntoducerHandler() {
+    private PrintingSFIntroducerHandler() {
         this(System.out);
     }
 
@@ -77,7 +77,7 @@ public class PrintingSFIntoducerHandler implements StructuredFieldIntroducerHand
      * @return
      */
     public static StructuredFieldIntroducerHandler newInstance() {
-        return new PrintingSFIntoducerHandler();
+        return new PrintingSFIntroducerHandler();
     }
 
     /**
@@ -88,6 +88,6 @@ public class PrintingSFIntoducerHandler implements StructuredFieldIntroducerHand
      * @return
      */
     public static StructuredFieldIntroducerHandler newInstance(PrintStream out) {
-        return new PrintingSFIntoducerHandler(out);
+        return new PrintingSFIntroducerHandler(out);
     }
 }
