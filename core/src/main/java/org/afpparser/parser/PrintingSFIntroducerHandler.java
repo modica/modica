@@ -33,12 +33,8 @@ public class PrintingSFIntroducerHandler implements StructuredFieldIntroducerHan
 
     private String indent = "  ";
 
-    private PrintingSFIntroducerHandler(PrintStream out) {
+    public PrintingSFIntroducerHandler(PrintStream out) {
         this.out = out;
-    }
-
-    private PrintingSFIntroducerHandler() {
-        this(System.out);
     }
 
     @Override
@@ -71,23 +67,5 @@ public class PrintingSFIntroducerHandler implements StructuredFieldIntroducerHan
                 + sf.getType().getName());
     }
 
-    /**
-     * Return a new instance of PrintingSFHandler.
-     * 
-     * @return
-     */
-    public static StructuredFieldIntroducerHandler newInstance() {
-        return new PrintingSFIntroducerHandler();
-    }
 
-    /**
-     * Return a new instance of PrintingSFHandler.
-     * 
-     * @param out
-     *            OutputStream to print to.
-     * @return
-     */
-    public static StructuredFieldIntroducerHandler newInstance(PrintStream out) {
-        return new PrintingSFIntroducerHandler(out);
-    }
 }

@@ -13,32 +13,8 @@ public class PrintingSFHandler implements StructuredFieldHandler {
 
     private final PrintStream out;
 
-    private PrintingSFHandler() {
-        this(System.out);
-    }
-
-    private PrintingSFHandler(PrintStream out) {
+    public PrintingSFHandler(PrintStream out) {
         this.out = out;
-    }
-
-    /**
-     * Creates a new instance of PrintingSFHandler.
-     * 
-     * @param out
-     *            PrintStream to print to.
-     * @return
-     */
-    public static StructuredFieldHandler newInstance(PrintStream out) {
-        return new PrintingSFHandler(out);
-    }
-
-    /**
-     * Create a new instance of PrintingSFHandler that prints to stdout.
-     * 
-     * @return
-     */
-    public static StructuredFieldHandler newInstance() {
-        return newInstance(System.out);
     }
 
     @Override

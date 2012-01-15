@@ -35,7 +35,7 @@ public class Main {
                     return;
                 }
                 inStream = new FileInputStream(afpDoc);
-                new StructuredFieldIntroducerParser(inStream, PrintingSFIntroducerHandler.newInstance()).parse();
+                new StructuredFieldIntroducerParser(inStream, new PrintingSFIntroducerHandler(System.out)).parse();
             } else if (cmd.hasOption('f')) {
                 File afpDoc = new File(cmd.getOptionValue('f'));
                 if (!afpDoc.isFile()) {
@@ -46,8 +46,8 @@ public class Main {
                 inStream = new FileInputStream(afpDoc);
                 ModelBuildingSFHandler modelBuilder = new ModelBuildingSFHandler();
                 AfpParser.builder(inStream)
-                        .with(PrintingSFIntroducerHandler.newInstance())
-                        .with(PrintingSFHandler.newInstance())
+                        .with(new PrintingSFIntroducerHandler(System.out))
+                        .with(new PrintingSFHandler(System.out))
                         .with(modelBuilder)
                         .build().parse();
                 List<StructuredField> model = modelBuilder.getObjectModel();
