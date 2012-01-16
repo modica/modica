@@ -7,9 +7,9 @@ import java.io.IOException;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 
 /**
- * This class reads from a fileInputStream, identifying structured field
- * introducers, creating the light-weight {@link StructuredFieldIntroducer} and delegating
- * further processing to a {@link StructuredFieldIntroducerHandler}.
+ * This class reads from a fileInputStream, identifying structured field introducers, creating the
+ * light-weight {@link StructuredFieldIntroducer} and delegating further processing to a
+ * {@link StructuredFieldIntroducerHandler}.
  * 
  */
 public final class StructuredFieldIntroducerParser {
@@ -20,29 +20,26 @@ public final class StructuredFieldIntroducerParser {
 
     /**
      * 
-     * @param afpFileInputStream
-     *            An AFP file stream.
-     * @param handler
-     *            An SFIntroducerHandler to handle {@link StructuredFieldIntroducer} parsing
-     *            events.
-     * @throws FileNotFoundException
-     *             Thrown if the AFP file is invalid.
+     * @param afpFileInputStream An AFP file stream.
+     * @param handler An SFIntroducerHandler to handle {@link StructuredFieldIntroducer} parsing
+     * events.
+     * @throws FileNotFoundException Thrown if the AFP file is invalid.
      */
-    public StructuredFieldIntroducerParser(FileInputStream afpFileInputStream, StructuredFieldIntroducerHandler handler)
+    public StructuredFieldIntroducerParser(FileInputStream afpFileInputStream,
+            StructuredFieldIntroducerHandler handler)
             throws FileNotFoundException {
         this(new StructuredFieldIntroducerReader(afpFileInputStream), handler);
     }
 
     /**
      * 
-     * @param introducers
-     *            iterable over {@link StructuredFieldIntroducer}.
-     * @param handler
-     *            An SFIntroducerHandler to handle {@link StructuredFieldIntroducer} parsing
-     *            events.
+     * @param introducerProducer iterable over {@link StructuredFieldIntroducer}.
+     * @param handler An SFIntroducerHandler to handle {@link StructuredFieldIntroducer} parsing
+     * events.
      */
-    public StructuredFieldIntroducerParser(Iterable<StructuredFieldIntroducer> introducers, StructuredFieldIntroducerHandler handler) {
-        this.introducers = introducers;
+    public StructuredFieldIntroducerParser(Iterable<StructuredFieldIntroducer> introducerProducer,
+            StructuredFieldIntroducerHandler handler) {
+        this.introducers = introducerProducer;
         this.handler = handler;
     }
 
