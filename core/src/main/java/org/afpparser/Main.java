@@ -45,11 +45,11 @@ public class Main {
 
                 inStream = new FileInputStream(afpDoc);
                 ModelBuildingSFHandler modelBuilder = new ModelBuildingSFHandler();
-                AfpParser.builder(inStream)
-                        .with(new PrintingSFIntroducerHandler(System.out))
-                        .with(new PrintingSFHandler(System.out))
-                        .with(modelBuilder)
-                        .build().parse();
+                AfpParser.forInput(inStream)
+                        .withHandler(new PrintingSFIntroducerHandler(System.out))
+                        .withHandler(new PrintingSFHandler(System.out))
+                        .withHandler(modelBuilder)
+                        .parse();
                 List<StructuredField> model = modelBuilder.getObjectModel();
                 System.out.println("This document contains " + model.size() + " structured fields.");
 
