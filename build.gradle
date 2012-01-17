@@ -1,14 +1,12 @@
 defaultTasks 'clean', 'test', 'integrationTest','assemble'
 
-def emmaPlugin = "file:$projectDir/emma.gradle"
-
 subprojects {subProject ->
     apply plugin: 'java'
     apply plugin: 'eclipse'
-    apply from: emmaPlugin
     compileJava.options.fork([memoryMaximumSize: '1024m'])
     jar.baseName = "afp-parse_$subProject.name"
-    
+
+    buildDir = "build"
     sourceCompatibility = 1.6
     targetCompatibility = 1.6
 
@@ -18,8 +16,15 @@ subprojects {subProject ->
         mavenCentral()
     }
 
+    configurations {
+        jacoco
+    }
+
     dependencies {
-        emma 'emma:emma:+', 'emma:emma_ant:+'
+	testCompile group: "junit", name: "junit", version: "4.8.1"
+
+	jacoco group: "org.jacoco", name: "org.jacoco.agent", version: "0.5.5.201112152213", classifier: "runtime"
+	jacoco group: "org.jacoco", name: "org.jacoco.report", version: "0.5.5.201112152213"
     }
 
     classes.doLast {
@@ -29,7 +34,7 @@ subprojects {subProject ->
         }
     }
 
-    emma {
-        reportPath = new File(reportsDir, 'emma')
+    test {
+        jvmArgs "-javaagent:" + configurations.jacoco.asPath + "=destfile=" + buildDir + "/jacoco.exec,includes=org.afpparser.*"
     }
 }
