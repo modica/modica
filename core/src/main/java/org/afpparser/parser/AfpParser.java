@@ -17,10 +17,8 @@ public class AfpParser {
     private final StructuredFieldIntroducerParser parser;
 
     private AfpParser(FileInputStream afpFileInputStream,
-            StructuredFieldIntroducerHandler[] sfIntroducerHandlers,
-            StructuredFieldHandler[] sfHandlers) throws FileNotFoundException {
-
-        StructuredFieldHandler structuredFieldHandler = StructuredFieldHandlers.aggregate(sfHandlers);
+            StructuredFieldIntroducerHandler structuredFieldIntroducerHandler,
+            StructuredFieldHandler structuredFieldHandler) throws FileNotFoundException {
 
         StructuredFieldFactory structuredFieldFactory = new StructuredFieldFactoryImpl(
                 afpFileInputStream.getChannel());
@@ -28,8 +26,9 @@ public class AfpParser {
         StructuredFieldIntroducerHandler structuredFieldCreator = new StructuredFieldCreator(
                 structuredFieldFactory, structuredFieldHandler);
 
-        StructuredFieldIntroducerHandler sFIntroducerHandler = StructuredFieldIntroducerHandlers.aggregate(
-                sfIntroducerHandlers, structuredFieldCreator);
+        StructuredFieldIntroducerHandler sFIntroducerHandler = structuredFieldIntroducerHandler == null ?
+                StructuredFieldIntroducerHandlers.chain(
+                structuredFieldIntroducerHandler, structuredFieldCreator) : structuredFieldCreator;
 
         parser = new StructuredFieldIntroducerParser(afpFileInputStream, sFIntroducerHandler);
     }
@@ -90,10 +89,10 @@ public class AfpParser {
             if (sfHandlers.size() == 0) {
                 throw new IllegalArgumentException("No StructuredFieldHandler configured");
             }
-
-            return new AfpParser(afpFileInputStream,
-                    (StructuredFieldIntroducerHandler[])sfiHandlers.toArray(new StructuredFieldIntroducerHandler[0]),
-                    (StructuredFieldHandler[])sfHandlers.toArray(new StructuredFieldHandler[0]));
+            StructuredFieldIntroducerHandler sfiHandler = sfiHandlers.size() == 0 ? null :
+                    StructuredFieldIntroducerHandlers.chain(sfiHandlers);
+            return new AfpParser(afpFileInputStream, sfiHandler,
+                    StructuredFieldHandlers.chain(sfHandlers));
         }
 
         /**

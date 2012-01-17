@@ -1,6 +1,7 @@
 package org.afpparser.parser;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
@@ -24,33 +25,31 @@ public final class StructuredFieldIntroducerHandlers {
      *            An array of SFIntroducerHandler
      * @return
      */
-    public static StructuredFieldIntroducerHandler aggregate(StructuredFieldIntroducerHandler... handlers) {
+    public static StructuredFieldIntroducerHandler chain(StructuredFieldIntroducerHandler... handlers) {
         if (handlers.length == 0) {
             throw new IllegalArgumentException("Requires 1 or more  StructuredFieldIntroducerHandlers");
-        } else if ( handlers.length == 1) {
+        } else if (handlers.length == 1) {
             return handlers[0];
         } else {
-            return new AggregateSFIntroducerHandler(handlers);
+            return new ChainedSFIntroducerHandler(handlers);
         }
     }
 
-    public static StructuredFieldIntroducerHandler aggregate(StructuredFieldIntroducerHandler[] handlerArray,
-            StructuredFieldIntroducerHandler... handlers) {
-        StructuredFieldIntroducerHandler[] all = new StructuredFieldIntroducerHandler[handlerArray.length + handlers.length];
-        System.arraycopy(handlerArray, 0, all, 0, handlerArray.length);
-        System.arraycopy(handlers, 0, all, handlerArray.length, handlers.length);
-        return aggregate(all);
+
+    public static StructuredFieldIntroducerHandler chain(Collection<StructuredFieldIntroducerHandler> handlers) {
+        return chain(handlers.toArray(new StructuredFieldIntroducerHandler[0]));
     }
 
-    private static class AggregateSFIntroducerHandler implements StructuredFieldIntroducerHandler {
+
+    public static final class ChainedSFIntroducerHandler implements StructuredFieldIntroducerHandler {
 
         private final List<StructuredFieldIntroducerHandler> handlers;
 
-        private AggregateSFIntroducerHandler(StructuredFieldIntroducerHandler... handlers) {
+        private ChainedSFIntroducerHandler(StructuredFieldIntroducerHandler... handlers) {
             this.handlers = new ArrayList<StructuredFieldIntroducerHandler>();
             for (StructuredFieldIntroducerHandler handler : handlers) {
-                if (handler instanceof AggregateSFIntroducerHandler) {
-                    this.handlers.addAll(((AggregateSFIntroducerHandler) handler).handlers);
+                if (handler instanceof ChainedSFIntroducerHandler) {
+                    this.handlers.addAll(((ChainedSFIntroducerHandler) handler).handlers);
                 } else {
                     this.handlers.add(handler);
                 }

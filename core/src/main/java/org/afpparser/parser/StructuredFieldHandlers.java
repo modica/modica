@@ -1,6 +1,7 @@
 package org.afpparser.parser;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.afpparser.afp.modca.structuredfields.StructuredField;
@@ -12,37 +13,33 @@ import org.afpparser.afp.modca.structuredfields.StructuredField;
  *
  */
 public final class StructuredFieldHandlers {
-    private StructuredFieldHandlers() {
 
+    private StructuredFieldHandlers() {
     }
 
-    public static StructuredFieldHandler aggregate(StructuredFieldHandler... handlers) {
+    public static StructuredFieldHandler chain(StructuredFieldHandler... handlers) {
         if (handlers.length == 0) {
             throw new IllegalArgumentException("Requires 1 or more  StructuredFieldHandlers");
         } else if ( handlers.length == 1) {
             return handlers[0];
         } else {
-            return new AggregateStructuredFieldHandler(handlers);
+            return new ChainedStructuredFieldHandler(handlers);
         }
     }
 
-    public static StructuredFieldHandler aggregate(StructuredFieldHandler[] handlerArray,
-            StructuredFieldHandler... handlers) {
-        StructuredFieldHandler[] all = new StructuredFieldHandler[handlerArray.length + handlers.length];
-        System.arraycopy(handlerArray, 0, all, 0, handlerArray.length);
-        System.arraycopy(handlers, 0, all, handlerArray.length, handlers.length);
-        return aggregate(all);
+    public static StructuredFieldHandler chain(Collection<StructuredFieldHandler> handlers) {
+        return chain(handlers.toArray(new StructuredFieldHandler[0]));
     }
 
-    private static class AggregateStructuredFieldHandler implements StructuredFieldHandler {
+    private static class ChainedStructuredFieldHandler implements StructuredFieldHandler {
 
         private final List<StructuredFieldHandler> handlers;
 
-        private AggregateStructuredFieldHandler(StructuredFieldHandler... handlers) {
+        private ChainedStructuredFieldHandler(StructuredFieldHandler... handlers) {
             this.handlers = new ArrayList<StructuredFieldHandler>();
             for (StructuredFieldHandler handler : handlers) {
-                if (handler instanceof AggregateStructuredFieldHandler) {
-                    this.handlers.addAll(((AggregateStructuredFieldHandler) handler).handlers);
+                if (handler instanceof ChainedStructuredFieldHandler) {
+                    this.handlers.addAll(((ChainedStructuredFieldHandler) handler).handlers);
                 } else {
                     this.handlers.add(handler);
                 }
@@ -56,5 +53,4 @@ public final class StructuredFieldHandlers {
             }
         }
     }
-
 }
