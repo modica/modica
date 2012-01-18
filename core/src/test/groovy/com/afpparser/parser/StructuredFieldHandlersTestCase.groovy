@@ -19,12 +19,21 @@ class StructuredFieldHandlersTestCase {
 
     @Test
     void chain() {
+        def api = StructuredFieldHandler.methods.inject([:]) {api, method ->
+            api[method.name] = [null] * method.genericParameterTypes.length
+            return api
+        }
+
         (1..3).each {n ->
             def handlers = (1..n).collect{ mock(StructuredFieldHandler) }
-            def handler = StructuredFieldHandlers.chain(handlers)
-            handler.handle(null)
+            def sut = StructuredFieldHandlers.chain(handlers)
+            api.each {method, parameters ->
+                sut."$method"(*parameters)
+            }
             handlers.each {
-                verify(it).handle(anyObject())
+                api.keys.each {method ->
+                    verify(it)."$method"(anyObject())
+                }
             }
         }
     }
