@@ -20,11 +20,16 @@ subprojects {subProject ->
         jacoco
     }
 
-    dependencies {
-	testCompile group: "junit", name: "junit", version: "4.8.1"
+    //configurations {
+    //    coverage
+   // }
 
-	jacoco group: "org.jacoco", name: "org.jacoco.agent", version: "0.5.5.201112152213", classifier: "runtime"
-	jacoco group: "org.jacoco", name: "org.jacoco.report", version: "0.5.5.201112152213"
+
+    dependencies {
+        testCompile group: "junit", name: "junit", version: "4.8.1"
+
+        jacoco group: "org.jacoco", name: "org.jacoco.agent", version: "0.5.6.201201232323", classifier: "runtime"
+        //coverage group: "org.jacoco", name: "org.jacoco.ant", version: "0.5.6.201201232323", packaging: "eclipse-plugin"
     }
 
     classes.doLast {
@@ -36,5 +41,37 @@ subprojects {subProject ->
 
     test {
         jvmArgs "-javaagent:" + configurations.jacoco.asPath + "=destfile=" + buildDir + "/jacoco.exec,includes=org.afpparser.*"
+    }
+
+
+    task jacocoCoverage << {
+        ant {
+            taskdef(name:'jacocoreport', classname:'org.jacoco.ant.ReportTask') {
+	        classpath {
+		 fileset (dir: '/usr/share/ant/lib')
+		}
+	    }
+
+	    mkdir dir: "${buildDir}/reports/coverage"
+
+	    jacocoreport {
+	        executionData {
+		    file("${buildDir}/jacoco.exec") 
+		}
+
+		structure(name: project.name) {
+		    classfiles {
+		        fileset dir: "build/classes/main" 
+		    }
+
+		    sourcefiles() {
+		        fileset dir: "src/main/java" 
+		    }
+		}
+	        xml destfile: "${buildDir}/jacoco.xml"
+	        html destdir: "${buildDir}/reports/coverage"
+	    }
+
+        }
     }
 }
