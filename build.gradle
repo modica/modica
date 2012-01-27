@@ -17,19 +17,21 @@ subprojects {subProject ->
     }
 
     configurations {
-        jacoco
+        jacocoreport
     }
-
-    //configurations {
-    //    coverage
-   // }
+    configurations {
+        jacocoagent
+    }
 
 
     dependencies {
         testCompile group: "junit", name: "junit", version: "4.8.1"
 
-        jacoco group: "org.jacoco", name: "org.jacoco.agent", version: "0.5.6.201201232323", classifier: "runtime"
-        //coverage group: "org.jacoco", name: "org.jacoco.ant", version: "0.5.6.201201232323", packaging: "eclipse-plugin"
+	jacocoagent files("${rootProject.projectDir.path}/lib/jacocoagent.jar")
+
+        jacocoreport 'org.jacoco:org.jacoco.agent:0.5.6.201201232323',
+                     'org.jacoco:org.jacoco.ant:0.5.6.201201232323',
+                     'org.jacoco:org.jacoco.report:0.5.6.201201232323'
     }
 
     classes.doLast {
@@ -40,11 +42,11 @@ subprojects {subProject ->
     }
 
     test {
-        jvmArgs "-javaagent:" + configurations.jacoco.asPath + "=destfile=" + buildDir + "/jacoco.exec,includes=org.afpparser.*"
+        jvmArgs "-javaagent:${configurations.jacocoagent.singleFile}=destfile=" + buildDir + "/jacoco.exec,append=false"
     }
 
 
-    task jacocoCoverage << {
+    task jacoco << {
         ant {
             taskdef(name:'jacocoreport', classname:'org.jacoco.ant.ReportTask') {
 	        classpath {
