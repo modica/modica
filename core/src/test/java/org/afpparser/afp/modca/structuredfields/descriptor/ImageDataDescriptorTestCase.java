@@ -2,18 +2,19 @@ package org.afpparser.afp.modca.structuredfields.descriptor;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.afpparser.afp.ioca.FunctionSet;
 import org.afpparser.afp.ioca.IocaFunctionSetId;
 import org.afpparser.afp.ioca.SelfDefiningField;
 import org.afpparser.afp.ioca.SetBilevelImageColor;
 import org.afpparser.afp.ioca.SetExtendedBilevelImageColor;
 import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
+import org.afpparser.afp.modca.common.PresentationSpaceUnits;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Descriptor;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
@@ -48,6 +49,15 @@ public class ImageDataDescriptorTestCase extends StructuredFieldTestCase<ImageDa
         Parameters newParams = new Parameters(bb.array(), "Cp500");
         severalSelfDefiningFields = new ImageDataDescriptor(intro, newParams);
         setMembers(severalSelfDefiningFields, intro);
+
+        try {
+            bytes[9] = (byte) 0xFF;
+            params = new Parameters(bytes, "Cp500");
+            new ImageDataDescriptor(intro, params);
+            fail("Failed to throw exception");
+        } catch (IllegalArgumentException iae) {
+            // Pass
+        }
     }
 
     @Test
@@ -56,6 +66,7 @@ public class ImageDataDescriptorTestCase extends StructuredFieldTestCase<ImageDa
         assertEquals(0x304, oneSelfDefiningField.getYResol());
         assertEquals(0x506, oneSelfDefiningField.getXSize());
         assertEquals(0x708, oneSelfDefiningField.getYSize());
+        assertEquals(PresentationSpaceUnits.INCHES_10, oneSelfDefiningField.getUnitsBase());
         List<SelfDefiningField> oneSdf = oneSelfDefiningField.getSelfDefiningFields();
         assertEquals(1, oneSdf.size());
         assertTrue(oneSdf.get(0) instanceof IocaFunctionSetId);
@@ -75,6 +86,7 @@ public class ImageDataDescriptorTestCase extends StructuredFieldTestCase<ImageDa
         expectedParams.add(new ParameterAsString("YResolution", 0x304));
         expectedParams.add(new ParameterAsString("XSize", 0x506));
         expectedParams.add(new ParameterAsString("YSize", 0x708));
-        expectedParams.add(new ParameterAsString("IOCAFunctionsetId", FunctionSet.FS_10));
+        expectedParams.add(new ParameterAsString("UnitBase", "INCHES_10"));
+        testParameters(expectedParams, oneSelfDefiningField);
     }
 }

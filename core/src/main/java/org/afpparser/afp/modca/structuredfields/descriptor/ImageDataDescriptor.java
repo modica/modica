@@ -112,19 +112,6 @@ public class ImageDataDescriptor extends AbstractStructuredField {
         return Collections.unmodifiableList(selfDefiningFields);
     }
 
-    private String sdfToString() {
-        StringBuilder sb = new StringBuilder();
-        for (SelfDefiningField sdf : selfDefiningFields) {
-            sb.append("\t" + sdf.toString() + "\n");
-        }
-        return sb.toString();
-    }
-
-    @Override
-    public String toString() {
-        return getType().getName() + " xSize=" + xSize + " ySize=" + ySize + sdfToString();
-    }
-
     @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
@@ -132,6 +119,7 @@ public class ImageDataDescriptor extends AbstractStructuredField {
         params.add(new ParameterAsString("YResolution", yResol));
         params.add(new ParameterAsString("XSize", xSize));
         params.add(new ParameterAsString("YSize", ySize));
+        params.add(new ParameterAsString("UnitBase", unitsBase.name()));
         return params;
     }
 }
