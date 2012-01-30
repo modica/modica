@@ -74,11 +74,6 @@ public class PresentationTextDataDescriptor extends StructuredFieldWithTriplets 
     }
 
     @Override
-    public String toString() {
-        return "PTD: x-axis size:" + xAxisSize + " y-axis size:" + yAxisSize;
-    }
-
-    @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("X-AxisUnits", xAxisUnit));

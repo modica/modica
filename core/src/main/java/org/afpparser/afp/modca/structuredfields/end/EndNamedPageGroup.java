@@ -48,11 +48,6 @@ public class EndNamedPageGroup extends StructuredFieldWithTriplets {
     }
 
     @Override
-    public String toString() {
-        return getType().toString() + " RGrpName=" + pGrpName;
-    }
-
-    @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("PageGroupName", getPGrpName()));

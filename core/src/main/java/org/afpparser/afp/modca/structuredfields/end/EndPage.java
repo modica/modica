@@ -48,11 +48,6 @@ public class EndPage extends StructuredFieldWithTriplets {
     }
 
     @Override
-    public String toString() {
-        return getType().toString() + " PageName=" + pageName;
-    }
-
-    @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("PageName", getPageName()));

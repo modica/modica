@@ -47,11 +47,6 @@ public class EndDocument extends StructuredFieldWithTriplets {
     }
 
     @Override
-    public String toString() {
-        return getType().toString() + " DocName=" + docName;
-    }
-
-    @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("DocumentName", getDocName()));

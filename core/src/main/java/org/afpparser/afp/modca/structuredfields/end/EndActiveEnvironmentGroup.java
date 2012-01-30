@@ -49,11 +49,6 @@ public class EndActiveEnvironmentGroup extends AbstractStructuredField {
     }
 
     @Override
-    public String toString() {
-        return getType().toString() + " AEGName=" + aegName;
-    }
-
-    @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("ActiveEnvironmentGroupName", getAegName()));
