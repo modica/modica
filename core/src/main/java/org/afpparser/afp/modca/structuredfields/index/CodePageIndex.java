@@ -3,7 +3,9 @@ package org.afpparser.afp.modca.structuredfields.index;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Context;
 import org.afpparser.afp.modca.Context.FOCAContext;
@@ -165,9 +167,20 @@ public class CodePageIndex extends AbstractStructuredField {
             return unicodeIndex;
         }
 
-        @Override
-        public String toString() {
-            return "CPI gcgid=" + gcgid + " codepoint=" + codePoint;
+        /**
+         * Returns the parameters of this code page index as a map of strings.
+         *
+         * @return the code page index as strings
+         */
+        public Map<String, String> getCPIStrings() {
+            Map<String, String> strings = new HashMap<String, String>();
+            strings.put("InvalidCodedCharacter", String.valueOf(isInvalidCodedCharacter));
+            strings.put("NoPresentation", String.valueOf(isNoPresentation));
+            strings.put("NoIncrement", String.valueOf(isNoIncrement));
+            strings.put("CodePoint", String.valueOf(codePoint));
+            strings.put("UnicodeIndex", String.valueOf(unicodeIndex));
+            strings.put("GCGID", gcgid);
+            return strings;
         }
     }
 
@@ -178,15 +191,6 @@ public class CodePageIndex extends AbstractStructuredField {
      */
     public List<CPI> getCodePageIndices() {
         return Collections.unmodifiableList(cpis);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (CPI cpi : cpis) {
-            sb.append("\n" + cpi.toString());
-        }
-        return getType().getName() + sb.toString();
     }
 
     @Override

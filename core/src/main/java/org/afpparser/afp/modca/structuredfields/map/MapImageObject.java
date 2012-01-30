@@ -19,11 +19,6 @@ public class MapImageObject extends StructuredFieldWithTripletGroup {
     }
 
     @Override
-    public String toString() {
-        return getType().toString() + super.toString();
-    }
-
-    @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         return params;

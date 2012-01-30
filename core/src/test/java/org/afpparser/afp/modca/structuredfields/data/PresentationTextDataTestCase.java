@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Begin;
@@ -44,5 +45,7 @@ public class PresentationTextDataTestCase extends StructuredFieldTestCase<Presen
     @Test
     @Override
     public void testGetParameters() {
+        List<ParameterAsString> params = sut.getParameters();
+        assertEquals(0, params.size());
     }
 }

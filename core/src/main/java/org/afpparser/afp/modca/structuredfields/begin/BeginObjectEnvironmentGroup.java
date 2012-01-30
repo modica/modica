@@ -35,11 +35,6 @@ public class BeginObjectEnvironmentGroup extends StructuredFieldWithTriplets {
     }
 
     @Override
-    public String toString() {
-        return getType().toString() + " OEGName=" + oegName;
-    }
-
-    @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("ObjectEnvironmentGroupName", oegName));

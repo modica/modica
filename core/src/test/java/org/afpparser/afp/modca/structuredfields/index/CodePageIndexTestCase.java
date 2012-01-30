@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.List;
+import java.util.Map;
 
 import org.afpparser.afp.modca.Context;
 import org.afpparser.afp.modca.Context.FOCAContext;
@@ -91,14 +92,27 @@ public class CodePageIndexTestCase extends StructuredFieldTestCase<CodePageIndex
         assertEquals(gcgid, cpi.getGcgid());
         assertEquals(codePoint, cpi.getCodePoint());
         assertEquals(unicode, cpi.getUnicodeIndex());
-        assertEquals(GraphicalCharacterUseFlags.isInvalidCodedCharacter(flag),
-                cpi.isInvalidCodedCharacter());
-        assertEquals(GraphicalCharacterUseFlags.isNoPresentation(flag), cpi.isNoPresentation());
-        assertEquals(GraphicalCharacterUseFlags.isNoIncrement(flag), cpi.isNoIncrement());
+
+        boolean isInvalid = GraphicalCharacterUseFlags.isInvalidCodedCharacter(flag);
+        boolean isNoPres = GraphicalCharacterUseFlags.isNoPresentation(flag);
+        boolean isNoIncr = GraphicalCharacterUseFlags.isNoIncrement(flag);
+
+        assertEquals(isInvalid, cpi.isInvalidCodedCharacter());
+        assertEquals(isNoPres, cpi.isNoPresentation());
+        assertEquals(isNoIncr, cpi.isNoIncrement());
+
+        Map<String, String> strings = cpi.getCPIStrings();
+        assertEquals(String.valueOf(isInvalid), strings.get("InvalidCodedCharacter"));
+        assertEquals(String.valueOf(isNoPres), strings.get("NoPresentation"));
+        assertEquals(String.valueOf(isNoIncr), strings.get("NoIncrement"));
+        assertEquals(String.valueOf(codePoint), strings.get("CodePoint"));
+        assertEquals(String.valueOf(unicode), strings.get("UnicodeIndex"));
+        assertEquals(gcgid, strings.get("GCGID"));
     }
 
     @Test
     @Override
     public void testGetParameters() {
+        assertEquals(0, sut.getParameters().size());
     }
 }

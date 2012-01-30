@@ -40,6 +40,7 @@ public class BeginResourceGroupTestCase extends
         setMembers(sut, intro, triplets);
     }
 
+    @Test
     public void testGetterMethod() {
         assertEquals(resGroupName, sut.getResourceGroupName());
     }

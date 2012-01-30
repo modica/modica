@@ -1,6 +1,9 @@
 package org.afpparser.afp.modca.structuredfields.begin;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -15,6 +18,7 @@ import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.fullyqualifiedname.FullyQualifiedNameTestCase;
+import org.afpparser.common.ByteUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,6 +28,7 @@ import org.junit.Test;
 public class BeginDocumentTestCase extends StructuredFieldWithTripletsTestCase<BeginDocument> {
 
     private BeginDocument sut;
+    private BeginDocument sutWithoutName;
     private StructuredFieldIntroducer intro;
     private final String docName = "TESTNAME";
 
@@ -38,11 +43,18 @@ public class BeginDocumentTestCase extends StructuredFieldWithTripletsTestCase<B
         Parameters params = new Parameters(docName.getBytes("Cp500"), "Cp500");
         sut = new BeginDocument(intro, triplets, params);
         super.setMembers(sut, intro, triplets);
+
+        params = new Parameters(ByteUtils.createByteArray(0xff, 0xff, 0x01, 0x02), "Cp500");
+        sutWithoutName = new BeginDocument(intro, triplets, params);
     }
 
     @Test
-    public void testDocName() {
+    public void testGetters() {
+        assertFalse(sut.docNameProvidedBySystem());
         assertEquals(docName, sut.getDocName());
+
+        assertTrue(sutWithoutName.docNameProvidedBySystem());
+        assertNull(sutWithoutName.getDocName());
     }
 
     @Test

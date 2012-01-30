@@ -56,11 +56,6 @@ public final class BeginDocument extends StructuredFieldWithTriplets {
     }
 
     @Override
-    public String toString() {
-        return "docName=" + documentName;
-    }
-
-    @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("DocumentName", documentName));

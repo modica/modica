@@ -39,11 +39,6 @@ public class BeginFont extends StructuredFieldWithTriplets {
     }
 
     @Override
-    public String toString() {
-        return getType().getName() + " charsetName=" + csName;
-    }
-
-    @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("CharactersetName", csName));

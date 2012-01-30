@@ -33,11 +33,6 @@ public class BeginCodePage extends StructuredFieldWithTriplets {
     }
 
     @Override
-    public String toString() {
-        return getType().getName() + " cfName=" + cfName + tripletsToString();
-    }
-
-    @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("CodePageName", cfName));

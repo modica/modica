@@ -43,11 +43,6 @@ public class BeginResource extends StructuredFieldWithTriplets {
     }
 
     @Override
-    public String toString() {
-        return getType().getName() + " rsName=" + rsName + "\n" + tripletsToString();
-    }
-
-    @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("ResourceName", rsName));

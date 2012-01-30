@@ -34,11 +34,6 @@ public class BeginResourceGroup extends StructuredFieldWithTriplets {
     }
 
     @Override
-    public String toString() {
-        return getType().getName() + " resource-group-name=" + rGrpName;
-    }
-
-    @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("ResourceGroupName", rGrpName));

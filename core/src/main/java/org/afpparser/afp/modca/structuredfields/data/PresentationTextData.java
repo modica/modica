@@ -34,11 +34,6 @@ public class PresentationTextData extends AbstractStructuredField {
     }
 
     @Override
-    public String toString() {
-        return "PTX";
-    }
-
-    @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         return params;

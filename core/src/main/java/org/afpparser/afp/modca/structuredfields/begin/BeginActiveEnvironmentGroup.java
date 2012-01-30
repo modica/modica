@@ -35,11 +35,6 @@ public final class BeginActiveEnvironmentGroup extends StructuredFieldWithTriple
     }
 
     @Override
-    public String toString() {
-        return getType().getName() + " aeg-name=" + aegName + "\t" + tripletsToString();
-    }
-
-    @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("ActiveEnvironmentGroupName", aegName));

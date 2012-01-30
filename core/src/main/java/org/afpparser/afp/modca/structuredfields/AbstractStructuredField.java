@@ -51,4 +51,9 @@ public abstract class AbstractStructuredField implements StructuredField {
     public int bytesToNextStructuredField() {
         return introducer.bytesToNextStructuredField();
     }
+
+    @Override
+    public String toString() {
+        return getType().getName();
+    }
 }
