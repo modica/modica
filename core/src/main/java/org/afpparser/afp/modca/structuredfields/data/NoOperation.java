@@ -14,38 +14,27 @@ import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
  */
 public class NoOperation extends AbstractStructuredField {
 
-    private final byte[] comment;
+    private final String comment;
 
     public NoOperation(StructuredFieldIntroducer introducer, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer);
-        comment = params.getByteArray(params.size());
+        comment = params.getString(params.size());
     }
 
     /**
      * The comment within the NoOp.
      *
-     * @param encoding the encoding scheme of the comment
      * @return the comment
-     * @throws UnsupportedEncodingException
      */
-    public String getComment(String encoding) throws UnsupportedEncodingException {
-        return new String(comment, encoding);
-    }
-
-    @Override
-    public String toString() {
-        return getType().getName();
+    public String getComment() {
+        return comment;
     }
 
     @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
-        try {
-            params.add(new ParameterAsString("Comment", getComment("Cp500")));
-        } catch (UnsupportedEncodingException uee) {
-            throw new RuntimeException(uee);
-        }
+        params.add(new ParameterAsString("Comment", comment));
         return params;
     }
 }

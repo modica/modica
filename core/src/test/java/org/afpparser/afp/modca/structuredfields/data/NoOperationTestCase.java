@@ -34,7 +34,7 @@ public class NoOperationTestCase extends StructuredFieldTestCase<NoOperation> {
 
     @Test
     public void testGetterMethod() throws UnsupportedEncodingException {
-        assertEquals(comment, sut.getComment("Cp500"));
+        assertEquals(comment, sut.getComment());
     }
 
     @Test

@@ -32,11 +32,6 @@ public class ImagePictureData extends AbstractStructuredField {
     }
 
     @Override
-    public String toString() {
-        return getType().getName() + " dataOffset=" + imageDataOffset;
-    }
-
-    @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("ImageDataOffset", StringUtils.toHex(imageDataOffset, 8)));
