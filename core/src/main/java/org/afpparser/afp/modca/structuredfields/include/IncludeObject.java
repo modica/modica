@@ -337,11 +337,6 @@ public class IncludeObject extends StructuredFieldWithTriplets {
     }
 
     @Override
-    public String toString() {
-        return getType().getName() + " objtype=" + objType + " objName=" + objName;
-    }
-
-    @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("ObjectName", objName));

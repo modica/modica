@@ -154,12 +154,6 @@ public class ObjectAreaPosition extends AbstractStructuredField {
     }
 
     @Override
-    public String toString() {
-        return getType().toString() + " xoaOset=" + xoaOset + " yoaOset=" + yoaOset
-                + " xocaOset=" + xocaOset + " yocaOset=" + yocaOset;
-    }
-
-    @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("ObjectAreaPositionId", ByteUtils.bytesToHex(oaPosId)));

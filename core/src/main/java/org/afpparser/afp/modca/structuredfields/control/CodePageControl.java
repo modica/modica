@@ -197,11 +197,6 @@ public class CodePageControl extends AbstractStructuredField {
     }
 
     @Override
-    public String toString() {
-        return getType().getName() + " defGCGID=" + defCharId + " rgLen=" + cpRgLen;
-    }
-
-    @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("DefaultGCGID", defCharId));

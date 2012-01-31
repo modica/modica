@@ -19,11 +19,6 @@ public class ObjectAreaDescriptor extends StructuredFieldWithTriplets {
     }
 
     @Override
-    public String toString() {
-        return getType().toString() + tripletsToString();
-    }
-
-    @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         return params;

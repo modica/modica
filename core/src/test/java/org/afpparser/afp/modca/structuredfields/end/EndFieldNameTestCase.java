@@ -23,6 +23,7 @@ public class EndFieldNameTestCase {
         EndFieldName fieldName = new EndFieldName(params);
         assertEquals("Only the", fieldName.getName());
         assertFalse(fieldName.matchesAny());
+        assertEquals("Only the", fieldName.toString());
 
         bytes[0] = (byte) 0xff;
         bytes[1] = (byte) 0xff;
@@ -31,5 +32,6 @@ public class EndFieldNameTestCase {
         fieldName = new EndFieldName(params);
         assertNull(fieldName.getName());
         assertTrue(fieldName.matchesAny());
+        assertEquals("matches any", fieldName.toString());
     }
 }

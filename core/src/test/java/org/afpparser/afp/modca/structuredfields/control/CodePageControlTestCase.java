@@ -98,6 +98,9 @@ public class CodePageControlTestCase extends StructuredFieldTestCase<CodePageCon
                 doubleByteUnicode.getCPIRepeatingGroupLength());
 
         assertTrue(enableVariableSpace.isVariableSpaceEnabled());
+
+        assertEquals(0, singleByteUnicode.getDefaultUnicodeIndex());
+        assertEquals(0, doubleByteUnicode.getDefaultUnicodeIndex());
     }
 
     @Test
