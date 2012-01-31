@@ -1,6 +1,7 @@
 package org.afpparser.afp.modca.structuredfields.descriptor;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
@@ -24,6 +25,7 @@ import org.junit.Test;
 public class CodePageDescriptorTestCase extends StructuredFieldTestCase<CodePageDescriptor> {
 
     private CodePageDescriptor sut;
+    private CodePageDescriptor sutNoScheme;
     private final String cpDesc = "This string has to be 32 charss.";
 
     @Before
@@ -38,14 +40,22 @@ public class CodePageDescriptorTestCase extends StructuredFieldTestCase<CodePage
         sut = new CodePageDescriptor(intro, params);
 
         setMembers(sut, intro);
+
+        byte[] noSchemeBytes = ByteUtils.createByteArray(0, 8, 1, 2, 3, 4, 5, 6, 7, 8);
+        bb = ByteBuffer.allocate(42);
+        bb.put(cpDesc.getBytes("Cp500"));
+        bb.put(noSchemeBytes);
+        sutNoScheme = new CodePageDescriptor(intro, new Parameters(bb.array(), "Cp500"));
     }
 
     @Test
     public void testGetterMethods() {
+        assertEquals(cpDesc, sut.getCodePageDescriptor());
         assertEquals(0x1020304, sut.getNumCdPts());
         assertEquals(0x506, sut.getGcsgid());
         assertEquals(0x708, sut.getCpgid());
         assertEquals(EncodingScheme.DOUBLE_BYTE_EBCDIC, sut.getEncodingScheme());
+        assertNull(sutNoScheme.getEncodingScheme());
     }
 
     @Test

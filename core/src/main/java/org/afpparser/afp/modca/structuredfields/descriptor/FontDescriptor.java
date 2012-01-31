@@ -312,12 +312,6 @@ public class FontDescriptor extends StructuredFieldWithTriplets {
     }
 
     @Override
-    public String toString() {
-        return getType().getName() + " description=" + typeFcDesc + " weight=" + fontWeight
-                + " width =" + fontWidth;
-    }
-
-    @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("TypefaceDescription", typeFcDesc));

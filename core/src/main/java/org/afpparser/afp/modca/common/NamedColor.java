@@ -36,7 +36,7 @@ public enum NamedColor {
         byte secondByte = params.getByte();
         if (firstByte == (byte) 0xFF) {
             return getAlternateValues(secondByte);
-        } else if (secondByte <= 0x10) {
+        } else if (firstByte == 0x00 && secondByte <= 0x10) {
             return NamedColor.values()[secondByte];
         }
         return null;

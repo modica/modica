@@ -122,11 +122,6 @@ public class PageDescriptor extends StructuredFieldWithTriplets {
     }
 
     @Override
-    public String toString() {
-        return "Page Descriptor pageWidth=" + xAxisPageSize + " pageHeight=" + yAxisPageSize;
-    }
-
-    @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("X-AxisBaseUnit", xAxisBaseUnit));

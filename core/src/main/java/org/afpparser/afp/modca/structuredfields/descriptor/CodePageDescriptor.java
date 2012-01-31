@@ -49,7 +49,7 @@ public class CodePageDescriptor extends AbstractStructuredField {
      *
      * @return code page descriptor
      */
-    public String getCpDesc() {
+    public String getCodePageDescriptor() {
         return cpDesc;
     }
 
@@ -93,12 +93,6 @@ public class CodePageDescriptor extends AbstractStructuredField {
      */
     public EncodingScheme getEncodingScheme() {
         return encScheme;
-    }
-
-    @Override
-    public String toString() {
-        return getType().toString() + " gcsgid=" + gcsgid + " cpgid=" + cpgid
-                + " encoding=" + encScheme;
     }
 
     @Override
