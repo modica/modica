@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 
 import org.afpparser.afp.modca.ParameterAsString;
+import org.afpparser.afp.modca.ParameterAsStringTestCase;
 import org.junit.Test;
 
 /**
@@ -33,12 +34,8 @@ public abstract class StructuredFieldTestCase<S extends AbstractStructuredField>
 
     public abstract void testGetParameters();
 
-    protected void testParameters(List<ParameterAsString> expectedParameters, StructuredField sf) {
+    public void testParameters(List<ParameterAsString> expectedParameters, StructuredField sf) {
         List<ParameterAsString> sutParams = sf.getParameters();
-        assertEquals(expectedParameters.size(), sutParams.size());
-        for (int i = 0; i < expectedParameters.size(); i++) {
-            assertEquals(expectedParameters.get(i).getKey(), sutParams.get(i).getKey());
-            assertEquals(expectedParameters.get(i).getValue(), sutParams.get(i).getValue());
-        }
+        ParameterAsStringTestCase.testParameters(expectedParameters, sutParams);
     }
 }

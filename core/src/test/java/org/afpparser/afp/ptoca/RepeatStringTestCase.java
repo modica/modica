@@ -34,7 +34,7 @@ public class RepeatStringTestCase extends ControlSequenceTestCase<RepeatString> 
 
         // Test that when the control sequence length is < the length of the string, the string is
         // truncated
-        length = 6;
+        length = 4;
         params.skipTo(0);
         noString = new RepeatString(expectedCsId, length, isChained, params);
     }
@@ -47,6 +47,6 @@ public class RepeatStringTestCase extends ControlSequenceTestCase<RepeatString> 
         assertEquals(expectedString, sut.getValueAsString());
 
         assertEquals(258, sut.getRepeatLength());
-        assertEquals("Th", noString.getRepeatDataString("Cp500"));
+        assertEquals("", noString.getRepeatDataString("Cp500"));
     }
 }

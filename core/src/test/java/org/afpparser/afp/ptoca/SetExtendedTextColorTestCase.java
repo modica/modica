@@ -37,5 +37,12 @@ public class SetExtendedTextColorTestCase extends ControlSequenceTestCase<SetExt
         assertEquals(3, sut.getColourSize3());
         assertEquals(4, sut.getColourSize4());
         assertEquals(0x5060708L, sut.getColor());
+
+        String expectedStr = "ColourSpace=" + ColorSpace.RGB.toString()
+                + " colSize1=" + 1
+                + " colSize2=" + 2
+                + " colSize3=" + 3
+                + " colSize4=" + 4;
+        assertEquals(expectedStr, sut.getValueAsString());
     }
 }

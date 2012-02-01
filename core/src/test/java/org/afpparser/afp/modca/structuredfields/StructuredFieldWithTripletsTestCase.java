@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.afpparser.afp.modca.ParameterAsString;
+import org.afpparser.afp.modca.ParameterAsStringTestCase;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.fullyqualifiedname.FullyQualifiedNameTestCase;
 import org.junit.Test;
@@ -64,11 +65,7 @@ public abstract class StructuredFieldWithTripletsTestCase<T extends StructuredFi
         assertEquals(triplets.size(), sut.getTripletParameters().size());
         for (int i = 0; i < sut.getTripletParameters().size(); i++) {
             List<ParameterAsString> tripletParams = sut.getTripletParameters().get(i);
-            for (int j = 0; j < tripletParams.size(); j++) {
-                ParameterAsString param = triplets.get(i).getParameters().get(j);
-                assertEquals(param.getKey(), tripletParams.get(j).getKey());
-                assertEquals(param.getValue(), tripletParams.get(j).getValue());
-            }
+            ParameterAsStringTestCase.testParameters(tripletParams, triplets.get(i).getParameters());
         }
     }
 }
