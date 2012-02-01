@@ -10,7 +10,7 @@ import java.util.List;
 import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.PresentationSpaceUnits;
-import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Descriptor;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
@@ -31,7 +31,7 @@ public class PageDescriptorTestCase extends StructuredFieldWithTripletsTestCase<
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
-        intro = SfIntroducerTestCase.createGenericIntroducer(Descriptor.PGD);
+        intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Descriptor.PGD);
 
         List<Triplet> triplets = addTripletToList(
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,

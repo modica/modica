@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
-import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.End;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldTestCase;
@@ -28,7 +28,7 @@ public class EndCodePageTestCase extends StructuredFieldTestCase<EndCodePage> {
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
-        StructuredFieldIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(End.ECP);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(End.ECP);
 
         Parameters params = new Parameters(cpName.getBytes("Cp500"), "Cp500");
         sut = new EndCodePage(intro, params);

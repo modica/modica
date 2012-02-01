@@ -11,7 +11,7 @@ import java.util.List;
 import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.EncodingScheme;
-import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Descriptor;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldTestCase;
@@ -30,7 +30,7 @@ public class CodePageDescriptorTestCase extends StructuredFieldTestCase<CodePage
 
     @Before
     public void setUp() throws UnsupportedEncodingException {
-        StructuredFieldIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Descriptor.CPD);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Descriptor.CPD);
 
         ByteBuffer bb = ByteBuffer.allocate(44);
         bb.put(cpDesc.getBytes("Cp500"));

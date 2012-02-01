@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
-import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Migration;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
@@ -27,7 +27,7 @@ public class PresentationTextDataDescriptorTestCase extends
 
     @Before
     public void setUp() {
-        StructuredFieldIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Migration.PTD);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Migration.PTD);
 
         byte[] sfData = ByteUtils.createByteArray(0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0);
         Parameters params = new Parameters(sfData, "Cp500");

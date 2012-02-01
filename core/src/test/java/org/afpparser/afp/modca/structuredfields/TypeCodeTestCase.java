@@ -1,14 +1,15 @@
 package org.afpparser.afp.modca.structuredfields;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
-import org.afpparser.afp.modca.structuredfields.TypeCode;
+import org.afpparser.common.ByteUtils;
 import org.junit.Test;
 
 /**
  * A test case for {@link TypeCode}.
  */
-public class TypeCodesTestCase {
+public class TypeCodeTestCase {
 
     @Test
     public void testTypeCodes() {
@@ -31,5 +32,10 @@ public class TypeCodesTestCase {
 
     private void testTypeCodeValue(int expected, TypeCode typeCode) {
         assertEquals((byte) expected, typeCode.getValue());
+
+        CategoryCode cc = CategoryCode.active_environment_group;
+        byte[] expectedBytes = ByteUtils.createByteArray(0xD3, expected, cc.getValue());
+        assertArrayEquals(expectedBytes, typeCode.getIdForType(cc.getValue()));
+        assertArrayEquals(expectedBytes, typeCode.getIdForType(cc));
     }
 }

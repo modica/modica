@@ -15,7 +15,7 @@ import org.afpparser.afp.ioca.SetExtendedBilevelImageColor;
 import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.PresentationSpaceUnits;
-import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Descriptor;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldTestCase;
@@ -33,7 +33,7 @@ public class ImageDataDescriptorTestCase extends StructuredFieldTestCase<ImageDa
 
     @Before
     public void setUp() {
-        StructuredFieldIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Descriptor.IID);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Descriptor.IID);
         byte[] bytes = ByteUtils.createByteArray(0, 1, 2, 3, 4, 5, 6, 7, 8, 0xF7, 2, 1, 0x0A);
         Parameters params = new Parameters(bytes, "Cp500");
         oneSelfDefiningField = new ImageDataDescriptor(intro, params);

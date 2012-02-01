@@ -15,7 +15,7 @@ import org.junit.Test;
 /**
  * Test case for {@link ResourceManagement}.
  */
-public class ResourceManagementTestCase extends TripletTestCase<ResourceManagement> {
+public class FontResourceManagementTestCase extends TripletTestCase<ResourceManagement> {
 
     private ResourceManagement x;
     private ResourceManagement notEqual;
@@ -36,7 +36,7 @@ public class ResourceManagementTestCase extends TripletTestCase<ResourceManageme
         ResourceManagement y = ResourceManagement.parse(new Parameters(data, "Cp500"));
         ResourceManagement z = ResourceManagement.parse(new Parameters(data, "Cp500"));
 
-        data[0] = 0x01;
+        data[5] = 0x40;
 
         notEqual = ResourceManagement.parse(new Parameters(data, "Cp500"));
         setXYZ(x, y, z, notEqual);
@@ -45,9 +45,9 @@ public class ResourceManagementTestCase extends TripletTestCase<ResourceManageme
     @Test
     public void testGetterMethods() {
         assertEquals(0x3040506, x.getResourceManagementValue());
-        assertEquals(0x304, notEqual.getResourceManagementValue());
+        assertEquals(6, x.getLength());
     }
-
+    
     @Test
     @Override
     public void testGetParameters() {

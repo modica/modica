@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.afpparser.afp.modca.ParameterAsString;
-import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Map;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletGroupTestCase;
@@ -23,7 +23,7 @@ public class MapImageObjectTestCase extends StructuredFieldWithTripletGroupTestC
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
-        StructuredFieldIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Map.MIO);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Map.MIO);
         RepeatingTripletGroup repeatingGroup = createGenericRepeatingGroup();
 
         sut = new MapImageObject(intro, repeatingGroup);

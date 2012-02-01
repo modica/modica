@@ -9,7 +9,7 @@ import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
 import org.afpparser.afp.modca.common.ReferenceCoordinateSystem;
 import org.afpparser.afp.modca.common.Rotation;
-import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Position;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldTestCase;
@@ -26,7 +26,7 @@ public class ObjectAreaPositionTestCase extends StructuredFieldTestCase<ObjectAr
 
     @Before
     public void setUp() {
-        StructuredFieldIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Position.OBP);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Position.OBP);
         byte[] data = ByteUtils.createByteArray(
                 1, // oaPosId
                 23, //Length must be 23

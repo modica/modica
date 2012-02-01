@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.afpparser.afp.modca.ParameterAsString;
-import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Data;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldTestCase;
@@ -23,7 +23,7 @@ public class ImagePictureDataTestCase extends StructuredFieldTestCase<ImagePictu
 
     @Before
     public void setUp() {
-        intro = SfIntroducerTestCase.createGenericIntroducer(Data.IPD);
+        intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Data.IPD);
         sut = new ImagePictureData(intro);
         setMembers(sut, intro);
     }

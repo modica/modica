@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
-import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.End;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldTestCase;
@@ -28,7 +28,7 @@ public class EndObjectEnvironmentGroupTestCase extends
 
     @Before
     public void setUp() throws UnsupportedEncodingException {
-        StructuredFieldIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(End.EOG);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(End.EOG);
         Parameters params = new Parameters(oegName.getBytes("Cp500"), "Cp500");
         sut = new EndObjectEnvironmentGroup(intro, params);
 

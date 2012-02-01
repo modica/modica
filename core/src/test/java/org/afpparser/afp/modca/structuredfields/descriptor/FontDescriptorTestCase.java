@@ -14,7 +14,7 @@ import org.afpparser.afp.foca.FontWeightClass;
 import org.afpparser.afp.foca.FontWidthClass;
 import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
-import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Descriptor;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
@@ -36,7 +36,7 @@ public class FontDescriptorTestCase extends StructuredFieldWithTripletsTestCase<
 
     @Before
     public void setUp() throws UnsupportedEncodingException, MalformedURLException {
-        intro = SfIntroducerTestCase.createGenericIntroducer(Descriptor.FND);
+        intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Descriptor.FND);
 
         ByteBuffer bb = ByteBuffer.allocate(80);
         byte[] descBytes = description.getBytes("Cp500");
@@ -125,7 +125,7 @@ public class FontDescriptorTestCase extends StructuredFieldWithTripletsTestCase<
 
     private FontDescriptor createdescriptor() throws UnsupportedEncodingException,
             MalformedURLException {
-        StructuredFieldIntroducer intro = SfIntroducerTestCase.createGenericIntroducer(Descriptor.FND);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Descriptor.FND);
         List<Triplet> triplets = addTripletToList(
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
                 FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);

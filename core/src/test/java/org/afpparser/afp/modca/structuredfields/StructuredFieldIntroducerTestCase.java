@@ -10,7 +10,7 @@ import org.afpparser.common.ByteUtils;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SfIntroducerTestCase {
+public class StructuredFieldIntroducerTestCase {
     private StructuredFieldIntroducer sut;
     private SfType sutType;
 
@@ -29,6 +29,10 @@ public class SfIntroducerTestCase {
         assertTrue(sut.hasExtData());
         assertEquals(5, sut.getExtLength());
         assertEquals(15, sut.getDataOffset());
+        assertEquals(sut.getLength() + sut.getExtLength(), sut.bytesToNextStructuredField());
+
+        assertTrue(StructuredFieldIntroducer.hasSfiExtension((byte) 0x01));
+        assertFalse(StructuredFieldIntroducer.hasSfiExtension((byte) 0x02));
     }
 
     @Test

@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.Parameters;
-import org.afpparser.afp.modca.structuredfields.SfIntroducerTestCase;
+import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.afpparser.afp.modca.structuredfields.SfTypeFactory.Begin;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
@@ -28,7 +28,7 @@ public class BeginFontTestCase extends StructuredFieldWithTripletsTestCase<Begin
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
-        intro = SfIntroducerTestCase.createGenericIntroducer(Begin.BFN);
+        intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Begin.BFN);
 
         List<Triplet> triplets = addTripletToList(
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
