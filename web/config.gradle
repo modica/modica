@@ -1,0 +1,16 @@
+version = '0.1'
+group = 'org.afpparser'
+title = 'afp-viewer'
+
+application {
+    webXml.wicketConfiguration = 'deployment'
+}
+
+environments {
+    dev {
+        application {
+            webXml.wicketConfiguration = 'development'
+        }
+    }
+}
+

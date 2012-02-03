@@ -19,7 +19,7 @@ subprojects {subProject ->
     }
 
     dependencies {
-        emma 'emma:emma:+', 'emma:emma_ant:+'
+        emma 'emma:emma:2.1.5320', 'emma:emma_ant:2.1.5320'
     }
 
     classes.doLast {

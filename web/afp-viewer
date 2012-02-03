@@ -1,0 +1,6 @@
+#! /bin/bash
+
+groovy scripts/afpViewer.groovy $@
+
+#TODO bundle groovy runtime and execute: 
+# java -jar groovy-all*.jar afpViewer.groovy $@

@@ -1,0 +1,21 @@
+<html xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+</wicket:head>
+<body>
+<wicket:panel>
+	<form wicket:id="simpleUpload">
+	 <fieldset>
+	  <legend>AFP document</legend>
+	    <p>
+	    <label for="upload">Document</label>
+	    <input wicket:id="fileInput" id="upload" type="file"/>
+	    </p>
+	    <input type="submit" value="Parse Document"/>
+	 </fieldset>
+    </form>
+    <a wicket:id="expandAll">Expand all nodes</a>&#160;&#160;
+    <a wicket:id="collapseAll">Collapse all nodes</a>&#160;&#160;
+<div wicket:id="treegrid"></div>
+</wicket:panel>
+</body>
+</html>
