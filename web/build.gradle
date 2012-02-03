@@ -1,11 +1,7 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
-apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'jetty'
-apply plugin: 'eclipse'
-
-compileJava.options.fork([memoryMaximumSize: '1024m'])
 
 // Load build configuration
 config = hasProperty('env') ? configure(env) : configure()
@@ -13,10 +9,6 @@ config = hasProperty('env') ? configure(env) : configure()
 group = config.group
 version = config.version
 title = config.title
-
-repositories {
-    mavenCentral()
-}
 
 sourceSets {
   jetty
@@ -27,6 +19,7 @@ eclipse {
         plusConfigurations += configurations.jettyCompile
     }
 }
+
 dependencies {
     ['core', 'extensions', 'ioc', 'spring']. each {
         compile "org.apache.wicket:wicket-$it:1.5.3"
@@ -42,7 +35,7 @@ dependencies {
 
     compile "org.springframework:spring-context:$springVersion"
 
-    compile fileTree(dir: 'lib', includes: ['*.jar'])
+    compile project(':core')
 
     def logbackVersion = '1.0.0'
 
@@ -91,6 +84,6 @@ war {
 }
 
 def configure(environment = ''){
-    new ConfigSlurper(environment).parse(new File('config.gradle').toURL())
+    new ConfigSlurper(environment).parse(new File(projectDir, 'config.gradle').toURL())
 }
 
