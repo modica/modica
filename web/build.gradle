@@ -1,0 +1,96 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'jetty'
+apply plugin: 'eclipse'
+
+compileJava.options.fork([memoryMaximumSize: '1024m'])
+
+// Load build configuration
+config = hasProperty('env') ? configure(env) : configure()
+
+group = config.group
+version = config.version
+title = config.title
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+  jetty
+}
+
+eclipse {
+    classpath {
+        plusConfigurations += configurations.jettyCompile
+    }
+}
+dependencies {
+    ['core', 'extensions', 'ioc', 'spring']. each {
+        compile "org.apache.wicket:wicket-$it:1.5.3"
+    }
+
+    compile 'org.wicketstuff:inmethod-grid:1.5-RC5.1'   
+ 
+    ['server', 'webapp'].each {
+        jettyCompile "org.eclipse.jetty:jetty-$it:7.5.0.v20110901"
+    }
+    
+    def springVersion = '3.1.0.RELEASE'
+
+    compile "org.springframework:spring-context:$springVersion"
+
+    compile fileTree(dir: 'lib', includes: ['*.jar'])
+
+    def logbackVersion = '1.0.0'
+
+    runtime "ch.qos.logback:logback-classic:$logbackVersion"
+
+    runtime "org.springframework:spring-web:$springVersion"
+
+    jettyRuntime  "ch.qos.logback:logback-classic:$logbackVersion"
+
+}
+
+processResources.filter(ReplaceTokens, tokens: config.application.toProperties())
+
+war {
+    dependsOn 'jettyClasses'
+
+    baseName = 'afp-viewer'
+
+    // TODO - how should this be done?
+    eachFile {
+        if (it.name == 'web.xml') {
+            it.expand(config.application.webXml.toProperties())
+        }
+    }
+
+    from(sourceSets.jetty.output.classesDir)
+    from(sourceSets.jetty.output.resourcesDir)
+
+    from  configurations.jettyRuntime.collect {
+        zipTree(it).matching {
+            exclude('META-INF/MANIFEST.MF')
+            exclude('META-INF/maven/**')
+        }
+    }
+
+    manifest {
+        attributes ("Implementation-Title": title, "Implementation-Version": version)
+        attributes 'Main-Class': 'Start'
+    }
+
+    webInf {
+        from ('src/main/java')
+        exclude('**/*java')
+        into ('classes')
+    }
+}
+
+def configure(environment = ''){
+    new ConfigSlurper(environment).parse(new File('config.gradle').toURL())
+}
+
