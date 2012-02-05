@@ -21,7 +21,7 @@ import org.xml.sax.helpers.AttributesImpl;
 /**
  * A StructuredFieldHandler that transforms AFP SF parsing to XML written to an output stream.
  */
-class XmlSerializingSFIntroducerHandler implements StructuredFieldIntroducerHandler {
+public class XmlSerializingSFIntroducerHandler implements StructuredFieldIntroducerHandler {
 
     public static final String URI = "http://afpparser.org";
 
