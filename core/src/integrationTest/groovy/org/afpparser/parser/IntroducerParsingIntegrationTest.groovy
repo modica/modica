@@ -11,23 +11,25 @@ import org.afpparser.serializer.xml.XmlSerializingSFIntroducerHandler
 import org.junit.Test
 import org.xml.sax.InputSource
 
-class AFPDocumentParserIntegrationTest {
+class IntroducerParsingIntegrationTest {
+
+    private final static RESOURCE_ROOT = "${this.package.name.replace('.', '/')}/introducer_tests/"
 
     @Test
     public void test() {
 
         final ByteArrayOutputStream baos = new ByteArrayOutputStream()
 
-        toXML(resourceToStream('org/afpparser/parser/test.afp'), baos)
+        toXML(resourceToStream('test1/test.afp'), baos)
 
         final ByteArrayInputStream actual = new ByteArrayInputStream(baos.toByteArray())
 
-        assertXMLEqual(new InputSource(resourceToStream('org/afpparser/parser/expected.xml')),
+        assertXMLEqual(new InputSource(resourceToStream('test1/expected.xml')),
                 new InputSource(actual))
     }
 
     private static FileInputStream resourceToStream(String resource) {
-        URI uri = this.classLoader.getResource(resource).toURI()
+        URI uri = this.classLoader.getResource("$RESOURCE_ROOT$resource").toURI()
         FileInputStream inStream = new FileInputStream(uri.toURL().getFile())
         assert inStream
         return inStream
@@ -40,7 +42,7 @@ class AFPDocumentParserIntegrationTest {
 
     public static main(args) {
         new File(args[0]).withOutputStream { output ->
-            toXML(resourceToStream('org/afpparser/parser/test.afp'), output)
+            toXML(resourceToStream('test1/test.afp'), output)
         }
     }
 }
