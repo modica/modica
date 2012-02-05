@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<fo:root xmlns:fo='http://www.w3.org/1999/XSL/Format'>
+    <fo:layout-master-set>
+        <fo:simple-page-master master-name='page'>
+        <fo:region-body region-name='body' margin-top='1in' margin-bottom='1in' margin-left='0.5in' margin-right='0.5in' />
+        </fo:simple-page-master>
+    </fo:layout-master-set>
+    <fo:page-sequence master-reference='page'>
+        <fo:flow flow-name='body'>
+            <fo:block>AFP Parser test</fo:block>
+        </fo:flow>
+    </fo:page-sequence>
+</fo:root>

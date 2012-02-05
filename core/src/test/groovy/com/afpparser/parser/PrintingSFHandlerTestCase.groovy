@@ -1,6 +1,4 @@
 package com.afpparser.parser
-import groovy.mock.interceptor.StubFor
-import groovy.mock.interceptor.MockFor
 import org.afpparser.afp.modca.structuredfields.StructuredField
 import org.afpparser.parser.PrintingSFHandler
 import org.junit.Test;

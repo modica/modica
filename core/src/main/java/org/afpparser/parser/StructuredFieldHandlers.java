@@ -47,6 +47,13 @@ public final class StructuredFieldHandlers {
         }
 
         @Override
+        public void startAfp() {
+            for (StructuredFieldHandler handler : handlers) {
+                handler.startAfp();
+            }
+        }
+
+        @Override
         public void handleBegin(StructuredField structuredField) {
             for (StructuredFieldHandler handler : handlers) {
                 handler.handleBegin(structuredField);
@@ -66,5 +73,14 @@ public final class StructuredFieldHandlers {
                 handler.handle(structuredField);
             }
         }
+
+        @Override
+        public void endAfp() {
+            for (StructuredFieldHandler handler : handlers) {
+                handler.endAfp();
+            }
+
+        }
+
     }
 }

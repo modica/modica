@@ -21,6 +21,10 @@ public class AfpTreeBuilder {
 
         private TreeBuildingHandler() {
             stack = new Stack<SfTreeNode>();
+        }
+
+        @Override
+        public void startAfp() {
             stack.push(new SfTreeNode(null));
         }
 
@@ -39,6 +43,10 @@ public class AfpTreeBuilder {
         @Override
         public void handle(StructuredField structuredField) {
             stack.peek().addChild(createNodeFrom(structuredField));
+        }
+
+        @Override
+        public void endAfp() {
         }
 
         private SfTreeNode createNodeFrom(StructuredField structuredField) {

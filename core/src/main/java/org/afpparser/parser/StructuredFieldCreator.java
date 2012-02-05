@@ -34,10 +34,12 @@ public class StructuredFieldCreator implements StructuredFieldIntroducerHandler 
 
     @Override
     public void startAfp() {
+        creationHandler.startAfp();
     }
 
     @Override
     public void endAfp() {
+        creationHandler.endAfp();
     }
 
     @Override

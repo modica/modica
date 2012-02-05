@@ -1,13 +1,14 @@
 package com.afpparser.parser
 
+import static org.mockito.Mockito.*
+
 import org.afpparser.afp.modca.StructuredFieldFactory
-import org.afpparser.afp.modca.structuredfields.CategoryCode;
+import org.afpparser.afp.modca.structuredfields.CategoryCode
 import org.afpparser.afp.modca.structuredfields.StructuredField
 import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer
+import org.afpparser.afp.modca.structuredfields.TypeCode
 import org.afpparser.parser.StructuredFieldCreator
 import org.afpparser.parser.StructuredFieldHandler
-import org.afpparser.afp.modca.structuredfields.TypeCode
-import org.afpparser.afp.modca.structuredfields.CategoryCode
 import org.junit.Test
 
 class StructuredFieldCreatorTestCase {
@@ -61,9 +62,11 @@ class StructuredFieldCreatorTestCase {
 
     @Test
     void startAndEndAfp() {
-        new StructuredFieldCreator(null, null).with {
-            it.startAfp()
-            it.endAfp()
+        def sfHandler = mock(StructuredFieldHandler)
+        def sut = new StructuredFieldCreator(null, sfHandler)
+        ['startAfp', 'endAfp'].each { method ->
+            sut."$method"()
+            verify(sfHandler)."$method"()
         }
     }
 }

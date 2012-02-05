@@ -18,6 +18,10 @@ public class PrintingSFHandler implements StructuredFieldHandler {
     }
 
     @Override
+    public void startAfp() {
+    }
+
+    @Override
     public void handleBegin(StructuredField structuredField) {
         out.println(structuredField);
     }
@@ -31,4 +35,9 @@ public class PrintingSFHandler implements StructuredFieldHandler {
     public void handle(StructuredField structuredField) {
         out.println(structuredField);
     }
+
+    @Override
+    public void endAfp() {
+    }
+
 }
