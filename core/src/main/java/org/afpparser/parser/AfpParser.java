@@ -27,8 +27,8 @@ public class AfpParser {
                 structuredFieldFactory, structuredFieldHandler);
 
         StructuredFieldIntroducerHandler sFIntroducerHandler = structuredFieldIntroducerHandler == null ?
-                StructuredFieldIntroducerHandlers.chain(
-                structuredFieldIntroducerHandler, structuredFieldCreator) : structuredFieldCreator;
+                structuredFieldCreator :
+                    StructuredFieldIntroducerHandlers.chain(structuredFieldIntroducerHandler, structuredFieldCreator);
 
         parser = new StructuredFieldIntroducerParser(afpFileInputStream, sFIntroducerHandler);
     }
@@ -90,7 +90,7 @@ public class AfpParser {
                 throw new IllegalArgumentException("No StructuredFieldHandler configured");
             }
             StructuredFieldIntroducerHandler sfiHandler = sfiHandlers.size() == 0 ? null :
-                    StructuredFieldIntroducerHandlers.chain(sfiHandlers);
+                StructuredFieldIntroducerHandlers.chain(sfiHandlers);
             return new AfpParser(afpFileInputStream, sfiHandler,
                     StructuredFieldHandlers.chain(sfHandlers));
         }
