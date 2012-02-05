@@ -19,7 +19,21 @@ public class ModelBuildingSFHandler implements StructuredFieldHandler {
     }
 
     @Override
+    public void handleBegin(StructuredField structuredField) {
+        add(structuredField);
+    }
+
+    @Override
+    public void handleEnd(StructuredField structuredField) {
+        add(structuredField);
+    }
+
+    @Override
     public void handle(StructuredField structuredField) {
+        add(structuredField);
+    }
+
+    private void add(StructuredField structuredField) {
         structuredFields.add(structuredField);
     }
 

@@ -43,13 +43,13 @@ public class StructuredFieldCreator implements StructuredFieldIntroducerHandler 
     @Override
     public void handleBegin(StructuredFieldIntroducer introducer) {
         StructuredField structuredField = sfFactory.createBegin(introducer);
-        handle(introducer, structuredField);
+        creationHandler.handleBegin(structuredField);
     }
 
     @Override
     public void handleEnd(StructuredFieldIntroducer introducer) {
         StructuredField structuredField = sfFactory.createEnd(introducer);
-        handle(introducer, structuredField);
+        creationHandler.handleEnd(structuredField);
     }
 
     @Override
@@ -83,15 +83,13 @@ public class StructuredFieldCreator implements StructuredFieldIntroducerHandler 
         default:
             structuredField = null;
         }
-        handle(introducer, structuredField);
-    }
 
-    private void handle(StructuredFieldIntroducer introducer, StructuredField structuredField) {
-        // TODO remove UnhandledStructuredField when all structured fields can
+        // TODO remove UnhandledStructuredField once all structured fields can
         // be created
         creationHandler.handle(structuredField != null ? structuredField
                 : new UnhandledStructuredField(introducer));
     }
+
 
     private static class UnhandledStructuredField extends AbstractStructuredField {
         private final StructuredFieldIntroducer introducer;

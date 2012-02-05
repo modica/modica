@@ -7,5 +7,10 @@ import org.afpparser.afp.modca.structuredfields.StructuredField;
  * {@link StructuredFieldCreator} to publish structured field parsing events.
  */
 public interface StructuredFieldHandler {
+
+    void handleBegin(StructuredField structuredField);
+
+    void handleEnd(StructuredField structuredField);
+
     void handle(StructuredField structuredField);
 }

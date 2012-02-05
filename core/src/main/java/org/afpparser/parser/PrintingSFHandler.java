@@ -18,6 +18,16 @@ public class PrintingSFHandler implements StructuredFieldHandler {
     }
 
     @Override
+    public void handleBegin(StructuredField structuredField) {
+        out.println(structuredField);
+    }
+
+    @Override
+    public void handleEnd(StructuredField structuredField) {
+        out.println(structuredField);
+    }
+
+    @Override
     public void handle(StructuredField structuredField) {
         out.println(structuredField);
     }

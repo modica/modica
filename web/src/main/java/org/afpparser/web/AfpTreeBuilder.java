@@ -24,34 +24,38 @@ public class AfpTreeBuilder {
             stack.push(new SfTreeNode(null));
         }
 
+        @Override
+        public void handleBegin(StructuredField structuredField) {
+            stack.push(createNodeFrom(structuredField));
+        }
+
+        @Override
+        public void handleEnd(StructuredField structuredField) {
+            stack.peek().addChild(createNodeFrom(structuredField));
+            SfTreeNode head = stack.pop();
+            stack.peek().addChild(head);
+        }
+
+        @Override
         public void handle(StructuredField structuredField) {
-            SfTreeNode node = new SfTreeNode(structuredField);
-            switch (structuredField.getType().getTypeCode()) {
-            case Begin:
-                stack.push(node);
-                break;
-            case End:
-                stack.peek().addChild(node);
-                SfTreeNode head = stack.pop();
-                stack.peek().addChild(head);
-                break;
-            default:
-                stack.peek().addChild(node);
-            }
+            stack.peek().addChild(createNodeFrom(structuredField));
+        }
+
+        private SfTreeNode createNodeFrom(StructuredField structuredField) {
+            return new SfTreeNode(structuredField);
         }
 
         private SfTreeNode getTree() {
             return stack.pop();
         }
+
     }
 
     public SfTreeNode buildTree(File afpDocument) throws IOException {
         FileInputStream inStream = new FileInputStream(afpDocument);
         try {
             TreeBuildingHandler treeBuilder = new TreeBuildingHandler();
-            AfpParser.forInput(inStream)
-                    .withHandler(treeBuilder)
-                    .parse();
+            AfpParser.forInput(inStream).withHandler(treeBuilder).parse();
             return treeBuilder.getTree();
         } finally {
             inStream.close();
