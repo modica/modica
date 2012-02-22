@@ -89,6 +89,7 @@ public class ByteUtilsTestCase {
         assertArrayEquals(expected, array);
     }
 
+    @Test
     public void testArrayEqualsSubset() {
         byte[] array = ByteUtils.createByteArray(1, 2, 3, 4, 5, 6, 7);
         assertTrue(ByteUtils.arrayEqualsSubset(array, 1, 2, 3, 4, 5, 6, 7));
