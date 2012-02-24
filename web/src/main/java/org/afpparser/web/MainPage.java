@@ -1,7 +1,7 @@
 package org.afpparser.web;
 
 import java.io.Serializable;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.AttributeModifier;
@@ -19,11 +19,9 @@ public class MainPage extends WebPage {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String CONTENT_ID = "content";
+    public static final String CONTENT_ID = "content";
 
-    private final List<MenuItem> menuItems = Arrays.asList(new MenuItem("inspect",
-            new TreeTablePanel(CONTENT_ID)),
-            new MenuItem("settings", new SettingsPanel(CONTENT_ID)));
+    private final List<MenuItem> menuItems;
 
     private Panel activePanel;
 
@@ -34,6 +32,10 @@ public class MainPage extends WebPage {
     }
 
     public MainPage() {
+        menuItems = new ArrayList<MenuItem>();
+        menuItems.add(new MenuItem("inspect", new TreeTablePanel(CONTENT_ID)));
+        menuItems.addAll(((WicketApplication) getApplication()).getExtensionMenuItems());
+        menuItems.add(new MenuItem("settings", new SettingsPanel(CONTENT_ID)));
         activePanel = menuItems.get(0).getPanel();
         add(activePanel);
         initMenu();
@@ -61,7 +63,7 @@ public class MainPage extends WebPage {
         });
     }
 
-    static class MenuItem implements Serializable {
+    public static class MenuItem implements Serializable {
 
         private static final long serialVersionUID = 1L;
 

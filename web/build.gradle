@@ -37,6 +37,8 @@ dependencies {
 
     compile project(':core')
 
+    compile 'org.reflections:reflections:0.9.5'
+
     def logbackVersion = '1.0.0'
 
     runtime "ch.qos.logback:logback-classic:$logbackVersion"
@@ -50,7 +52,7 @@ dependencies {
 processResources.filter(ReplaceTokens, tokens: config.application.toProperties())
 
 war {
-    dependsOn 'jettyClasses'
+    dependsOn 'jettyClasses', 'jar'
 
     baseName = 'afp-viewer'
 

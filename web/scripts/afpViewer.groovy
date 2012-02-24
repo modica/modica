@@ -14,7 +14,12 @@ waitForServer {
     }
 }
 
-def proc = "java -jar build/libs/afp-viewer-0.1.war $port".execute()
+def pluginDir = new File('plugins')
+def pluginsClassPath = pluginDir.directory ? new AntBuilder().fileScanner {
+            fileset(dir: pluginDir) { include(name: '**/*.jar')}
+        }.collect {it}.join(':') : ''
+
+def proc = "java -Dplugins.classpath=$pluginsClassPath -jar build/libs/afp-viewer-0.1.war $port".execute()
 proc.consumeProcessErrorStream(System.err)
 proc.consumeProcessOutputStream(System.out)
 

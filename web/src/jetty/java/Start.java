@@ -30,6 +30,9 @@ public class Start {
         URL location = protectionDomain.getCodeSource().getLocation();
         context.setWar(location.toExternalForm());
 
+        String pluginsClassPath = System.getProperty("plugins.classpath", "");
+        context.setExtraClasspath(pluginsClassPath);
+
         server.setHandler(context);
 
         printHeader(port);
