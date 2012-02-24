@@ -1,2 +1,5 @@
 language: Java
-script: "gradle clean test integrationTest assemble"
+before_script:
+    - "wget http://repo.gradle.org/gradle/distributions/gradle-1.0-milestone-8-bin.zip"
+    - "unzip gradle-1.0* > /dev/null"
+script: "gradle-1.0*/bin/gradle"
