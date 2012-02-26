@@ -30,6 +30,6 @@ subprojects {subProject ->
     }
 
     emma {
-        reportPath = new File(reportsDir, 'emma')
+        reportPath = new File(reporting.baseDir, 'emma')
     }
 }
