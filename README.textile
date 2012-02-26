@@ -1,9 +1,14 @@
-AFP-Parser is a Java library used for parsing IBMs Advanced Function Printing
-document format.
+h1. AFP-Parser "!https://secure.travis-ci.org/med1985/AFP-Parser.png!":https://secure.travis-ci.org/med1985/AFP-Parser.png
 
-The client API works on two levels, a parser for structured field introducers
-and a separate API for parsing the content of structured fields. The intention
-being that it gives maximum flexibility to the client to control the behaviour
-of the parser.
+p. This project is a Java library used for parsing IBMs Advanced Function Printing document format.
 
-"!https://secure.travis-ci.org/med1985/AFP-Parser.png!":https://secure.travis-ci.org/med1985/AFP-Parser.png
+The client API works on two levels, a parser for structured field introducers and a separate API for parsing the content of structured fields. The API has been designed with handler interfaces so that the client can control the behaviour of the parser.
+
+h2. StructuredFieldIntroducerHandler
+
+p. The StructuredFieldIntroducer parser initially parses the structured field introducers of the AFP document. This gives a skeletal structure to the document and the behaviour is controlled by the StructuredFieldIntroducerHandler.
+
+h2. StructuredFieldHandler
+
+p. The richer parse of the document is handled once the introducers have been collected. A StructuredFieldFactory consumes StructuredFieldIntroducers and returns the parsed StructuredField objects. This system gives control of the rich parser to the client as structured fields can be selectively parsed. Once the structured fields have been parsed, the behaviour of the parser can be controlled through a simple interface; StructuredFieldHandler.
+
