@@ -28,6 +28,7 @@ public class SetExtendedBilevelImageColorTestCase {
         assertEquals(0x607, sut.getColourSize3());
         assertEquals(0x809, sut.getColourSize4());
         assertEquals(0xA0B, sut.getColor());
+        assertEquals("SetExtendedBilevelImageColour", sut.getName());
 
         List<ParameterAsString> expectedParams = new ArrayList<ParameterAsString>();
         expectedParams.add(new ParameterAsString("ColourSpace", ColorSpace.RGB));

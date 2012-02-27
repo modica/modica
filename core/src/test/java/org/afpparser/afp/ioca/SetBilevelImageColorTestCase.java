@@ -58,5 +58,6 @@ public class SetBilevelImageColorTestCase {
         assertEquals(1, sut.getParameters().size());
         assertEquals("Colour", sut.getParameters().get(0).getKey());
         assertEquals(expected.toString(), sut.getParameters().get(0).getValue());
+        assertEquals("SetBilevelImageColor", sut.getName());
     }
 }
