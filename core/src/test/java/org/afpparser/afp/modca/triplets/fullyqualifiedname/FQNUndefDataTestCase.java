@@ -1,5 +1,6 @@
 package org.afpparser.afp.modca.triplets.fullyqualifiedname;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -33,12 +34,13 @@ public class FQNUndefDataTestCase extends TripletTestCase<FQNUndefData> {
         setXYZ(x, y, z, notEqual);
     }
 
+    @Test
     public void testGetters() {
         assertEquals(1, x.getLength());
         assertEquals(FQNFmt.character_string, x.getFormat());
         assertEquals(type, x.getFQNType());
         assertEquals(TripletIdentifiers.fully_qualified_name, x.getTid());
-        assertEquals(undefData, x.getUndefData());
+        assertArrayEquals(undefData, x.getUndefData());
         // MUST make sure that when data is retrieved, it is not possible to mutate the original
         // data. Since we return a byte array (which are mutable), we need to make sure a different
         // object is returned.

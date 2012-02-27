@@ -13,6 +13,7 @@ import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.ParameterAsStringTestCase;
 import org.afpparser.afp.modca.triplets.Triplet;
 import org.afpparser.afp.modca.triplets.fullyqualifiedname.FullyQualifiedNameTestCase;
+import org.afpparser.common.ByteUtils;
 import org.junit.Test;
 
 /**
@@ -43,7 +44,7 @@ public abstract class StructuredFieldWithTripletsTestCase<T extends StructuredFi
             UnsupportedEncodingException {
         List<Triplet> triplets = new ArrayList<Triplet>();
         for (String str : tripletStr) {
-            triplets.add(FullyQualifiedNameTestCase.createFQN(str));
+            triplets.add(FullyQualifiedNameTestCase.createFQN(ByteUtils.hexToBytes(str)));
         }
         return triplets;
     }
