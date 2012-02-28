@@ -1,5 +1,9 @@
 defaultTasks 'clean', 'test', 'integrationTest','assemble'
 
+task createWrapper(type: Wrapper) {
+    gradleVersion = '1.0-milestone-8a'
+}
+
 def emmaPlugin = "file:$projectDir/emma.gradle"
 
 subprojects {subProject ->
