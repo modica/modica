@@ -30,9 +30,9 @@ class StructuredFieldHandlersTestCase {
             api.each {method, parameters ->
                 sut."$method"(*parameters)
             }
-            handlers.each {
-                api.keys.each {method ->
-                    verify(it)."$method"(anyObject())
+            handlers.each { handler ->
+                api.each {method, parameters ->
+                    verify(handler)."$method"(*parameters.collect { anyObject() })
                 }
             }
         }
