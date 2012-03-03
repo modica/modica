@@ -24,7 +24,7 @@ class IntroducerParsingIntegrationTest {
 
         final ByteArrayInputStream actual = new ByteArrayInputStream(baos.toByteArray())
 
-        assertXMLEqual(new InputSource(resourceToStream('test1/expected.xml')),
+        assertXMLEqual(new InputSource(resourceToStream('test1/expected.afp.xml')),
                 new InputSource(actual))
     }
 
