@@ -19,6 +19,10 @@ public class ModelBuildingSFHandler implements StructuredFieldHandler {
     }
 
     @Override
+    public void startAfp() {
+    }
+
+    @Override
     public void handleBegin(StructuredField structuredField) {
         add(structuredField);
     }
@@ -33,6 +37,10 @@ public class ModelBuildingSFHandler implements StructuredFieldHandler {
         add(structuredField);
     }
 
+    @Override
+    public void endAfp() {
+    }
+
     private void add(StructuredField structuredField) {
         structuredFields.add(structuredField);
     }
@@ -45,4 +53,8 @@ public class ModelBuildingSFHandler implements StructuredFieldHandler {
     public List<StructuredField> getObjectModel() {
         return Collections.unmodifiableList(structuredFields);
     }
+
+
+
+
 }

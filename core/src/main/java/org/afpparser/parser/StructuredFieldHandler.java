@@ -8,9 +8,13 @@ import org.afpparser.afp.modca.structuredfields.StructuredField;
  */
 public interface StructuredFieldHandler {
 
+    void startAfp();
+
     void handleBegin(StructuredField structuredField);
 
     void handleEnd(StructuredField structuredField);
 
     void handle(StructuredField structuredField);
+
+    void endAfp();
 }

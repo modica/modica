@@ -3,6 +3,8 @@ package org.afpparser.serializer.xml;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.Collections;
+import java.util.List;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -11,8 +13,9 @@ import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
 
-import org.afpparser.afp.modca.structuredfields.StructuredFieldIntroducer;
-import org.afpparser.parser.StructuredFieldIntroducerHandler;
+import org.afpparser.afp.modca.ParameterAsString;
+import org.afpparser.afp.modca.structuredfields.StructuredField;
+import org.afpparser.parser.StructuredFieldHandler;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
@@ -22,7 +25,7 @@ import static org.afpparser.common.ByteUtils.bytesToHex;
 /**
  * A StructuredFieldHandler that transforms AFP SF parsing to XML written to an output stream.
  */
-public class XmlSerializingSFIntroducerHandler implements StructuredFieldIntroducerHandler {
+public class XmlSerializingStructuredFieldHandler implements StructuredFieldHandler {
 
     public static final String URI = "http://afpparser.org";
 
@@ -30,11 +33,15 @@ public class XmlSerializingSFIntroducerHandler implements StructuredFieldIntrodu
 
     public static final String SF_ELEM_NAME = "sf";
 
+    public static final String SF_PARAMETER = "parameter";
+
+    public static final String SF_PARAMETER_KEY = "key";
+
     public static final String ROOT_NAME = "modca";
 
     private final TransformerHandler handler;
 
-    public XmlSerializingSFIntroducerHandler(OutputStream output) {
+    public XmlSerializingStructuredFieldHandler(OutputStream output) {
         SAXTransformerFactory tf = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
         tf.setAttribute("indent-number", 2);
         try {
@@ -57,16 +64,33 @@ public class XmlSerializingSFIntroducerHandler implements StructuredFieldIntrodu
         try {
             handler.startDocument();
             handler.startPrefixMapping(PREFIX, URI);
+            handler.startElement(URI, ROOT_NAME, qNameFor(ROOT_NAME), null);
         } catch (SAXException e) {
             throw new RuntimeException(e);
         }
-        startElement(ROOT_NAME, null);
+
+    }
+
+    @Override
+    public void handleBegin(StructuredField structuredField) {
+        startElement(SF_ELEM_NAME, structuredField);
+    }
+
+    @Override
+    public void handleEnd(StructuredField structuredField) {
+        endElement(SF_ELEM_NAME);
+    }
+
+    @Override
+    public void handle(StructuredField structuredField) {
+        startElement(SF_ELEM_NAME, structuredField);
+        endElement(SF_ELEM_NAME);
     }
 
     @Override
     public void endAfp(){
-        endElement(ROOT_NAME);
         try {
+            handler.endElement(URI, ROOT_NAME, qNameFor(ROOT_NAME));
             handler.endPrefixMapping(PREFIX);
             handler.endDocument();
         } catch (SAXException e) {
@@ -74,28 +98,25 @@ public class XmlSerializingSFIntroducerHandler implements StructuredFieldIntrodu
         }
     }
 
-
-    @Override
-    public void handleBegin(StructuredFieldIntroducer sf) {
-        startElement(SF_ELEM_NAME, getAttributes(sf));
-    }
-
-    @Override
-    public void handleEnd(StructuredFieldIntroducer sf) {
-        endElement(SF_ELEM_NAME);
-    }
-
-    @Override
-    public void handle(StructuredFieldIntroducer sf) {
-        startElement(SF_ELEM_NAME, getAttributes(sf));
-        endElement(SF_ELEM_NAME);
-    }
-
-    private void startElement(String name, Attributes atts) {
+    private void startElement(String name, StructuredField structuredField) {
+        Attributes atts = getAttributes(structuredField);
         try {
             handler.startElement(URI, name, qNameFor(name), atts);
+            writeParameters(structuredField);
         } catch (SAXException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private void writeParameters(StructuredField structuredField) throws SAXException {
+        for (ParameterAsString parameterAsString : structuredField.getParameters()) {
+            String key = parameterAsString.getKey();
+            char[] value = parameterAsString.getValue().toCharArray();
+            AttributesImpl pparamAtts = new AttributesImpl();
+            addAttribute(pparamAtts, SF_PARAMETER_KEY, key);
+            handler.startElement(URI, SF_PARAMETER, qNameFor(SF_PARAMETER), pparamAtts);
+            handler.characters(value, 0, value.length);
+            handler.endElement(URI, SF_PARAMETER, qNameFor(SF_PARAMETER));
         }
     }
 
@@ -111,7 +132,7 @@ public class XmlSerializingSFIntroducerHandler implements StructuredFieldIntrodu
         return PREFIX + ":" + name;
     }
 
-    private static Attributes getAttributes(StructuredFieldIntroducer sf) {
+    private static Attributes getAttributes(StructuredField sf) {
         AttributesImpl atts = new AttributesImpl();
         addAttribute(atts, "type-code", bytesToHex(sf.getType().getTypeCode().getValue()));
         addAttribute(atts, "category-code", bytesToHex(sf.getType().getCategoryCode().getValue()));
@@ -127,4 +148,5 @@ public class XmlSerializingSFIntroducerHandler implements StructuredFieldIntrodu
     private static void addAttribute(AttributesImpl atts, String name, String value) {
         atts.addAttribute("", name, name, "CDATA", value);
     }
+
 }

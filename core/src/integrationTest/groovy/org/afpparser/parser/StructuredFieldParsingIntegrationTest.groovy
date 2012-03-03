@@ -7,13 +7,14 @@ import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 
-import org.afpparser.serializer.xml.XmlSerializingSFIntroducerHandler
+import org.afpparser.parser.AfpParser
+import org.afpparser.serializer.xml.XmlSerializingStructuredFieldHandler
 import org.junit.Test
 import org.xml.sax.InputSource
 
-class IntroducerParsingIntegrationTest {
+class StructuredFieldParsingIntegrationTest {
 
-    private final static RESOURCE_ROOT = "${this.package.name.replace('.', '/')}/introducer_tests/"
+    private final static RESOURCE_ROOT = "${this.package.name.replace('.', '/')}/sf/"
 
     @Test
     public void test() {
@@ -24,7 +25,7 @@ class IntroducerParsingIntegrationTest {
 
         final ByteArrayInputStream actual = new ByteArrayInputStream(baos.toByteArray())
 
-        assertXMLEqual(new InputSource(resourceToStream('test1/expected.xml')),
+        assertXMLEqual(new InputSource(resourceToStream('test1/expected.afp.xml')),
                 new InputSource(actual))
     }
 
@@ -35,10 +36,10 @@ class IntroducerParsingIntegrationTest {
         return inStream
     }
 
-    private static void toXML(InputStream afpInputStream, OutputStream outputStream)
+    private static void toXML(FileInputStream afpInputStream, OutputStream outputStream)
             throws IOException {
-        XmlSerializingSFIntroducerHandler handler = new XmlSerializingSFIntroducerHandler(outputStream)
-        new StructuredFieldIntroducerParser(afpInputStream, handler).parse()
+        def handler = new XmlSerializingStructuredFieldHandler(outputStream)
+        AfpParser.forInput(afpInputStream).withHandler(handler).parse()
     }
 
     public static main(args) {

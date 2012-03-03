@@ -44,8 +44,8 @@ class StructuredFieldHandlersTestCase {
         def sut = StructuredFieldHandlers.chain(mock(StructuredFieldHandler),
             StructuredFieldHandlers.chain(handlers))
         sut.handle(null)
-        handlers.each {
-            verify(it).handle(anyObject())
+        handlers.each { handler ->
+            verify(handler).handle(anyObject())
         }
     }
 }

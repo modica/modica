@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<afp:modca xmlns:afp="http://afpparser.org">
+  <afp:sf type-code="a8" category-code="a8" offset="1" length="16" ext-length="0" ext-data="false" segmented-data="false" data-padding="false">
+    <afp:parameter key="DocumentName">DOC00001</afp:parameter>
+    <afp:sf type-code="a8" category-code="ad" offset="18" length="16" ext-length="0" ext-data="false" segmented-data="false" data-padding="false">
+      <afp:parameter key="PageGroupName">PGP00001</afp:parameter>
+      <afp:sf type-code="a8" category-code="af" offset="35" length="16" ext-length="0" ext-data="false" segmented-data="false" data-padding="false">
+        <afp:parameter key="PageName">PGN00001</afp:parameter>
+        <afp:sf type-code="a8" category-code="c9" offset="52" length="16" ext-length="0" ext-data="false" segmented-data="false" data-padding="false">
+          <afp:parameter key="ActiveEnvironmentGroupName">AEG00001</afp:parameter>
+          <afp:sf type-code="ab" category-code="8a" offset="69" length="42" ext-length="0" ext-data="false" segmented-data="false" data-padding="false"/>
+          <afp:sf type-code="a6" category-code="af" offset="112" length="23" ext-length="0" ext-data="false" segmented-data="false" data-padding="false">
+            <afp:parameter key="X-AxisBaseUnit">INCHES_10</afp:parameter>
+            <afp:parameter key="Y-AxisBaseUnit">INCHES_10</afp:parameter>
+            <afp:parameter key="X-AxisPageUnit">2400</afp:parameter>
+            <afp:parameter key="Y-AxisPageUnit">2400</afp:parameter>
+            <afp:parameter key="X-AxisPageSize">1982</afp:parameter>
+            <afp:parameter key="Y-AxisPageSize">2640</afp:parameter>
+          </afp:sf>
+          <afp:sf type-code="b1" category-code="9b" offset="136" length="22" ext-length="0" ext-data="false" segmented-data="false" data-padding="false">
+            <afp:parameter key="X-AxisUnits">2400</afp:parameter>
+            <afp:parameter key="Y-AxisUnits">2400</afp:parameter>
+            <afp:parameter key="X-AxisSize">1982</afp:parameter>
+            <afp:parameter key="Y-AxisSize">2640</afp:parameter>
+          </afp:sf>
+        </afp:sf>
+        <afp:sf type-code="a8" category-code="9b" offset="176" length="16" ext-length="0" ext-data="false" segmented-data="false" data-padding="false">
+          <afp:parameter key="PresentationTextObjectName">PT000001</afp:parameter>
+          <afp:sf type-code="ee" category-code="9b" offset="193" length="44" ext-length="0" ext-data="false" segmented-data="false" data-padding="false"/>
+        </afp:sf>
+      </afp:sf>
+    </afp:sf>
+  </afp:sf>
+</afp:modca>
