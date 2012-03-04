@@ -12,6 +12,7 @@ import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletGroup;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
+import org.afpparser.web.filepicker.FileModel;
 import org.afpparser.web.filepicker.FilePicker;
 import org.afpparser.web.model.AfpTreeBuilder;
 import org.afpparser.web.model.SfModelBean;
@@ -44,8 +45,6 @@ public class TreePanel extends Panel {
 
     public TreePanel(String id) {
         super(id);
-
-        add(new FilePicker("filePicker", new FileModel()));
 
         add(new AjaxLink<Void>("expandAll") {
             private static final long serialVersionUID = 1L;
@@ -81,8 +80,19 @@ public class TreePanel extends Panel {
                 .of("Values"), "userObject.getColumn3").setWrapText(true));
         tree = new TreeGrid<DefaultTreeModel, DefaultMutableTreeNode>("treegrid", treeModel,
                 columns);
+        tree.setOutputMarkupId(true);
         tree.getTreeState().expandNode(treeModel.getRoot());
         add(tree);
+
+        final FileModel fileModel = new FileModel() {
+            @Override
+            public void setObject(File file) {
+                super.setObject(file);
+                updateTree(file);
+            };
+        };
+
+        add(new FilePicker("filePicker", fileModel, tree));
 
     }
 
@@ -150,17 +160,6 @@ public class TreePanel extends Panel {
             if (repeatingGroupList.size() > 0) {
                 parent.add(repeatingGroup);
             }
-        }
-    }
-
-    public class FileModel extends org.afpparser.web.filepicker.FileModel {
-
-        private static final long serialVersionUID = 1L;
-
-        @Override
-        public void setObject(File file) {
-            super.setObject(file);
-            updateTree(file);
         }
     }
 
