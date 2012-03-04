@@ -12,6 +12,7 @@ import org.afpparser.afp.modca.ParameterAsString;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletGroup;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
+import org.afpparser.web.filepicker.FilePicker;
 import org.afpparser.web.model.AfpTreeBuilder;
 import org.afpparser.web.model.SfModelBean;
 import org.afpparser.web.model.SfTreeNode;
@@ -20,7 +21,6 @@ import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -44,6 +44,9 @@ public class TreePanel extends Panel {
 
     public TreePanel(String id) {
         super(id);
+
+        add(new FilePicker("filePicker", new FileModel()));
+
         add(new AjaxLink<Void>("expandAll") {
             private static final long serialVersionUID = 1L;
 
@@ -63,11 +66,10 @@ public class TreePanel extends Panel {
                 tree.update();
             }
         });
-        rootNode = new DefaultMutableTreeNode(new SfModelBean("Root Node", "AFP File"));
-        treeModel = new DefaultTreeModel(rootNode);
 
-        final FileUploadForm simpleUploadForm = new FileUploadForm("simpleUpload", new FileModel());
-        add(simpleUploadForm);
+        rootNode = new DefaultMutableTreeNode(new SfModelBean("Root Node", "AFP File"));
+
+        treeModel = new DefaultTreeModel(rootNode);
 
         List<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode>> columns = new ArrayList<IGridColumn<DefaultTreeModel, DefaultMutableTreeNode>>();
 
@@ -151,25 +153,13 @@ public class TreePanel extends Panel {
         }
     }
 
-    public class FileModel implements IModel<File> {
+    public class FileModel extends org.afpparser.web.filepicker.FileModel {
 
         private static final long serialVersionUID = 1L;
 
-        private transient File file;
-
-        @Override
-        public void detach() {
-            file = null;
-        }
-
-        @Override
-        public File getObject() {
-            return file;
-        }
-
         @Override
         public void setObject(File file) {
-            this.file = file;
+            super.setObject(file);
             updateTree(file);
         }
     }

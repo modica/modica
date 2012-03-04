@@ -1,8 +1,7 @@
-package org.afpparser.web;
+package org.afpparser.web.filepicker;
 
 import java.io.File;
 
-import org.afpparser.web.TreePanel.FileModel;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
@@ -35,5 +34,4 @@ public class FileUploadForm extends Form<Void> {
             throw new IllegalStateException(e);
         }
     }
-
 }
