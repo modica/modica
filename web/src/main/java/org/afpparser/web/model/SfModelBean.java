@@ -1,4 +1,4 @@
-package org.afpparser.web;
+package org.afpparser.web.model;
 
 import java.io.Serializable;
 

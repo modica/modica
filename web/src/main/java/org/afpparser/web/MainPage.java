@@ -21,8 +21,8 @@ public class MainPage extends WebPage {
 
     private static final String CONTENT_ID = "content";
 
-    private final List<MenuItem> menuItems = Arrays.asList(new MenuItem("inspect",
-            new TreeTablePanel(CONTENT_ID)),
+    private final List<MenuItem> menuItems = Arrays.asList(
+            new MenuItem("inspect", new TreePanel(CONTENT_ID)),
             new MenuItem("settings", new SettingsPanel(CONTENT_ID)));
 
     private Panel activePanel;
