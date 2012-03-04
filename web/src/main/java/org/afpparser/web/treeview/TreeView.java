@@ -1,4 +1,4 @@
-package org.afpparser.web;
+package org.afpparser.web.treeview;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,11 +13,9 @@ import org.afpparser.afp.modca.structuredfields.StructuredField;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTripletGroup;
 import org.afpparser.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.afpparser.web.filepicker.FileModel;
-import org.afpparser.web.filepicker.FilePicker;
 import org.afpparser.web.model.AfpTreeBuilder;
 import org.afpparser.web.model.SfModelBean;
 import org.afpparser.web.model.SfTreeNode;
-
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -30,21 +28,23 @@ import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.column.tree.PropertyTreeColumn;
 import com.inmethod.grid.treegrid.TreeGrid;
 
-public class TreePanel extends Panel {
-
-    private static final long serialVersionUID = 1L;
+public class TreeView extends Panel {
 
     private final DefaultMutableTreeNode rootNode;
 
     private final DefaultTreeModel treeModel;
 
-    protected final TreeGrid<DefaultTreeModel, DefaultMutableTreeNode> tree;
+    private final FileModel fileModel;
+
+    private final TreeGrid<DefaultTreeModel, DefaultMutableTreeNode> tree;
 
     @SpringBean
     AfpTreeBuilder afpParser;
 
-    public TreePanel(String id) {
+    public TreeView(String id, FileModel fileModel) {
         super(id);
+
+        this.fileModel = fileModel;
 
         add(new AjaxLink<Void>("expandAll") {
             private static final long serialVersionUID = 1L;
@@ -80,33 +80,27 @@ public class TreePanel extends Panel {
                 .of("Values"), "userObject.getColumn3").setWrapText(true));
         tree = new TreeGrid<DefaultTreeModel, DefaultMutableTreeNode>("treegrid", treeModel,
                 columns);
-        tree.setOutputMarkupId(true);
         tree.getTreeState().expandNode(treeModel.getRoot());
         add(tree);
 
-        final FileModel fileModel = new FileModel() {
-            @Override
-            public void setObject(File file) {
-                super.setObject(file);
-                updateTree(file);
-            };
-        };
-
-        add(new FilePicker("filePicker", fileModel, tree));
-
     }
 
-    public void updateTree(File afpDocument) {
-        rootNode.removeAllChildren();
-        tree.getTreeState().collapseAll();
+    @Override
+    public void onRender() {
         try {
-            add(rootNode, afpParser.buildTree(afpDocument));
+            File afpFile = fileModel.getObject();
+            if (afpFile != null) {
+                rootNode.removeAllChildren();
+                tree.getTreeState().collapseAll();
+                addToRoot(rootNode, afpParser.buildTree(afpFile));
+            }
         } catch (IOException e) {
             throw new WicketRuntimeException(e);
         }
+        super.onRender();
     }
 
-    private void add(DefaultMutableTreeNode parent, SfTreeNode nodes) {
+    private void addToRoot(DefaultMutableTreeNode parent, SfTreeNode nodes) {
         for (Object node : nodes.getChilden()) {
             if (node instanceof SfTreeNode) {
                 SfTreeNode tn = (SfTreeNode) node;
@@ -114,7 +108,7 @@ public class TreePanel extends Panel {
                         tn.getField()));
                 addParamsAndTriplets(child, tn.getField());
                 parent.add(child);
-                add(child, tn);
+                addToRoot(child, tn);
             } else {
                 StructuredField sf = (StructuredField) node;
                 DefaultMutableTreeNode child = new DefaultMutableTreeNode(new SfModelBean(sf));

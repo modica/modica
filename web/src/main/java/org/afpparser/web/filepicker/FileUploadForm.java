@@ -33,8 +33,11 @@ public class FileUploadForm extends Form<Void> {
                 File newFile = new File(TMP_DIR, upload.getClientFileName());
                 try {
                     upload.writeTo(newFile);
+                    File previous = fileModel.getObject();
+                    if (previous != null) {
+                        previous.delete();
+                    }
                     fileModel.setObject(newFile);
-                    newFile.delete();
                 } catch (Exception e) {
                     throw new IllegalStateException(e);
                 }
