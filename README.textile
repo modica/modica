@@ -1,4 +1,4 @@
-h1. AFP-Parser "!https://secure.travis-ci.org/med1985/AFP-Parser.png!":https://secure.travis-ci.org/med1985/AFP-Parser.png
+h1. MODiCA "!https://secure.travis-ci.org/modica/modica.png!":https://secure.travis-ci.org/modica/modica.png
 
 p. This project is a Java library used for parsing IBMs Advanced Function Printing document format.
 
