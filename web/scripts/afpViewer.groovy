@@ -14,7 +14,9 @@ waitForServer {
     }
 }
 
-def proc = "java -jar build/libs/afp-viewer-0.1.war $port".execute()
+def viewerOpts = System.getenv('VIEWER_OPTS') ?: ''
+
+def proc = "java $viewerOpts -jar build/libs/afp-viewer-0.1.war $port".execute()
 proc.consumeProcessErrorStream(System.err)
 proc.consumeProcessOutputStream(System.out)
 
