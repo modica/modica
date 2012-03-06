@@ -4,7 +4,7 @@
 <body>
 <wicket:panel>
 	<form wicket:id="fileUploadForm">
-    	<input wicket:id="fileInput" type="file"/>
+    	<input wicket:id="fileInput" type="file" onchange="this.form.submit();" />
     </form>
 </wicket:panel>
 </body>

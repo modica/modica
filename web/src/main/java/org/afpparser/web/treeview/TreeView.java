@@ -85,8 +85,7 @@ public class TreeView extends Panel {
 
     }
 
-    @Override
-    public void onRender() {
+    public void update() {
         try {
             File afpFile = fileModel.getObject();
             if (afpFile != null) {
@@ -97,7 +96,6 @@ public class TreeView extends Panel {
         } catch (IOException e) {
             throw new WicketRuntimeException(e);
         }
-        super.onRender();
     }
 
     private void addToRoot(DefaultMutableTreeNode parent, SfTreeNode nodes) {

@@ -1,13 +1,9 @@
 package org.afpparser.web.filepicker;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
+import java.io.IOException;
 
-import org.apache.wicket.Component;
 import org.apache.wicket.WicketRuntimeException;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
@@ -16,46 +12,36 @@ public class FileUploadForm extends Form<Void> {
 
     private static final long serialVersionUID = 1L;
 
-    private final static File TMP_DIR = new File(System.getProperty("java.io.tmpdir"));
-
     private final FileUploadField fileUploadField;
 
-    private final List<Component> registeredComponents;
+    private final FileModel fileModel;
 
-    public FileUploadForm(String name, final FileModel fileModel, Component... componentToUpdates) {
+    public FileUploadForm(String name, final FileModel fileModel) {
         super(name);
-        registeredComponents = Arrays.asList(componentToUpdates);
+        this.fileModel = fileModel;
         fileUploadField = new FileUploadField("fileInput");
-        fileUploadField.add(new AjaxFormSubmitBehavior(this, "onchange") {
-            @Override
-            protected void onSubmit(AjaxRequestTarget target) {
-                final FileUpload upload = fileUploadField.getFileUpload();
-                File newFile = new File(TMP_DIR, upload.getClientFileName());
-                try {
-                    upload.writeTo(newFile);
-                    File previous = fileModel.getObject();
-                    if (previous != null) {
-                        previous.delete();
-                    }
-                    fileModel.setObject(newFile);
-                } catch (Exception e) {
-                    throw new IllegalStateException(e);
-                }
-                updateComponents(target);
-            }
-
-            @Override
-            protected void onError(AjaxRequestTarget target) {
-                throw new WicketRuntimeException("File input exception");
-            }
-        });
-
         add(fileUploadField);
     }
 
-    public void updateComponents(AjaxRequestTarget target) {
-        for (Component component : registeredComponents) {
-            target.add(component);
+    @Override
+        protected void onSubmit() {
+            final FileUpload upload = fileUploadField.getFileUpload();
+            File newFile;
+            try {
+                newFile = File.createTempFile("afp_viewer_", "afp");
+            } catch (IOException e1) {
+                throw new WicketRuntimeException(e1);
+            }
+            try {
+                upload.writeTo(newFile);
+                File previous = fileModel.getObject();
+                if (previous != null) {
+                    previous.delete();
+                }
+                fileModel.setObject(newFile);
+            } catch (Exception e) {
+                throw new WicketRuntimeException(e);
+            }
         }
-    }
+
 }
