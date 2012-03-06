@@ -1,4 +1,4 @@
-package org.afpparser.web.sftree;
+package org.afpparser.web.model;
 
 import java.util.ArrayList;
 import java.util.List;

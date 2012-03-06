@@ -1,4 +1,4 @@
-package org.afpparser.web;
+package org.afpparser.web.model;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,7 +8,6 @@ import java.util.Stack;
 import org.afpparser.afp.modca.structuredfields.StructuredField;
 import org.afpparser.parser.AfpParser;
 import org.afpparser.parser.StructuredFieldHandler;
-import org.afpparser.web.sftree.SfTreeNode;
 
 /**
  * Parses an AFP document and creates a tree with structured fields as the nodes of the tree.
