@@ -1,0 +1,8 @@
+#! /bin/bash
+
+VIEWER_HOME=$(dirname $0)
+
+cd $VIEWER_HOME && groovy scripts/viewer.groovy $@
+
+#TODO bundle groovy runtime and execute: 
+# java -jar groovy-all*.jar viewer.groovy $@

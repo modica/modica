@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# Shell script to the org.afpparser.Main
+# Shell script to the org.modica.Main
 
 SCRIPT_HOME=$(dirname $0)
 

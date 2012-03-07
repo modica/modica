@@ -18,7 +18,7 @@ dependencies {
 
 jar {
 	manifest {
-		attributes 'Main-Class': 'org.afpparser.Main'
+		attributes 'Main-Class': 'org.modica.Main'
 	}
 }
 

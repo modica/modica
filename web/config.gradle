@@ -1,6 +1,6 @@
 version = '0.1'
-group = 'org.afpparser'
-title = 'afp-viewer'
+group = 'org.modica'
+title = 'modica'
 
 application {
     webXml.wicketConfiguration = 'deployment'

@@ -32,8 +32,6 @@ public class Start {
 
         server.setHandler(context);
 
-        printHeader(port);
-
         try {
             server.start();
             server.join();
@@ -43,16 +41,4 @@ public class Start {
         }
     }
 
-    private static void printHeader(int port) {
-        StringBuilder sb = new StringBuilder("\n\n");
-        String logo = " /A/F/P/   V I E W E R";
-        sb.append("   ");
-        sb.append(logo);
-        sb.append("\n   ");
-        for (int i = 0; i < logo.length(); i++) {
-            sb.append("-");
-        }
-        sb.append("\n\n");
-        System.out.println(sb);
-    }
 }

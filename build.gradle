@@ -11,12 +11,12 @@ subprojects {subProject ->
     apply plugin: 'eclipse'
     apply from: emmaPlugin
     compileJava.options.fork([memoryMaximumSize: '1024m'])
-    jar.baseName = "afp-parse_$subProject.name"
+    jar.baseName = "modica_$subProject.name"
     
     sourceCompatibility = 1.6
     targetCompatibility = 1.6
 
-    group = 'org.afpparser'
+    group = 'org.modica'
 
     repositories {
         mavenCentral()

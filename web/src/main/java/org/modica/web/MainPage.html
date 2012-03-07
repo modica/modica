@@ -1,0 +1,33 @@
+<html>
+<head> 
+<title>MODiCA</title>
+    <wicket:remove>
+        <link rel="stylesheet" type="text/css" href="MainPage.css" />
+    </wicket:remove>
+</head>
+<body>
+<div id="header">
+    <h1>MODiCA</h1>
+    <nav>
+        <ul id="menu">
+            <li wicket:id="tab">
+                <a href="#" wicket:id="tab_link">
+                    <span  wicket:id="caption">Dashboard</span>
+                </a>
+            </li>
+            <wicket:remove>
+            <li><a href="#">Inspect</a></li>
+            <li><a href="#">Diff</a></li>
+            </wicket:remove>
+        </ul>
+    <div style="clear:both;" />
+    </nav>
+</div>
+<div id="content" wicket:id="content">
+http://www.vunkyblog.net/2010/html5-admin-interface-in-5-minutes/
+</div>
+<footer>
+<div id="footer">&copy; 2012 modica</div>
+</footer>
+</body>
+</html>

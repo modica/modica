@@ -2,9 +2,9 @@ import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import java.util.concurrent.FutureTask
 
-import org.afpparser.afp.modca.structuredfields.SfIntroducer
-import org.afpparser.parser.AFPDocumentParser
-import org.afpparser.parser.SFIntroducerHandler
+import org.modica.afp.modca.structuredfields.SfIntroducer
+import org.modica.parser.AFPDocumentParser
+import org.modica.parser.SFIntroducerHandler
 
 class SFDataHandler implements SFIntroducerHandler {
 
