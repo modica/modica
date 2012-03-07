@@ -6,12 +6,15 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.bio.SocketConnector;
 import org.eclipse.jetty.webapp.WebAppContext;
 
-public class Start {
+public class ModicaWebServer {
 
-    public static void main(String[] args) throws Exception {
+    private final int port;
 
-        int port = args.length > 0 ? Integer.parseInt(args[0]) : 8080;
+    public ModicaWebServer(int port) {
+        this.port = port;
+    }
 
+    public void start() throws Exception {
         Server server = new Server();
         SocketConnector connector = new SocketConnector();
 
@@ -26,7 +29,7 @@ public class Start {
         context.setServer(server);
         context.setContextPath("/");
 
-        ProtectionDomain protectionDomain = Start.class.getProtectionDomain();
+        ProtectionDomain protectionDomain = ModicaWebServer.class.getProtectionDomain();
         URL location = protectionDomain.getCodeSource().getLocation();
         context.setWar(location.toExternalForm());
 
@@ -39,6 +42,11 @@ public class Start {
             e.printStackTrace();
             System.exit(100);
         }
+    }
+
+    public static void main(String[] args) throws Exception {
+        int port = args.length > 0 ? Integer.parseInt(args[0]) : 8080;
+        new ModicaWebServer(port).start();
     }
 
 }

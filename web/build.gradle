@@ -73,7 +73,7 @@ war {
 
     manifest {
         attributes ("Implementation-Title": title, "Implementation-Version": version)
-        attributes 'Main-Class': 'Start'
+        attributes 'Main-Class': 'ModicaWebServer'
     }
 
     webInf {
