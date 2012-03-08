@@ -1,10 +1,10 @@
 package org.modica.serializer.xml;
 
+import static org.modica.common.ByteUtils.bytesToHex;
+
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.Collections;
-import java.util.List;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -19,8 +19,6 @@ import org.modica.parser.StructuredFieldHandler;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
-
-import static org.modica.common.ByteUtils.bytesToHex;
 
 /**
  * A StructuredFieldHandler that transforms AFP SF parsing to XML written to an output stream.
