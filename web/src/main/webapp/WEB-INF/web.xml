@@ -9,16 +9,6 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-
-    <filter>
-        <filter-name>afpFilter</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>afpFilter</filter-name>
-        <url-pattern>/modica/*</url-pattern>
-    </filter-mapping>
-
   <filter>
     <filter-name>app</filter-name>
     <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>

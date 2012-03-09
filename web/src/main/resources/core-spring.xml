@@ -6,6 +6,10 @@
 	
 	<bean id="afpTreeBuilder" class="org.modica.web.model.AfpTreeBuilder"/>
 
-    <bean id="afpFilter" class="org.modica.web.filter.AfpFilter"/>
+    <bean id="afpServiceSession" class="org.modica.web.model.AfpServiceRequestCycleListener">
+        <property name="afpService" ref="afpService"/>
+    </bean>
+
+    <bean id="afpService" class="org.modica.web.model.AfpService"/>
 
 </beans>

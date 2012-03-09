@@ -43,7 +43,7 @@ dependencies {
 
     runtime "ch.qos.logback:logback-classic:$logbackVersion"
 
-    runtime "org.springframework:spring-web:$springVersion"
+    compile "org.springframework:spring-web:$springVersion"
 
     jettyRuntime  "ch.qos.logback:logback-classic:$logbackVersion"
 
