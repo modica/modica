@@ -28,16 +28,13 @@ public class FileUploadForm extends Form<Void> {
             final FileUpload upload = fileUploadField.getFileUpload();
             File newFile;
             try {
-                newFile = File.createTempFile("afp_viewer_", "afp");
+                newFile = File.createTempFile("modica_", ".afp");
+                newFile.deleteOnExit();
             } catch (IOException e1) {
                 throw new WicketRuntimeException(e1);
             }
             try {
                 upload.writeTo(newFile);
-                File previous = fileModel.getObject();
-                if (previous != null) {
-                    previous.delete();
-                }
                 fileModel.setObject(newFile);
             } catch (Exception e) {
                 throw new WicketRuntimeException(e);

@@ -19,6 +19,7 @@ import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletGroup;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.modica.web.filepicker.FileModel;
+import org.modica.web.model.AfpService;
 import org.modica.web.model.AfpTreeBuilder;
 import org.modica.web.model.SfModelBean;
 import org.modica.web.model.SfTreeNode;
@@ -39,7 +40,7 @@ public class TreeView extends Panel {
     private final TreeGrid<DefaultTreeModel, DefaultMutableTreeNode> tree;
 
     @SpringBean
-    AfpTreeBuilder afpParser;
+    AfpService afpService;
 
     public TreeView(String id, FileModel fileModel) {
         super(id);
@@ -86,16 +87,9 @@ public class TreeView extends Panel {
     }
 
     public void update() {
-        try {
-            File afpFile = fileModel.getObject();
-            if (afpFile != null) {
-                rootNode.removeAllChildren();
-                tree.getTreeState().collapseAll();
-                addToRoot(rootNode, afpParser.buildTree(afpFile));
-            }
-        } catch (IOException e) {
-            throw new WicketRuntimeException(e);
-        }
+        rootNode.removeAllChildren();
+        tree.getTreeState().collapseAll();
+        addToRoot(rootNode, afpService.buildTree());
     }
 
     private void addToRoot(DefaultMutableTreeNode parent, SfTreeNode nodes) {

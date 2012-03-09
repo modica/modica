@@ -60,6 +60,10 @@ public class AfpTreeBuilder {
 
     public SfTreeNode buildTree(File afpDocument) throws IOException {
         FileInputStream inStream = new FileInputStream(afpDocument);
+        return buildTree(inStream);
+    }
+
+    public SfTreeNode buildTree(FileInputStream inStream) throws IOException {
         try {
             TreeBuildingHandler treeBuilder = new TreeBuildingHandler();
             AfpParser.forInput(inStream).withHandler(treeBuilder).parse();
