@@ -35,17 +35,14 @@ public class TreeView extends Panel {
 
     private final DefaultTreeModel treeModel;
 
-    private final FileModel fileModel;
 
     private final TreeGrid<DefaultTreeModel, DefaultMutableTreeNode> tree;
 
     @SpringBean
     AfpService afpService;
 
-    public TreeView(String id, FileModel fileModel) {
+    public TreeView(String id) {
         super(id);
-
-        this.fileModel = fileModel;
 
         add(new AjaxLink<Void>("expandAll") {
             private static final long serialVersionUID = 1L;

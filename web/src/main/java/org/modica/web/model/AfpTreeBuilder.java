@@ -1,6 +1,5 @@
 package org.modica.web.model;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Stack;
@@ -56,11 +55,6 @@ public class AfpTreeBuilder {
             return stack.pop();
         }
 
-    }
-
-    public SfTreeNode buildTree(File afpDocument) throws IOException {
-        FileInputStream inStream = new FileInputStream(afpDocument);
-        return buildTree(inStream);
     }
 
     public SfTreeNode buildTree(FileInputStream inStream) throws IOException {

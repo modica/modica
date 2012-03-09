@@ -44,7 +44,7 @@ public class TreeViewPanel extends Panel {
             }
         };
         FilePicker filePicker = new FilePicker("filePicker", fileModel);
-        treeView = new TreeView("treeView", fileModel);
+        treeView = new TreeView("treeView");
         add(filePicker);
         add(treeView);
     }
