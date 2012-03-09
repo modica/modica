@@ -25,6 +25,8 @@ dependencies {
         compile "org.apache.wicket:wicket-$it:1.5.3"
     }
 
+    providedCompile 'javax.servlet:servlet-api:2.5'
+
     compile 'org.wicketstuff:inmethod-grid:1.5-RC5.1'   
  
     ['server', 'webapp'].each {
