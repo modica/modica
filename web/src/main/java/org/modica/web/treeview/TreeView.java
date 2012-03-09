@@ -1,14 +1,11 @@
 package org.modica.web.treeview;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -18,8 +15,7 @@ import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletGroup;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTriplets;
-import org.modica.web.filepicker.FileModel;
-import org.modica.web.model.AfpTreeBuilder;
+import org.modica.web.model.AfpService;
 import org.modica.web.model.SfModelBean;
 import org.modica.web.model.SfTreeNode;
 
@@ -30,21 +26,20 @@ import com.inmethod.grid.treegrid.TreeGrid;
 
 public class TreeView extends Panel {
 
+    private static final long serialVersionUID = 1L;
+
     private final DefaultMutableTreeNode rootNode;
 
     private final DefaultTreeModel treeModel;
 
-    private final FileModel fileModel;
 
     private final TreeGrid<DefaultTreeModel, DefaultMutableTreeNode> tree;
 
     @SpringBean
-    AfpTreeBuilder afpParser;
+    AfpService afpService;
 
-    public TreeView(String id, FileModel fileModel) {
+    public TreeView(String id) {
         super(id);
-
-        this.fileModel = fileModel;
 
         add(new AjaxLink<Void>("expandAll") {
             private static final long serialVersionUID = 1L;
@@ -86,16 +81,9 @@ public class TreeView extends Panel {
     }
 
     public void update() {
-        try {
-            File afpFile = fileModel.getObject();
-            if (afpFile != null) {
-                rootNode.removeAllChildren();
-                tree.getTreeState().collapseAll();
-                addToRoot(rootNode, afpParser.buildTree(afpFile));
-            }
-        } catch (IOException e) {
-            throw new WicketRuntimeException(e);
-        }
+        rootNode.removeAllChildren();
+        tree.getTreeState().collapseAll();
+        addToRoot(rootNode, afpService.buildTree());
     }
 
     private void addToRoot(DefaultMutableTreeNode parent, SfTreeNode nodes) {

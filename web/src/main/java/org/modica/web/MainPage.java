@@ -41,6 +41,9 @@ public class MainPage extends WebPage {
 
     private void initMenu() {
         add(new ListView<MenuItem>("tab", menuItems) {
+
+            private static final long serialVersionUID = 1L;
+
             @Override
             protected void populateItem(ListItem<MenuItem> item) {
                 final MenuItem menuItem = item.getModelObject();
@@ -49,6 +52,9 @@ public class MainPage extends WebPage {
                     item.add(new AttributeModifier("class", new Model<String>("active")));
                 }
                 Link<Void> link = new Link<Void>("tab_link") {
+
+                    private static final long serialVersionUID = 1L;
+
                     @Override
                     public void onClick() {
                         activePanel.replaceWith(panel);
