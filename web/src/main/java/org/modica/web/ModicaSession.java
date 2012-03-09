@@ -26,7 +26,9 @@ import org.apache.wicket.request.Request;
 
 public class ModicaSession extends WebSession {
 
-    private File afpFile;
+    private static final long serialVersionUID = 1L;
+
+    private transient File afpFile;
 
     public ModicaSession(Request request) {
         super(request);

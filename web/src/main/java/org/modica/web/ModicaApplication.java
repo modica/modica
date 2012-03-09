@@ -14,7 +14,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * Application object for the Wicket web application.
  *
  */
-public class WicketApplication extends WebApplication {
+public class ModicaApplication extends WebApplication {
 
     @Override
     public Class<MainPage> getHomePage() {

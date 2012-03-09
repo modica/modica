@@ -24,6 +24,9 @@ public class TreeViewPanel extends Panel {
         super(id);
 
         final FileModel fileModel = new FileModel() {
+
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void setObject(File file) {
                 super.setObject(file);
