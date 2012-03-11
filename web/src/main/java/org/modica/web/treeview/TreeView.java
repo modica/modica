@@ -10,14 +10,16 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletGroup;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTriplets;
-import org.modica.web.model.AfpService;
+import org.modica.web.TreeViewPanel;
+import org.modica.web.model.AfpTreeModel;
 import org.modica.web.model.SfModelBean;
 import org.modica.web.model.SfTreeNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.column.PropertyColumn;
@@ -28,18 +30,20 @@ public class TreeView extends Panel {
 
     private static final long serialVersionUID = 1L;
 
+    private static final Logger LOG = LoggerFactory.getLogger(TreeViewPanel.class);
+
+    private final AfpTreeModel afpTreeModel;
+
     private final DefaultMutableTreeNode rootNode;
 
     private final DefaultTreeModel treeModel;
 
-
     private final TreeGrid<DefaultTreeModel, DefaultMutableTreeNode> tree;
 
-    @SpringBean
-    AfpService afpService;
-
-    public TreeView(String id) {
+    public TreeView(String id, AfpTreeModel afpTreeModel) {
         super(id);
+
+        this.afpTreeModel = afpTreeModel;
 
         add(new AjaxLink<Void>("expandAll") {
             private static final long serialVersionUID = 1L;
@@ -81,9 +85,13 @@ public class TreeView extends Panel {
     }
 
     public void update() {
-        rootNode.removeAllChildren();
-        tree.getTreeState().collapseAll();
-        addToRoot(rootNode, afpService.buildTree());
+        LOG.debug("update()");
+        SfTreeNode nodes = afpTreeModel.getObject();
+        if (nodes != null) {
+            rootNode.removeAllChildren();
+            tree.getTreeState().collapseAll();
+            addToRoot(rootNode, nodes);
+        }
     }
 
     private void addToRoot(DefaultMutableTreeNode parent, SfTreeNode nodes) {
