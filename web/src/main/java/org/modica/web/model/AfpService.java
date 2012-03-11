@@ -19,7 +19,7 @@ public class AfpService {
 
     private static final Logger LOG = LoggerFactory.getLogger(AfpService.class);
 
-    private AfpTreeBuilder afpTreeBuilder;
+    private DefaultAfpTreeBuilder afpTreeBuilder;
 
     private final ThreadLocal<FileInputStream> fileChannelStore = new ThreadLocal<FileInputStream>();
 
@@ -56,7 +56,7 @@ public class AfpService {
         sfTreeNodeStore.set(null);
     }
 
-    public void beginSession() throws FileNotFoundException {
+    void beginSession() throws FileNotFoundException {
         ModicaSession session = ModicaSession.get();
         if (session != null) {
             File afpFile = session.getAfpFile();
@@ -71,7 +71,7 @@ public class AfpService {
         LOG.debug("beginSession()");
     }
 
-    public void endSession() throws IOException {
+    void endSession() throws IOException {
         FileInputStream input = fileChannelStore.get();
         fileChannelStore.set(null);
         sfTreeNodeStore.set(null);
@@ -81,7 +81,7 @@ public class AfpService {
         LOG.debug("endSession()");
     }
 
-    public void setAfpTreeBuilder(AfpTreeBuilder afpTreeBuilder) {
+    public void setAfpTreeBuilder(DefaultAfpTreeBuilder afpTreeBuilder) {
         this.afpTreeBuilder = afpTreeBuilder;
     }
 }

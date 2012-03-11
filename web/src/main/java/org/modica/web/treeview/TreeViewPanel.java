@@ -1,4 +1,4 @@
-package org.modica.web;
+package org.modica.web.treeview;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,7 +10,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.modica.web.filepicker.FilePicker;
 import org.modica.web.model.AfpService;
 import org.modica.web.model.AfpTreeModel;
-import org.modica.web.treeview.TreeView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

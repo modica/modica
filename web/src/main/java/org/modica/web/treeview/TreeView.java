@@ -16,7 +16,6 @@ import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletGroup;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.modica.common.StringUtils;
-import org.modica.web.TreeViewPanel;
 import org.modica.web.model.AfpTreeModel;
 import org.modica.web.model.SfTreeNode;
 import org.slf4j.Logger;
