@@ -1,5 +1,6 @@
 package org.modica.web.treeview;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,14 +11,16 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletGroup;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTriplets;
-import org.modica.web.model.AfpService;
-import org.modica.web.model.SfModelBean;
+import org.modica.common.StringUtils;
+import org.modica.web.TreeViewPanel;
+import org.modica.web.model.AfpTreeModel;
 import org.modica.web.model.SfTreeNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.column.PropertyColumn;
@@ -28,18 +31,20 @@ public class TreeView extends Panel {
 
     private static final long serialVersionUID = 1L;
 
+    private static final Logger LOG = LoggerFactory.getLogger(TreeViewPanel.class);
+
+    private final AfpTreeModel afpTreeModel;
+
     private final DefaultMutableTreeNode rootNode;
 
     private final DefaultTreeModel treeModel;
 
-
     private final TreeGrid<DefaultTreeModel, DefaultMutableTreeNode> tree;
 
-    @SpringBean
-    AfpService afpService;
-
-    public TreeView(String id) {
+    public TreeView(String id, AfpTreeModel afpTreeModel) {
         super(id);
+
+        this.afpTreeModel = afpTreeModel;
 
         add(new AjaxLink<Void>("expandAll") {
             private static final long serialVersionUID = 1L;
@@ -81,9 +86,13 @@ public class TreeView extends Panel {
     }
 
     public void update() {
-        rootNode.removeAllChildren();
-        tree.getTreeState().collapseAll();
-        addToRoot(rootNode, afpService.buildTree());
+        LOG.debug("update()");
+        SfTreeNode nodes = afpTreeModel.getObject();
+        if (nodes != null) {
+            rootNode.removeAllChildren();
+            tree.getTreeState().collapseAll();
+            addToRoot(rootNode, nodes);
+        }
     }
 
     private void addToRoot(DefaultMutableTreeNode parent, SfTreeNode nodes) {
@@ -140,6 +149,49 @@ public class TreeView extends Panel {
             if (repeatingGroupList.size() > 0) {
                 parent.add(repeatingGroup);
             }
+        }
+    }
+
+    private static class SfModelBean implements Serializable {
+        private static final long serialVersionUID = 1L;
+
+        private final String col1;
+        private final String col2;
+        private final String col3;
+
+        public SfModelBean(StructuredField intro) {
+            this.col1 = StringUtils.toHex(intro.getOffset(), 8);
+            this.col2 = intro.getType().getName();
+            this.col3 = "";
+        }
+
+        public SfModelBean(String col1, String col2) {
+            this.col1 = col1;
+            this.col2 = col2;
+            this.col3 = "";
+        }
+
+        public SfModelBean(String col1, String col2, String col3) {
+            this.col1 = col1;
+            this.col2 = col2;
+            this.col3 = col3;
+        }
+
+        public String getColumn1() {
+            return col1;
+        }
+
+        public String getColumn2() {
+            return col2;
+        }
+
+        public String getColumn3() {
+            return col3;
+        }
+
+        @Override
+        public String toString() {
+            return getColumn1() + ", " + getColumn2();
         }
     }
 
