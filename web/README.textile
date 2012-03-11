@@ -1,0 +1,3 @@
+h1. MODiCA Web View
+
+p. The MODiCA web view provides a web front end for the AFP library for creating a graphical representation of the AFP document. The Apache™ Wicket framework is used to serve the web view and allows the AFP document to load dynamically.
