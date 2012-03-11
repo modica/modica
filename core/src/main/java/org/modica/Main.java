@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
-
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -20,6 +19,7 @@ import org.modica.parser.AfpParser;
 import org.modica.parser.PrintingSFHandler;
 import org.modica.parser.PrintingSFIntroducerHandler;
 import org.modica.parser.StructuredFieldIntroducerParser;
+import org.modica.serializer.xml.XmlSerializingStructuredFieldHandler;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -35,7 +35,8 @@ public class Main {
                     return;
                 }
                 inStream = new FileInputStream(afpDoc);
-                new StructuredFieldIntroducerParser(inStream, new PrintingSFIntroducerHandler(System.out)).parse();
+                new StructuredFieldIntroducerParser(inStream,
+                        new PrintingSFIntroducerHandler(System.out)).parse();
             } else if (cmd.hasOption('f')) {
                 File afpDoc = new File(cmd.getOptionValue('f'));
                 if (!afpDoc.isFile()) {
@@ -46,13 +47,24 @@ public class Main {
                 inStream = new FileInputStream(afpDoc);
                 ModelBuildingSFHandler modelBuilder = new ModelBuildingSFHandler();
                 AfpParser.forInput(inStream)
-                        .withHandler(new PrintingSFIntroducerHandler(System.out))
-                        .withHandler(new PrintingSFHandler(System.out))
-                        .withHandler(modelBuilder)
-                        .parse();
+                         .withHandler(new PrintingSFIntroducerHandler(System.out))
+                         .withHandler(new PrintingSFHandler(System.out))
+                         .withHandler(modelBuilder)
+                         .parse();
                 List<StructuredField> model = modelBuilder.getObjectModel();
-                System.out.println("This document contains " + model.size() + " structured fields.");
-
+                System.out.println(
+                          "This document contains " + model.size() + " structured fields.");
+            } else if (cmd.hasOption('x')) {
+                File afpDoc = new File(cmd.getOptionValue('x'));
+                if (!afpDoc.isFile()) {
+                    System.out.println("The AFP document does not exist");
+                    return;
+                }
+                inStream = new FileInputStream(afpDoc);
+                ModelBuildingSFHandler modelBuilder = new ModelBuildingSFHandler();
+                AfpParser.forInput(inStream)
+                         .withHandler(new XmlSerializingStructuredFieldHandler(System.out))
+                         .parse();
             } else {
                 printHelp(opts);
             }
@@ -69,7 +81,7 @@ public class Main {
 
     private static void printHelp(Options opts) {
         HelpFormatter helpFormatter = new HelpFormatter();
-        helpFormatter.printHelp("afpparser", opts);
+        helpFormatter.printHelp("MODiCA - An AFP parsing library", opts);
     }
 
     private static Options createCliOptions() {
@@ -82,6 +94,8 @@ public class Main {
                 + " any differences to the command line."));
         optGroup.addOption(new Option("f", "full-parse", true, "Parse the AFP document and create"
                 + " a richer object model."));
+        optGroup.addOption(new Option("x", "xml-out", true, "Parse the AFP document and prints the"
+                + " XML model to stdout."));
         opts.addOptionGroup(optGroup);
         return opts;
     }

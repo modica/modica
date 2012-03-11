@@ -87,5 +87,5 @@ if $cygwin; then
     ;;
   esac
 fi
-exec_command="exec \"$JAVACMD\" $LOGCHOICE $LOGLEVEL -classpath \"$LOCALCLASSPATH\" org.afpparser.Main $exec_args"
+exec_command="exec \"$JAVACMD\" $LOGCHOICE $LOGLEVEL -classpath \"$LOCALCLASSPATH\" org.modica.Main $exec_args"
 eval $exec_command
