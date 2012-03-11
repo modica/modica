@@ -38,8 +38,4 @@ public class SfTreeNode implements Serializable {
         return sfList;
     }
 
-    @Override
-    public String toString() {
-        return field.toString();
-    }
 }
