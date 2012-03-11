@@ -40,7 +40,7 @@ public class AfpServiceRequestCycleListener extends AbstractRequestCycleListener
     @Override
     public void onBeginRequest(RequestCycle cycle) {
 
-        ModicaSession session = (ModicaSession) (Session.exists() ? Session.get() : null);
+        ModicaSession session = ModicaSession.get();
         if (session != null) {
             File afpFile = session.getAfpFile();
             try {

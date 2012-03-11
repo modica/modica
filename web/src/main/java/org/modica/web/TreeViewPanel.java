@@ -35,7 +35,7 @@ public class TreeViewPanel extends Panel {
             public void setObject(File file) {
                 LOG.debug("New afp file set");
                 super.setObject(file);
-                ModicaSession session = (ModicaSession) getSession();
+                ModicaSession session = ModicaSession.get();
                 File previous = session.getAfpFile();
                 if (previous != null) {
                     previous.delete();

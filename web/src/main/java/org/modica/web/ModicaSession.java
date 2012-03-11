@@ -21,6 +21,7 @@ package org.modica.web;
 
 import java.io.File;
 
+import org.apache.wicket.Session;
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.request.Request;
 
@@ -29,6 +30,10 @@ public class ModicaSession extends WebSession {
     private static final long serialVersionUID = 1L;
 
     private transient File afpFile;
+
+    public static ModicaSession get() {
+        return (ModicaSession) Session.get();
+    }
 
     public ModicaSession(Request request) {
         super(request);
