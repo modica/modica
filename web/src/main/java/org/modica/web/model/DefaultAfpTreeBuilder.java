@@ -67,4 +67,14 @@ public class DefaultAfpTreeBuilder implements AfpTreeBuilder {
             inStream.close();
         }
     }
+
+    @Override
+    public void attach(SfTreeNode sfTreeNode, FileInputStream inStream) throws IOException {
+        // NOP
+    }
+
+    @Override
+    public void detach(SfTreeNode sfTreeNode) {
+        // NOP
+    }
 }

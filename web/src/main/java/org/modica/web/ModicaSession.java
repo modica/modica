@@ -24,12 +24,15 @@ import java.io.File;
 import org.apache.wicket.Session;
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.request.Request;
+import org.modica.web.model.SfTreeNode;
 
 public class ModicaSession extends WebSession {
 
     private static final long serialVersionUID = 1L;
 
     private transient File afpFile;
+
+    private transient SfTreeNode sfTreeNode;
 
     public static ModicaSession get() {
         return (ModicaSession) Session.get();
@@ -47,4 +50,11 @@ public class ModicaSession extends WebSession {
         this.afpFile = afpFile;
     }
 
+    public SfTreeNode getSfTreeNode() {
+        return sfTreeNode;
+    }
+
+    public void setSfTreeNode(SfTreeNode sfTreeNode) {
+        this.sfTreeNode = sfTreeNode;
+    }
 }

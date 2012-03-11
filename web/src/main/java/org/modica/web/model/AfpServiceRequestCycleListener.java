@@ -19,7 +19,6 @@
 
 package org.modica.web.model;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.apache.wicket.WicketRuntimeException;
@@ -38,7 +37,7 @@ public class AfpServiceRequestCycleListener extends AbstractRequestCycleListener
     public void onBeginRequest(RequestCycle cycle) {
         try {
             afpService.beginSession();
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             throw new WicketRuntimeException(e);
         }
     }
