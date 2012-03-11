@@ -1,0 +1,11 @@
+h1. MODiCA Core Library 
+
+p. The MODiCA core library provides the technology for parsing AFP documents. The behaviour of the parsing mechanism can be controlled by implementing the StructuredFieldIntroducerHandler and StructuredFieldHandler interfaces.
+
+h3. Examples
+
+p. Examples of how to embed MODiCA in Java will be created . TODO: Create examples
+
+h3. Testing and Code Coverage
+
+p. MODiCA is tested thorougly with JUnit tests as well as integration tests. When the gradle build is invoked, the default action is to use Emm to analyse code coverage, the report can be viewed by opening "build/reports/emma/coverage.html" in a browser.
