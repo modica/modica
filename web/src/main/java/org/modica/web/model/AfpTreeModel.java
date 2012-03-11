@@ -1,10 +1,10 @@
 package org.modica.web.model;
 
 import org.apache.wicket.injection.Injector;
-import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-public class AfpTreeModel extends LoadableDetachableModel<SfTreeNode> {
+public class AfpTreeModel extends Model<SfTreeNode> {
 
     @SpringBean
     private AfpService afpService;
@@ -16,8 +16,12 @@ public class AfpTreeModel extends LoadableDetachableModel<SfTreeNode> {
     }
 
     @Override
-    protected SfTreeNode load() {
+    public SfTreeNode getObject() {
         return afpService.getSfTreeNode();
     }
 
+    @Override
+    public void setObject(SfTreeNode object) {
+        throw new UnsupportedOperationException();
+    }
 }

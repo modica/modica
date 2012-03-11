@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.apache.wicket.WicketRuntimeException;
+import org.modica.web.ModicaSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,15 +25,14 @@ public class AfpService {
 
     private final ThreadLocal<SfTreeNode> sfTreeNodeStore = new ThreadLocal<SfTreeNode>();
 
-    public void startSession(File afpFile) throws FileNotFoundException {
-        if (afpFile != null) {
-            loadDocument(afpFile);
+    public void setAfpFile(File afpFile) throws FileNotFoundException {
+        ModicaSession session = ModicaSession.get();
+        File previous = session.getAfpFile();
+        if (previous != null) {
+            previous.delete();
         }
-    }
-
-    public void loadDocument(File afpFile) throws FileNotFoundException {
-        fileChannelStore.set(new FileInputStream(afpFile));
-        sfTreeNodeStore.set(null);
+        session.setAfpFile(afpFile);
+        load(afpFile);
     }
 
     public SfTreeNode getSfTreeNode() {
@@ -41,7 +41,7 @@ public class AfpService {
             FileInputStream input = fileChannelStore.get();
             if (input != null) {
                 try {
-                    sfTreeNode = afpTreeBuilder.buildTree(fileChannelStore.get());
+                    sfTreeNode = afpTreeBuilder.buildTree(input);
                     sfTreeNodeStore.set(sfTreeNode);
                 } catch (IOException e) {
                     throw new WicketRuntimeException("Error building afp tree", e);
@@ -51,6 +51,26 @@ public class AfpService {
         return sfTreeNode;
     }
 
+    private void load(File afpFile) throws FileNotFoundException {
+        fileChannelStore.set(new FileInputStream(afpFile));
+        sfTreeNodeStore.set(null);
+    }
+
+    public void beginSession() throws FileNotFoundException {
+        ModicaSession session = ModicaSession.get();
+        if (session != null) {
+            File afpFile = session.getAfpFile();
+            if (afpFile != null) {
+                try {
+                    load(afpFile);
+                } catch (FileNotFoundException e) {
+                    throw new WicketRuntimeException(e);
+                }
+            }
+        }
+        LOG.debug("beginSession()");
+    }
+
     public void endSession() throws IOException {
         FileInputStream input = fileChannelStore.get();
         fileChannelStore.set(null);
@@ -58,7 +78,7 @@ public class AfpService {
         if (input != null) {
             input.close();
         }
-        LOG.debug("end afp session");
+        LOG.debug("endSession()");
     }
 
     public void setAfpTreeBuilder(AfpTreeBuilder afpTreeBuilder) {

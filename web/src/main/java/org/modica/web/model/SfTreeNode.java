@@ -1,5 +1,6 @@
 package org.modica.web.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,9 +9,12 @@ import org.modica.afp.modca.structuredfields.StructuredField;
 /**
  * A node in the structured field tree.
  */
-public class SfTreeNode {
+public class SfTreeNode implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final List<Object> sfList;
+
     private final StructuredField field;
 
     public SfTreeNode(StructuredField structuredField) {

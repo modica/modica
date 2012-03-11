@@ -5,8 +5,8 @@ import java.io.FileNotFoundException;
 
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.modica.web.filepicker.FileModel;
 import org.modica.web.filepicker.FilePicker;
 import org.modica.web.model.AfpService;
 import org.modica.web.model.AfpTreeModel;
@@ -27,22 +27,16 @@ public class TreeViewPanel extends Panel {
 
     public TreeViewPanel(String id) {
         super(id);
-        final FileModel fileModel = new FileModel() {
+        final Model<File> fileModel = new Model<File>() {
 
             private static final long serialVersionUID = 1L;
 
             @Override
             public void setObject(File file) {
-                LOG.debug("New afp file set");
+                LOG.debug("setObject()");
                 super.setObject(file);
-                ModicaSession session = ModicaSession.get();
-                File previous = session.getAfpFile();
-                if (previous != null) {
-                    previous.delete();
-                }
-                session.setAfpFile(file);
                 try {
-                    afpService.loadDocument(file);
+                    afpService.setAfpFile(file);
                 } catch (FileNotFoundException e) {
                     throw new WicketRuntimeException("Faulty afp file " + file, e);
                 }
@@ -54,4 +48,5 @@ public class TreeViewPanel extends Panel {
         add(filePicker);
         add(treeView);
     }
+
 }

@@ -19,15 +19,12 @@
 
 package org.modica.web.model;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.apache.wicket.Session;
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.request.cycle.AbstractRequestCycleListener;
 import org.apache.wicket.request.cycle.RequestCycle;
-import org.modica.web.ModicaSession;
 
 /**
  * This is used by to manage the session state of the Afp document.
@@ -39,15 +36,10 @@ public class AfpServiceRequestCycleListener extends AbstractRequestCycleListener
 
     @Override
     public void onBeginRequest(RequestCycle cycle) {
-
-        ModicaSession session = ModicaSession.get();
-        if (session != null) {
-            File afpFile = session.getAfpFile();
-            try {
-                afpService.startSession(afpFile);
-            } catch (FileNotFoundException e) {
-                throw new WicketRuntimeException(e);
-            }
+        try {
+            afpService.beginSession();
+        } catch (FileNotFoundException e) {
+            throw new WicketRuntimeException(e);
         }
     }
 
