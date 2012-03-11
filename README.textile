@@ -17,8 +17,6 @@ h2. The Commandline Utility
 p. MODiCA has been designed to be used as a library, however a CLI allows for some of the more conventional use-cases to be accessed from the command line.
 
 bc.         usage: MODiCA - An AFP parsing library
-          -c,--compare <arg>      Compare two AFP documents and print any
-                                  differences to the command line.
           -f,--full-parse <arg>   Parse the AFP document and create a richer object
                                   model.
           -h,--help               Print usage information
@@ -26,10 +24,6 @@ bc.         usage: MODiCA - An AFP parsing library
                                   field data to the commandline.
           -x,--xml-out <arg>      Parse the AFP document and prints the XML model
                          to stdout.
-
-h5. Compare
-
-p. Not yet implemented - watch this space
 
 h5. Full Parse
 

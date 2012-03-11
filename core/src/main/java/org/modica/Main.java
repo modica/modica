@@ -61,7 +61,6 @@ public class Main {
                     return;
                 }
                 inStream = new FileInputStream(afpDoc);
-                ModelBuildingSFHandler modelBuilder = new ModelBuildingSFHandler();
                 AfpParser.forInput(inStream)
                          .withHandler(new XmlSerializingStructuredFieldHandler(System.out))
                          .parse();
@@ -90,8 +89,6 @@ public class Main {
         OptionGroup optGroup = new OptionGroup();
         optGroup.addOption(new Option("p", "parse", true,
                 "Parse an AFP document and print the structured field data to the commandline."));
-        optGroup.addOption(new Option("c", "compare", true, "Compare two AFP documents and print"
-                + " any differences to the command line."));
         optGroup.addOption(new Option("f", "full-parse", true, "Parse the AFP document and create"
                 + " a richer object model."));
         optGroup.addOption(new Option("x", "xml-out", true, "Parse the AFP document and prints the"
