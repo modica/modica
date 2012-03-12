@@ -10,7 +10,10 @@
         <property name="afpService" ref="afpService"/>
     </bean>
 
+    <bean id="afpState" class="org.modica.web.model.SessionScopedAfpState"/>
+
     <bean id="afpService" class="org.modica.web.model.AfpService">
+        <property name="afpState" ref="afpState"/>
         <property name="afpTreeBuilder" ref="afpTreeBuilder"/>
     </bean>
 

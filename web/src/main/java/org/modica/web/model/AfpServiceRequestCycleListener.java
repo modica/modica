@@ -21,6 +21,8 @@ package org.modica.web.model;
 
 import java.io.IOException;
 
+import org.modica.web.ModicaSession;
+
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.request.cycle.AbstractRequestCycleListener;
 import org.apache.wicket.request.cycle.RequestCycle;
@@ -36,7 +38,11 @@ public class AfpServiceRequestCycleListener extends AbstractRequestCycleListener
     @Override
     public void onBeginRequest(RequestCycle cycle) {
         try {
-            afpService.beginSession();
+            IAfpState afpState = ModicaSession.get().getAfpSessionState();
+            if (afpState == null) {
+                ModicaSession.get().setAfpSessionState(new AfpState());
+            }
+            afpService.beginRequest();
         } catch (IOException e) {
             throw new WicketRuntimeException(e);
         }
@@ -45,7 +51,7 @@ public class AfpServiceRequestCycleListener extends AbstractRequestCycleListener
     @Override
     public void onEndRequest(RequestCycle cycle) {
         try {
-            afpService.endSession();
+            afpService.endRequest();
         } catch (IOException e) {
             throw new WicketRuntimeException(e);
         }

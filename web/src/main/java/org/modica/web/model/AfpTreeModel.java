@@ -17,7 +17,7 @@ public class AfpTreeModel extends Model<SfTreeNode> {
 
     @Override
     public SfTreeNode getObject() {
-        return afpService.getSfTreeNode();
+        return afpService.getRootNode();
     }
 
     @Override

@@ -17,34 +17,33 @@
 
 /* $Id$ */
 
-package org.modica.web;
+package org.modica.web.model;
 
-import org.modica.web.model.IAfpState;
+import java.io.File;
 
-import org.apache.wicket.Session;
-import org.apache.wicket.protocol.http.WebSession;
-import org.apache.wicket.request.Request;
+public class AfpState implements IAfpState {
+    
+    private File afpFile;
 
-public class ModicaSession extends WebSession {
-
-    private static final long serialVersionUID = 1L;
-
-    private transient IAfpState afpState;
-
-    public static ModicaSession get() {
-        return (ModicaSession) Session.get();
+    private SfTreeNode sfTreeNode;
+    
+    AfpState() {
+    }
+    
+    public File getAfpFile() {
+        return afpFile;
     }
 
-    public ModicaSession(Request request) {
-        super(request);
+    public void setAfpFile(File afpFile) {
+        this.afpFile = afpFile;
     }
 
-    public IAfpState getAfpSessionState() {
-        return afpState;
+    public SfTreeNode getSfTreeNode() {
+        return sfTreeNode;
     }
 
-    public void setAfpSessionState(IAfpState afpState) {
-        this.afpState = afpState;
+    public void setSfTreeNode(SfTreeNode sfTreeNode) {
+        this.sfTreeNode = sfTreeNode;
     }
 
 }

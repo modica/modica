@@ -35,7 +35,7 @@ public class TreeViewPanel extends Panel {
                 LOG.debug("setObject()");
                 super.setObject(file);
                 try {
-                    afpService.setAfpFile(file);
+                    afpService.load(file);
                 } catch (IOException e) {
                     throw new WicketRuntimeException("Faulty afp file " + file, e);
                 }

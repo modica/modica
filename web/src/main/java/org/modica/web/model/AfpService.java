@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.apache.wicket.WicketRuntimeException;
-import org.modica.web.ModicaSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,22 +18,29 @@ public class AfpService {
 
     private static final Logger LOG = LoggerFactory.getLogger(AfpService.class);
 
+    private IAfpState afpState;
+
+    private final ThreadLocal<FileInputStream> fileInputStore;
+
     private AfpTreeBuilder afpTreeBuilder;
 
-    private final ThreadLocal<FileInputStream> fileInputStore = new ThreadLocal<FileInputStream>();
+    public AfpService() {
 
-    public void setAfpFile(File afpFile) throws IOException {
-        clear();
-        load(afpFile);
+        this.fileInputStore = new ThreadLocal<FileInputStream>();
     }
 
-    public SfTreeNode getSfTreeNode() {
-        SfTreeNode sfTreeNode = ModicaSession.get().getSfTreeNode();
+    public void load(File afpFile) throws IOException {
+        clear();
+        openStream(afpFile);
+    }
+
+    public SfTreeNode getRootNode() {
+        SfTreeNode sfTreeNode = getSfTreeNode();
         if (sfTreeNode == null) {
-            FileInputStream input = fileInputStore.get();
+            FileInputStream input = getFileInput();
             if (input != null) {
                 sfTreeNode = buildTree(input);
-                ModicaSession.get().setSfTreeNode(sfTreeNode);
+                setSfTreeNode(sfTreeNode);
             }
         }
         return sfTreeNode;
@@ -49,47 +55,68 @@ public class AfpService {
     }
 
     private void clear() throws IOException {
-        ModicaSession session = ModicaSession.get();
-        File previous = session.getAfpFile();
+        File previous = getAfpFile();
         if (previous != null) {
             previous.delete();
         }
-        session.setAfpFile(null);
-        session.setSfTreeNode(null);
-        FileInputStream input = fileInputStore.get();
-        fileInputStore.set(null);
+        setAfpFile(null);
+        setSfTreeNode(null);
+        FileInputStream input = getFileInput();
+        setFileInput(null);
         if (input != null) {
             input.close();
         }
     }
 
-    private void load(File afpFile) throws FileNotFoundException {
-        ModicaSession session = ModicaSession.get();
-        session.setAfpFile(afpFile);
+    private void openStream(File afpFile) throws FileNotFoundException {
+        setAfpFile(afpFile);
         fileInputStore.set(new FileInputStream(afpFile));
     }
 
-    void beginSession() throws IOException {
-        ModicaSession session = ModicaSession.get();
-        File afpFile = session.getAfpFile();
-        if (afpFile != null) {
-            fileInputStore.set(new FileInputStream(afpFile));
-        }
-        SfTreeNode sfTreeNode = session.getSfTreeNode();
-        if (sfTreeNode != null) {
-            afpTreeBuilder.attach(sfTreeNode, fileInputStore.get());
-        }
-        LOG.debug("beginSession()");
+    private File getAfpFile() {
+        return afpState.getAfpFile();
     }
 
-    void endSession() throws IOException {
-        ModicaSession session = ModicaSession.get();
+    private void setAfpFile(File afpFile) {
+        afpState.setAfpFile(afpFile);
+    }
+
+    private SfTreeNode getSfTreeNode() {
+        return afpState.getSfTreeNode();
+    }
+
+    private void setSfTreeNode(SfTreeNode sfTreeNode) {
+        afpState.setSfTreeNode(sfTreeNode);
+    }
+
+    private FileInputStream getFileInput() {
+        return fileInputStore.get();
+    }
+
+    private void setFileInput(FileInputStream input) {
+        fileInputStore.set(input);
+    }
+
+    void beginRequest() throws IOException {
+        File afpFile = getAfpFile();
+        if (afpFile != null) {
+            setFileInput(new FileInputStream(afpFile));
+        }
+        SfTreeNode sfTreeNode = getSfTreeNode();
+        if (sfTreeNode != null) {
+            afpTreeBuilder.attach(sfTreeNode, getFileInput());
+        }
+        LOG.debug("beginRequest()");
+    }
+
+    void endRequest() throws IOException {
         FileInputStream input = fileInputStore.get();
         fileInputStore.set(null);
         if (input != null) {
             input.close();
         }
-        SfTreeNode sfTreeNode = session.getSfTreeNode();
+
+        SfTreeNode sfTreeNode = getSfTreeNode();
         if (sfTreeNode != null) {
             afpTreeBuilder.detach(sfTreeNode);
         }
@@ -98,5 +125,9 @@ public class AfpService {
 
     public void setAfpTreeBuilder(AfpTreeBuilder afpTreeBuilder) {
         this.afpTreeBuilder = afpTreeBuilder;
+    }
+
+    public void setAfpState(IAfpState afpState) {
+        this.afpState = afpState;
     }
 }
