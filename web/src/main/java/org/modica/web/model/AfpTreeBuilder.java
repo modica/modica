@@ -9,5 +9,5 @@ public interface AfpTreeBuilder {
 
     void attach(SfTreeNode sfTreeNode, FileInputStream inStream) throws IOException;
 
-    void detach(SfTreeNode sfTreeNode);
+    void detach(SfTreeNode sfTreeNode) throws IOException;
 }

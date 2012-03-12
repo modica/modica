@@ -19,7 +19,7 @@ public class AfpService {
 
     private static final Logger LOG = LoggerFactory.getLogger(AfpService.class);
 
-    private DefaultAfpTreeBuilder afpTreeBuilder;
+    private AfpTreeBuilder afpTreeBuilder;
 
     private final ThreadLocal<FileInputStream> fileInputStore = new ThreadLocal<FileInputStream>();
 
@@ -75,12 +75,9 @@ public class AfpService {
         if (afpFile != null) {
             fileInputStore.set(new FileInputStream(afpFile));
         }
-
         SfTreeNode sfTreeNode = session.getSfTreeNode();
-
         if (sfTreeNode != null) {
             afpTreeBuilder.attach(sfTreeNode, fileInputStore.get());
-            // attach sfTreeNode
         }
         LOG.debug("beginSession()");
     }
@@ -99,7 +96,7 @@ public class AfpService {
         LOG.debug("endSession()");
     }
 
-    public void setAfpTreeBuilder(DefaultAfpTreeBuilder afpTreeBuilder) {
+    public void setAfpTreeBuilder(AfpTreeBuilder afpTreeBuilder) {
         this.afpTreeBuilder = afpTreeBuilder;
     }
 }
