@@ -170,8 +170,11 @@ public class PartialParseTreeBuilder implements AfpTreeBuilder {
                     structuredField = null;
                 }
             }
-            return (structuredField == null) ? (List<ParameterAsString>) Collections.EMPTY_LIST
-                    : structuredField.getParameters();
+            if (structuredField == null) {
+                return Collections.emptyList();
+            } else {
+                return structuredField.getParameters();
+            }
         }
 
     }
