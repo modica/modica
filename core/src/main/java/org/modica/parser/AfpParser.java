@@ -18,18 +18,13 @@ public class AfpParser {
 
     private AfpParser(FileInputStream afpFileInputStream,
             StructuredFieldIntroducerHandler structuredFieldIntroducerHandler,
+            StructuredFieldFactory structuredFieldFactory,
             StructuredFieldHandler structuredFieldHandler) throws FileNotFoundException {
-
-        StructuredFieldFactory structuredFieldFactory = new StructuredFieldFactoryImpl(
-                afpFileInputStream.getChannel());
-
         StructuredFieldIntroducerHandler structuredFieldCreator = new StructuredFieldCreator(
                 structuredFieldFactory, structuredFieldHandler);
-
         StructuredFieldIntroducerHandler sFIntroducerHandler = structuredFieldIntroducerHandler == null ?
                 structuredFieldCreator :
                     StructuredFieldIntroducerHandlers.chain(structuredFieldIntroducerHandler, structuredFieldCreator);
-
         parser = new StructuredFieldIntroducerParser(afpFileInputStream, sFIntroducerHandler);
     }
 
@@ -51,7 +46,10 @@ public class AfpParser {
 
         private List<StructuredFieldHandler> sfHandlers = new ArrayList<StructuredFieldHandler>();
 
-        private List<StructuredFieldIntroducerHandler> sfiHandlers = new ArrayList<StructuredFieldIntroducerHandler>();
+        private StructuredFieldFactory factory;
+
+        private List<StructuredFieldIntroducerHandler> sfiHandlers
+                    = new ArrayList<StructuredFieldIntroducerHandler>();
 
         private Builder(FileInputStream afpFileInputStream) {
             this.afpFileInputStream = afpFileInputStream;
@@ -80,6 +78,17 @@ public class AfpParser {
         }
 
         /**
+         * Adds handler to the chain of {@link StructuredFieldIntroducerHandler}s.
+         *
+         * @param handler handler to add
+         * @return the builder
+         */
+        public Builder withFactor(StructuredFieldFactory factory) {
+            this.factory = factory;
+            return this;
+        }
+
+        /**
          * Constructs an AFPParser
          *
          * @return the AFPParser
@@ -91,8 +100,11 @@ public class AfpParser {
             }
             StructuredFieldIntroducerHandler sfiHandler = sfiHandlers.size() == 0 ? null :
                 StructuredFieldIntroducerHandlers.chain(sfiHandlers);
-            return new AfpParser(afpFileInputStream, sfiHandler,
-                    StructuredFieldHandlers.chain(sfHandlers));
+            StructuredFieldFactory factory = this.factory == null
+                    ? new StructuredFieldFactoryImpl(afpFileInputStream.getChannel())
+            : this.factory;
+                    return new AfpParser(afpFileInputStream, sfiHandler, factory,
+                            StructuredFieldHandlers.chain(sfHandlers));
         }
 
         /**

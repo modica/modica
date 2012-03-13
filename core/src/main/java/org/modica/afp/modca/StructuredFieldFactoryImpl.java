@@ -25,6 +25,7 @@ import org.modica.afp.modca.structuredfields.position.PositionHandler;
 public class StructuredFieldFactoryImpl implements StructuredFieldFactory {
 
     private final FileChannel channel;
+
     private final Context context = new Context();
 
     public StructuredFieldFactoryImpl(FileChannel channel) {
