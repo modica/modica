@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.apache.wicket.WicketRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +24,6 @@ public class AfpService {
     private AfpTreeBuilder afpTreeBuilder;
 
     public AfpService() {
-
         this.fileInputStore = new ThreadLocal<FileInputStream>();
     }
 
@@ -34,7 +32,7 @@ public class AfpService {
         openStream(afpFile);
     }
 
-    public SfTreeNode getRootNode() {
+    public SfTreeNode getRootNode() throws IOException {
         SfTreeNode sfTreeNode = getSfTreeNode();
         if (sfTreeNode == null) {
             FileInputStream input = getFileInput();
@@ -46,12 +44,8 @@ public class AfpService {
         return sfTreeNode;
     }
 
-    private SfTreeNode buildTree(FileInputStream input) {
-        try {
-            return afpTreeBuilder.buildTree(input);
-        } catch (IOException e) {
-            throw new WicketRuntimeException("Error building afp tree", e);
-        }
+    private SfTreeNode buildTree(FileInputStream input) throws IOException {
+        return afpTreeBuilder.buildTree(input);
     }
 
     private void clear() throws IOException {
