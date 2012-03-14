@@ -109,7 +109,8 @@ public class XmlSerializingStructuredFieldHandler implements StructuredFieldHand
     private void writeParameters(StructuredField structuredField) throws SAXException {
         for (ParameterAsString parameterAsString : structuredField.getParameters()) {
             String key = parameterAsString.getKey();
-            char[] value = parameterAsString.getValue().toCharArray();
+            String valueStr = parameterAsString.getValue();
+            char[] value = valueStr != null ? valueStr.toCharArray() : new char[0];
             AttributesImpl pparamAtts = new AttributesImpl();
             addAttribute(pparamAtts, SF_PARAMETER_KEY, key);
             handler.startElement(URI, SF_PARAMETER, qNameFor(SF_PARAMETER), pparamAtts);
