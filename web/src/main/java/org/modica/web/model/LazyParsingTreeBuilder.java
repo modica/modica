@@ -7,42 +7,42 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 import org.modica.parser.StructuredFieldIntroducerParser;
-import org.modica.parser.lazy.LazyParser.ProxyCreatingHandler;
-import org.modica.parser.lazy.LazyParser.StructuredFieldProxy;
+import org.modica.parser.lazy.LazySFCreatingHandler;
+import org.modica.parser.lazy.LazyStructuredField;
 
 /**
  * Parses an AFP document and creates a tree with structured fields as the nodes of the tree.
  */
-public class PartialParseTreeBuilder implements AfpTreeBuilder {
+public class LazyParsingTreeBuilder implements AfpTreeBuilder {
 
-    private static class DetachableNode implements SfTreeNode {
+    private static class LazyParsingNode implements SfTreeNode {
 
         private static final long serialVersionUID = 1L;
 
-        final SfTreeNode delegate;
+        private final SfTreeNode delegate;
 
-        final List<StructuredFieldProxy> fields;
+        private final List<LazyStructuredField> lazyStructuredFields;
 
-        public DetachableNode(SfTreeNode delegate, List<StructuredFieldProxy> fields) {
+        public LazyParsingNode(SfTreeNode delegate, List<LazyStructuredField> lazyStructuredFields) {
             this.delegate = delegate;
-            this.fields = fields;
+            this.lazyStructuredFields = lazyStructuredFields;
         }
 
         public void attach(FileChannel fileChannel) {
-            for (StructuredFieldProxy p : fields) {
-                p.attach(fileChannel);
+            for (LazyStructuredField sf : lazyStructuredFields) {
+                sf.attach(fileChannel);
             }
         }
 
         public void detach() throws IOException {
-            for (StructuredFieldProxy p : fields) {
-                p.detach();
+            for (LazyStructuredField sf : lazyStructuredFields) {
+                sf.detach();
             }
         }
 
         @Override
-        public StructuredFieldProxy getField() {
-            return (StructuredFieldProxy) delegate.getField();
+        public LazyStructuredField getField() {
+            return (LazyStructuredField) delegate.getField();
         }
 
         @Override
@@ -56,23 +56,25 @@ public class PartialParseTreeBuilder implements AfpTreeBuilder {
     public SfTreeNode buildTree(FileInputStream input) throws IOException {
         TreeBuildingHandler treeBuilder = new TreeBuildingHandler();
         final CountDownLatch streamShutdown = new CountDownLatch(1);
-        ProxyCreatingHandler proxyCreator = new ProxyCreatingHandler(treeBuilder, input,
+        LazySFCreatingHandler lazySFCreator = new LazySFCreatingHandler(treeBuilder, input,
                 streamShutdown);
         StructuredFieldIntroducerParser preParser = new StructuredFieldIntroducerParser(input,
-                proxyCreator);
+                lazySFCreator);
         preParser.parse();
-        List<StructuredFieldProxy> fields = proxyCreator.getFields();
-        return new DetachableNode(treeBuilder.getTree(), fields);
+        List<LazyStructuredField> lazyStructuredFields = lazySFCreator.getStructuredFields();
+        return new LazyParsingNode(treeBuilder.getTree(), lazyStructuredFields);
     }
 
     @Override
     public void attach(SfTreeNode sfTreeNode, FileInputStream inStream) throws IOException {
-        ((DetachableNode) sfTreeNode).attach(inStream.getChannel());
+        // TODO improve type inference
+        ((LazyParsingNode) sfTreeNode).attach(inStream.getChannel());
 
     }
 
     @Override
     public void detach(SfTreeNode sfTreeNode) throws IOException {
-        ((DetachableNode) sfTreeNode).detach();
+        // TODO improve type inference
+        ((LazyParsingNode) sfTreeNode).detach();
     }
 }
