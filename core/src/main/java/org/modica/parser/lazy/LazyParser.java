@@ -21,6 +21,7 @@ import org.modica.afp.modca.StructuredFieldFactoryImpl;
 import org.modica.afp.modca.structuredfields.AbstractStructuredField;
 import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
+import org.modica.parser.PrintingSFHandler;
 import org.modica.parser.PrintingSFIntroducerHandler;
 import org.modica.parser.StructuredFieldHandler;
 import org.modica.parser.StructuredFieldIntroducerHandler;
@@ -31,9 +32,9 @@ public class LazyParser {
 
     public static void main(String[] args) throws IOException {
         final FileInputStream input = new FileInputStream(new File(args[0]));
-        final SfCollector collector = new SfCollector();
         final CountDownLatch streamShutdown = new CountDownLatch(1);
-        ProxyCreatingHandler proxyCreator = new ProxyCreatingHandler(collector, input, streamShutdown);
+        ProxyCreatingHandler proxyCreator = new ProxyCreatingHandler(
+                new PrintingSFHandler(System.out), input, streamShutdown);
         StructuredFieldIntroducerHandler handlers = StructuredFieldIntroducerHandlers.chain(proxyCreator,
                 new PrintingSFIntroducerHandler(System.out));
         StructuredFieldIntroducerParser preParser = new StructuredFieldIntroducerParser(input, handlers);
@@ -55,24 +56,25 @@ public class LazyParser {
                 }
             }
         }).start();
-        List<StructuredField> fields = collector.fields;
+        List<StructuredFieldProxy> fields = proxyCreator.getFields();
         // Can return the model now
-        for (StructuredField sf : fields) {
+        for (StructuredFieldProxy sf : fields) {
             System.out.println(sf);
+            sf.detach();
         }
         // simulate new session 
         final FileInputStream newInput = new FileInputStream(new File(args[0]));
         // We need to control access to Full SFs in a better way!
-        for (StructuredField sf : fields) {
-            ((StructuredFieldProxy) sf).attach(newInput.getChannel());
+        for (StructuredFieldProxy sf : fields) {
+            sf.attach(newInput.getChannel());
         }
         // simulate trigger of lazy load
         for (StructuredField sf : fields) {
             System.out.println(sf.getParameters());
         }
         // simulate session end 
-        for (StructuredField sf : fields) {
-            ((StructuredFieldProxy) sf).detach();
+        for (StructuredFieldProxy sf : fields) {
+            sf.detach();
         }
         newInput.close();
     }
@@ -86,17 +88,23 @@ public class LazyParser {
 
         //  TODO inject - must uses current or single thread only!!!
         private final ExecutorService executor = Executors.newSingleThreadExecutor();
+        
+        private final List<StructuredFieldProxy> fields;
 
         private final LazyStructuredFieldFactory factory;
 
         private final StructuredFieldHandler creationHandler;
 
         private final CountDownLatch streamShutdown;
+        
+        private final FileChannel fileChannel;
 
-        ProxyCreatingHandler(StructuredFieldHandler sfHandler, FileInputStream input, CountDownLatch streamShutdown) {
+        public ProxyCreatingHandler(StructuredFieldHandler sfHandler, FileInputStream input, CountDownLatch streamShutdown) {
             this.creationHandler = sfHandler;
-            factory = new LazyStructuredFieldFactory(input.getChannel());
+            this.fileChannel = input.getChannel();
+            factory = new LazyStructuredFieldFactory(fileChannel);
             this.streamShutdown = streamShutdown;
+            fields = new ArrayList<StructuredFieldProxy>();
         }
 
         @Override
@@ -116,7 +124,9 @@ public class LazyParser {
 
         private StructuredFieldProxy wrap(StructuredFieldIntroducer introducer, Callable<Context> contextResolver) {
             final StructuredFieldProxy proxy = new StructuredFieldProxy(introducer);
+            proxy.attach(fileChannel);
             proxy.contextFuture = executor.submit(contextResolver);
+            fields.add(proxy);
             return proxy;
         }
 
@@ -234,41 +244,9 @@ public class LazyParser {
             }
             creationHandler.handle(wrap(introducer, callable));
         }
-    }
-
-    public static class SfCollector implements StructuredFieldHandler {
-
-        private List<StructuredField> fields;
-
-        @Override
-        public void startAfp() {
-            fields = new ArrayList<StructuredField>();
+        public List<StructuredFieldProxy> getFields() {
+            return Collections.unmodifiableList(fields);
         }
-
-        private void add(StructuredField field) {
-            fields.add(field);
-        }
-
-        @Override
-        public void handleBegin(StructuredField structuredField) {
-            add(structuredField);
-        }
-
-        @Override
-        public void handleEnd(StructuredField structuredField) {
-            add(structuredField);
-        }
-
-        @Override
-        public void handle(StructuredField structuredField) {
-            add(structuredField);
-        }
-
-        @Override
-        public void endAfp() {
-            fields = Collections.unmodifiableList(fields);
-        }
-
     }
 
     public static class StructuredFieldProxy extends AbstractStructuredField {
@@ -305,6 +283,7 @@ public class LazyParser {
             Context context;
             try {
                 context = contextFuture.get();
+                contextFuture = null;
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             } catch (ExecutionException e) {
@@ -352,7 +331,6 @@ public class LazyParser {
             if (structuredField == null) {
                 structuredField = SF_GUARD;
             }
-            contextFuture = null;
         }
 
         @Override

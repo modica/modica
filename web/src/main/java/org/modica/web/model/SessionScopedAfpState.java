@@ -28,7 +28,7 @@ public class SessionScopedAfpState implements IAfpState {
     private IAfpState getSession() {
         return ModicaSession.get().getAfpSessionState();
     }
-    
+
     @Override
     public File getAfpFile() {
         return getSession().getAfpFile();
@@ -37,7 +37,7 @@ public class SessionScopedAfpState implements IAfpState {
     @Override
     public void setAfpFile(File afpFile) {
         getSession().setAfpFile(afpFile);
-        
+
     }
 
     @Override

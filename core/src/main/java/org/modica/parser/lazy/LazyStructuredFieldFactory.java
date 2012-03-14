@@ -23,7 +23,6 @@ public class LazyStructuredFieldFactory implements StructuredFieldFactory {
         this.contextStack = new ContextStack();
         last = contextStack.getLast();
         this.delegate = new StructuredFieldFactoryImpl(fileChannel, contextStack);
-
     }
 
     public Context getLast() {

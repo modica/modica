@@ -22,11 +22,11 @@ package org.modica.web.model;
 import java.io.File;
 
 public interface IAfpState {
-    
+
     public File getAfpFile();
 
     public void setAfpFile(File afpFile);
-    
+
     public SfTreeNode getSfTreeNode();
 
     public void setSfTreeNode(SfTreeNode sfTreeNode);

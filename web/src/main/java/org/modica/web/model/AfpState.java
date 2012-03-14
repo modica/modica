@@ -22,22 +22,25 @@ package org.modica.web.model;
 import java.io.File;
 
 public class AfpState implements IAfpState {
-    
+
     private File afpFile;
 
     private SfTreeNode sfTreeNode;
-    
+
     AfpState() {
     }
-    
+
+    @Override
     public File getAfpFile() {
         return afpFile;
     }
 
+    @Override
     public void setAfpFile(File afpFile) {
         this.afpFile = afpFile;
     }
 
+    @Override
     public SfTreeNode getSfTreeNode() {
         return sfTreeNode;
     }
