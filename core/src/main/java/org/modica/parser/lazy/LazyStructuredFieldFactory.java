@@ -12,20 +12,20 @@ import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 
 public class LazyStructuredFieldFactory implements StructuredFieldFactory {
-    
+
     private final StructuredFieldFactory delegate;
-    
+
     private final ContextStack contextStack;
-    
+
     private Context last;
-    
+
     public LazyStructuredFieldFactory(FileChannel fileChannel) {
         this.contextStack = new ContextStack();
         last = contextStack.getLast();
         this.delegate = new StructuredFieldFactoryImpl(fileChannel, contextStack);
-        
+
     }
-    
+
     public Context getLast() {
         return last;
     }
@@ -34,20 +34,20 @@ public class LazyStructuredFieldFactory implements StructuredFieldFactory {
         last = contextStack.getLast();
         pushContext();
     }
-    
+
     private static class ContextStack implements Context {
-        
+
         private Stack<ContextRecorder> stack;
-        
+
         ContextStack() {
             stack = new Stack<ContextRecorder>();
             stack.push(new ContextRecorder(new ContextImpl(), null));
         }
-        
+
         public void push(Context context) {
             stack.push(new ContextRecorder(context, getLast()));
         }
-        
+
         private ContextRecorder getLast() {
             return stack.peek();
         }
@@ -72,19 +72,19 @@ public class LazyStructuredFieldFactory implements StructuredFieldFactory {
             return getLast().get(modcaContext);
         }
     }
-    
-    
+
+
     private static class ContextRecorder implements Context {
-        
+
         private final Context current;
-        
+
         private final ContextRecorder previous;
-        
+
         public ContextRecorder(Context first, ContextRecorder previous) {
             this.current = first;
             this.previous = previous;
         }
-        
+
         @Override
         public Object get(FOCAContext focaContext) {
             Object ob = current.get(focaContext);
@@ -119,13 +119,13 @@ public class LazyStructuredFieldFactory implements StructuredFieldFactory {
             current.put(modcaContext, obj);
         }
     }
-    
+
     private void pushContext() {
         Context next = new ContextImpl();
         next.put(MODCAContext.GCSGID, null);
         contextStack.push(next);
     }
-    
+
     @Override
     public StructuredField createBegin(StructuredFieldIntroducer introducer) {
         beforeCreation(introducer);
