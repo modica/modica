@@ -17,26 +17,22 @@ public class LazyStructuredFieldFactory implements StructuredFieldFactory {
     
     private final ContextStack contextStack;
     
-    private final CreationListener creationListener;
+    private Context last;
     
-    public LazyStructuredFieldFactory(FileChannel fileChannel, CreationListener creationListener) {
+    public LazyStructuredFieldFactory(FileChannel fileChannel) {
         this.contextStack = new ContextStack();
-        this.creationListener = creationListener;
+        last = contextStack.getLast();
         this.delegate = new StructuredFieldFactoryImpl(fileChannel, contextStack);
         
     }
     
-    public static interface CreationListener {
-        void created(StructuredFieldIntroducer introducer, Context context);
+    public Context getLast() {
+        return last;
     }
-    
+
     private void beforeCreation(StructuredFieldIntroducer introducer) {
+        last = contextStack.getLast();
         pushContext();
-        onCreation(introducer);
-    }
-    
-    private void onCreation(StructuredFieldIntroducer introducer) {
-        creationListener.created(introducer, contextStack.getLast());
     }
     
     private static class ContextStack implements Context {
