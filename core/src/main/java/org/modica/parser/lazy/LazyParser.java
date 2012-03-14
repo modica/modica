@@ -7,6 +7,7 @@ import java.nio.channels.FileChannel;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
@@ -25,34 +26,59 @@ import org.modica.parser.lazy.LazyStructuredFieldFactory.CreationListener;
 
 public class LazyParser {
 
-    public static void main(String[] args) throws IOException {
-        FileInputStream input = new FileInputStream(new File(args[0]));
-        LinkedHashMap<StructuredFieldIntroducer, StructuredFieldProxy> sfs
-                = new LinkedHashMap<StructuredFieldIntroducer, StructuredFieldProxy>();
+    public static void main(String[] args) throws IOException, InterruptedException {
+        final FileInputStream input = new FileInputStream(new File(args[0]));
+        final LinkedHashMap<StructuredFieldIntroducer, StructuredFieldProxy> sfs
+        = new LinkedHashMap<StructuredFieldIntroducer, StructuredFieldProxy>();
         ProxyCreatingHandler proxyCreator = new ProxyCreatingHandler(sfs);
         StructuredFieldIntroducerHandler handlers = StructuredFieldIntroducerHandlers.chain(proxyCreator,
                 new PrintingSFIntroducerHandler(System.out));
         StructuredFieldIntroducerParser preParser = new StructuredFieldIntroducerParser(input, handlers);
+
         // Create a lazy SFTree
         preParser.parse();
+
+        final CountDownLatch doneSignal = new CountDownLatch(1);
+        new Thread( new Runnable() {
+            @Override
+            public void run() {
+                // Whilst application is idle, lets pre-load the real structured fields
+                StructuredFieldFactory factory = new LazyStructuredFieldFactory(input.getChannel(),
+                        new ContextRecorder(sfs));
+                StructuredFieldIntroducerHandler structuredFieldCreator = new StructuredFieldCreator(
+                        factory, new PrintingSFHandler(System.out));
+                StructuredFieldIntroducerHandler handlers = StructuredFieldIntroducerHandlers.chain(structuredFieldCreator,
+                        new PrintingSFIntroducerHandler(System.out));
+                StructuredFieldIntroducerParser prime = new StructuredFieldIntroducerParser(sfs.keySet(), handlers);
+                // This parse will create the contexts, but not retain the structured fields
+                // TODO do this in a different thread immediately after pre-parse stage creating futures representing the real structured field parsing contexts
+                try {
+                    prime.parse();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                doneSignal.countDown();
+            }
+        }).start();
+
+        // return sf model
+        for (StructuredFieldProxy sf : sfs.values()) {
+            System.out.println(sf);
+        }
+
+        // simulate new session 
+        final FileInputStream newInput = new FileInputStream(new File(args[0]));
+        // We need to control access to Full SFs in a better way!
+        doneSignal.await();
         for (StructuredFieldProxy sf : sfs.values()) {
             System.out.println(sf);
             System.out.println(sf.context);
-        }
-        // Whilst application is idle, lets pre-load the real structured fields 
-        StructuredFieldFactory factory = new LazyStructuredFieldFactory(input.getChannel(),
-                new ContextRecorder(sfs));
-        StructuredFieldIntroducerHandler structuredFieldCreator = new StructuredFieldCreator(
-                factory, new PrintingSFHandler(System.out));
-        handlers = StructuredFieldIntroducerHandlers.chain(structuredFieldCreator,
-                new PrintingSFIntroducerHandler(System.out));
-        StructuredFieldIntroducerParser prime = new StructuredFieldIntroducerParser(sfs.keySet(), handlers);
-        // This parse will create the contexts, but not retain the structured fields
-        // TODO do this in a different thread immediately after pre-parse stage creating futures representing the real structured field parsing contexts
-        prime.parse();
-        // simulate new session 
-        for (StructuredFieldProxy sf : sfs.values()) {
-            sf.attach(input.getChannel());
+            sf.attach(newInput.getChannel());
         }
         // simulate lazy load
         for (StructuredFieldProxy sf : sfs.values()) {
@@ -62,6 +88,7 @@ public class LazyParser {
         for (StructuredFieldProxy sf : sfs.values()) {
             sf.detach();
         }
+        newInput.close();
     }
 
 
