@@ -12,14 +12,14 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.modica.afp.modca.Context;
+import org.modica.afp.modca.ContextImpl;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.common.CPIRepeatingGroupLength;
+import org.modica.afp.modca.structuredfields.SfTypeFactory.Control;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldTestCase;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Control;
-import org.modica.afp.modca.structuredfields.control.CodePageControl;
 import org.modica.common.ByteUtils;
 
 /**
@@ -46,7 +46,7 @@ public class CodePageControlTestCase extends StructuredFieldTestCase<CodePageCon
         bb.put(defaultChar.getBytes("Cp500"));
         bb.put(ByteUtils.createByteArray(0x80, 0x0A, 2, 3, 0x90));
         byte[] data = bb.array();
-        Context context = new Context();
+        Context context = new ContextImpl();
         sut = new CodePageControl(intro, new Parameters(data, "Cp500"), context);
         setMembers(sut, intro);
 

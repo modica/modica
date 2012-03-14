@@ -26,10 +26,16 @@ public class StructuredFieldFactoryImpl implements StructuredFieldFactory {
 
     private final FileChannel channel;
 
-    private final Context context = new Context();
+    private final Context context;
 
     public StructuredFieldFactoryImpl(FileChannel channel) {
         this.channel = channel;
+        this.context = new ContextImpl();
+    }
+
+    public StructuredFieldFactoryImpl(FileChannel channel, Context context) {
+        this.channel = channel;
+        this.context = context;
     }
 
     private Parameters createStructuredField(StructuredFieldIntroducer intro) {

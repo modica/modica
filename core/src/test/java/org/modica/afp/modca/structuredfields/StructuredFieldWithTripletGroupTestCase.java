@@ -7,9 +7,8 @@ import java.net.MalformedURLException;
 
 import org.junit.Test;
 import org.modica.afp.modca.Context;
+import org.modica.afp.modca.ContextImpl;
 import org.modica.afp.modca.Parameters;
-import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
-import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletGroup;
 import org.modica.afp.modca.triplets.RepeatingTripletGroup;
 import org.modica.afp.modca.triplets.TripletHandler;
 import org.modica.common.ByteUtils;
@@ -44,7 +43,7 @@ public abstract class StructuredFieldWithTripletGroupTestCase<T extends Structur
         byte[] data = ByteUtils.hexToBytes("0022"
                 + "0C028600C3F0C8F2F0F0" + "C2F00C028500E3F1E5F1F0F5F0F00426000004240502");
         Parameters params = new Parameters(data, "Cp500");
-        Context context = new Context();
+        Context context = new ContextImpl();
         return TripletHandler.parseRepeatingGroup(params, context);
     }
 }

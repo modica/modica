@@ -10,15 +10,15 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.modica.afp.modca.Context;
-import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.Context.FOCAContext;
+import org.modica.afp.modca.ContextImpl;
+import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.common.CPIRepeatingGroupLength;
 import org.modica.afp.modca.common.GraphicalCharacterUseFlags;
+import org.modica.afp.modca.structuredfields.SfTypeFactory.Index;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldTestCase;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Index;
-import org.modica.afp.modca.structuredfields.index.CodePageIndex;
 import org.modica.afp.modca.structuredfields.index.CodePageIndex.CPI;
 import org.modica.common.ByteUtils;
 
@@ -38,7 +38,7 @@ public class CodePageIndexTestCase extends StructuredFieldTestCase<CodePageIndex
     public void setUp() throws UnsupportedEncodingException {
         StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Index.CPI);
 
-        Context context = new Context();
+        Context context = new ContextImpl();
         context.put(FOCAContext.CPI_REPEATING_GROUP_LENGTH, CPIRepeatingGroupLength.SINGLE_BYTE);
         sut = createSingleByteCPI(CPIRepeatingGroupLength.SINGLE_BYTE);
         doubleByteUnicodeSut = createDoubleByteCPI(CPIRepeatingGroupLength.DOUBLE_BYTE_INC_UNICODE);
@@ -56,7 +56,7 @@ public class CodePageIndexTestCase extends StructuredFieldTestCase<CodePageIndex
         bb.put(ByteUtils.createByteArray(2, 5));
         bb.put(char3Name.getBytes("Cp500"));
         bb.put(ByteUtils.createByteArray(4, 6));
-        Context context = new Context();
+        Context context = new ContextImpl();
         context.put(FOCAContext.CPI_REPEATING_GROUP_LENGTH, cpiRLen);
         return new CodePageIndex(intro, new Parameters(bb.array(), "Cp500"), context);
     }
@@ -71,7 +71,7 @@ public class CodePageIndexTestCase extends StructuredFieldTestCase<CodePageIndex
         bb.put(ByteUtils.createByteArray(2, 3, 4, 2, 6, 7));
         bb.put(char3Name.getBytes("Cp500"));
         bb.put(ByteUtils.createByteArray(4, 1, 2, 3, 1, 2, 3));
-        Context context = new Context();
+        Context context = new ContextImpl();
         context.put(FOCAContext.CPI_REPEATING_GROUP_LENGTH, cpiRLen);
         return new CodePageIndex(intro, new Parameters(bb.array(), "Cp500"), context);
     }

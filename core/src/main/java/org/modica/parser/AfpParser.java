@@ -83,7 +83,7 @@ public class AfpParser {
          * @param handler handler to add
          * @return the builder
          */
-        public Builder withFactor(StructuredFieldFactory factory) {
+        public Builder withFactory(StructuredFieldFactory factory) {
             this.factory = factory;
             return this;
         }

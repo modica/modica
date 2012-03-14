@@ -8,11 +8,10 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.modica.afp.modca.Context;
+import org.modica.afp.modca.Context.MODCAContext;
+import org.modica.afp.modca.ContextImpl;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
-import org.modica.afp.modca.Context.MODCAContext;
-import org.modica.afp.modca.triplets.Cgcsgid;
-import org.modica.afp.modca.triplets.TripletIdentifiers;
 import org.modica.afp.modca.triplets.Cgcsgid.Ccsid;
 import org.modica.afp.modca.triplets.Cgcsgid.Cpgid;
 import org.modica.common.ByteUtils;
@@ -35,7 +34,7 @@ public class CgcsgidTestCase extends TripletTestCase<Cgcsgid> {
     @Override
     public void setUp() {
         // Tests CPGID
-        context = new Context();
+        context = new ContextImpl();
         cgcsgid = (Cpgid) getValue(cpgidBytes);
         ccsid = (Ccsid) getValue(ccsidBytes);
 
@@ -73,7 +72,7 @@ public class CgcsgidTestCase extends TripletTestCase<Cgcsgid> {
         assertEquals("Cp258", context.get(MODCAContext.GCSGID));
 
         Parameters params = new Parameters(ByteUtils.createByteArray(0x00, 0x01, 0x00, 0x7B), "Cp123");
-        Context ctx = new Context();
+        Context ctx = new ContextImpl();
         // Cp500 is used as the default
         assertEquals("Cp500", ctx.get(MODCAContext.GCSGID));
         // Parsing the CGCSGID object changes the state of the context object to the appropriate
