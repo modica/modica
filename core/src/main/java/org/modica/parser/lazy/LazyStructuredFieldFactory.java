@@ -129,9 +129,9 @@ public class LazyStructuredFieldFactory implements StructuredFieldFactory {
         @Override
         public Object get(MODCAContext modcaContext) {
             Object ob = current.get(modcaContext);
-            if (ob == null) {
+            if (ob == null && previous != null) {
                 ob = previous.get(modcaContext);
-                if (ob != null && previous != null) {
+                if (ob != null) {
                     current.put(modcaContext, ob);
                 }
             }
