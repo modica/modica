@@ -1,7 +1,6 @@
 package org.modica.parser.lazy;
 
 import java.nio.channels.FileChannel;
-import java.util.Stack;
 
 import org.modica.afp.modca.Context;
 import org.modica.afp.modca.Context.MODCAContext;
@@ -17,106 +16,21 @@ public class LazyStructuredFieldFactory implements StructuredFieldFactory {
 
     private final ContextStack contextStack;
 
-    private Context last;
+    private Context previousContext;
 
     public LazyStructuredFieldFactory(FileChannel fileChannel) {
-        this.contextStack = new ContextStack();
-        last = contextStack.getLast();
+        this.contextStack = new ContextStack(new ContextImpl(), null);
+        previousContext = contextStack;
         this.delegate = new StructuredFieldFactoryImpl(fileChannel, contextStack);
     }
 
-    public Context getLast() {
-        return last;
+    public Context getPreviousContext() {
+        return previousContext;
     }
 
     private void beforeCreation(StructuredFieldIntroducer introducer) {
-        last = contextStack.getLast();
+        previousContext = contextStack;
         pushContext();
-    }
-
-    private static class ContextStack implements Context {
-
-        private Stack<ContextRecorder> stack;
-
-        ContextStack() {
-            stack = new Stack<ContextRecorder>();
-            stack.push(new ContextRecorder(new ContextImpl(), null));
-        }
-
-        public void push(Context context) {
-            stack.push(new ContextRecorder(context, getLast()));
-        }
-
-        private ContextRecorder getLast() {
-            return stack.peek();
-        }
-
-        @Override
-        public void put(FOCAContext focaContext, Object obj) {
-            getLast().put(focaContext, obj);
-        }
-
-        @Override
-        public void put(MODCAContext modcaContext, Object obj) {
-            getLast().put(modcaContext, obj);
-        }
-
-        @Override
-        public Object get(FOCAContext focaContext) {
-            return getLast().get(focaContext);
-        }
-
-        @Override
-        public Object get(MODCAContext modcaContext) {
-            return getLast().get(modcaContext);
-        }
-    }
-
-
-    private static class ContextRecorder implements Context {
-
-        private final Context current;
-
-        private final ContextRecorder previous;
-
-        public ContextRecorder(Context first, ContextRecorder previous) {
-            this.current = first;
-            this.previous = previous;
-        }
-
-        @Override
-        public Object get(FOCAContext focaContext) {
-            Object ob = current.get(focaContext);
-            if (ob == null && previous != null) {
-                ob = previous.get(focaContext);
-                if (ob != null) {
-                    current.put(focaContext, ob);
-                }
-            }
-            return ob;
-        }
-
-        @Override
-        public Object get(MODCAContext modcaContext) {
-            Object ob = current.get(modcaContext);
-            if (ob == null) {
-                ob = previous.get(modcaContext);
-                if (ob != null && previous != null) {
-                    current.put(modcaContext, ob);
-                }
-            }
-            return ob;
-        }
-
-        @Override
-        public void put(FOCAContext focaContext, Object obj) {
-            current.put(focaContext, obj);
-        }
-
-        @Override
-        public void put(MODCAContext modcaContext, Object obj) {
-            current.put(modcaContext, obj);
-        }
     }
 
     private void pushContext() {
@@ -183,6 +97,56 @@ public class LazyStructuredFieldFactory implements StructuredFieldFactory {
     public StructuredField createIndex(StructuredFieldIntroducer introducer) {
         beforeCreation(introducer);
         return delegate.createIndex(introducer);
+    }
+
+    private static class ContextStack implements Context {
+
+        private final Context current;
+
+        private final ContextStack previous;
+
+        public ContextStack(Context first, ContextStack previous) {
+            this.current = first;
+            this.previous = previous;
+        }
+
+        public ContextStack push(Context context) {
+            return new ContextStack(context, this);
+        }
+
+        @Override
+        public Object get(FOCAContext focaContext) {
+            Object ob = current.get(focaContext);
+            if (ob == null && previous != null) {
+                ob = previous.get(focaContext);
+                if (ob != null) {
+                    current.put(focaContext, ob);
+                }
+            }
+            return ob;
+        }
+
+        @Override
+        public Object get(MODCAContext modcaContext) {
+            Object ob = current.get(modcaContext);
+            if (ob == null) {
+                ob = previous.get(modcaContext);
+                if (ob != null && previous != null) {
+                    current.put(modcaContext, ob);
+                }
+            }
+            return ob;
+        }
+
+        @Override
+        public void put(FOCAContext focaContext, Object obj) {
+            current.put(focaContext, obj);
+        }
+
+        @Override
+        public void put(MODCAContext modcaContext, Object obj) {
+            current.put(modcaContext, obj);
+        }
     }
 
 }

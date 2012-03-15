@@ -75,7 +75,7 @@ public class LazySFCreatingHandler implements StructuredFieldIntroducerHandler {
             @Override
             public Context call() throws Exception {
                 factory.createBegin(introducer);
-                return factory.getLast();
+                return factory.getPreviousContext();
             }
         });
         creationHandler.handleBegin(structuredField);
@@ -88,7 +88,7 @@ public class LazySFCreatingHandler implements StructuredFieldIntroducerHandler {
             @Override
             public Context call() throws Exception {
                 factory.createEnd(introducer);
-                return factory.getLast();
+                return factory.getPreviousContext();
             }
         });
         creationHandler.handleEnd(structuredField);
@@ -103,7 +103,7 @@ public class LazySFCreatingHandler implements StructuredFieldIntroducerHandler {
                 @Override
                 public Context call() throws Exception {
                     factory.createMap(introducer);
-                    return factory.getLast();
+                    return factory.getPreviousContext();
                 }
             };
             break;
@@ -112,7 +112,7 @@ public class LazySFCreatingHandler implements StructuredFieldIntroducerHandler {
                 @Override
                 public Context call() throws Exception {
                     factory.createDescriptor(introducer);
-                    return factory.getLast();
+                    return factory.getPreviousContext();
                 }
             };
             break;
@@ -121,7 +121,7 @@ public class LazySFCreatingHandler implements StructuredFieldIntroducerHandler {
                 @Override
                 public Context call() throws Exception {
                     factory.createMigration(introducer);
-                    return factory.getLast();
+                    return factory.getPreviousContext();
                 }
             };
             break;
@@ -130,7 +130,7 @@ public class LazySFCreatingHandler implements StructuredFieldIntroducerHandler {
                 @Override
                 public Context call() throws Exception {
                     factory.createData(introducer);
-                    return factory.getLast();
+                    return factory.getPreviousContext();
                 }
             };
             break;
@@ -139,7 +139,7 @@ public class LazySFCreatingHandler implements StructuredFieldIntroducerHandler {
                 @Override
                 public Context call() throws Exception {
                     factory.createPosition(introducer);
-                    return factory.getLast();
+                    return factory.getPreviousContext();
                 }
             };
             break;
@@ -148,7 +148,7 @@ public class LazySFCreatingHandler implements StructuredFieldIntroducerHandler {
                 @Override
                 public Context call() throws Exception {
                     factory.createInclude(introducer);
-                    return factory.getLast();
+                    return factory.getPreviousContext();
                 }
             };
             break;
@@ -157,7 +157,7 @@ public class LazySFCreatingHandler implements StructuredFieldIntroducerHandler {
                 @Override
                 public Context call() throws Exception {
                     factory.createControl(introducer);
-                    return factory.getLast();
+                    return factory.getPreviousContext();
                 }
             };
             break;
@@ -166,7 +166,7 @@ public class LazySFCreatingHandler implements StructuredFieldIntroducerHandler {
                 @Override
                 public Context call() throws Exception {
                     factory.createIndex(introducer);
-                    return factory.getLast();
+                    return factory.getPreviousContext();
                 }
             };
             break;
