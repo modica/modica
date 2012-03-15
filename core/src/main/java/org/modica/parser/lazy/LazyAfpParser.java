@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 
+import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.parser.PrintingSFHandler;
 import org.modica.parser.StructuredFieldHandler;
@@ -48,7 +49,9 @@ public class LazyAfpParser {
         lazyAfp.attach(newInput.getChannel());
         // Trigger lazy loading of all SFs, (of course this could be random access)
         for (StructuredField sf : lazyAfp.getStructuredFields()) {
-            System.out.println(sf.getParameters());
+            for (ParameterAsString param : sf.getParameters()) {
+                System.out.println(param);
+            }
         }
         // End the session
         lazyAfp.detach();
