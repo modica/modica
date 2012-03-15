@@ -12,12 +12,12 @@ public class SfTreeNodeImpl implements SfTreeNode {
 
     private static final long serialVersionUID = 1L;
 
-    private final List<SfTreeNodeImpl> sfList;
+    private final List<SfTreeNode> sfList;
 
     private final StructuredField field;
 
     SfTreeNodeImpl(StructuredField structuredField) {
-        sfList = new ArrayList<SfTreeNodeImpl>();
+        sfList = new ArrayList<SfTreeNode>();
         this.field = structuredField;
     }
 
@@ -31,7 +31,17 @@ public class SfTreeNodeImpl implements SfTreeNode {
     }
 
     @Override
-    public List<SfTreeNodeImpl> getChilden() {
+    public List<SfTreeNode> getChilden() {
         return sfList;
+    }
+
+    @Override
+    public List<SfTreeNode> getAll() {
+        List<SfTreeNode> all = new ArrayList<SfTreeNode>();
+        all.add(this);
+        for (SfTreeNode child : getChilden()) {
+            all.addAll(child.getAll());
+        }
+        return all;
     }
 }

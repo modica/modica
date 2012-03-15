@@ -43,9 +43,16 @@ public class LazyParsingTreeBuilder implements AfpTreeBuilder {
         }
 
         @Override
-        public List<SfTreeNodeImpl> getChilden() {
+        public List<SfTreeNode> getChilden() {
             return delegate.getChilden();
         }
+
+        @Override
+        public List<SfTreeNode> getAll() {
+            // TODO Auto-generated method stub
+            return delegate.getAll();
+        }
+
     }
 
     @Override

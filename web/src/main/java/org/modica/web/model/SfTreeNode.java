@@ -9,5 +9,7 @@ public interface SfTreeNode extends Serializable {
 
     StructuredField getField();
 
-    List<SfTreeNodeImpl> getChilden();
+    List<SfTreeNode> getChilden();
+
+    List<SfTreeNode> getAll();
 }

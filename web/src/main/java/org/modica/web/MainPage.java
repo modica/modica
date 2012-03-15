@@ -14,6 +14,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.resource.PackageResourceReference;
+import org.modica.web.lazy.LazyViewPanel;
 import org.modica.web.treeview.TreeViewPanel;
 
 public class MainPage extends WebPage {
@@ -24,6 +25,7 @@ public class MainPage extends WebPage {
 
     private final List<MenuItem> menuItems = Arrays.asList(
             new MenuItem("inspect", new TreeViewPanel(CONTENT_ID)),
+            new MenuItem("lazy", new LazyViewPanel(CONTENT_ID)),
             new MenuItem("settings", new SettingsPanel(CONTENT_ID)));
 
     private Panel activePanel;
