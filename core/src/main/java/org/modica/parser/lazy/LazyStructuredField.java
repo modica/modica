@@ -1,6 +1,5 @@
 package org.modica.parser.lazy;
 
-import java.nio.channels.FileChannel;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -13,6 +12,7 @@ import org.modica.afp.modca.StructuredFieldFactoryImpl;
 import org.modica.afp.modca.structuredfields.AbstractStructuredField;
 import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
+import org.modica.parser.lazy.LazyAfp.FileChannelProvider;
 
 public class LazyStructuredField extends AbstractStructuredField {
 
@@ -29,20 +29,14 @@ public class LazyStructuredField extends AbstractStructuredField {
 
     private final StructuredFieldIntroducer introducer;
 
-    private transient FileChannel fileChannel;
+    private final FileChannelProvider fileChannelProvider;
 
-    public LazyStructuredField(StructuredFieldIntroducer introducer, Future<Context> contextFuture) {
+    public LazyStructuredField(StructuredFieldIntroducer introducer, Future<Context> contextFuture,
+            FileChannelProvider fileChannelProvider) {
         super(introducer);
         this.introducer = introducer;
         this.contextFuture = contextFuture;
-    }
-
-    public void attach(FileChannel fileChannel) {
-        this.fileChannel = fileChannel;
-    }
-
-    public void detach() {
-        fileChannel = null;
+        this.fileChannelProvider = fileChannelProvider;
     }
 
     private void load() {
@@ -59,7 +53,8 @@ public class LazyStructuredField extends AbstractStructuredField {
             structuredField = SF_GUARD;
             return;
         }
-        StructuredFieldFactory factory = new StructuredFieldFactoryImpl(fileChannel, context);
+        StructuredFieldFactory factory = new StructuredFieldFactoryImpl(
+                fileChannelProvider.getFileChannel(), context);
         switch (getType().getTypeCode()) {
         case Begin:
             structuredField = factory.createBegin(introducer);

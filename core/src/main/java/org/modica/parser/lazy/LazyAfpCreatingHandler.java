@@ -1,9 +1,7 @@
 package org.modica.parser.lazy;
 
 import java.io.FileInputStream;
-import java.nio.channels.FileChannel;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
@@ -11,21 +9,23 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.modica.afp.modca.Context;
+import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.parser.StructuredFieldHandler;
 import org.modica.parser.StructuredFieldIntroducerHandler;
+import org.modica.parser.lazy.LazyAfp.FileChannelProvider;
 
 /**
  * This is used to trigger the creation of parsing contexts
  * TODO Currently we throw away all the structured fields in the anticipation of memory overhead
  * A strategy could be in place to preserve some, setting them on the factory
  */
-public class LazySFCreatingHandler implements StructuredFieldIntroducerHandler {
+public class LazyAfpCreatingHandler implements StructuredFieldIntroducerHandler {
 
     //  TODO inject - must uses current or single thread only!!!
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    private final List<LazyStructuredField> lazyStructuredFields;
+    private final List<StructuredField> lazyStructuredFields;
 
     private final LazyStructuredFieldFactory factory;
 
@@ -33,15 +33,15 @@ public class LazySFCreatingHandler implements StructuredFieldIntroducerHandler {
 
     private final CountDownLatch streamShutdown;
 
-    private final FileChannel fileChannel;
+    private final FileChannelProvider fileChannelProvider;
 
-    public LazySFCreatingHandler(StructuredFieldHandler sfHandler, FileInputStream input,
+    public LazyAfpCreatingHandler(StructuredFieldHandler sfHandler, FileInputStream input,
             CountDownLatch streamShutdown) {
         this.creationHandler = sfHandler;
-        this.fileChannel = input.getChannel();
-        factory = new LazyStructuredFieldFactory(fileChannel);
+        this.fileChannelProvider = new FileChannelProvider(input.getChannel());
+        factory = new LazyStructuredFieldFactory(input.getChannel());
         this.streamShutdown = streamShutdown;
-        lazyStructuredFields = new ArrayList<LazyStructuredField>();
+        lazyStructuredFields = new ArrayList<StructuredField>();
     }
 
     @Override
@@ -61,9 +61,8 @@ public class LazySFCreatingHandler implements StructuredFieldIntroducerHandler {
 
     private LazyStructuredField createLazyStructuredField(StructuredFieldIntroducer introducer,
             Callable<Context> contextResolver) {
-        final LazyStructuredField lazyStructuredField
-                = new LazyStructuredField(introducer, executor.submit(contextResolver));
-        lazyStructuredField.attach(fileChannel);
+        final LazyStructuredField lazyStructuredField = new LazyStructuredField(introducer,
+                executor.submit(contextResolver), fileChannelProvider);
         lazyStructuredFields.add(lazyStructuredField);
         return lazyStructuredField;
     }
@@ -181,7 +180,7 @@ public class LazySFCreatingHandler implements StructuredFieldIntroducerHandler {
         creationHandler.handle(createLazyStructuredField(introducer, callable));
     }
 
-    public List<LazyStructuredField> getStructuredFields() {
-        return Collections.unmodifiableList(lazyStructuredFields);
+    public LazyAfp getLazyAfp() {
+        return new LazyAfp(lazyStructuredFields, fileChannelProvider);
     }
 }

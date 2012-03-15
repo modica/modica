@@ -3,7 +3,6 @@ package org.modica.parser.lazy;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 import org.modica.afp.modca.structuredfields.StructuredField;
@@ -13,12 +12,12 @@ import org.modica.parser.StructuredFieldIntroducerHandler;
 import org.modica.parser.StructuredFieldIntroducerHandlers;
 import org.modica.parser.StructuredFieldIntroducerParser;
 
-public class LazyParser {
+public class LazyAfpParser {
 
     public static void main(String[] args) throws IOException {
         final FileInputStream input = new FileInputStream(new File(args[0]));
         final CountDownLatch streamShutdown = new CountDownLatch(1);
-        LazySFCreatingHandler lazySFCreator = new LazySFCreatingHandler(
+        LazyAfpCreatingHandler lazySFCreator = new LazyAfpCreatingHandler(
                 new PrintingSFHandler(System.out), input, streamShutdown);
         StructuredFieldIntroducerHandler handlers = StructuredFieldIntroducerHandlers.chain(
                 lazySFCreator, new PrintingSFIntroducerHandler(System.out));
@@ -41,26 +40,22 @@ public class LazyParser {
                 }
             }
         }).start();
-        List<LazyStructuredField> fields = lazySFCreator.getStructuredFields();
+        LazyAfp lazyAfp = lazySFCreator.getLazyAfp();
         // Can return the model now
-        for (LazyStructuredField sf : fields) {
+        for (StructuredField sf : lazyAfp.getStructuredFields()) {
             System.out.println(sf);
-            sf.detach();
         }
+        lazyAfp.detach();
         // simulate new session 
         final FileInputStream newInput = new FileInputStream(new File(args[0]));
         // We need to control access to Full SFs in a better way!
-        for (LazyStructuredField sf : fields) {
-            sf.attach(newInput.getChannel());
-        }
+        lazyAfp.attach(newInput.getChannel());
         // simulate trigger of lazy load
-        for (StructuredField sf : fields) {
+        for (StructuredField sf : lazyAfp.getStructuredFields()) {
             System.out.println(sf.getParameters());
         }
         // simulate session end 
-        for (LazyStructuredField sf : fields) {
-            sf.detach();
-        }
+        lazyAfp.detach();
         newInput.close();
     }
 

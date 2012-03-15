@@ -6,9 +6,10 @@ import java.nio.channels.FileChannel;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
+import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.parser.StructuredFieldIntroducerParser;
-import org.modica.parser.lazy.LazySFCreatingHandler;
-import org.modica.parser.lazy.LazyStructuredField;
+import org.modica.parser.lazy.LazyAfp;
+import org.modica.parser.lazy.LazyAfpCreatingHandler;
 
 /**
  * Parses an AFP document and creates a tree with structured fields as the nodes of the tree.
@@ -21,48 +22,43 @@ public class LazyParsingTreeBuilder implements AfpTreeBuilder {
 
         private final SfTreeNode delegate;
 
-        private final List<LazyStructuredField> lazyStructuredFields;
+        private final LazyAfp lazyAfp;
 
-        public LazyParsingNode(SfTreeNode delegate, List<LazyStructuredField> lazyStructuredFields) {
+        public LazyParsingNode(SfTreeNode delegate, LazyAfp lazyAfp) {
             this.delegate = delegate;
-            this.lazyStructuredFields = lazyStructuredFields;
+            this.lazyAfp = lazyAfp;
         }
 
         public void attach(FileChannel fileChannel) {
-            for (LazyStructuredField sf : lazyStructuredFields) {
-                sf.attach(fileChannel);
-            }
+            lazyAfp.attach(fileChannel);
         }
 
         public void detach() throws IOException {
-            for (LazyStructuredField sf : lazyStructuredFields) {
-                sf.detach();
-            }
+            lazyAfp.detach();
         }
 
         @Override
-        public LazyStructuredField getField() {
-            return (LazyStructuredField) delegate.getField();
+        public StructuredField getField() {
+            return delegate.getField();
         }
 
         @Override
         public List<SfTreeNodeImpl> getChilden() {
             return delegate.getChilden();
         }
-
     }
 
     @Override
     public SfTreeNode buildTree(FileInputStream input) throws IOException {
         TreeBuildingHandler treeBuilder = new TreeBuildingHandler();
         final CountDownLatch streamShutdown = new CountDownLatch(1);
-        LazySFCreatingHandler lazySFCreator = new LazySFCreatingHandler(treeBuilder, input,
+        LazyAfpCreatingHandler lazyAfpCreator = new LazyAfpCreatingHandler(treeBuilder, input,
                 streamShutdown);
         StructuredFieldIntroducerParser preParser = new StructuredFieldIntroducerParser(input,
-                lazySFCreator);
+                lazyAfpCreator);
         preParser.parse();
-        List<LazyStructuredField> lazyStructuredFields = lazySFCreator.getStructuredFields();
-        return new LazyParsingNode(treeBuilder.getTree(), lazyStructuredFields);
+        LazyAfp lazyAfp = lazyAfpCreator.getLazyAfp();
+        return new LazyParsingNode(treeBuilder.getTree(), lazyAfp);
     }
 
     @Override

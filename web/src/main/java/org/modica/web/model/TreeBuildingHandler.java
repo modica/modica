@@ -1,7 +1,6 @@
 package org.modica.web.model;
 
 import java.util.Stack;
-import java.util.concurrent.Callable;
 
 import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.parser.StructuredFieldHandler;
