@@ -1,9 +1,11 @@
 package org.modica.afp.modca;
 
+import org.modica.afp.modca.structuredfields.StructuredField;
 
 /**
  * This class provides context for structured fields. Some fields rely on parameters in other
- * structured fields to contextualize their purpose, this class provides that context.
+ * structured fields to contextualize their purpose, this is an interface for providing that
+ * context. The contextual data is used only to parse and instantiate the {@link StructuredField}.  
  */
 public interface Context {
 
