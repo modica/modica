@@ -13,8 +13,12 @@ import org.modica.afp.modca.structuredfields.AbstractStructuredField;
 import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.parser.lazy.LazyAfp.FileChannelProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class LazyStructuredField extends AbstractStructuredField {
+
+    private static final Logger LOG = LoggerFactory.getLogger(LazyStructuredField.class);
 
     private static final StructuredField SF_GUARD = new AbstractStructuredField(null) {
         @Override
@@ -40,6 +44,7 @@ public class LazyStructuredField extends AbstractStructuredField {
     }
 
     private void load() {
+        LOG.debug("load()");
         Context context;
         try {
             context = contextFuture.get();

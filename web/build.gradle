@@ -11,7 +11,7 @@ version = config.version
 title = config.title
 
 sourceSets {
-  jetty
+    jetty
 }
 
 eclipse {
@@ -27,12 +27,12 @@ dependencies {
 
     providedCompile 'javax.servlet:servlet-api:2.5'
 
-    compile 'org.wicketstuff:inmethod-grid:1.5-RC5.1'   
- 
+    compile 'org.wicketstuff:inmethod-grid:1.5-RC5.1'
+
     ['server', 'webapp'].each {
         jettyCompile "org.eclipse.jetty:jetty-$it:7.5.0.v20110901"
     }
-    
+
     def springVersion = '3.1.0.RELEASE'
 
     compile "org.springframework:spring-context:$springVersion"
