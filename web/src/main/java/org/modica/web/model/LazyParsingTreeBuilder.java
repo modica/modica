@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
 
 import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.parser.StructuredFieldIntroducerParser;
@@ -58,9 +57,7 @@ public class LazyParsingTreeBuilder implements AfpTreeBuilder {
     @Override
     public SfTreeNode buildTree(FileInputStream input) throws IOException {
         TreeBuildingHandler treeBuilder = new TreeBuildingHandler();
-        final CountDownLatch streamShutdown = new CountDownLatch(1);
-        LazyAfpCreatingHandler lazyAfpCreator = new LazyAfpCreatingHandler(treeBuilder, input,
-                streamShutdown);
+        LazyAfpCreatingHandler lazyAfpCreator = new LazyAfpCreatingHandler(treeBuilder, input);
         StructuredFieldIntroducerParser preParser = new StructuredFieldIntroducerParser(input,
                 lazyAfpCreator);
         preParser.parse();

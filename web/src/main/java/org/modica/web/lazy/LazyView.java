@@ -3,6 +3,12 @@ package org.modica.web.lazy;
 import java.util.Collections;
 import java.util.List;
 
+import org.modica.afp.modca.structuredfields.StructuredField;
+import org.modica.web.model.AfpTreeModel;
+import org.modica.web.model.SfTreeNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -15,13 +21,6 @@ import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.request.resource.PackageResourceReference;
-
-import org.modica.afp.modca.structuredfields.StructuredField;
-import org.modica.web.MainPage;
-import org.modica.web.model.AfpTreeModel;
-import org.modica.web.model.SfTreeNode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class LazyView extends Panel {
 

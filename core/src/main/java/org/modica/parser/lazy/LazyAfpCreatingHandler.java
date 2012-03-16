@@ -35,13 +35,16 @@ public class LazyAfpCreatingHandler implements StructuredFieldIntroducerHandler 
 
     private final FileChannelProvider fileChannelProvider;
 
-    public LazyAfpCreatingHandler(StructuredFieldHandler sfHandler, FileInputStream input,
-            CountDownLatch streamShutdown) {
+    public LazyAfpCreatingHandler(StructuredFieldHandler sfHandler, FileInputStream input) {
         this.creationHandler = sfHandler;
+        this.streamShutdown = new CountDownLatch(1);
         this.fileChannelProvider = new FileChannelProvider(input.getChannel());
         factory = new LazyStructuredFieldFactory(input.getChannel());
-        this.streamShutdown = streamShutdown;
         lazyStructuredFields = new ArrayList<StructuredField>();
+    }
+
+    public void await() throws InterruptedException {
+        streamShutdown.await();
     }
 
     @Override
@@ -180,7 +183,25 @@ public class LazyAfpCreatingHandler implements StructuredFieldIntroducerHandler 
         creationHandler.handle(createLazyStructuredField(introducer, callable));
     }
 
+    public static class LazyParseLatch {
+        private LazyAfpCreatingHandler creator;
+        LazyParseLatch(LazyAfpCreatingHandler creator) {
+            this.creator = creator;
+        }
+
+        public void await() {
+            if (creator != null) {
+                try {
+                    creator.await();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                creator = null;
+            }
+        }
+    }
+
     public LazyAfp getLazyAfp() {
-        return new LazyAfp(lazyStructuredFields, fileChannelProvider);
+        return new LazyAfp(lazyStructuredFields, fileChannelProvider, new LazyParseLatch(this));
     }
 }

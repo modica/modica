@@ -104,17 +104,16 @@ public class AfpService {
     }
 
     void endRequest() throws IOException {
+        LOG.debug("endSession()");
+        SfTreeNode sfTreeNode = getSfTreeNode();
+        if (sfTreeNode != null) {
+            afpTreeBuilder.detach(sfTreeNode);
+        }
         FileInputStream input = fileInputStore.get();
         fileInputStore.set(null);
         if (input != null) {
             input.close();
         }
-
-        SfTreeNode sfTreeNode = getSfTreeNode();
-        if (sfTreeNode != null) {
-            afpTreeBuilder.detach(sfTreeNode);
-        }
-        LOG.debug("endSession()");
     }
 
     public void setAfpTreeBuilder(AfpTreeBuilder afpTreeBuilder) {
