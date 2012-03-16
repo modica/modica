@@ -14,6 +14,8 @@ import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.parser.StructuredFieldHandler;
 import org.modica.parser.StructuredFieldIntroducerHandler;
 import org.modica.parser.lazy.LazyAfp.FileChannelProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is used to trigger the creation of parsing contexts
@@ -21,6 +23,8 @@ import org.modica.parser.lazy.LazyAfp.FileChannelProvider;
  * A strategy could be in place to preserve some, setting them on the factory
  */
 public class LazyAfpCreatingHandler implements StructuredFieldIntroducerHandler {
+
+    private static final Logger LOG = LoggerFactory.getLogger(LazyAfpCreatingHandler.class);
 
     //  TODO inject - must uses current or single thread only!!!
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -38,12 +42,13 @@ public class LazyAfpCreatingHandler implements StructuredFieldIntroducerHandler 
     public LazyAfpCreatingHandler(StructuredFieldHandler sfHandler, FileInputStream input) {
         this.creationHandler = sfHandler;
         this.streamShutdown = new CountDownLatch(1);
-        this.fileChannelProvider = new FileChannelProvider(input.getChannel());
+        this.fileChannelProvider = new FileChannelProvider(null);
         factory = new LazyStructuredFieldFactory(input.getChannel());
         lazyStructuredFields = new ArrayList<StructuredField>();
     }
 
-    public void await() throws InterruptedException {
+    private void await() throws InterruptedException {
+        LOG.debug("Awaiting completion of lazy parse...");
         streamShutdown.await();
     }
 
@@ -58,6 +63,7 @@ public class LazyAfpCreatingHandler implements StructuredFieldIntroducerHandler 
         executor.submit(new Runnable() {
             public void run() {
                 streamShutdown.countDown();
+                LOG.debug("Lazy parse completed");
             }
         });
     }

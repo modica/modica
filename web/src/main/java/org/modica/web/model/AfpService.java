@@ -104,7 +104,7 @@ public class AfpService {
     }
 
     void endRequest() throws IOException {
-        LOG.debug("endSession()");
+        LOG.debug("ending request...");
         SfTreeNode sfTreeNode = getSfTreeNode();
         if (sfTreeNode != null) {
             afpTreeBuilder.detach(sfTreeNode);
@@ -114,6 +114,7 @@ public class AfpService {
         if (input != null) {
             input.close();
         }
+        LOG.debug("...request ended");
     }
 
     public void setAfpTreeBuilder(AfpTreeBuilder afpTreeBuilder) {

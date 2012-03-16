@@ -14,7 +14,7 @@ public class LazyAfp {
 
     private final FileChannelProvider fileChannelProvider;
 
-    private LazyParseLatch latch;
+    private final LazyParseLatch latch;
 
     public LazyAfp(List<StructuredField> lazyStructuredFields,
             FileChannelProvider fileChannelProvider, LazyParseLatch latch) {
@@ -27,13 +27,16 @@ public class LazyAfp {
         return Collections.unmodifiableList(lazyStructuredFields);
     }
 
+    public void await() {
+        latch.await();
+    }
+
     public void attach(FileChannel fileChannel) {
-        fileChannelProvider.fileChannel = fileChannel;
+        fileChannelProvider.setFileChannel(fileChannel);
     }
 
     public void detach() throws IOException {
-        latch.await();
-        fileChannelProvider.fileChannel = null;
+        fileChannelProvider.setFileChannel(null);
     }
 
     public static class FileChannelProvider {
@@ -46,6 +49,10 @@ public class LazyAfp {
 
         public FileChannel getFileChannel() {
             return fileChannel;
+        }
+
+        private void setFileChannel(FileChannel fileChannel) {
+            this.fileChannel = fileChannel;
         }
     }
 
