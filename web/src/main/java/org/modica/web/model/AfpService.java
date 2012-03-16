@@ -35,17 +35,18 @@ public class AfpService {
     public SfTreeNode getRootNode() throws IOException {
         SfTreeNode sfTreeNode = getSfTreeNode();
         if (sfTreeNode == null) {
-            FileInputStream input = getFileInput();
-            if (input != null) {
-                sfTreeNode = buildTree(input);
+            File file = getAfpFile();
+            if (file != null) {
+                FileInputStream input = new FileInputStream(file);
+                sfTreeNode = buildTree(file);
                 setSfTreeNode(sfTreeNode);
             }
         }
         return sfTreeNode;
     }
 
-    private SfTreeNode buildTree(FileInputStream input) throws IOException {
-        return afpTreeBuilder.buildTree(input);
+    private SfTreeNode buildTree(File file) throws IOException {
+        return afpTreeBuilder.buildTree(file);
     }
 
     private void clear() throws IOException {

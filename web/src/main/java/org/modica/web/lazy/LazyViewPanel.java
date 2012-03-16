@@ -39,7 +39,6 @@ public class LazyViewPanel extends Panel {
                 } catch (IOException e) {
                     throw new WicketRuntimeException("Faulty afp file " + file, e);
                 }
-                lazyView.update();
             }
         };
         FilePicker filePicker = new FilePicker("filePicker", fileModel);

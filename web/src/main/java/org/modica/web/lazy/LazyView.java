@@ -52,10 +52,6 @@ public class LazyView extends Panel {
         response.renderCSSReference(new PackageResourceReference(LazyView.class, "LazyView.css"));
     }
 
-    public void update() {
-        LOG.debug("update()");
-    }
-
     private class ListModel extends LoadableDetachableModel<List<SfTreeNode>> {
         private static final long serialVersionUID = 1L;
 

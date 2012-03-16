@@ -1,5 +1,6 @@
 package org.modica.web.model;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -11,7 +12,8 @@ import org.modica.parser.AfpParser;
 public class DefaultAfpTreeBuilder implements AfpTreeBuilder {
 
     @Override
-    public SfTreeNode buildTree(FileInputStream inStream) throws IOException {
+    public SfTreeNode buildTree(File file) throws IOException {
+        FileInputStream inStream = new FileInputStream(file);
         try {
             TreeBuildingHandler treeBuilder = new TreeBuildingHandler();
             AfpParser.forInput(inStream).withHandler(treeBuilder).parse();
