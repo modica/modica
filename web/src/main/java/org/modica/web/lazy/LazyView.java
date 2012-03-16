@@ -79,7 +79,6 @@ public class LazyView extends Panel {
         public Collapsed(final String id, final String markupId,
                 final MarkupContainer markupProvider, final ListItem<SfTreeNode> item) {
             super(id, markupId, markupProvider);
-            setOutputMarkupPlaceholderTag(true);
             SfTreeNode node = item.getModelObject();
             String name = node.getField() == null ? "ROOT" : node.getField().toString();
             AjaxLink<Void> link = new AjaxLink<Void>("link") {
@@ -106,10 +105,9 @@ public class LazyView extends Panel {
 
         private static final long serialVersionUID = 1L;
 
-        public Expanded(String id, String markupId,
-                MarkupContainer markupProvider, final ListItem<SfTreeNode> item) {
+        public Expanded(String id, String markupId, MarkupContainer markupProvider,
+                final ListItem<SfTreeNode> item) {
             super(id, markupId, markupProvider);
-            setOutputMarkupPlaceholderTag(true);
             SfTreeNode node = item.getModelObject();
             StructuredField sf = node.getField();
             if (sf == null) {
@@ -118,7 +116,8 @@ public class LazyView extends Panel {
             } else {
                 String name = node.getField().toString();
                 add(new Label("sf_string", sf.toString()));
-                String size = sf.getParameters() == null ? "0" : String.valueOf(sf.getParameters().size());
+                String size = sf.getParameters() == null ? "0" : String.valueOf(sf.getParameters()
+                        .size());
                 add(new Label("param_count", size));
             }
         }
