@@ -3,7 +3,6 @@ package org.modica.web.model;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.channels.FileChannel;
 import java.util.List;
 
 import org.modica.afp.modca.structuredfields.StructuredField;
@@ -28,17 +27,25 @@ public class LazyParsingTreeBuilder implements AfpTreeBuilder {
 
         private final LazyAfp lazyAfp;
 
+        private FileInputStream fileInputStream;
+
         public LazyParsingNode(SfTreeNode delegate, LazyAfp lazyAfp) {
             this.delegate = delegate;
             this.lazyAfp = lazyAfp;
         }
 
-        public void attach(FileChannel fileChannel) {
-            lazyAfp.attach(fileChannel);
+        public void attach(FileInputStream fileInputStream) {
+            this.fileInputStream = fileInputStream;
+            lazyAfp.attach(fileInputStream.getChannel());
         }
 
         public void detach() throws IOException {
             lazyAfp.detach();
+            FileInputStream in = fileInputStream;
+            fileInputStream = null;
+            if (in != null) {
+                in.close();
+            }
         }
 
         @Override
@@ -53,7 +60,6 @@ public class LazyParsingTreeBuilder implements AfpTreeBuilder {
 
         @Override
         public List<SfTreeNode> getAll() {
-            // TODO Auto-generated method stub
             return delegate.getAll();
         }
 
@@ -85,9 +91,9 @@ public class LazyParsingTreeBuilder implements AfpTreeBuilder {
     }
 
     @Override
-    public void attach(SfTreeNode sfTreeNode, FileInputStream inStream) throws IOException {
+    public void attach(SfTreeNode sfTreeNode, FileInputStream fileInputStream) throws IOException {
         // TODO improve type inference
-        ((LazyParsingNode) sfTreeNode).attach(inStream.getChannel());
+        ((LazyParsingNode) sfTreeNode).attach(fileInputStream);
 
     }
 

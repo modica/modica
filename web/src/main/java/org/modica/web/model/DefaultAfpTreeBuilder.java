@@ -24,7 +24,7 @@ public class DefaultAfpTreeBuilder implements AfpTreeBuilder {
     }
 
     @Override
-    public void attach(SfTreeNode sfTreeNode, FileInputStream inStream) throws IOException {
+    public void attach(SfTreeNode sfTreeNode, FileInputStream input) throws IOException {
         // NOP
     }
 

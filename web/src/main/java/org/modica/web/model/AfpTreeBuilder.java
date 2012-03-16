@@ -6,9 +6,9 @@ import java.io.IOException;
 
 public interface AfpTreeBuilder {
 
-    SfTreeNode buildTree(File inStream) throws IOException;
+    SfTreeNode buildTree(File file) throws IOException;
 
-    void attach(SfTreeNode sfTreeNode, FileInputStream inStream) throws IOException;
+    void attach(SfTreeNode sfTreeNode, FileInputStream input) throws IOException;
 
     void detach(SfTreeNode sfTreeNode) throws IOException;
 }

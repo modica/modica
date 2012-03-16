@@ -19,13 +19,7 @@ public class AfpService {
 
     private IAfpState afpState;
 
-    private final ThreadLocal<FileInputStream> fileInputStore;
-
     private AfpTreeBuilder afpTreeBuilder;
-
-    public AfpService() {
-        this.fileInputStore = new ThreadLocal<FileInputStream>();
-    }
 
     public void load(File afpFile) throws IOException {
         clear();
@@ -37,7 +31,6 @@ public class AfpService {
         if (sfTreeNode == null) {
             File file = getAfpFile();
             if (file != null) {
-                FileInputStream input = new FileInputStream(file);
                 sfTreeNode = buildTree(file);
                 setSfTreeNode(sfTreeNode);
             }
@@ -50,22 +43,20 @@ public class AfpService {
     }
 
     private void clear() throws IOException {
+        SfTreeNode node = getSfTreeNode();
+        if (node != null) {
+            afpTreeBuilder.detach(node);
+        }
+        setSfTreeNode(null);
         File previous = getAfpFile();
         if (previous != null) {
             previous.delete();
         }
         setAfpFile(null);
-        setSfTreeNode(null);
-        FileInputStream input = getFileInput();
-        setFileInput(null);
-        if (input != null) {
-            input.close();
-        }
     }
 
     private void openStream(File afpFile) throws FileNotFoundException {
         setAfpFile(afpFile);
-        fileInputStore.set(new FileInputStream(afpFile));
     }
 
     private File getAfpFile() {
@@ -84,24 +75,12 @@ public class AfpService {
         afpState.setSfTreeNode(sfTreeNode);
     }
 
-    private FileInputStream getFileInput() {
-        return fileInputStore.get();
-    }
-
-    private void setFileInput(FileInputStream input) {
-        fileInputStore.set(input);
-    }
-
     void beginRequest() throws IOException {
-        File afpFile = getAfpFile();
-        if (afpFile != null) {
-            setFileInput(new FileInputStream(afpFile));
-        }
         SfTreeNode sfTreeNode = getSfTreeNode();
         if (sfTreeNode != null) {
-            afpTreeBuilder.attach(sfTreeNode, getFileInput());
+            afpTreeBuilder.attach(sfTreeNode, new FileInputStream(getAfpFile()));
         }
-        LOG.debug("beginRequest()");
+        LOG.debug("begin request");
     }
 
     void endRequest() throws IOException {
@@ -110,12 +89,7 @@ public class AfpService {
         if (sfTreeNode != null) {
             afpTreeBuilder.detach(sfTreeNode);
         }
-        FileInputStream input = fileInputStore.get();
-        fileInputStore.set(null);
-        if (input != null) {
-            input.close();
-        }
-        LOG.debug("...request ended");
+        LOG.debug("request end");
     }
 
     public void setAfpTreeBuilder(AfpTreeBuilder afpTreeBuilder) {
