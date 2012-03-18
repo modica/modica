@@ -33,7 +33,7 @@ public class LazyView extends Panel {
     public LazyView(String id, AfpTreeModel afpTreeModel) {
         super(id);
         this.afpTreeModel = afpTreeModel;
-        ListView<SfTreeNode> lv = new PropertyListView<SfTreeNode>("fields", new ListModel()) {
+        ListView<SfTreeNode> lv = new PropertyListView<SfTreeNode>("field", new ListModel()) {
 
             private static final long serialVersionUID = 1L;
 

@@ -4,8 +4,8 @@
 <body>
 <wicket:panel>
     <div>This AFP has <span wicket:id="size">0</span> SFs</div>
-    <div wicket:id="fields" class="fields">
-        <span wicket:id="sf">sf</span>
+    <div wicket:id="field" class="field">
+        <wicket:container wicket:id="sf">sf</wicket:container>
     </div>
     <wicket:fragment wicket:id="collapsed">
         <a wicket:id="link"><span wicket:id="sf_string">sf name</span></a>

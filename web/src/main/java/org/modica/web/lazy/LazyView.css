@@ -1,4 +1,4 @@
-.fields {
+.field {
     font-weight:bold;
     padding:5px;
     background-color:#4682B4;
@@ -9,6 +9,6 @@
     margin-bottom: 5px;
 }
 
-.fields a {
+.field a {
     color:#fff;
 }
