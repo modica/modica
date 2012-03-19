@@ -104,88 +104,38 @@ public class LazyAfpCreatingHandler implements StructuredFieldIntroducerHandler 
 
     @Override
     public void handle(final StructuredFieldIntroducer introducer) {
-        Callable<Context> callable;
-        switch (introducer.getType().getTypeCode()) {
-        case Map:
-            callable = new Callable<Context>() {
-                @Override
-                public Context call() throws Exception {
+        Callable<Context> callable = new Callable<Context>() {
+            @Override
+            public Context call() throws Exception {
+                switch (introducer.getType().getTypeCode()) {
+                case Map:
                     factory.createMap(introducer);
-                    return factory.getPreviousContext();
-                }
-            };
-            break;
-        case Descriptor:
-            callable = new Callable<Context>() {
-                @Override
-                public Context call() throws Exception {
+                    break;
+                case Descriptor:
                     factory.createDescriptor(introducer);
-                    return factory.getPreviousContext();
-                }
-            };
-            break;
-        case Migration:
-            callable = new Callable<Context>() {
-                @Override
-                public Context call() throws Exception {
+                    break;
+                case Migration:
                     factory.createMigration(introducer);
-                    return factory.getPreviousContext();
-                }
-            };
-            break;
-        case Data:
-            callable = new Callable<Context>() {
-                @Override
-                public Context call() throws Exception {
+                    break;
+                case Data:
                     factory.createData(introducer);
-                    return factory.getPreviousContext();
-                }
-            };
-            break;
-        case Position:
-            callable = new Callable<Context>() {
-                @Override
-                public Context call() throws Exception {
+                    break;
+                case Position:
                     factory.createPosition(introducer);
-                    return factory.getPreviousContext();
-                }
-            };
-            break;
-        case Include:
-            callable = new Callable<Context>() {
-                @Override
-                public Context call() throws Exception {
+                    break;
+                case Include:
                     factory.createInclude(introducer);
-                    return factory.getPreviousContext();
-                }
-            };
-            break;
-        case Control:
-            callable = new Callable<Context>() {
-                @Override
-                public Context call() throws Exception {
+                    break;
+                case Control:
                     factory.createControl(introducer);
-                    return factory.getPreviousContext();
-                }
-            };
-            break;
-        case Index:
-            callable = new Callable<Context>() {
-                @Override
-                public Context call() throws Exception {
+                    break;
+                case Index:
                     factory.createIndex(introducer);
-                    return factory.getPreviousContext();
+                    break;
                 }
-            };
-            break;
-        default:
-            callable = new Callable<Context>() {
-                @Override
-                public Context call() throws Exception {
-                    return null;
-                }
-            };
-        }
+                return factory.getPreviousContext();
+            }
+        };
         creationHandler.handle(createLazyStructuredField(introducer, callable));
     }
 
