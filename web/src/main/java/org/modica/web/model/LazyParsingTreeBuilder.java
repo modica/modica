@@ -72,13 +72,15 @@ public class LazyParsingTreeBuilder implements AfpTreeBuilder {
         LazyAfpCreatingHandler lazyAfpCreator = new LazyAfpCreatingHandler(treeBuilder, input);
         StructuredFieldIntroducerParser preParser = new StructuredFieldIntroducerParser(input,
                 lazyAfpCreator);
+        final long t = System.currentTimeMillis();
         preParser.parse();
-        LOG.debug("Introducers parsed");
+        LOG.debug("Introducers parsed in " + (System.currentTimeMillis() - t) + "ms");
         final LazyAfp lazyAfp = lazyAfpCreator.getLazyAfp();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 lazyAfp.await();
+                LOG.debug("SF contexts resolved in " + (System.currentTimeMillis() - t) + "ms");
                 try {
                     input.close();
                 } catch (IOException e) {
