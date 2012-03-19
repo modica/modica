@@ -66,6 +66,7 @@ public class LazyAfpCreatingHandler implements StructuredFieldIntroducerHandler 
                 LOG.debug("Lazy parse completed");
             }
         });
+        executor.shutdown();
     }
 
     private LazyStructuredField createLazyStructuredField(StructuredFieldIntroducer introducer,
