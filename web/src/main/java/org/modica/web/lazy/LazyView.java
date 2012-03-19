@@ -26,7 +26,7 @@ public class LazyView extends Panel {
 
     private static final long serialVersionUID = 1L;
 
-    private static final Logger LOG = LoggerFactory.getLogger(LazyViewPanel.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LazyView.class);
 
     private final AfpTreeModel afpTreeModel;
 
@@ -83,6 +83,8 @@ public class LazyView extends Panel {
             String name = node.getField() == null ? "ROOT" : node.getField().toString();
             AjaxLink<Void> link = new AjaxLink<Void>("link") {
 
+                private static final long serialVersionUID = 1L;
+
                 @Override
                 public void onClick(AjaxRequestTarget target) {
                     Fragment expanded = new Expanded(id, "expanded", markupProvider, item);
@@ -114,7 +116,6 @@ public class LazyView extends Panel {
                 add(new Label("sf_string", "ROOT"));
                 add(new Label("param_count", "-"));
             } else {
-                String name = node.getField().toString();
                 add(new Label("sf_string", sf.toString()));
                 String size = sf.getParameters() == null ? "0" : String.valueOf(sf.getParameters()
                         .size());
