@@ -14,25 +14,5 @@ p. The richer parse of the document is handled once the introducers have been co
 
 h2. The Commandline Utility
 
-p. MODiCA has been designed to be used as a library, however a CLI allows for some of the more conventional use-cases to be accessed from the command line.
+p. See the cli sub-project
 
-bc.         usage: MODiCA - An AFP parsing library
-          -f,--full-parse <arg>   Parse the AFP document and create a richer object
-                                  model.
-          -h,--help               Print usage information
-          -p,--parse <arg>        Parse an AFP document and print the structured
-                                  field data to the commandline.
-          -x,--xml-out <arg>      Parse the AFP document and prints the XML model
-                         to stdout.
-
-h5. Full Parse
-
-p. Mostly for debug puposes at the moment, it displays slightly more information that the "--parse" option. The output of this relies on the ".toString()" method of each implemented StructuredField, as such it shouldn't not be expected to be backwards compatible.
-
-h5. Parse
-
-p. A very quick and fast parse over the structured field introducers to get an overview of the documents skeletal structure. This will not display either structured field parameters, data or triplets.
-
-h5. XML-Out
-
-p. An XML formatter that converts the AFP object model in to XML format, the XML is printed to stdout.

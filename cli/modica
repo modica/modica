@@ -1,0 +1,5 @@
+#! /bin/bash
+
+MODICA_HOME=$(dirname $0)
+MODICA_SCRIPTS=$MODICA_HOME/src/main/groovy
+$MODICA_HOME/build/install/cli/bin/cli $MODICA_SCRIPTS/Modica.groovy "$@"

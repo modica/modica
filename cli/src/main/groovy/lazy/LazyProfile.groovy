@@ -1,3 +1,5 @@
+package lazy
+ 
 import org.modica.afp.modca.StructuredFieldFactoryImpl
 import org.modica.parser.StructuredFieldCreator
 import org.modica.parser.StructuredFieldHandlers
