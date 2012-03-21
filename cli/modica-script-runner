@@ -1,0 +1,4 @@
+#! /bin/bash
+
+MODICA_HOME=$(dirname $0)
+$MODICA_HOME/build/install/cli/bin/cli "$@"

@@ -1,0 +1,15 @@
+apply plugin: 'groovy'
+apply plugin:'application'
+
+mainClassName = 'groovy.ui.GroovyMain'
+
+configurations {
+    integrationTestCompile.extendsFrom(testCompile)
+    integrationTestRuntime {extendsFrom integrationTestCompile, testRuntime }
+}
+
+dependencies {
+    groovy 'org.codehaus.groovy:groovy:1.8.0'
+    compile project(':core')
+}
+

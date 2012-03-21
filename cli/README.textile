@@ -1,0 +1,29 @@
+h1. MODiCA CLI
+
+p. This sub-project provides command-line tools that utilize the core library to parse AFP documents.
+
+h2. Installation
+
+@gradle installApp@
+
+h2. The modica script
+
+The main script for parsing is modica
+
+bc. usage: modica [options] file
+An AFP parsing library
+Options:
+ -f,--full      Full parse
+ -h,--help      usage information
+ -x,--xml-out   Print xml
+
+
+h2. The script runner
+
+p. The modica script simply wraps the modica-script-runner script and runs the groovy script, Modica.groovy. This script can be used for running custom groovy scripts that require modica-core on the classpath. 
+
+@modica-script-runner src/main/groovy/Modica.groovy <args>@
+
+p. Example scripts that demonstrate libary usage are located under src/main/groovy.
+
+ 
