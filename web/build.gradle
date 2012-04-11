@@ -54,7 +54,7 @@ processResources.filter(ReplaceTokens, tokens: config.application.toProperties()
 war {
     dependsOn 'jettyClasses'
 
-    baseName = 'modica-viewer'
+    baseName = 'modica'
 
     // TODO - how should this be done?
     eachFile {

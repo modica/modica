@@ -7,8 +7,6 @@ import java.io.IOException;
 
 import org.apache.wicket.WicketRuntimeException;
 import org.modica.web.ModicaSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * This service is used to manage the session scoped AfpModel object:
@@ -16,8 +14,6 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class AfpService {
-
-    private static final Logger LOG = LoggerFactory.getLogger(AfpService.class);
 
     private AfpTreeBuilder afpTreeBuilder;
 
@@ -68,7 +64,6 @@ public class AfpService {
                 }
             }
         }
-        LOG.debug("beginSession()");
     }
 
     public void endSession() throws IOException {
@@ -78,7 +73,6 @@ public class AfpService {
         if (input != null) {
             input.close();
         }
-        LOG.debug("endSession()");
     }
 
     public void setAfpTreeBuilder(AfpTreeBuilder afpTreeBuilder) {

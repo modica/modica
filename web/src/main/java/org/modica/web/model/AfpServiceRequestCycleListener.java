@@ -25,6 +25,8 @@ import java.io.IOException;
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.request.cycle.AbstractRequestCycleListener;
 import org.apache.wicket.request.cycle.RequestCycle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is used by to manage the session state of the Afp document.
@@ -32,12 +34,15 @@ import org.apache.wicket.request.cycle.RequestCycle;
  */
 public class AfpServiceRequestCycleListener extends AbstractRequestCycleListener {
 
+    private static final Logger LOG = LoggerFactory.getLogger(AfpServiceRequestCycleListener.class);
+
     private AfpService afpService;
 
     @Override
     public void onBeginRequest(RequestCycle cycle) {
         try {
             afpService.beginSession();
+            LOG.debug("onBeginRequest: " + cycle.getRequest().getOriginalUrl());
         } catch (FileNotFoundException e) {
             throw new WicketRuntimeException(e);
         }
@@ -47,6 +52,7 @@ public class AfpServiceRequestCycleListener extends AbstractRequestCycleListener
     public void onEndRequest(RequestCycle cycle) {
         try {
             afpService.endSession();
+            LOG.debug("onEndRequest: " + cycle.getRequest().getOriginalUrl());
         } catch (IOException e) {
             throw new WicketRuntimeException(e);
         }
