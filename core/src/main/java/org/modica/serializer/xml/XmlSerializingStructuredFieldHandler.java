@@ -1,7 +1,5 @@
 package org.modica.serializer.xml;
 
-import static org.modica.common.ByteUtils.bytesToHex;
-
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
@@ -19,6 +17,8 @@ import org.modica.parser.StructuredFieldHandler;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
+
+import static org.modica.common.ByteUtils.bytesToHex;
 
 /**
  * A StructuredFieldHandler that transforms AFP SF parsing to XML written to an output stream.
@@ -109,7 +109,8 @@ public class XmlSerializingStructuredFieldHandler implements StructuredFieldHand
     private void writeParameters(StructuredField structuredField) throws SAXException {
         for (ParameterAsString parameterAsString : structuredField.getParameters()) {
             String key = parameterAsString.getKey();
-            char[] value = parameterAsString.getValue().toCharArray();
+            String valueStr = parameterAsString.getValue();
+            char[] value = valueStr != null ? valueStr.toCharArray() : new char[0];
             AttributesImpl pparamAtts = new AttributesImpl();
             addAttribute(pparamAtts, SF_PARAMETER_KEY, key);
             handler.startElement(URI, SF_PARAMETER, qNameFor(SF_PARAMETER), pparamAtts);
@@ -132,6 +133,7 @@ public class XmlSerializingStructuredFieldHandler implements StructuredFieldHand
 
     private static Attributes getAttributes(StructuredField sf) {
         AttributesImpl atts = new AttributesImpl();
+        addAttribute(atts, "name", sf.getType().getName());
         addAttribute(atts, "type-code", bytesToHex(sf.getType().getTypeCode().getValue()));
         addAttribute(atts, "category-code", bytesToHex(sf.getType().getCategoryCode().getValue()));
         addAttribute(atts, "offset", String.valueOf(sf.getOffset()));

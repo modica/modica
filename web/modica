@@ -2,7 +2,7 @@
 
 VIEWER_HOME=$(dirname $0)
 
-cd $VIEWER_HOME && groovy -cp build/libs/modica-viewer-0.1.war \
+cd $VIEWER_HOME && groovy -cp build/libs/modica-0.1.war \
         scripts/modicaViewerBootstrap.groovy $@
 
 #TODO bundle groovy runtime and execute: 

@@ -2,14 +2,14 @@ import groovy.text.SimpleTemplateEngine
 
 port = args.length ? Integer.valueOf(args[0]) : 8080
 
-context = 'modica'
+context = ''
 
 def viewerOpts = System.getenv('VIEWER_OPTS') ?: ''
 
 def waitForServer(onReady) {
     Thread.start {
         while (true) {
-            def proc = "curl -I http://localhost:$port/$context/".execute()
+            def proc = "curl -I http://localhost:$port/$context".execute()
                 proc.waitFor()
                 if(proc.exitValue() == 0) {
                     break
@@ -27,7 +27,7 @@ waitForServer {
         new SimpleTemplateEngine().createTemplate(conf.browse)
             .make([host:'localhost', port: port, context: context]).toString().execute()
     } else {
-        println "Browse @ http://localhost:$port/$context/"
+        println "Browse @ http://localhost:$port/$context"
     }
 }
 

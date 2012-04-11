@@ -5,17 +5,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * This service is used to manage the session scoped AfpModel object:
  * It will coordinate the AFP file management and the AFP document building
  *
  */
 public class AfpService {
-
-    private static final Logger LOG = LoggerFactory.getLogger(AfpService.class);
 
     private IAfpState afpState;
 
@@ -80,16 +75,13 @@ public class AfpService {
         if (sfTreeNode != null) {
             afpTreeBuilder.attach(sfTreeNode, new FileInputStream(getAfpFile()));
         }
-        LOG.debug("begin request");
     }
 
     void endRequest() throws IOException {
-        LOG.debug("ending request...");
         SfTreeNode sfTreeNode = getSfTreeNode();
         if (sfTreeNode != null) {
             afpTreeBuilder.detach(sfTreeNode);
         }
-        LOG.debug("request end");
     }
 
     public void setAfpTreeBuilder(AfpTreeBuilder afpTreeBuilder) {

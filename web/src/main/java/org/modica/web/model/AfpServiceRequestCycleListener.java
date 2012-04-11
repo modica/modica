@@ -27,11 +27,16 @@ import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.request.cycle.AbstractRequestCycleListener;
 import org.apache.wicket.request.cycle.RequestCycle;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * This is used by to manage the session state of the Afp document.
  *
  */
 public class AfpServiceRequestCycleListener extends AbstractRequestCycleListener {
+
+    private static final Logger LOG = LoggerFactory.getLogger(AfpServiceRequestCycleListener.class);
 
     private AfpService afpService;
 
@@ -43,6 +48,7 @@ public class AfpServiceRequestCycleListener extends AbstractRequestCycleListener
                 ModicaSession.get().setAfpSessionState(new AfpState());
             }
             afpService.beginRequest();
+            LOG.debug("onBeginRequest: " + cycle.getRequest().getOriginalUrl());
         } catch (IOException e) {
             throw new WicketRuntimeException(e);
         }
@@ -52,6 +58,7 @@ public class AfpServiceRequestCycleListener extends AbstractRequestCycleListener
     public void onEndRequest(RequestCycle cycle) {
         try {
             afpService.endRequest();
+            LOG.debug("onEndRequest: " + cycle.getRequest().getOriginalUrl());
         } catch (IOException e) {
             throw new WicketRuntimeException(e);
         }
