@@ -1,22 +1,20 @@
 package org.modica.afp.modca.triplets;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.modica.afp.modca.Context;
+import org.modica.afp.modca.Context.ContextType;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
-import org.modica.afp.modca.Context.MODCAContext;
-import org.modica.afp.modca.triplets.Cgcsgid;
-import org.modica.afp.modca.triplets.TripletIdentifiers;
 import org.modica.afp.modca.triplets.Cgcsgid.Ccsid;
 import org.modica.afp.modca.triplets.Cgcsgid.Cpgid;
 import org.modica.common.ByteUtils;
 import org.modica.common.StringUtils;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test case for {@link Cgcsgid}.
@@ -70,16 +68,16 @@ public class CgcsgidTestCase extends TripletTestCase<Cgcsgid> {
         assertEquals(0x06, ccsid.getLength());
         assertEquals(0x0102, ccsid.getCcsid());
         assertEquals(tid, ccsid.getTid());
-        assertEquals("Cp258", context.get(MODCAContext.GCSGID));
+        assertEquals("Cp258", context.get(ContextType.MODCA_GCSGID));
 
         Parameters params = new Parameters(ByteUtils.createByteArray(0x00, 0x01, 0x00, 0x7B), "Cp123");
         Context ctx = new Context();
         // Cp500 is used as the default
-        assertEquals("Cp500", ctx.get(MODCAContext.GCSGID));
+        assertEquals("Cp500", ctx.get(ContextType.MODCA_GCSGID));
         // Parsing the CGCSGID object changes the state of the context object to the appropriate
         // encoding code page
         Cgcsgid.parse(params, ctx);
-        assertEquals("Cp123", ctx.get(MODCAContext.GCSGID));
+        assertEquals("Cp123", ctx.get(ContextType.MODCA_GCSGID));
 
     }
 

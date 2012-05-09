@@ -130,6 +130,10 @@ public class Parameters {
         if (position + length > size()) {
             return null;
         }
+        if (length % 2 != 0) {
+            System.out.println("---------------------------- length =" + length
+                    + " -------------------");
+        }
         return StringUtils.bytesToString(sfData, position, length, encoding);
     }
 

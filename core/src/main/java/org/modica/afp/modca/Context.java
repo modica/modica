@@ -9,45 +9,25 @@ import java.util.Map;
  */
 public class Context {
 
-    private final Map<MODCAContext, Object> modcaContextItems = new EnumMap<MODCAContext, Object>(MODCAContext.class);
-    private final Map<FOCAContext, Object> focaContextItems = new EnumMap<FOCAContext, Object>(FOCAContext.class);
+    private final Map<ContextType, Object> contextObjs = new EnumMap<ContextType, Object>(ContextType.class);
 
     public Context() {
-        modcaContextItems.put(MODCAContext.GCSGID, "Cp500");
+        contextObjs.put(ContextType.MODCA_GCSGID, "Cp500");
+    }
+
+    public enum ContextType {
+        FOCA_CPI_REPEATING_GROUP_LENGTH,
+        MODCA_GCSGID;
     }
 
     /**
-     * An enumeration of the FOCA context items.
-     */
-    public enum FOCAContext {
-        CPI_REPEATING_GROUP_LENGTH;
-    }
-
-    /**
-     * An enumeration of MODCA context items.
-     */
-    public enum MODCAContext {
-        GCSGID;
-    }
-
-    /**
-     * Put a FOCA related context item into the context map.
+     * Put a context item into the context map.
      *
-     * @param focaContext the FOCA context item
+     * @param the context item
      * @param obj the value of the item
      */
-    public void put(FOCAContext focaContext, Object obj) {
-        focaContextItems.put(focaContext, obj);
-    }
-
-    /**
-     * Put a MODCA related context item into the context map.
-     *
-     * @param modcaContext the MODCA context item
-     * @param obj the value of the item
-     */
-    public void put(MODCAContext modcaContext, Object obj) {
-        modcaContextItems.put(modcaContext, obj);
+    public void put(ContextType contextType, Object obj) {
+        contextObjs.put(contextType, obj);
     }
 
     /**
@@ -56,17 +36,7 @@ public class Context {
      * @param focaContext the FOCA context item
      * @return the value of the item
      */
-    public Object get(FOCAContext focaContext) {
-        return focaContextItems.get(focaContext);
-    }
-
-    /**
-     * Get a MODCA related context item.
-     *
-     * @param modcaContext the MODCA context item
-     * @return the value of the item
-     */
-    public Object get(MODCAContext modcaContext) {
-        return modcaContextItems.get(modcaContext);
+    public Object get(ContextType focaContext) {
+        return contextObjs.get(focaContext);
     }
 }

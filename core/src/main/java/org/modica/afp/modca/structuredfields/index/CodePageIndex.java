@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.modica.afp.modca.Context;
+import org.modica.afp.modca.Context.ContextType;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
-import org.modica.afp.modca.Context.FOCAContext;
 import org.modica.afp.modca.common.CPIRepeatingGroupLength;
 import org.modica.afp.modca.common.GraphicalCharacterUseFlags;
 import org.modica.afp.modca.structuredfields.AbstractStructuredField;
@@ -44,7 +44,8 @@ public class CodePageIndex extends AbstractStructuredField {
         super(introducer);
         cpis = new ArrayList<CodePageIndex.CPI>();
 
-        CPIRepeatingGroupLength rgLength = (CPIRepeatingGroupLength) context.get(FOCAContext.CPI_REPEATING_GROUP_LENGTH);
+        CPIRepeatingGroupLength rgLength = (CPIRepeatingGroupLength)
+                context.get(ContextType.FOCA_CPI_REPEATING_GROUP_LENGTH);
 
         while (params.getPosition() < params.size() - 1) {
             cpis.add(new CPI(rgLength, params));

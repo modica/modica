@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.modica.afp.modca.Context;
+import org.modica.afp.modca.Context.ContextType;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
-import org.modica.afp.modca.Context.FOCAContext;
 import org.modica.afp.modca.common.CPIRepeatingGroupLength;
 import org.modica.afp.modca.common.GraphicalCharacterUseFlags;
 import org.modica.afp.modca.structuredfields.AbstractStructuredField;
@@ -51,7 +51,7 @@ public class CodePageControl extends AbstractStructuredField {
             defaultUnicodeValue = 0;
         }
 
-        context.put(FOCAContext.CPI_REPEATING_GROUP_LENGTH, cpRgLen);
+        context.put(ContextType.FOCA_CPI_REPEATING_GROUP_LENGTH, cpRgLen);
     }
 
     private enum CodePageUseFlags {

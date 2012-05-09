@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.modica.afp.modca.Context;
+import org.modica.afp.modca.Context.ContextType;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
-import org.modica.afp.modca.Context.MODCAContext;
 import org.modica.common.StringUtils;
 
 /**
@@ -162,7 +162,7 @@ public abstract class Cgcsgid extends Triplet {
             return new Ccsid(ccsidOrCpgid);
         } else {
             Cpgid cpgid = new Cpgid(gcsgid, ccsidOrCpgid);
-            context.put(MODCAContext.GCSGID, "Cp" + cpgid.cpgid);
+            context.put(ContextType.MODCA_GCSGID, "Cp" + cpgid.cpgid);
             return new Cpgid(gcsgid, ccsidOrCpgid);
         }
     }
