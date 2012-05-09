@@ -3,12 +3,22 @@ package org.modica.afp.modca.structuredfields.map;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.modica.afp.modca.Context;
+import org.modica.afp.modca.Context.ContextType;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletGroup;
 import org.modica.afp.modca.triplets.RepeatingTripletGroup;
+import org.modica.afp.modca.triplets.ResourceLocalId;
+import org.modica.afp.modca.triplets.ResourceLocalId.ResourceType;
+import org.modica.afp.modca.triplets.Triplet;
+import org.modica.afp.modca.triplets.fullyqualifiedname.FQNCharStringData;
+import org.modica.afp.modca.triplets.fullyqualifiedname.FQNType;
+import org.modica.afp.modca.triplets.fullyqualifiedname.FullyQualifiedName;
 
 /**
  * The Map Coded Font structured field maps a unique coded font resource local ID, which may be
@@ -22,14 +32,68 @@ import org.modica.afp.modca.triplets.RepeatingTripletGroup;
  */
 public class MapCodedFont extends StructuredFieldWithTripletGroup {
 
-    public MapCodedFont(StructuredFieldIntroducer introducer, RepeatingTripletGroup tripletGroup)
-            throws UnsupportedEncodingException, MalformedURLException {
+    private final Map<Integer, CharacterSetCodePage> fontMappings = new HashMap<Integer, CharacterSetCodePage>();
+
+    public MapCodedFont(StructuredFieldIntroducer introducer, RepeatingTripletGroup tripletGroup,
+            Context ctx) throws UnsupportedEncodingException, MalformedURLException {
         super(introducer, tripletGroup);
+        handleFontMappings();
+        ctx.put(ContextType.MODCA_MAP_CODED_FONT, this);
     }
 
     @Override
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         return params;
+    }
+
+    private void handleFontMappings() {
+        for (List<Triplet> triplets : getTripletGroup()) {
+            String characterSet = null;
+            String codePage = null;
+            int resourceId = 0;
+            for (Triplet triplet : triplets) {
+                switch (triplet.getTid()) {
+                case fully_qualified_name:
+                    FullyQualifiedName fqn = (FullyQualifiedName) triplet;
+                    if (fqn.getFQNType() == FQNType.font_charset_name_ref) {
+                        characterSet = ((FQNCharStringData) fqn).getString();
+                    } else if (fqn.getFQNType() == FQNType.code_page_name_ref) {
+                        codePage = ((FQNCharStringData) fqn).getString();
+                    }
+                    break;
+                case resource_local_identifier:
+                    ResourceLocalId rid = (ResourceLocalId) triplet;
+                    if (rid.getResourceType() == ResourceType.CODED_FONT) {
+                        resourceId = rid.getResourceLocalId();
+                    }
+                }
+            }
+            if (resourceId != 0 && characterSet != null && codePage != null) {
+                fontMappings.put(resourceId, new CharacterSetCodePage(characterSet, codePage));
+            }
+        }
+    }
+
+    public CharacterSetCodePage getFontMappings(int resourceId) {
+        return fontMappings.get(resourceId);
+    }
+
+    public static final class CharacterSetCodePage {
+        private final String characterSet;
+        private final String codePage;
+
+        private CharacterSetCodePage(String characterSet, String codePage) {
+            this.characterSet = characterSet;
+            this.codePage = codePage;
+        }
+
+        public String getCharacterSet() {
+            return characterSet;
+        }
+
+        public String getCodePage() {
+            return codePage;
+        }
     }
 }

@@ -7,12 +7,12 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
+import org.modica.afp.modca.structuredfields.SfTypeFactory.Map;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletGroupTestCase;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Map;
-import org.modica.afp.modca.structuredfields.map.MapCodedFont;
 import org.modica.afp.modca.triplets.RepeatingTripletGroup;
 
 /**
@@ -27,7 +27,7 @@ public class MapCodedFontTestCase extends StructuredFieldWithTripletGroupTestCas
         StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Map.MCF);
         RepeatingTripletGroup tripletGroup = StructuredFieldWithTripletGroupTestCase.createGenericRepeatingGroup();
 
-        sut = new MapCodedFont(intro, tripletGroup);
+        sut = new MapCodedFont(intro, tripletGroup, new Context());
 
         setMembers(sut, intro, tripletGroup);
     }

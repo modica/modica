@@ -16,12 +16,6 @@ public class TransparentData extends ControlSequence {
     public TransparentData(ControlSequenceIdentifier csId, int length, boolean isChained,
             Parameters params) {
         super(csId, length, isChained);
-        try {
-            int pos = params.getPosition();
-            System.out.println(params.getString(length - 2));
-            params.skipTo(pos);
-        } catch (Exception e) {
-        }
         data = params.getByteArray(length - 2);
     }
 
