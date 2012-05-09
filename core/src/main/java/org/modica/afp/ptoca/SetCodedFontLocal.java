@@ -1,5 +1,7 @@
 package org.modica.afp.ptoca;
 
+import org.modica.afp.modca.Context;
+import org.modica.afp.modca.Context.ContextType;
 import org.modica.afp.modca.Parameters;
 import org.modica.common.ByteUtils;
 
@@ -13,9 +15,10 @@ public class SetCodedFontLocal extends ControlSequence {
     private final byte lid;
 
     public SetCodedFontLocal(ControlSequenceIdentifier csId, int length, boolean isChained,
-            Parameters params) {
+            Parameters params, Context ctx) {
         super(csId, length, isChained);
         lid = params.getByte();
+        ctx.put(ContextType.PTOCA_SET_CODED_FONT_LOCAL, lid);
     }
 
     /**

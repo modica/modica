@@ -20,7 +20,7 @@ public class DataHandler {
                 sf = new ImagePictureData(intro);
                 break;
             case presentation_text:
-                sf = new PresentationTextData(intro, params);
+                sf = new PresentationTextData(intro, params, context);
                 break;
             case no_operation:
                 sf = new NoOperation(intro, params);

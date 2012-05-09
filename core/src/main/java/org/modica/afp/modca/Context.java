@@ -18,7 +18,8 @@ public class Context {
     public enum ContextType {
         FOCA_CPI_REPEATING_GROUP_LENGTH,
         MODCA_GCSGID,
-        MODCA_MAP_CODED_FONT;
+        MODCA_MAP_CODED_FONT,
+        PTOCA_SET_CODED_FONT_LOCAL;
     }
 
     /**

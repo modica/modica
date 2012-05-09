@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.AbstractStructuredField;
@@ -19,9 +20,10 @@ public class PresentationTextData extends AbstractStructuredField {
 
     private final List<ControlSequence> ptocaData;
 
-    public PresentationTextData(StructuredFieldIntroducer introducer, Parameters params) {
+    public PresentationTextData(StructuredFieldIntroducer introducer, Parameters params,
+            Context ctx) {
         super(introducer);
-        ptocaData = ControlSequenceParser.parse(params);
+        ptocaData = ControlSequenceParser.parse(params, ctx);
     }
 
     /**

@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.modica.afp.modca.Context;
 import org.modica.afp.modca.Parameters;
+import org.modica.afp.modca.structuredfields.SfTypeFactory.Begin;
 import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Begin;
 import org.modica.afp.modca.triplets.Triplet;
 import org.modica.afp.modca.triplets.TripletHandler;
 
@@ -39,7 +39,7 @@ public final class BeginHandler {
                 break;
             case font:
                 triplets = TripletHandler.parseTriplet(params, 8, context);
-                sf = new BeginFont(intro, triplets, params);
+                sf = new BeginFont(intro, triplets, params, context);
                 break;
             case image:
                 triplets = TripletHandler.parseTriplet(params, 8, context);

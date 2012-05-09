@@ -1,12 +1,11 @@
 package org.modica.afp.ptoca;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Before;
 import org.junit.Test;
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.Parameters;
-import org.modica.afp.ptoca.ControlSequenceIdentifier;
-import org.modica.afp.ptoca.SetCodedFontLocal;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test case for {@link SetCodedFontLocal}.
@@ -21,7 +20,7 @@ public class SetCodedFontLocalTestCase extends ControlSequenceTestCase<SetCodedF
         int length = 3;
         boolean isChained = true;
 
-        sut = new SetCodedFontLocal(expectedCsId, length, isChained, params);
+        sut = new SetCodedFontLocal(expectedCsId, length, isChained, params, new Context());
         setMembers(sut, expectedCsId, isChained, length);
     }
 

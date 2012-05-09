@@ -1,22 +1,22 @@
 package org.modica.afp.modca.structuredfields.data;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
+import org.modica.afp.modca.structuredfields.SfTypeFactory.Begin;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldTestCase;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Begin;
-import org.modica.afp.modca.structuredfields.data.PresentationTextData;
 import org.modica.afp.ptoca.AbsoluteMoveBaseline;
 import org.modica.afp.ptoca.ControlSequence;
 import org.modica.common.ByteUtils;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test case for {@link PresentationTextData}.
@@ -31,7 +31,7 @@ public class PresentationTextDataTestCase extends StructuredFieldTestCase<Presen
         StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Begin.BPT);
 
         Parameters params = new Parameters(ByteUtils.hexToBytes(controlSequence), "Cp500");
-        sut = new PresentationTextData(intro, params);
+        sut = new PresentationTextData(intro, params, new Context());
         setMembers(sut, intro);
     }
 

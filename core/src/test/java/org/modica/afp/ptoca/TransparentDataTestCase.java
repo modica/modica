@@ -1,14 +1,13 @@
 package org.modica.afp.ptoca;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.UnsupportedEncodingException;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.Parameters;
-import org.modica.afp.ptoca.ControlSequenceIdentifier;
-import org.modica.afp.ptoca.TransparentData;
+
+import static org.junit.Assert.assertEquals;
 
 public class TransparentDataTestCase extends ControlSequenceTestCase<TransparentData> {
 
@@ -22,7 +21,7 @@ public class TransparentDataTestCase extends ControlSequenceTestCase<Transparent
         int length = 49;
         boolean isChained = true;
 
-        sut = new TransparentData(expectedCsId, length, isChained, params);
+        sut = new TransparentData(expectedCsId, length, isChained, params, new Context());
         setMembers(sut, expectedCsId, isChained, length);
     }
 

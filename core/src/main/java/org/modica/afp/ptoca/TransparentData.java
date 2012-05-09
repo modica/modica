@@ -2,6 +2,7 @@ package org.modica.afp.ptoca;
 
 import java.io.UnsupportedEncodingException;
 
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.Parameters;
 
 /**
@@ -14,7 +15,7 @@ public class TransparentData extends ControlSequence {
     private final byte[] data;
 
     public TransparentData(ControlSequenceIdentifier csId, int length, boolean isChained,
-            Parameters params) {
+            Parameters params, Context ctx) {
         super(csId, length, isChained);
         data = params.getByteArray(length - 2);
     }
