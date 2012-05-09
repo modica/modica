@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.SfTypeFactory.Begin;
@@ -36,7 +35,7 @@ public class BeginFontTestCase extends StructuredFieldWithTripletsTestCase<Begin
                 FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);
 
         Parameters params = new Parameters(charsetName.getBytes("Cp500"), "Cp500");
-        sut = new BeginFont(intro, triplets, params, new Context());
+        sut = new BeginFont(intro, triplets, params);
         super.setMembers(sut, intro, triplets);
     }
 

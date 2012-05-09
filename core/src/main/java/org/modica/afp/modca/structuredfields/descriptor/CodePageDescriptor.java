@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.common.EncodingScheme;
@@ -22,13 +23,12 @@ public class CodePageDescriptor extends AbstractStructuredField {
     private final int cpgid;
     private final EncodingScheme encScheme;
 
-    public CodePageDescriptor(StructuredFieldIntroducer introducer, Parameters params)
+    public CodePageDescriptor(StructuredFieldIntroducer introducer, Parameters params, Context ctx)
             throws UnsupportedEncodingException {
         super(introducer);
         cpDesc = params.getString(32);
         int gcgidLength = (int) params.getUInt(2);
         assert gcgidLength == GCGIDLEN;
-
         numCdPts = params.getUInt(4);
         gcsgid = (int) params.getUInt(2);
         cpgid = (int) params.getUInt(2);
@@ -38,6 +38,7 @@ public class CodePageDescriptor extends AbstractStructuredField {
         } else {
             encScheme = null;
         }
+        ctx.setCpgidForCodePage(this);
     }
 
     /**

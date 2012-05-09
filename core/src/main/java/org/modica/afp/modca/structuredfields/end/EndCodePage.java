@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.AbstractStructuredField;
@@ -16,10 +17,11 @@ public class EndCodePage extends AbstractStructuredField {
 
     private final EndFieldName cpName;
 
-    public EndCodePage(StructuredFieldIntroducer introducer, Parameters params)
+    public EndCodePage(StructuredFieldIntroducer introducer, Parameters params, Context ctx)
             throws UnsupportedEncodingException {
         super(introducer);
         cpName = new EndFieldName(params, "Cp500");
+        ctx.endCodePage();
     }
 
     /**

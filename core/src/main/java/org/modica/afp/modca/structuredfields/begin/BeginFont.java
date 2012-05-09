@@ -4,7 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
@@ -19,7 +18,7 @@ public class BeginFont extends StructuredFieldWithTriplets {
     private final String csName;
 
     public BeginFont(StructuredFieldIntroducer introducer, List<Triplet> triplets,
-            Parameters params, Context ctx) throws UnsupportedEncodingException {
+            Parameters params) throws UnsupportedEncodingException {
         super(introducer, triplets);
         csName = params.getString(0, 8, "Cp500");
     }

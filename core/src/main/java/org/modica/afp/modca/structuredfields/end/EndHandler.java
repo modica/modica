@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.modica.afp.modca.Context;
 import org.modica.afp.modca.Parameters;
+import org.modica.afp.modca.structuredfields.SfTypeFactory.End;
 import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.End;
 import org.modica.afp.modca.triplets.Triplet;
 import org.modica.afp.modca.triplets.TripletHandler;
 
@@ -29,7 +29,7 @@ public class EndHandler {
                 sf = new EndActiveEnvironmentGroup(intro, params);
                 break;
             case code_page:
-                sf = new EndCodePage(intro, params);
+                sf = new EndCodePage(intro, params, context);
                 break;
             case document:
                 triplets = TripletHandler.parseTriplet(params, 8, context);

@@ -17,13 +17,14 @@ public class DescriptorHandler {
     private DescriptorHandler() {
     }
 
-    public static StructuredField handle(StructuredFieldIntroducer intro, Parameters params, Context context) {
+    public static StructuredField handle(StructuredFieldIntroducer intro, Parameters params,
+            Context context) {
         List<Triplet> triplets;
         try {
             StructuredField sf;
             switch (intro.getType().getCategoryCode()) {
             case code_page:
-                sf = new CodePageDescriptor(intro, params);
+                sf = new CodePageDescriptor(intro, params, context);
                 break;
             case font:
                 triplets = TripletHandler.parseTriplet(params, 80, context);
