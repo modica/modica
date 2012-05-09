@@ -29,9 +29,8 @@ public final class TripletHandler {
      * @throws MalformedURLException if an error was thrown parsing a URL
      * @throws UnsupportedEncodingException if an error was thrown decoding a String
      */
-    public static List<Triplet> parseTriplet(Parameters params, int position, int length,
+    private static List<Triplet> parseTriplet(Parameters params, int position, int length,
             Context context) throws MalformedURLException, UnsupportedEncodingException {
-        params.skipTo(position);
         List<Triplet> tripletList = new ArrayList<Triplet>();
         // The length field of the recurring group is included in the
         while (params.getPosition() < position + length) {
@@ -72,7 +71,6 @@ public final class TripletHandler {
                 params.skip(tripletLength - 2);
             }
         }
-        params.skipTo(0);
         return tripletList;
     }
 
@@ -91,7 +89,10 @@ public final class TripletHandler {
         if (position > params.size()) {
             return new ArrayList<Triplet>();
         }
-        return parseTriplet(params, position, params.size() - position, context);
+        params.skipTo(position);
+        List<Triplet> tiplets = parseTriplet(params, position, params.size() - position, context);
+        params.skipTo(0);
+        return tiplets;
     }
 
     /**
