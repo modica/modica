@@ -32,7 +32,7 @@ import org.modica.afp.modca.triplets.fullyqualifiedname.FullyQualifiedName;
  */
 public class MapCodedFont extends StructuredFieldWithTripletGroup {
 
-    private final Map<Integer, CharacterSetCodePage> fontMappings = new HashMap<Integer, CharacterSetCodePage>();
+    private final Map<Byte, CharacterSetCodePage> fontMappings = new HashMap<Byte, CharacterSetCodePage>();
 
     public MapCodedFont(StructuredFieldIntroducer introducer, RepeatingTripletGroup tripletGroup,
             Context ctx) throws UnsupportedEncodingException, MalformedURLException {
@@ -51,7 +51,7 @@ public class MapCodedFont extends StructuredFieldWithTripletGroup {
         for (List<Triplet> triplets : getTripletGroup()) {
             String characterSet = null;
             String codePage = null;
-            int resourceId = 0;
+            byte resourceId = 0;
             for (Triplet triplet : triplets) {
                 switch (triplet.getTid()) {
                 case fully_qualified_name:
@@ -75,7 +75,7 @@ public class MapCodedFont extends StructuredFieldWithTripletGroup {
         }
     }
 
-    public CharacterSetCodePage getFontMappings(int resourceId) {
+    public CharacterSetCodePage getFontMappings(byte resourceId) {
         return fontMappings.get(resourceId);
     }
 
@@ -94,6 +94,11 @@ public class MapCodedFont extends StructuredFieldWithTripletGroup {
 
         public String getCodePage() {
             return codePage;
+        }
+
+        @Override
+        public String toString() {
+            return "CharacterSet=" + characterSet + " CodePage=" + codePage;
         }
     }
 }

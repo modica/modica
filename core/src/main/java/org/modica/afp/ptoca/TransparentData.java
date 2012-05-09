@@ -12,12 +12,13 @@ import org.modica.afp.modca.Parameters;
  */
 public class TransparentData extends ControlSequence {
 
-    private final byte[] data;
+    private final String data;
 
     public TransparentData(ControlSequenceIdentifier csId, int length, boolean isChained,
-            Parameters params, Context ctx) {
+            Parameters params, Context ctx) throws UnsupportedEncodingException {
         super(csId, length, isChained);
-        data = params.getByteArray(length - 2);
+        String encoding = "Cp" + Integer.toString(ctx.getPTXEncoding());
+        data = params.getString(length - 2, encoding);
     }
 
     /**
@@ -28,7 +29,7 @@ public class TransparentData extends ControlSequence {
      * @throws UnsupportedEncodingException if an error occurs encoding the String
      */
     public String getDataString(String encoding) throws UnsupportedEncodingException {
-        return new String(data, encoding);
+        return data;
     }
 
     @Override

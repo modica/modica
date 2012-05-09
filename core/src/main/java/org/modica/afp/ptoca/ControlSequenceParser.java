@@ -1,5 +1,6 @@
 package org.modica.afp.ptoca;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +21,10 @@ public class ControlSequenceParser {
      *
      * @param sfParams the structured field parameters
      * @return a List of control sequences
+     * @throws UnsupportedEncodingException 
      */
-    public static List<ControlSequence> parse(Parameters sfParams, Context ctx) {
+    public static List<ControlSequence> parse(Parameters sfParams, Context ctx)
+            throws UnsupportedEncodingException {
         int paramSize = sfParams.size();
         List<ControlSequence> controlSequences = new ArrayList<ControlSequence>();
         boolean startNewChain = sfParams.peekByte() == CONTROL_SEQUENCE_PREFIX;
@@ -39,7 +42,8 @@ public class ControlSequenceParser {
         return controlSequences;
     }
 
-    private static ControlSequence parseNewChain(Parameters sfParams, Context ctx) {
+    private static ControlSequence parseNewChain(Parameters sfParams, Context ctx)
+            throws UnsupportedEncodingException {
         byte prefix = sfParams.getByte();
         byte classByte = sfParams.getByte();
         assert prefix == CONTROL_SEQUENCE_PREFIX;
@@ -47,7 +51,8 @@ public class ControlSequenceParser {
         return createControlSequence(sfParams, ctx);
     }
 
-    private static ControlSequence createControlSequence(Parameters params, Context ctx) {
+    private static ControlSequence createControlSequence(Parameters params, Context ctx)
+            throws UnsupportedEncodingException {
         int length = (int) params.getUInt(1);
         byte id = params.getByte();
         boolean isChained;

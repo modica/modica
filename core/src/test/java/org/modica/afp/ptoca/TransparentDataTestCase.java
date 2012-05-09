@@ -8,6 +8,8 @@ import org.modica.afp.modca.Context;
 import org.modica.afp.modca.Parameters;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class TransparentDataTestCase extends ControlSequenceTestCase<TransparentData> {
 
@@ -20,8 +22,9 @@ public class TransparentDataTestCase extends ControlSequenceTestCase<Transparent
         ControlSequenceIdentifier expectedCsId = ControlSequenceIdentifier.TRANSPARENT_DATA;
         int length = 49;
         boolean isChained = true;
-
-        sut = new TransparentData(expectedCsId, length, isChained, params, new Context());
+        Context ctx = mock(Context.class);
+        when(ctx.getPTXEncoding()).thenReturn(500);
+        sut = new TransparentData(expectedCsId, length, isChained, params, ctx);
         setMembers(sut, expectedCsId, isChained, length);
     }
 

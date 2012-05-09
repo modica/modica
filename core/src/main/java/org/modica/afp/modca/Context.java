@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.modica.afp.modca.structuredfields.descriptor.CodePageDescriptor;
+import org.modica.afp.modca.structuredfields.map.MapCodedFont;
+import org.modica.afp.modca.structuredfields.map.MapCodedFont.CharacterSetCodePage;
 
 /**
  * This class provides context for structured fields. Some fields rely on parameters in other
@@ -64,5 +66,14 @@ public class Context {
      */
     public Object get(ContextType focaContext) {
         return contextObjs.get(focaContext);
+    }
+
+    public int getPTXEncoding() {
+        byte b = (Byte) contextObjs.get(ContextType.PTOCA_SET_CODED_FONT_LOCAL);
+        MapCodedFont mcf = (MapCodedFont) contextObjs.get(ContextType.MODCA_MAP_CODED_FONT);
+        CharacterSetCodePage cscp = mcf.getFontMappings(b);
+        CodePageDescriptor descriptor = codePages.get(cscp.getCodePage());
+        // TODO: I really odn't like this!! We need to find a better way of handling strings
+        return descriptor == null ? 500 : descriptor.getCpgid();
     }
 }

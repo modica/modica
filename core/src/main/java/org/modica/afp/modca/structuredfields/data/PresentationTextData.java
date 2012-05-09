@@ -1,5 +1,6 @@
 package org.modica.afp.modca.structuredfields.data;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +22,7 @@ public class PresentationTextData extends AbstractStructuredField {
     private final List<ControlSequence> ptocaData;
 
     public PresentationTextData(StructuredFieldIntroducer introducer, Parameters params,
-            Context ctx) {
+            Context ctx) throws UnsupportedEncodingException {
         super(introducer);
         ptocaData = ControlSequenceParser.parse(params, ctx);
     }
