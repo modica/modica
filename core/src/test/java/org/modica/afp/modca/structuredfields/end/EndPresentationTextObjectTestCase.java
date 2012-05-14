@@ -38,8 +38,8 @@ public class EndPresentationTextObjectTestCase extends
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
                 FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);
 
-        Parameters params = new Parameters(ptxName.getBytes("Cp500"), "Cp500");
-        Parameters matchesAny = new Parameters(ByteUtils.createByteArray(0xff, 0xff), "Cp500");
+        Parameters params = new Parameters(ptxName.getBytes("Cp500"));
+        Parameters matchesAny = new Parameters(ByteUtils.createByteArray(0xff, 0xff));
         sut = new EndPresentationTextObject(intro, triplets, params);
         sutMatchesAny = new EndPresentationTextObject(intro, triplets, matchesAny);
         setMembers(sut, intro, triplets);

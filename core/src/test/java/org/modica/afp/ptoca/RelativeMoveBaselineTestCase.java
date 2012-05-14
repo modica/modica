@@ -16,7 +16,7 @@ public class RelativeMoveBaselineTestCase extends ControlSequenceTestCase<Relati
 
     @Before
     public void setUp() {
-        Parameters params = new Parameters(new byte[] { 0x09, 0x0A }, "Cp500");
+        Parameters params = new Parameters(new byte[] { 0x09, 0x0A });
         ControlSequenceIdentifier expectedCsId = ControlSequenceIdentifier.RELATIVE_MOVE_BASELINE;
         int length = 4;
         boolean isChained = true;

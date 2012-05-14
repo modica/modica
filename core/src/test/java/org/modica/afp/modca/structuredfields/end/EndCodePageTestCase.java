@@ -31,9 +31,9 @@ public class EndCodePageTestCase extends StructuredFieldTestCase<EndCodePage> {
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
         StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(End.ECP);
 
-        Parameters params = new Parameters(cpName.getBytes("Cp500"), "Cp500");
+        Parameters params = new Parameters(cpName.getBytes("Cp500"));
         sut = new EndCodePage(intro, params, new Context());
-        Parameters matchesAnyParams = new Parameters(ByteUtils.createByteArray(0xff, 0xff), "Cp500");
+        Parameters matchesAnyParams = new Parameters(ByteUtils.createByteArray(0xff, 0xff));
         sutMatchesAny = new EndCodePage(intro, matchesAnyParams, new Context());
         setMembers(sut, intro);
     }

@@ -58,7 +58,7 @@ public class CodePageIndexTestCase extends StructuredFieldTestCase<CodePageIndex
         bb.put(ByteUtils.createByteArray(4, 6));
         Context context = new Context();
         context.put(ContextType.FOCA_CPI_REPEATING_GROUP_LENGTH, cpiRLen);
-        return new CodePageIndex(intro, new Parameters(bb.array(), "Cp500"), context);
+        return new CodePageIndex(intro, new Parameters(bb.array()), context);
     }
 
     private CodePageIndex createDoubleByteCPI(CPIRepeatingGroupLength cpiRLen)
@@ -73,7 +73,7 @@ public class CodePageIndexTestCase extends StructuredFieldTestCase<CodePageIndex
         bb.put(ByteUtils.createByteArray(4, 1, 2, 3, 1, 2, 3));
         Context context = new Context();
         context.put(ContextType.FOCA_CPI_REPEATING_GROUP_LENGTH, cpiRLen);
-        return new CodePageIndex(intro, new Parameters(bb.array(), "Cp500"), context);
+        return new CodePageIndex(intro, new Parameters(bb.array()), context);
     }
 
     @Test

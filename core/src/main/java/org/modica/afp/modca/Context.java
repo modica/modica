@@ -19,7 +19,7 @@ public class Context {
     private String currentCodePage;
 
     public Context() {
-        contextObjs.put(ContextType.MODCA_GCSGID, "Cp500");
+        contextObjs.put(ContextType.MODCA_GCSGID, EbcdicStringHandler.DEFAULT_CPGID);
     }
 
     public enum ContextType {
@@ -52,6 +52,8 @@ public class Context {
             throw new IllegalStateException("There is no code page name set for this CodePageDescriptor");
         }
         codePages.put(currentCodePage, descriptor);
+        // reset the current code page so that we can make state checks
+        currentCodePage = null;
     }
 
     public void endCodePage() {
@@ -59,13 +61,13 @@ public class Context {
     }
 
     /**
-     * Get a FOCA related context item.
+     * Get a contextual item.
      *
-     * @param focaContext the FOCA context item
+     * @param contextType the context item
      * @return the value of the item
      */
-    public Object get(ContextType focaContext) {
-        return contextObjs.get(focaContext);
+    public Object get(ContextType contextType) {
+        return contextObjs.get(contextType);
     }
 
     public int getPTXEncoding() {
@@ -73,7 +75,7 @@ public class Context {
         MapCodedFont mcf = (MapCodedFont) contextObjs.get(ContextType.MODCA_MAP_CODED_FONT);
         CharacterSetCodePage cscp = mcf.getFontMappings(b);
         CodePageDescriptor descriptor = codePages.get(cscp.getCodePage());
-        // TODO: I really odn't like this!! We need to find a better way of handling strings
-        return descriptor == null ? 500 : descriptor.getCpgid();
+        // TODO: I really don't like this!! We need to find a better way of handling strings
+        return descriptor == null ? EbcdicStringHandler.DEFAULT_CPGID : descriptor.getCpgid();
     }
 }

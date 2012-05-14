@@ -67,7 +67,7 @@ public class FullyQualifiedNameTestCase {
 
     public static FullyQualifiedName createFQN(byte[] bytes) throws MalformedURLException,
     UnsupportedEncodingException {
-        Parameters params = new Parameters(bytes, "Cp500");
+        Parameters params = new Parameters(bytes);
         params.skip(2);
         return FullyQualifiedName.parse(params, bytes.length);
     }

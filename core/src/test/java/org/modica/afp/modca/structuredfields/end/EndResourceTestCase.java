@@ -31,8 +31,8 @@ public class EndResourceTestCase extends StructuredFieldTestCase<EndResource> {
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
         StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(End.ERS);
 
-        Parameters params = new Parameters(resourceName.getBytes("Cp500"), "Cp500");
-        Parameters matchesAny = new Parameters(ByteUtils.createByteArray(0xff, 0xff), "Cp500");
+        Parameters params = new Parameters(resourceName.getBytes("Cp500"));
+        Parameters matchesAny = new Parameters(ByteUtils.createByteArray(0xff, 0xff));
         sut = new EndResource(intro, params);
         sutMatchesAny = new EndResource(intro, matchesAny);
         setMembers(sut, intro);

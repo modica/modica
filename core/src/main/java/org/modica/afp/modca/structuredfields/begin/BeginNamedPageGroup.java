@@ -23,7 +23,7 @@ public class BeginNamedPageGroup extends StructuredFieldWithTriplets {
     public BeginNamedPageGroup(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
-        pGrpName = params.getString(0, 8);
+        pGrpName = params.getStringAt(0, 8);
     }
 
     /**

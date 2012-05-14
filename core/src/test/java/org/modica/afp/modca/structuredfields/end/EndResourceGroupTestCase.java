@@ -35,8 +35,8 @@ public class EndResourceGroupTestCase extends
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
                 FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);
 
-        Parameters params = new Parameters(resourceGroupName.getBytes("Cp500"), "Cp500");
-        Parameters matchesAny = new Parameters(ByteUtils.createByteArray(0xff, 0xff), "Cp500");
+        Parameters params = new Parameters(resourceGroupName.getBytes("Cp500"));
+        Parameters matchesAny = new Parameters(ByteUtils.createByteArray(0xff, 0xff));
         sut = new EndResourceGroup(intro, triplets, params);
         sutMatchesAny = new EndResourceGroup(intro, triplets, matchesAny);
         setMembers(sut, intro, triplets);

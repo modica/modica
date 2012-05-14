@@ -15,7 +15,7 @@ public class SetBilevelImageColorTestCase {
 
     @Test
     public void testConstructor() {
-        Parameters params = new Parameters(ByteUtils.createByteArray(4, 0, 0, 0, 0), "Cp500");
+        Parameters params = new Parameters(ByteUtils.createByteArray(4, 0, 0, 0, 0));
         SetBilevelImageColor sut = new SetBilevelImageColor(params);
         assertEquals(5, sut.getLength());
         assertEquals((byte) 0xF6, sut.getId());
@@ -52,7 +52,7 @@ public class SetBilevelImageColorTestCase {
 
     private void testColour(NamedColor expected, int colourValue1, int colourValue2) {
         Parameters data = new Parameters(ByteUtils.createByteArray(4, 0, 0,
-                colourValue1, colourValue2), "Cp500");
+                colourValue1, colourValue2));
         SetBilevelImageColor sut = new SetBilevelImageColor(data);
         assertEquals(expected, sut.getColour());
 

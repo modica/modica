@@ -24,12 +24,12 @@ public class GlobalResourceIdTestCase extends TripletTestCase<GlobalResourceId> 
     public void setUp() {
         byteData = ByteUtils.createByteArray(1, 2, 3, 4, 5, 6, 7, 8);
 
-        x = new GlobalResourceId(new Parameters(byteData, "Cp500"));
-        GlobalResourceId y = new GlobalResourceId(new Parameters(byteData, "Cp500"));
-        GlobalResourceId z = new GlobalResourceId(new Parameters(byteData, "Cp500"));
+        x = new GlobalResourceId(new Parameters(byteData));
+        GlobalResourceId y = new GlobalResourceId(new Parameters(byteData));
+        GlobalResourceId z = new GlobalResourceId(new Parameters(byteData));
 
         byteData[0] = 2;
-        notEqual = new GlobalResourceId(new Parameters(byteData, "Cp500"));
+        notEqual = new GlobalResourceId(new Parameters(byteData));
         setXYZ(x, y, z, notEqual);
     }
 

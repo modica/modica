@@ -54,7 +54,7 @@ public class FontDescriptorTestCase extends StructuredFieldWithTripletsTestCase<
         List<Triplet> triplets = addTripletToList(
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
                 FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);
-        sut = new FontDescriptor(intro, triplets, new Parameters(sutBytes, "Cp500"));
+        sut = new FontDescriptor(intro, triplets, new Parameters(sutBytes));
 
         setMembers(sut, intro, triplets);
     }
@@ -130,7 +130,7 @@ public class FontDescriptorTestCase extends StructuredFieldWithTripletsTestCase<
         List<Triplet> triplets = addTripletToList(
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
                 FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);
-        return new FontDescriptor(intro, triplets, new Parameters(sutBytes, "Cp500"));
+        return new FontDescriptor(intro, triplets, new Parameters(sutBytes));
     }
 
     @Test

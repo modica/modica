@@ -61,32 +61,32 @@ public class IncludeObjectTestCase extends StructuredFieldWithTripletsTestCase<I
 
         bb.put(paramByteArray);
         byte[] constructorArray = bb.array();
-        Parameters params = new Parameters(constructorArray, "Cp500");
+        Parameters params = new Parameters(constructorArray);
         hasAllParams = new IncludeObject(intro, triplets, params);
         setMembers(hasAllParams, intro, triplets);
 
         fillWithFF(constructorArray, 10, 3);
-        Parameters useXOA = new Parameters(constructorArray, "Cp500");
+        Parameters useXOA = new Parameters(constructorArray);
         useXOriginArea = new IncludeObject(intro, triplets, useXOA);
 
         fillWithFF(constructorArray, 13, 3);
-        params = new Parameters(constructorArray, "Cp500");
+        params = new Parameters(constructorArray);
         useYOriginArea = new IncludeObject(intro, triplets, params);
 
         fillWithFF(constructorArray, 16, 2);
-        params = new Parameters(constructorArray, "Cp500");
+        params = new Parameters(constructorArray);
         useXObjectRotation = new IncludeObject(intro, triplets, params);
 
         fillWithFF(constructorArray, 18, 2);
-        params = new Parameters(constructorArray, "Cp500");
+        params = new Parameters(constructorArray);
         useYObjectRotation = new IncludeObject(intro, triplets, params);
 
         fillWithFF(constructorArray, 20, 3);
-        params = new Parameters(constructorArray, "Cp500");
+        params = new Parameters(constructorArray);
         useXOriginOffset = new IncludeObject(intro, triplets, params);
 
         fillWithFF(constructorArray, 23, 3);
-        params = new Parameters(constructorArray, "Cp500");
+        params = new Parameters(constructorArray);
         useYOriginOffset = new IncludeObject(intro, triplets, params);
     }
 

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.modica.afp.foca.FontWeightClass;
 import org.modica.afp.foca.FontWidthClass;
+import org.modica.afp.modca.EbcdicStringHandler;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
@@ -40,7 +41,7 @@ public class FontDescriptor extends StructuredFieldWithTriplets {
     public FontDescriptor(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
-        typeFcDesc = params.getString(32, "Cp500");
+        typeFcDesc = params.getString(32, EbcdicStringHandler.DEFAULT_CPGID);
         fontWeight = FontWeightClass.getValue(params.getByte());
         fontWidth = FontWidthClass.getValue(params.getByte());
         maxPtSize = (int) params.getUInt(2);

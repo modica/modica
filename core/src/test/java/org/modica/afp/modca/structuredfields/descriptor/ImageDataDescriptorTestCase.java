@@ -36,7 +36,7 @@ public class ImageDataDescriptorTestCase extends StructuredFieldTestCase<ImageDa
     public void setUp() {
         StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Descriptor.IID);
         byte[] bytes = ByteUtils.createByteArray(0, 1, 2, 3, 4, 5, 6, 7, 8, 0xF7, 2, 1, 0x0A);
-        Parameters params = new Parameters(bytes, "Cp500");
+        Parameters params = new Parameters(bytes);
         oneSelfDefiningField = new ImageDataDescriptor(intro, params);
 
         ByteBuffer bb = ByteBuffer.allocate(32);
@@ -47,13 +47,13 @@ public class ImageDataDescriptorTestCase extends StructuredFieldTestCase<ImageDa
         bb.put(bytes);
         bb.put(setExtendedBilevelImageColor);
         bb.put(setBilevelImageColor);
-        Parameters newParams = new Parameters(bb.array(), "Cp500");
+        Parameters newParams = new Parameters(bb.array());
         severalSelfDefiningFields = new ImageDataDescriptor(intro, newParams);
         setMembers(severalSelfDefiningFields, intro);
 
         try {
             bytes[9] = (byte) 0xFF;
-            params = new Parameters(bytes, "Cp500");
+            params = new Parameters(bytes);
             new ImageDataDescriptor(intro, params);
             fail("Failed to throw exception");
         } catch (IllegalArgumentException iae) {

@@ -28,7 +28,7 @@ public class NoOperationTestCase extends StructuredFieldTestCase<NoOperation> {
     public void setUp() throws UnsupportedEncodingException {
         StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Data.NOP);
 
-        Parameters params = new Parameters(comment.getBytes("Cp500"), "Cp500");
+        Parameters params = new Parameters(comment.getBytes("Cp500"));
         sut = new NoOperation(intro, params);
         setMembers(sut, intro);
     }

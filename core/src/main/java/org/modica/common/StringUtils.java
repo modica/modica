@@ -2,6 +2,8 @@ package org.modica.common;
 
 import java.io.UnsupportedEncodingException;
 
+import org.modica.afp.modca.EbcdicStringHandler;
+
 /**
  * A utility class for string manipulation.
  */
@@ -32,29 +34,13 @@ public class StringUtils {
         return String.format("%" + length + "s", Integer.toHexString(i)).replace(' ', '0');
     }
 
-    public static String bytesToCp500(byte[] bytes, int offset, int length)
+    public static String bytesToString(byte[] bytes, int offset, int length, int gpgid)
             throws UnsupportedEncodingException {
-        return new String(bytes, offset, length, "Cp500");
+        return new String(bytes, offset, length, EbcdicStringHandler.getCodePage(gpgid));
     }
 
-    public static String bytesToCp500(byte[] bytes) throws UnsupportedEncodingException {
-        return bytesToCp500(bytes, 0, bytes.length);
-    }
-
-    public static String bytesToString(byte[] bytes, int offset, int length, String encoding)
+    public static String bytesToString(byte[] bytes, int gpgid)
             throws UnsupportedEncodingException {
-        return new String(bytes, offset, length, getEncoding(encoding));
-    }
-
-    public static String bytesToCp500(byte[] bytes, String encoding)
-            throws UnsupportedEncodingException {
-        return bytesToString(bytes, 0, bytes.length, encoding);
-    }
-
-    private static String getEncoding(String encoding) {
-        if (encoding.equalsIgnoreCase("Cp1200")) {
-            return "UTF-16BE";
-        }
-        return encoding;
+        return bytesToString(bytes, 0, bytes.length, gpgid);
     }
 }

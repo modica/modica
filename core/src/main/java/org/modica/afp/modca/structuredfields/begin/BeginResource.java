@@ -29,7 +29,7 @@ public class BeginResource extends StructuredFieldWithTriplets {
     public BeginResource(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
-        rsName = params.getString(0, 8);
+        rsName = params.getStringAt(0, 8);
     }
 
     /**

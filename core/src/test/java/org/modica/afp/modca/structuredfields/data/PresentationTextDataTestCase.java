@@ -30,7 +30,7 @@ public class PresentationTextDataTestCase extends StructuredFieldTestCase<Presen
     public void setUp() throws UnsupportedEncodingException {
         StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Begin.BPT);
 
-        Parameters params = new Parameters(ByteUtils.hexToBytes(controlSequence), "Cp500");
+        Parameters params = new Parameters(ByteUtils.hexToBytes(controlSequence));
         sut = new PresentationTextData(intro, params, new Context());
         setMembers(sut, intro);
     }

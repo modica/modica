@@ -37,7 +37,7 @@ public class StructuredFieldFactoryImpl implements StructuredFieldFactory {
             ByteBuffer buffer = ByteBuffer.allocate(intro.getLength()
                     - StructuredFieldIntroducer.SF_Introducer_FIELD - StructuredFieldIntroducer.Carriage_Control_FIELD);
             channel.read(buffer, byteOffset);
-            return new Parameters(buffer.array(), (String) context.get(ContextType.MODCA_GCSGID));
+            return new Parameters(buffer.array(), (Integer) context.get(ContextType.MODCA_GCSGID));
         } catch (IOException ioe) {
             throw new IllegalStateException(ioe);
         }

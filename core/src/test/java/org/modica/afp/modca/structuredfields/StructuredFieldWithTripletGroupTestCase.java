@@ -43,7 +43,7 @@ public abstract class StructuredFieldWithTripletGroupTestCase<T extends Structur
         // I think this works... will find out soon enough
         byte[] data = ByteUtils.hexToBytes("0022"
                 + "0C028600C3F0C8F2F0F0" + "C2F00C028500E3F1E5F1F0F5F0F00426000004240502");
-        Parameters params = new Parameters(data, "Cp500");
+        Parameters params = new Parameters(data);
         Context context = new Context();
         return TripletHandler.parseRepeatingGroup(params, context);
     }

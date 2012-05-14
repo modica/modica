@@ -1,7 +1,5 @@
 package org.modica.afp.modca.structuredfields.end;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -11,14 +9,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
+import org.modica.afp.modca.structuredfields.SfTypeFactory.End;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.End;
-import org.modica.afp.modca.structuredfields.end.EndDocument;
 import org.modica.afp.modca.triplets.Triplet;
 import org.modica.afp.modca.triplets.fullyqualifiedname.FullyQualifiedNameTestCase;
 import org.modica.common.ByteUtils;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test case for {@link EndDocument}.
@@ -37,9 +36,9 @@ public class EndDocumentTestCase extends StructuredFieldWithTripletsTestCase<End
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
                 FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);
 
-        Parameters params = new Parameters(docName.getBytes("Cp500"), "Cp500");
+        Parameters params = new Parameters(docName.getBytes("Cp500"));
         sut = new EndDocument(intro, triplets, params);
-        Parameters matchesAnyParams = new Parameters(ByteUtils.createByteArray(0xff, 0xff), "Cp500");
+        Parameters matchesAnyParams = new Parameters(ByteUtils.createByteArray(0xff, 0xff));
         sutMatchesAny = new EndDocument(intro, triplets, matchesAnyParams);
         setMembers(sut, intro, triplets);
     }

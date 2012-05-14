@@ -22,7 +22,7 @@ public final class BeginActiveEnvironmentGroup extends StructuredFieldWithTriple
     public BeginActiveEnvironmentGroup(StructuredFieldIntroducer introducer, List<Triplet> triplets,
             Parameters params) throws UnsupportedEncodingException {
         super(introducer, triplets);
-        aegName = params.getString(0, 8);
+        aegName = params.getStringAt(0, 8);
     }
 
     /**

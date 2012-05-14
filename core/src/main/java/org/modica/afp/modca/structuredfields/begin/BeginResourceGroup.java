@@ -21,7 +21,7 @@ public class BeginResourceGroup extends StructuredFieldWithTriplets {
     public BeginResourceGroup(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
-        rGrpName = params.getString(0, 8);
+        rGrpName = params.getStringAt(0, 8);
     }
 
     /**

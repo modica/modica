@@ -22,7 +22,7 @@ public class SetIntercharacterAdjustmentTestCase
 
     @Before
     public void setUp() {
-        Parameters params = new Parameters(new byte[] { 0x01, 0x02, 0x00 }, "Cp500");
+        Parameters params = new Parameters(new byte[] { 0x01, 0x02, 0x00 });
         ControlSequenceIdentifier expectedCsId = ControlSequenceIdentifier.SET_INTERCHARACTER_ADJUSTMENT;
         int length = 5;
         boolean isChained = true;
@@ -30,11 +30,11 @@ public class SetIntercharacterAdjustmentTestCase
         sut = new SetIntercharacterAdjustment(expectedCsId, length, isChained, params);
         setMembers(sut, expectedCsId, isChained, length);
 
-        params = new Parameters(new byte[] { 0x01, 0x02, 0x01 }, "Cp500");
+        params = new Parameters(new byte[] { 0x01, 0x02, 0x01 });
         negativeDirection = new SetIntercharacterAdjustment(expectedCsId, length, isChained, params);
 
         length = 4;
-        params = new Parameters(new byte[] { 0x01, 0x02, 0x01 }, "Cp500");
+        params = new Parameters(new byte[] { 0x01, 0x02, 0x01 });
         noDirection = new SetIntercharacterAdjustment(expectedCsId, length, isChained, params);
     }
 

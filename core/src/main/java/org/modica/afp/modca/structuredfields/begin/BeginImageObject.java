@@ -25,7 +25,7 @@ public class BeginImageObject extends StructuredFieldWithTriplets {
     public BeginImageObject(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
-        idoName = params.getString(0, 8);
+        idoName = params.getStringAt(0, 8);
     }
 
     /**

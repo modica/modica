@@ -16,13 +16,13 @@ public class EndFieldName {
     private final String name;
     private final boolean nameMatchesAny;
 
-    public EndFieldName(Parameters params, String encoding) throws UnsupportedEncodingException {
+    public EndFieldName(Parameters params, int cpgid) throws UnsupportedEncodingException {
         if (params.size() < 2 ||
                 (params.getByte() == (byte) 0xFF && params.getByte() == (byte) 0xFF)) {
             name = null;
             nameMatchesAny = true;
         } else {
-            name = params.getString(0, 8, encoding);
+            name = params.getStringAt(0, 8, cpgid);
             nameMatchesAny = false;
         }
     }
@@ -33,7 +33,7 @@ public class EndFieldName {
             name = null;
             nameMatchesAny = true;
         } else {
-            name = params.getString(0, 8);
+            name = params.getStringAt(0, 8);
             nameMatchesAny = false;
         }
     }

@@ -20,7 +20,7 @@ public class TemporaryBaselineMoveTestCase extends ControlSequenceTestCase<Tempo
 
     @Before
     public void setUp() {
-        Parameters params = new Parameters(ByteUtils.createByteArray(0), "Cp500");
+        Parameters params = new Parameters(ByteUtils.createByteArray(0));
         ControlSequenceIdentifier expectedCsId = ControlSequenceIdentifier.TEMPORARY_BASELINE_MOVE;
         int length = 3;
         boolean isChained = true;
@@ -29,17 +29,17 @@ public class TemporaryBaselineMoveTestCase extends ControlSequenceTestCase<Tempo
         setMembers(sut, expectedCsId, isChained, length);
 
         length = 4;
-        params = new Parameters(ByteUtils.createByteArray(1, 0), "Cp500");
+        params = new Parameters(ByteUtils.createByteArray(1, 0));
         withoutIncrementWithoutPrecision = new TemporaryBaselineMove(expectedCsId, length, isChained, params);
 
-        params = new Parameters(ByteUtils.createByteArray(2, 1), "Cp500");
+        params = new Parameters(ByteUtils.createByteArray(2, 1));
         withoutIncrementWithPrecision = new TemporaryBaselineMove(expectedCsId, length, isChained, params);
 
         length = 6;
-        params = new Parameters(ByteUtils.createByteArray(3, 0, 1, 2), "Cp500");
+        params = new Parameters(ByteUtils.createByteArray(3, 0, 1, 2));
         withIncrementWithoutPrecision = new TemporaryBaselineMove(expectedCsId, length, isChained, params);
 
-        params = new Parameters(ByteUtils.createByteArray(0, 1, 3, 4), "Cp500");
+        params = new Parameters(ByteUtils.createByteArray(0, 1, 3, 4));
         withIncrementWithPrecision = new TemporaryBaselineMove(expectedCsId, length, isChained, params);
     }
 

@@ -31,7 +31,7 @@ public class PresentationTextDataDescriptorTestCase extends
         StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Migration.PTD);
 
         byte[] sfData = ByteUtils.createByteArray(0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0);
-        Parameters params = new Parameters(sfData, "Cp500");
+        Parameters params = new Parameters(sfData);
         sut = new PresentationTextDataDescriptor(intro, params);
         setMembers(sut, intro, Collections.<Triplet> emptyList());
     }

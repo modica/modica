@@ -17,8 +17,7 @@ public class TransparentData extends ControlSequence {
     public TransparentData(ControlSequenceIdentifier csId, int length, boolean isChained,
             Parameters params, Context ctx) throws UnsupportedEncodingException {
         super(csId, length, isChained);
-        String encoding = "Cp" + Integer.toString(ctx.getPTXEncoding());
-        data = params.getString(length - 2, encoding);
+        data = params.getString(length - 2, ctx.getPTXEncoding());
     }
 
     /**

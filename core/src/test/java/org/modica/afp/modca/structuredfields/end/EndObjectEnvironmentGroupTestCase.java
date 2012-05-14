@@ -30,10 +30,10 @@ public class EndObjectEnvironmentGroupTestCase extends
     @Before
     public void setUp() throws UnsupportedEncodingException {
         StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(End.EOG);
-        Parameters params = new Parameters(oegName.getBytes("Cp500"), "Cp500");
+        Parameters params = new Parameters(oegName.getBytes("Cp500"));
         sut = new EndObjectEnvironmentGroup(intro, params);
 
-        Parameters matchesAny = new Parameters(ByteUtils.createByteArray(0xff, 0xff), "Cp500");
+        Parameters matchesAny = new Parameters(ByteUtils.createByteArray(0xff, 0xff));
         sutMatchesAny = new EndObjectEnvironmentGroup(intro, matchesAny);
 
         setMembers(sut, intro);

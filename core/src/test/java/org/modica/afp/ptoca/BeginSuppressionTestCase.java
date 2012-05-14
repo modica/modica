@@ -1,12 +1,10 @@
 package org.modica.afp.ptoca;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.modica.afp.modca.Parameters;
-import org.modica.afp.ptoca.BeginSuppression;
-import org.modica.afp.ptoca.ControlSequenceIdentifier;
+
+import static org.junit.Assert.assertEquals;
 
 public class BeginSuppressionTestCase extends ControlSequenceTestCase<BeginSuppression> {
 
@@ -15,7 +13,7 @@ public class BeginSuppressionTestCase extends ControlSequenceTestCase<BeginSuppr
 
     @Before
     public void setUp() {
-        Parameters params = new Parameters(new byte[] { suppressionId }, "Cp500");
+        Parameters params = new Parameters(new byte[] {suppressionId});
         ControlSequenceIdentifier expectedCsId = ControlSequenceIdentifier.BEGIN_SUPPRESSION;
         int length = 4;
         boolean isChained = true;

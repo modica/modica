@@ -22,7 +22,7 @@ public class OverstrikeTestCase extends ControlSequenceTestCase<Overstrike> {
 
     @Before
     public void setUp() throws UnsupportedEncodingException {
-        Parameters params = new Parameters(data, "Cp500");
+        Parameters params = new Parameters(data);
         ControlSequenceIdentifier expectedCsId = ControlSequenceIdentifier.OVERSTRIKE;
         int length = 5;
         boolean isChained = false;

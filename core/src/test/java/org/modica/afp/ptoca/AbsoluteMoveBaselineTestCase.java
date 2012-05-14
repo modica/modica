@@ -1,12 +1,10 @@
 package org.modica.afp.ptoca;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.modica.afp.modca.Parameters;
-import org.modica.afp.ptoca.AbsoluteMoveBaseline;
-import org.modica.afp.ptoca.ControlSequenceIdentifier;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test case for {@link AbsoluteMoveBaseline}.
@@ -17,7 +15,7 @@ public class AbsoluteMoveBaselineTestCase extends ControlSequenceTestCase<Absolu
 
     @Before
     public void setUp() {
-        Parameters params = new Parameters(new byte[] { 0x01, 0x02 }, "Cp500");
+        Parameters params = new Parameters(new byte[] {0x01, 0x02});
         ControlSequenceIdentifier expectedCsId = ControlSequenceIdentifier.ABSOLUTE_MOVE_BASELINE;
         int length = 4;
         boolean isChained = true;

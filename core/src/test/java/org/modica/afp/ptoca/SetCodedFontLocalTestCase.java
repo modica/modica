@@ -15,7 +15,7 @@ public class SetCodedFontLocalTestCase extends ControlSequenceTestCase<SetCodedF
 
     @Before
     public void setUp() {
-        Parameters params = new Parameters(new byte[] { (byte) 0x31 }, "Cp500");
+        Parameters params = new Parameters(new byte[] { (byte) 0x31 });
         ControlSequenceIdentifier expectedCsId = ControlSequenceIdentifier.SET_CODED_FONT_LOCAL;
         int length = 3;
         boolean isChained = true;

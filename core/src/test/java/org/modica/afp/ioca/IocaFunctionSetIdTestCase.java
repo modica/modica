@@ -16,7 +16,7 @@ public class IocaFunctionSetIdTestCase {
 
     @Test
     public void testConstructor() {
-        Parameters params = new Parameters(ByteUtils.createByteArray(0x02, 0x01, 0x0A), "Cp500");
+        Parameters params = new Parameters(ByteUtils.createByteArray(0x02, 0x01, 0x0A));
         IocaFunctionSetId sut = new IocaFunctionSetId(params);
         assertEquals(FunctionSet.FS_10, sut.getFunctionSet());
         assertEquals(3, sut.getLength());
@@ -37,7 +37,7 @@ public class IocaFunctionSetIdTestCase {
     }
 
     private void testFunctionSetGetter(FunctionSet expected, int id) {
-        Parameters params = new Parameters(ByteUtils.createByteArray(0x02, 0x01, id), "Cp500");
+        Parameters params = new Parameters(ByteUtils.createByteArray(0x02, 0x01, id));
         IocaFunctionSetId sut = new IocaFunctionSetId(params);
         assertEquals(expected, sut.getFunctionSet());
 

@@ -162,7 +162,7 @@ public abstract class Cgcsgid extends Triplet {
             return new Ccsid(ccsidOrCpgid);
         } else {
             Cpgid cpgid = new Cpgid(gcsgid, ccsidOrCpgid);
-            context.put(ContextType.MODCA_GCSGID, "Cp" + cpgid.cpgid);
+            context.put(ContextType.MODCA_GCSGID, cpgid.cpgid);
             return new Cpgid(gcsgid, ccsidOrCpgid);
         }
     }

@@ -19,7 +19,7 @@ public class SetTextColorTestCase extends ControlSequenceTestCase<SetTextColor> 
 
     @Before
     public void setUp() {
-        Parameters params = new Parameters(new byte[] { 0, 0x02, 1 }, "Cp500");
+        Parameters params = new Parameters(new byte[] { 0, 0x02, 1 });
         ControlSequenceIdentifier expectedCsId = ControlSequenceIdentifier.SET_TEXT_COLOR;
         int length = 4;
         boolean isChained = true;
@@ -28,7 +28,7 @@ public class SetTextColorTestCase extends ControlSequenceTestCase<SetTextColor> 
         setMembers(sut, expectedCsId, isChained, length);
 
         length = 5;
-        params = new Parameters(new byte[] { 0, 0x33, 1 }, "Cp500");
+        params = new Parameters(new byte[] { 0, 0x33, 1 });
         try {
             new SetTextColor(expectedCsId, length, isChained, params);
             fail("Precision has been set with an invalid colour, an exception is expected");

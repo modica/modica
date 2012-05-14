@@ -1,9 +1,5 @@
 package org.modica.afp.modca.structuredfields.control;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -15,12 +11,15 @@ import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.common.CPIRepeatingGroupLength;
+import org.modica.afp.modca.structuredfields.SfTypeFactory.Control;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldTestCase;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Control;
-import org.modica.afp.modca.structuredfields.control.CodePageControl;
 import org.modica.common.ByteUtils;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test case for {@link CodePageControl}.
@@ -47,29 +46,29 @@ public class CodePageControlTestCase extends StructuredFieldTestCase<CodePageCon
         bb.put(ByteUtils.createByteArray(0x80, 0x0A, 2, 3, 0x90));
         byte[] data = bb.array();
         Context context = new Context();
-        sut = new CodePageControl(intro, new Parameters(data, "Cp500"), context);
+        sut = new CodePageControl(intro, new Parameters(data), context);
         setMembers(sut, intro);
 
         data[8] = (byte) 0x00;
-        notInvalid = new CodePageControl(intro, new Parameters(data, "Cp500"), context);
+        notInvalid = new CodePageControl(intro, new Parameters(data), context);
 
         data[8] = (byte) 0x40;
-        noPresentation = new CodePageControl(intro, new Parameters(data, "Cp500"), context);
+        noPresentation = new CodePageControl(intro, new Parameters(data), context);
 
         data[8] = 0x60;
-        noIncrement = new CodePageControl(intro, new Parameters(data, "Cp500"), context);
+        noIncrement = new CodePageControl(intro, new Parameters(data), context);
 
         data[9] = 0x0B;
-        doubleByte = new CodePageControl(intro, new Parameters(data, "Cp500"), context);
+        doubleByte = new CodePageControl(intro, new Parameters(data), context);
 
         data[9] = (byte) 0xFE;
-        singleByteUnicode = new CodePageControl(intro, new Parameters(data, "Cp500"), context);
+        singleByteUnicode = new CodePageControl(intro, new Parameters(data), context);
 
         data[9] = (byte) 0xFF;
-        doubleByteUnicode = new CodePageControl(intro, new Parameters(data, "Cp500"), context);
+        doubleByteUnicode = new CodePageControl(intro, new Parameters(data), context);
 
         data[12] = (byte) 0x08;
-        enableVariableSpace = new CodePageControl(intro, new Parameters(data, "Cp500"), context);
+        enableVariableSpace = new CodePageControl(intro, new Parameters(data), context);
     }
 
     @Test

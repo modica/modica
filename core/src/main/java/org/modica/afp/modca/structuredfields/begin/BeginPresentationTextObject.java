@@ -21,7 +21,7 @@ public class BeginPresentationTextObject extends StructuredFieldWithTriplets {
     public BeginPresentationTextObject(StructuredFieldIntroducer introducer, List<Triplet> triplets,
             Parameters params) throws UnsupportedEncodingException {
         super(introducer, triplets);
-        pTdoName = params.getString(0, 8);
+        pTdoName = params.getStringAt(0, 8);
     }
 
     /**

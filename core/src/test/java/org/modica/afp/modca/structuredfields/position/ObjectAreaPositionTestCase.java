@@ -41,7 +41,7 @@ public class ObjectAreaPositionTestCase extends StructuredFieldTestCase<ObjectAr
                 0, 0, // xocaOrent must be 0
                 0x2D, 0, //yocaOrent
                 1);// refCSys
-        Parameters params = new Parameters(data, "Cp500");
+        Parameters params = new Parameters(data);
         sut = new ObjectAreaPosition(intro, params);
 
         setMembers(sut, intro);

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.modica.afp.modca.EbcdicStringHandler;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.SfTypeFactory.Begin;
@@ -34,7 +35,7 @@ public class BeginFontTestCase extends StructuredFieldWithTripletsTestCase<Begin
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
                 FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);
 
-        Parameters params = new Parameters(charsetName.getBytes("Cp500"), "Cp500");
+        Parameters params = new Parameters(charsetName.getBytes(EbcdicStringHandler.DEFAULT_CPGID_NAME));
         sut = new BeginFont(intro, triplets, params);
         super.setMembers(sut, intro, triplets);
     }

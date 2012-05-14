@@ -18,7 +18,7 @@ public class TransparentDataTestCase extends ControlSequenceTestCase<Transparent
 
     @Before
     public void setUp() throws UnsupportedEncodingException {
-        Parameters params = new Parameters(testString.getBytes("Cp500"), "Cp500");
+        Parameters params = new Parameters(testString.getBytes("Cp500"));
         ControlSequenceIdentifier expectedCsId = ControlSequenceIdentifier.TRANSPARENT_DATA;
         int length = 49;
         boolean isChained = true;

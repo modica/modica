@@ -1,19 +1,17 @@
 package org.modica.afp.ptoca;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.modica.afp.modca.Parameters;
-import org.modica.afp.ptoca.AbsoluteMoveInline;
-import org.modica.afp.ptoca.ControlSequenceIdentifier;
+
+import static org.junit.Assert.assertEquals;
 
 public class AbsoluteMoveInlineTestCase extends ControlSequenceTestCase<AbsoluteMoveInline> {
     private AbsoluteMoveInline sut;
 
     @Before
     public void setUp() {
-        Parameters params = new Parameters(new byte[] { 0x7F, (byte) 0xFF }, "Cp500");
+        Parameters params = new Parameters(new byte[] {0x7F, (byte) 0xFF});
         ControlSequenceIdentifier expectedCsId = ControlSequenceIdentifier.ABSOLUTE_MOVE_INLINE;
         int length = 4;
         boolean isChained = true;
