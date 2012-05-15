@@ -16,7 +16,7 @@ public class Context {
 
     private final Map<ContextType, Object> contextObjs = new EnumMap<ContextType, Object>(ContextType.class);
     private final Map<String, CodePageDescriptor> codePages = new HashMap<String, CodePageDescriptor>();
-    private String currentCodePage;
+    private String currentCodePageName;
 
     public Context() {
         contextObjs.put(ContextType.MODCA_GCSGID, EbcdicStringHandler.DEFAULT_CPGID);
@@ -26,7 +26,7 @@ public class Context {
         FOCA_CPI_REPEATING_GROUP_LENGTH,
         MODCA_GCSGID,
         MODCA_MAP_CODED_FONT,
-        PTOCA_SET_CODED_FONT_LOCAL;
+        PTOCA_SET_CODED_FONT_LOCAL
     }
 
     /**
@@ -39,27 +39,6 @@ public class Context {
         contextObjs.put(contextType, obj);
     }
 
-    public void setCurrentCodePageName(String name) {
-        if (currentCodePage != null) {
-            throw new IllegalStateException("Trying to start a push the code page:" + name
-                    + " into the context stack while " + currentCodePage + " hasn't been finished");
-        }
-        currentCodePage = name;
-    }
-
-    public void setCpgidForCodePage(CodePageDescriptor descriptor) {
-        if (currentCodePage == null) {
-            throw new IllegalStateException("There is no code page name set for this CodePageDescriptor");
-        }
-        codePages.put(currentCodePage, descriptor);
-        // reset the current code page so that we can make state checks
-        currentCodePage = null;
-    }
-
-    public void endCodePage() {
-        currentCodePage = null;
-    }
-
     /**
      * Get a contextual item.
      *
@@ -68,6 +47,27 @@ public class Context {
      */
     public Object get(ContextType contextType) {
         return contextObjs.get(contextType);
+    }
+
+    public void setCurrentCodePageName(String name) {
+        if (currentCodePageName != null) {
+            throw new IllegalStateException("Trying to start a push the code page:" + name
+                    + " into the context stack while " + currentCodePageName + " hasn't been finished");
+        }
+        currentCodePageName = name;
+    }
+
+    public void setCpgidForCodePage(CodePageDescriptor descriptor) {
+        if (currentCodePageName == null) {
+            throw new IllegalStateException("There is no code page name set for this CodePageDescriptor");
+        }
+        codePages.put(currentCodePageName, descriptor);
+        // reset the current code page so that we can make state checks
+        currentCodePageName = null;
+    }
+
+    public void endCodePage() {
+        currentCodePageName = null;
     }
 
     public int getPTXEncoding() {

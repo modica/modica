@@ -79,7 +79,7 @@ public class MapCodedFont extends StructuredFieldWithTripletGroup {
         return fontMappings.get(resourceId);
     }
 
-    public static final class CharacterSetCodePage {
+    public static class CharacterSetCodePage {
         private final String characterSet;
         private final String codePage;
 
