@@ -211,4 +211,12 @@ public class CodePageControl extends AbstractStructuredField {
         params.add(new ParameterAsString("DefaultUnicodeValue", defaultUnicodeValue));
         return params;
     }
+
+    public class CPCBuilder implements Builder {
+        @Override
+        public CodePageControl create(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException {
+            return new CodePageControl(intro, params, context);
+        }
+    }
 }

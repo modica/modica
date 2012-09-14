@@ -41,4 +41,12 @@ public class PresentationTextData extends AbstractStructuredField {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         return params;
     }
+
+    public class PTXBuilder implements Builder {
+        @Override
+        public PresentationTextData create(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException {
+            return new PresentationTextData(intro, params, context);
+        }
+    }
 }

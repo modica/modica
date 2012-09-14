@@ -1,13 +1,17 @@
 package org.modica.afp.modca.structuredfields.position;
 
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.common.ReferenceCoordinateSystem;
 import org.modica.afp.modca.common.Rotation;
 import org.modica.afp.modca.structuredfields.AbstractStructuredField;
+import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.common.ByteUtils;
 
@@ -165,5 +169,13 @@ public class ObjectAreaPosition extends AbstractStructuredField {
         params.add(new ParameterAsString("Y-AxisObjectOffset", yocaOset));
         params.add(new ParameterAsString("ReferenceCoordSystem", refCSys));
         return params;
+    }
+
+    public class OBPBuilder implements Builder {
+        @Override
+        public StructuredField create(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException, MalformedURLException {
+            return new ObjectAreaPosition(intro, params);
+        }
     }
 }

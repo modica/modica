@@ -1,9 +1,11 @@
 package org.modica.afp.modca.structuredfields.end;
 
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.AbstractStructuredField;
@@ -51,5 +53,13 @@ public class EndObjectEnvironmentGroup extends AbstractStructuredField {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("ObjectEnvironmentGroupName", getOegName()));
         return params;
+    }
+
+    public class EOGBuilder implements Builder {
+        @Override
+        public EndObjectEnvironmentGroup create(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException, MalformedURLException {
+            return new EndObjectEnvironmentGroup(intro, params);
+        }
     }
 }

@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.AbstractStructuredField;
@@ -50,5 +51,13 @@ public class EndResource extends AbstractStructuredField {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("ResourceName", getRSName()));
         return params;
+    }
+
+    public class ERGBuilder implements Builder {
+        @Override
+        public EndObjectEnvironmentGroup create(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException {
+            return new EndObjectEnvironmentGroup(intro, params);
+        }
     }
 }

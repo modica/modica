@@ -199,4 +199,12 @@ public class CodePageIndex extends AbstractStructuredField {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         return params;
     }
+
+    public class CPIBuilder implements Builder {
+        @Override
+        public CodePageIndex create(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException {
+            return new CodePageIndex(intro, params, context);
+        }
+    }
 }

@@ -10,12 +10,14 @@ import java.util.Map;
 import org.modica.afp.modca.Context;
 import org.modica.afp.modca.Context.ContextType;
 import org.modica.afp.modca.ParameterAsString;
+import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletGroup;
 import org.modica.afp.modca.triplets.RepeatingTripletGroup;
 import org.modica.afp.modca.triplets.ResourceLocalId;
 import org.modica.afp.modca.triplets.ResourceLocalId.ResourceType;
 import org.modica.afp.modca.triplets.Triplet;
+import org.modica.afp.modca.triplets.TripletHandler;
 import org.modica.afp.modca.triplets.fullyqualifiedname.FQNCharStringData;
 import org.modica.afp.modca.triplets.fullyqualifiedname.FQNType;
 import org.modica.afp.modca.triplets.fullyqualifiedname.FullyQualifiedName;
@@ -67,6 +69,7 @@ public class MapCodedFont extends StructuredFieldWithTripletGroup {
                     if (rid.getResourceType() == ResourceType.CODED_FONT) {
                         resourceId = rid.getResourceLocalId();
                     }
+                default:
                 }
             }
             if (resourceId != 0 && characterSet != null && codePage != null) {
@@ -99,6 +102,14 @@ public class MapCodedFont extends StructuredFieldWithTripletGroup {
         @Override
         public String toString() {
             return "CharacterSet=" + characterSet + " CodePage=" + codePage;
+        }
+    }
+
+    public class MCFBuilder implements Builder {
+        @Override
+        public MapCodedFont create(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException, MalformedURLException {
+            return new MapCodedFont(intro, TripletHandler.parseRepeatingGroup(params, context), context);
         }
     }
 }

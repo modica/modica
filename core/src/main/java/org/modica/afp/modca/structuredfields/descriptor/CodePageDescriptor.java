@@ -1,6 +1,7 @@
 package org.modica.afp.modca.structuredfields.descriptor;
 
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,5 +106,13 @@ public class CodePageDescriptor extends AbstractStructuredField {
         params.add(new ParameterAsString("CPGID", cpgid));
         params.add(new ParameterAsString("EncodingScheme", encScheme));
         return params;
+    }
+
+    public class CPDBuilder implements Builder {
+        @Override
+        public CodePageDescriptor create(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException, MalformedURLException {
+            return new CodePageDescriptor(intro, params, context);
+        }
     }
 }
