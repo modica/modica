@@ -40,7 +40,7 @@ public class NoOperation extends AbstractStructuredField {
         return params;
     }
 
-    public class NOPBuilder implements Builder {
+    public static final class NOPBuilder implements Builder {
         @Override
         public NoOperation create(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {

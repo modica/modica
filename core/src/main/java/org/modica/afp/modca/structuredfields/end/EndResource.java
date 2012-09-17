@@ -53,11 +53,11 @@ public class EndResource extends AbstractStructuredField {
         return params;
     }
 
-    public class ERGBuilder implements Builder {
+    public static final class ERSBuilder implements Builder {
         @Override
-        public EndObjectEnvironmentGroup create(StructuredFieldIntroducer intro, Parameters params,
+        public EndResource create(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException {
-            return new EndObjectEnvironmentGroup(intro, params);
+            return new EndResource(intro, params);
         }
     }
 }

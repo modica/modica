@@ -124,7 +124,7 @@ public class ImageDataDescriptor extends AbstractStructuredField {
         return params;
     }
 
-    public class IDDBuilder implements Builder {
+    public static final class IDDBuilder implements Builder {
         @Override
         public ImageDataDescriptor create(StructuredFieldIntroducer intro, Parameters params,
                 Context context) {

@@ -1,5 +1,7 @@
 package org.modica.afp.modca.structuredfields;
 
+import org.modica.afp.modca.structuredfields.StructuredField.Builder;
+
 /**
  * The type of structured field.
  */
@@ -23,4 +25,11 @@ public interface SfType {
      * @return the name
      */
     String getName();
+
+    /**
+     * The builder for the structured field of this type.
+     *
+     * @return structured field builder
+     */
+    Builder getBuilder();
 }

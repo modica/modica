@@ -1,14 +1,17 @@
 package org.modica.afp.modca.structuredfields.begin;
 
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.modica.afp.modca.triplets.Triplet;
+import org.modica.afp.modca.triplets.TripletHandler;
 
 /**
  * The Begin Image Object structured field begins an IOCA image data object, which becomes the
@@ -42,5 +45,13 @@ public class BeginImageObject extends StructuredFieldWithTriplets {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("ImageObjectName", idoName));
         return params;
+    }
+
+    public static final class BIMBuilder implements Builder {
+        @Override
+        public BeginImageObject create(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException, MalformedURLException {
+            return new BeginImageObject(intro, TripletHandler.parseTriplet(params, 8, context), params);
+        }
     }
 }

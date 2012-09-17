@@ -52,11 +52,11 @@ public class EndCodePage extends AbstractStructuredField {
         return params;
     }
 
-    public class ECPBuilder implements Builder {
+    public static final class ECPBuilder implements Builder {
         @Override
-        public EndResource create(StructuredFieldIntroducer intro, Parameters params,
+        public EndCodePage create(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException {
-            return new EndResource(intro, params);
+            return new EndCodePage(intro, params, context);
         }
     }
 }

@@ -200,7 +200,7 @@ public class CodePageIndex extends AbstractStructuredField {
         return params;
     }
 
-    public class CPIBuilder implements Builder {
+    public static final class CPIBuilder implements Builder {
         @Override
         public CodePageIndex create(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException {

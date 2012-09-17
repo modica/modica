@@ -108,7 +108,7 @@ public class CodePageDescriptor extends AbstractStructuredField {
         return params;
     }
 
-    public class CPDBuilder implements Builder {
+    public static final class CPDBuilder implements Builder {
         @Override
         public CodePageDescriptor create(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {

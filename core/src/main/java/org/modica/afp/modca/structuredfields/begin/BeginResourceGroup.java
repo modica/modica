@@ -1,14 +1,17 @@
 package org.modica.afp.modca.structuredfields.begin;
 
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.modica.afp.modca.triplets.Triplet;
+import org.modica.afp.modca.triplets.TripletHandler;
 
 /**
  * The Begin Resource Group structured field begins a resource group, which becomes the current
@@ -38,5 +41,13 @@ public class BeginResourceGroup extends StructuredFieldWithTriplets {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("ResourceGroupName", rGrpName));
         return params;
+    }
+
+    public static final class BRGBuilder implements Builder {
+        @Override
+        public BeginResourceGroup create(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException, MalformedURLException {
+            return new BeginResourceGroup(intro, TripletHandler.parseTriplet(params, 8, context), params);
+        }
     }
 }

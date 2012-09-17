@@ -105,7 +105,7 @@ public class MapCodedFont extends StructuredFieldWithTripletGroup {
         }
     }
 
-    public class MCFBuilder implements Builder {
+    public static final class MCFBuilder implements Builder {
         @Override
         public MapCodedFont create(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {

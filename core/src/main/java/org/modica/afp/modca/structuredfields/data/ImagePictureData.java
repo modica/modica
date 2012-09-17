@@ -40,7 +40,7 @@ public class ImagePictureData extends AbstractStructuredField {
         return params;
     }
 
-    public class IPDBuilder implements Builder {
+    public static final class IPDBuilder implements Builder {
         @Override
         public ImagePictureData create(StructuredFieldIntroducer intro, Parameters params,
                 Context context) {

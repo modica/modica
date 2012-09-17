@@ -212,7 +212,7 @@ public class CodePageControl extends AbstractStructuredField {
         return params;
     }
 
-    public class CPCBuilder implements Builder {
+    public static final class CPCBuilder implements Builder {
         @Override
         public CodePageControl create(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException {

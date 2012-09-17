@@ -1,14 +1,17 @@
 package org.modica.afp.modca.structuredfields.end;
 
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.modica.afp.modca.triplets.Triplet;
+import org.modica.afp.modca.triplets.TripletHandler;
 
 /**
  * The End Page structured field terminates the current presentation page definition initiated by a
@@ -52,5 +55,13 @@ public class EndPage extends StructuredFieldWithTriplets {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("PageName", getPageName()));
         return params;
+    }
+
+    public static final class EPGBuilder implements Builder {
+        @Override
+        public EndPage create(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException, MalformedURLException {
+            return new EndPage(intro, TripletHandler.parseTriplet(params, 8, context), params);
+        }
     }
 }

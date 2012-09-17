@@ -8,7 +8,6 @@ import java.util.List;
 import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
-import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletGroup;
 import org.modica.afp.modca.triplets.RepeatingTripletGroup;
@@ -30,9 +29,9 @@ public class MapImageObject extends StructuredFieldWithTripletGroup {
         return params;
     }
 
-    public class MIOBuilder implements Builder {
+    public static final class MIOBuilder implements Builder {
         @Override
-        public StructuredField create(StructuredFieldIntroducer intro, Parameters params,
+        public MapImageObject create(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new MapImageObject(intro, TripletHandler.parseRepeatingGroup(params, context));
         }

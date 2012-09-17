@@ -42,7 +42,7 @@ public class PresentationTextData extends AbstractStructuredField {
         return params;
     }
 
-    public class PTXBuilder implements Builder {
+    public static final class PTXBuilder implements Builder {
         @Override
         public PresentationTextData create(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException {

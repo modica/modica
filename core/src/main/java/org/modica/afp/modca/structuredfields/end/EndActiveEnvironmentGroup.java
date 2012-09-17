@@ -56,7 +56,7 @@ public class EndActiveEnvironmentGroup extends AbstractStructuredField {
         return params;
     }
 
-    public class EAGBuilder implements Builder {
+    public static final class EAGBuilder implements Builder {
         @Override
         public EndActiveEnvironmentGroup create(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException {

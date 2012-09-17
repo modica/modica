@@ -1,9 +1,11 @@
 package org.modica.afp.modca.structuredfields.include;
 
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.common.ReferenceCoordinateSystem;
@@ -11,6 +13,7 @@ import org.modica.afp.modca.common.Rotation;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.modica.afp.modca.triplets.Triplet;
+import org.modica.afp.modca.triplets.TripletHandler;
 
 /**
  * An Include Object structured field references an object on a page or overlay. It optionally
@@ -349,5 +352,13 @@ public class IncludeObject extends StructuredFieldWithTriplets {
         params.add(new ParameterAsString("Y-AxisObjectOffset", yocaOset));
         params.add(new ParameterAsString("ReferenceCoordSystem", refCSys));
         return params;
+    }
+
+    public static final class IOBBuilder implements Builder {
+        @Override
+        public IncludeObject create(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException, MalformedURLException {
+            return new IncludeObject(intro, TripletHandler.parseTriplet(params, 27, context), params);
+        }
     }
 }

@@ -11,7 +11,6 @@ import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.common.ReferenceCoordinateSystem;
 import org.modica.afp.modca.common.Rotation;
 import org.modica.afp.modca.structuredfields.AbstractStructuredField;
-import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.common.ByteUtils;
 
@@ -171,9 +170,9 @@ public class ObjectAreaPosition extends AbstractStructuredField {
         return params;
     }
 
-    public class OBPBuilder implements Builder {
+    public static final class OBPBuilder implements Builder {
         @Override
-        public StructuredField create(StructuredFieldIntroducer intro, Parameters params,
+        public ObjectAreaPosition create(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new ObjectAreaPosition(intro, params);
         }
