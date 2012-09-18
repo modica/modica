@@ -12,7 +12,7 @@ import org.modica.afp.modca.Context.ContextType;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.common.CPIRepeatingGroupLength;
 import org.modica.afp.modca.common.GraphicalCharacterUseFlags;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Index;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Index;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldTestCase;

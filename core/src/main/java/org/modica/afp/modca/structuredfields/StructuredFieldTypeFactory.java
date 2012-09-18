@@ -7,26 +7,9 @@ import java.util.HashMap;
 import org.modica.afp.modca.Context;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredField.Builder;
-import org.modica.afp.modca.structuredfields.begin.BeginActiveEnvironmentGroup.BAGBuilder;
-import org.modica.afp.modca.structuredfields.begin.BeginCodePage.BCPBuilder;
-import org.modica.afp.modca.structuredfields.begin.BeginDocument.BDTBuilder;
-import org.modica.afp.modca.structuredfields.begin.BeginFont.BFNBuilder;
-import org.modica.afp.modca.structuredfields.begin.BeginImageObject.BIMBuilder;
-import org.modica.afp.modca.structuredfields.begin.BeginNamedPageGroup.BNGBuilder;
-import org.modica.afp.modca.structuredfields.begin.BeginObjectEnvironmentGroup.BOGBuilder;
-import org.modica.afp.modca.structuredfields.begin.BeginPage.BPGBuilder;
-import org.modica.afp.modca.structuredfields.begin.BeginPresentationTextObject.BPTBuilder;
-import org.modica.afp.modca.structuredfields.begin.BeginResource.BRSBuilder;
-import org.modica.afp.modca.structuredfields.begin.BeginResourceGroup.BRGBuilder;
-import org.modica.afp.modca.structuredfields.control.CodePageControl.CPCBuilder;
 import org.modica.afp.modca.structuredfields.data.ImagePictureData.IPDBuilder;
 import org.modica.afp.modca.structuredfields.data.NoOperation.NOPBuilder;
 import org.modica.afp.modca.structuredfields.data.PresentationTextData.PTXBuilder;
-import org.modica.afp.modca.structuredfields.descriptor.CodePageDescriptor.CPDBuilder;
-import org.modica.afp.modca.structuredfields.descriptor.FontDescriptor.FNDBuilder;
-import org.modica.afp.modca.structuredfields.descriptor.ImageDataDescriptor.IDDBuilder;
-import org.modica.afp.modca.structuredfields.descriptor.ObjectAreaDescriptor.OBDBuilder;
-import org.modica.afp.modca.structuredfields.descriptor.PageDescriptor.PGDBuilder;
 import org.modica.afp.modca.structuredfields.end.EndActiveEnvironmentGroup.EAGBuilder;
 import org.modica.afp.modca.structuredfields.end.EndCodePage.ECPBuilder;
 import org.modica.afp.modca.structuredfields.end.EndDocument.EDTBuilder;
@@ -43,16 +26,16 @@ import org.modica.afp.modca.structuredfields.migration.PresentationTextDataDescr
 import org.modica.afp.modca.structuredfields.position.ObjectAreaPosition.OBPBuilder;
 import org.modica.common.ByteUtils;
 
-public abstract class SfTypeFactory {
-    private static final java.util.Map<Byte, java.util.Map<Byte, SfType>> SF_TYPES = new HashMap<Byte, java.util.Map<Byte, SfType>>();
+public abstract class StructuredFieldTypeFactory {
+    private static final java.util.Map<Byte, java.util.Map<Byte, StructuredFieldType>> SF_TYPES = new HashMap<Byte, java.util.Map<Byte, StructuredFieldType>>();
 
     static {
         registerStructuredFieldType(
-                Attribute.values(),
-                CopyCount.values(),
-                Descriptor.values(),
-                Control.values(),
-                Begin.values(),
+                AttributeType.values(),
+                CopyCountType.values(),
+                DescriptorType.values(),
+                ControlType.values(),
+                BeginType.values(),
                 End.values(),
                 Index.values(),
                 Orientation.values(),
@@ -67,12 +50,12 @@ public abstract class SfTypeFactory {
                 Data.values());
     }
 
-    private static void registerStructuredFieldType(SfType[]... sfTypes) {
-        for (SfType[] sfTypeArray : sfTypes) {
+    private static void registerStructuredFieldType(StructuredFieldType[]... sfTypes) {
+        for (StructuredFieldType[] sfTypeArray : sfTypes) {
             byte typeID = sfTypeArray[0].getTypeCode().getValue();
 
-            java.util.Map<Byte, SfType> map = new HashMap<Byte, SfType>();
-            for (SfType sfType : sfTypeArray) {
+            java.util.Map<Byte, StructuredFieldType> map = new HashMap<Byte, StructuredFieldType>();
+            for (StructuredFieldType sfType : sfTypeArray) {
                 map.put(sfType.getCategoryCode().getValue(), sfType);
             }
             SF_TYPES.put(typeID, map);
@@ -85,13 +68,13 @@ public abstract class SfTypeFactory {
      * @param id the AFP object type ID
      * @return a structured field type
      */
-    public static SfType getValue(byte[] id) {
-        java.util.Map<Byte, SfType> typeMap = SF_TYPES.get(id[1]);
+    public static StructuredFieldType getValue(byte[] id) {
+        java.util.Map<Byte, StructuredFieldType> typeMap = SF_TYPES.get(id[1]);
         if (typeMap == null) {
             throw new IllegalArgumentException(
                     ByteUtils.bytesToHex(id) + " is not a valid structured field");
         }
-        SfType type = typeMap.get(id[2]);
+        StructuredFieldType type = typeMap.get(id[2]);
         if (type == null) {
             throw new IllegalArgumentException(
                     ByteUtils.bytesToHex(id) + " is not a valid structured field");
@@ -99,226 +82,7 @@ public abstract class SfTypeFactory {
         return type;
     }
 
-    public enum Attribute implements SfType {
-        MFC(CategoryCode.medium, "Medium Finishing Control", new NotYetImplementedBuilder()),
-        TLE(CategoryCode.process_element, "Tag Logical Element", new NotYetImplementedBuilder());
-
-        public static final TypeCode TYPE_CODE = TypeCode.Attribute;
-        private final CategoryCode category;
-        private final String name;
-        private final Builder builder;
-
-        private Attribute(CategoryCode category, String name, Builder builder) {
-            this.category = category;
-            this.name = name;
-            this.builder = builder;
-        }
-
-        @Override
-        public CategoryCode getCategoryCode() {
-            return category;
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public TypeCode getTypeCode() {
-            return TYPE_CODE;
-        }
-
-        @Override
-        public Builder getBuilder() {
-            return builder;
-        }
-    }
-
-    public enum CopyCount implements SfType {
-        MCC(CategoryCode.medium, "Medium Copy Count", new NotYetImplementedBuilder()),
-        FNM(CategoryCode.font, "Font Patterns Map", new NotYetImplementedBuilder());
-
-        public static final TypeCode TYPE_CODE = TypeCode.CopyCount;
-        private final CategoryCode category;
-        private final String name;
-        private final Builder builder;
-
-        private CopyCount(CategoryCode categoryCode, String name, Builder builder) {
-            this.category = categoryCode;
-            this.name = name;
-            this.builder = builder;
-        }
-
-        @Override
-        public CategoryCode getCategoryCode() {
-            return category;
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public TypeCode getTypeCode() {
-            return TYPE_CODE;
-        }
-
-        @Override
-        public Builder getBuilder() {
-            return builder;
-        }
-    }
-
-    public enum Descriptor implements SfType {
-        OBD(CategoryCode.object_area, "Object Area Descriptor", new OBDBuilder()),
-        IID(CategoryCode.im_image, "IM Image Input Descriptor (C)", new NotYetImplementedBuilder()),
-        CPD(CategoryCode.code_page, "Code Page Descriptor", new CPDBuilder()),
-        MDD(CategoryCode.medium, "Medium Descriptor", new NotYetImplementedBuilder()),
-        FND(CategoryCode.font, "Font Descriptor", new FNDBuilder()),
-        CDD(CategoryCode.object_container, "Container Data Descriptor", new NotYetImplementedBuilder()),
-        PTD1(CategoryCode.presentation_text, "Presentation Text Descriptor Format-1 (C)", new PTDBuilder()),
-        PGD(CategoryCode.page, "Page Descriptor", new PGDBuilder()),
-        GDD(CategoryCode.graphics, "Graphics Data Descriptor", new NotYetImplementedBuilder()),
-        FGD(CategoryCode.form_environment_group, "Form Environment Group Descriptor (O)", new NotYetImplementedBuilder()),
-        BDD(CategoryCode.barcode, "Bar Code Data Descriptor", new NotYetImplementedBuilder()),
-        IDD(CategoryCode.image, "Image Data Descriptor", new IDDBuilder());
-
-        public static final TypeCode TYPE_CODE = TypeCode.Descriptor;
-        private final CategoryCode category;
-        private final String name;
-        private final Builder builder;
-
-        private Descriptor(CategoryCode category, String name, Builder builder) {
-            this.category = category;
-            this.name = name;
-            this.builder = builder;
-        }
-
-        @Override
-        public CategoryCode getCategoryCode() {
-            return category;
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public TypeCode getTypeCode() {
-            return TYPE_CODE;
-        }
-
-        @Override
-        public Builder getBuilder() {
-            return builder;
-        }
-    }
-
-    public enum Control implements SfType {
-        IOC(CategoryCode.im_image, "IM Image Output Control (C)", new NotYetImplementedBuilder()),
-        CPC(CategoryCode.code_page, "Code Page Control", new CPCBuilder()),
-        MMC(CategoryCode.medium, "Medium Modification Control", new NotYetImplementedBuilder()),
-        FNC(CategoryCode.font, "Font Control", new NotYetImplementedBuilder()),
-        CFC(CategoryCode.coded_font, "Coded Font Control", new NotYetImplementedBuilder()),
-        CTC(CategoryCode.presentation_text, "Composed Text Control (O)", new NotYetImplementedBuilder()),
-        PEC(CategoryCode.document, "Presentation Environment Control", new NotYetImplementedBuilder()),
-        PMC(CategoryCode.page, "Page Modification Control", new NotYetImplementedBuilder());
-
-        public static final TypeCode TYPE_CODE = TypeCode.Control;
-        private final CategoryCode category;
-        private final String name;
-        private final Builder builder;
-
-        private Control(CategoryCode category, String name, Builder builder) {
-            this.category = category;
-            this.name = name;
-            this.builder = builder;
-        }
-
-        @Override
-        public CategoryCode getCategoryCode() {
-            return category;
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public TypeCode getTypeCode() {
-            return TYPE_CODE;
-        }
-
-        @Override
-        public Builder getBuilder() {
-            return builder;
-        }
-    }
-
-    public enum Begin implements SfType {
-        BPS(CategoryCode.page_segment, "Page Segment", new NotYetImplementedBuilder()),
-        BCA(CategoryCode.color_attribute_table, "Color Attribute Table", new NotYetImplementedBuilder()),
-        BII(CategoryCode.im_image, "IM Image (C)", new NotYetImplementedBuilder()),
-        BCP(CategoryCode.code_page, "Code Page", new BCPBuilder()),
-        BFN(CategoryCode.font, "Font", new BFNBuilder()),
-        BCF(CategoryCode.coded_font, "Coded Font", new NotYetImplementedBuilder()),
-        BOC(CategoryCode.object_container, "Object Container", new NotYetImplementedBuilder()),
-        BPT(CategoryCode.presentation_text, "Presentation Text Object", new BPTBuilder()),
-        BDI(CategoryCode.index, "Document Index", new NotYetImplementedBuilder()),
-        BDT(CategoryCode.document, "Document", new BDTBuilder()),
-        BNG(CategoryCode.page_group, "Named Page Group", new BNGBuilder()),
-        BPG(CategoryCode.page, "Page", new BPGBuilder()),
-        BGR(CategoryCode.graphics, "Graphics Object", new NotYetImplementedBuilder()),
-        BDG(CategoryCode.document_environment_group, "Document Environment Group", new NotYetImplementedBuilder()),
-        BFG(CategoryCode.form_environment_group, "Form Environment Group (O)", new NotYetImplementedBuilder()),
-        BRG(CategoryCode.resource_group, "Resource Group", new BRGBuilder()),
-        BOG(CategoryCode.object_environment_group, "Object Environment Group", new BOGBuilder()),
-        BAG(CategoryCode.active_environment_group, "Active Environment Group", new BAGBuilder()),
-        BMM(CategoryCode.medium_map, "Medium Map", new NotYetImplementedBuilder()),
-        BFM(CategoryCode.form_map, "Form Map", new NotYetImplementedBuilder()),
-        BRS(CategoryCode.name_resource, "Resource", new BRSBuilder()),
-        BSG(CategoryCode.resource_enviroment_group, "Resource Environment Group", new NotYetImplementedBuilder()),
-        BMO(CategoryCode.overlay, "Overlay", new NotYetImplementedBuilder()),
-        BBC(CategoryCode.barcode, "Bar Code Object", new NotYetImplementedBuilder()),
-        BIM(CategoryCode.image, "Image Object", new BIMBuilder());
-
-        public static final TypeCode TYPE_CODE = TypeCode.Begin;
-        private final CategoryCode category;
-        private final String name;
-        private final Builder builder;
-
-        private Begin(CategoryCode category, String name, Builder builder) {
-            this.category = category;
-            this.name = "Begin " + name;
-            this.builder = builder;
-        }
-
-        @Override
-        public CategoryCode getCategoryCode() {
-            return category;
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public TypeCode getTypeCode() {
-            return TYPE_CODE;
-        }
-
-        @Override
-        public Builder getBuilder() {
-            return builder;
-        }
-    }
-
-    public enum End implements SfType {
+    public enum End implements StructuredFieldType {
         EPS(CategoryCode.page_segment, "Page Segment", new NotYetImplementedBuilder()),
         ECA(CategoryCode.color_attribute_table, "Color Attribute Table", new NotYetImplementedBuilder()),
         EII(CategoryCode.im_image, "IM Image (C)", new NotYetImplementedBuilder()),
@@ -377,7 +141,7 @@ public abstract class SfTypeFactory {
         }
     }
 
-    public enum Index implements SfType {
+    public enum Index implements StructuredFieldType {
         CPI(CategoryCode.code_page, "Code Page Index", new CPIBuilder()),
         FNI(CategoryCode.font, "Font Index", new NotYetImplementedBuilder()),
         CFI(CategoryCode.coded_font, "Coded Font Index", new NotYetImplementedBuilder());
@@ -414,7 +178,7 @@ public abstract class SfTypeFactory {
         }
     }
 
-    public enum Orientation implements SfType {
+    public enum Orientation implements StructuredFieldType {
         FNO(CategoryCode.font, "Font Orientation", new NotYetImplementedBuilder());
 
         private static final TypeCode TYPE_CODE = TypeCode.Orientation;
@@ -449,7 +213,7 @@ public abstract class SfTypeFactory {
         }
     }
 
-    public enum Map implements SfType {
+    public enum Map implements StructuredFieldType {
         MCA(CategoryCode.color_attribute_table, "Map Color Attribute Table", new NotYetImplementedBuilder()),
         MMT(CategoryCode.medium, "Map Media Type", new NotYetImplementedBuilder()),
         FNN(CategoryCode.font, "Font Name Map", new NotYetImplementedBuilder()),
@@ -496,7 +260,7 @@ public abstract class SfTypeFactory {
         }
     }
 
-    public enum Position implements SfType {
+    public enum Position implements StructuredFieldType {
         OBP(CategoryCode.object_area, "Object Area Position", new OBPBuilder()),
         ICP(CategoryCode.im_image, "IM Image Cell Position (C)", new NotYetImplementedBuilder()),
         FNP(CategoryCode.font, "Font Position", new NotYetImplementedBuilder()),
@@ -534,7 +298,7 @@ public abstract class SfTypeFactory {
         }
     }
 
-    public enum Process implements SfType {
+    public enum Process implements StructuredFieldType {
         PPO(CategoryCode.data_resource, "Preprocess Presentation Object", new NotYetImplementedBuilder());
 
         private static final TypeCode TYPE_CODE = TypeCode.Process;
@@ -569,7 +333,7 @@ public abstract class SfTypeFactory {
         }
     }
 
-    public enum Include implements SfType {
+    public enum Include implements StructuredFieldType {
         IPS(CategoryCode.page_segment, "Page Segment", new NotYetImplementedBuilder()),
         IPG(CategoryCode.page, "Page", new NotYetImplementedBuilder()),
         IOB(CategoryCode.data_resource, "Object", new IOBBuilder()),
@@ -607,7 +371,7 @@ public abstract class SfTypeFactory {
         }
     }
 
-    public enum Table implements SfType {
+    public enum Table implements StructuredFieldType {
         CAT(CategoryCode.color_attribute_table, "Color Attribute Table", new NotYetImplementedBuilder());
 
         private static final TypeCode TYPE_CODE = TypeCode.Table;
@@ -642,7 +406,7 @@ public abstract class SfTypeFactory {
         }
     }
 
-    public enum Migration implements SfType {
+    public enum Migration implements StructuredFieldType {
         MPS(CategoryCode.page_segment, "Map Page Segment", new NotYetImplementedBuilder()),
         MCF1(CategoryCode.coded_font, "Map Coded Font Format-1 (C)", new NotYetImplementedBuilder()),
         PTD(CategoryCode.presentation_text, "Presentation Text Data Descriptor", new PTDBuilder()),
@@ -681,7 +445,7 @@ public abstract class SfTypeFactory {
         }
     }
 
-    public enum Variable implements SfType {
+    public enum Variable implements StructuredFieldType {
         PFC(CategoryCode.medium, "Presentation Fidelity Control", new NotYetImplementedBuilder()),
         IEL(CategoryCode.index, "Index Element", new NotYetImplementedBuilder());
 
@@ -717,7 +481,7 @@ public abstract class SfTypeFactory {
         }
     }
 
-    public enum Link implements SfType {
+    public enum Link implements StructuredFieldType {
         LLE(CategoryCode.process_element, "Link Logical Element", new NotYetImplementedBuilder());
 
         private static final TypeCode TYPE_CODE = TypeCode.Link;
@@ -752,7 +516,7 @@ public abstract class SfTypeFactory {
         }
     }
 
-    public enum Data implements SfType {
+    public enum Data implements StructuredFieldType {
         IRD(CategoryCode.im_image, "IM Image Raster Data (C)", new NotYetImplementedBuilder()),
         FNG(CategoryCode.font, "Font Patterns", new NotYetImplementedBuilder()),
         OCD(CategoryCode.object_container, "Object Container Data", new NotYetImplementedBuilder()),
@@ -796,7 +560,7 @@ public abstract class SfTypeFactory {
         }
     }
 
-    private final static class NotYetImplementedBuilder implements Builder {
+    final static class NotYetImplementedBuilder implements Builder {
         @Override
         public StructuredField build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {

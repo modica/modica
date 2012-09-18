@@ -5,7 +5,7 @@ import org.modica.afp.modca.structuredfields.StructuredField.Builder;
 /**
  * This represents type of structured field as defined in the AFP specifications (MODCA, FOCA etc).
  */
-public interface SfType {
+public interface StructuredFieldType {
 
     /**
      * The category code.

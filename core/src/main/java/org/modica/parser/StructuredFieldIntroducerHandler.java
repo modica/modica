@@ -1,8 +1,8 @@
 package org.modica.parser;
 
+import org.modica.afp.modca.structuredfields.BeginType;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Begin;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.End;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.End;
 
 /**
  * Implementations of this interface are registered with a
@@ -28,7 +28,7 @@ public interface StructuredFieldIntroducerHandler {
     void endAfp();
 
     /**
-     * Called after a SF introducer with type code {@link Begin} is parsed.
+     * Called after a SF introducer with type code {@link BeginType} is parsed.
      * 
      * @param sf
      *            the structured field introducer
@@ -44,7 +44,7 @@ public interface StructuredFieldIntroducerHandler {
     void handleEnd(StructuredFieldIntroducer sf);
 
     /**
-     * Called after a SF introducer with a code other than {@link Begin} and
+     * Called after a SF introducer with a code other than {@link BeginType} and
      * {@link End} is parsed.
      * 
      * @param sf

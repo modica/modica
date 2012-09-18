@@ -7,20 +7,19 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.modica.afp.modca.structuredfields.SfType;
-import org.modica.afp.modca.structuredfields.SfTypeFactory;
+import org.modica.afp.modca.structuredfields.StructuredFieldType;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Attribute;
 import org.modica.common.ByteUtils;
 
 public class StructuredFieldIntroducerTestCase {
     private StructuredFieldIntroducer sut;
-    private SfType sutType;
+    private StructuredFieldType sutType;
 
     @Before
     public void setUp() {
         byte[] typeId = ByteUtils.createByteArray(0xD3, 0xAE, 0x89);
-        sutType = SfTypeFactory.getValue(typeId);
+        sutType = StructuredFieldTypeFactory.getValue(typeId);
         sut = new StructuredFieldIntroducer(1L, 2, typeId, (byte) 3, 5);
     }
 
@@ -101,7 +100,7 @@ public class StructuredFieldIntroducerTestCase {
      * @return the introducer
      */
     public static StructuredFieldIntroducer createGenericIntroducer() {
-        return createGenericIntroducer(Attribute.MFC);
+        return createGenericIntroducer(AttributeType.MFC);
     }
 
     /**
@@ -110,7 +109,7 @@ public class StructuredFieldIntroducerTestCase {
      * @param type the SfType
      * @return the introducer
      */
-    public static StructuredFieldIntroducer createGenericIntroducer(SfType type) {
+    public static StructuredFieldIntroducer createGenericIntroducer(StructuredFieldType type) {
         byte[] bytes = ByteUtils.createByteArray(
                 0xD3,
                 type.getTypeCode().getValue() & 0xFF,

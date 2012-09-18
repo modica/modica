@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Begin;
+import org.modica.afp.modca.structuredfields.BeginType;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldTestCase;
@@ -28,7 +28,7 @@ public class PresentationTextDataTestCase extends StructuredFieldTestCase<Presen
 
     @Before
     public void setUp() throws UnsupportedEncodingException {
-        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Begin.BPT);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(BeginType.BPT);
 
         Parameters params = new Parameters(ByteUtils.hexToBytes(controlSequence));
         sut = new PresentationTextData(intro, params, new Context());

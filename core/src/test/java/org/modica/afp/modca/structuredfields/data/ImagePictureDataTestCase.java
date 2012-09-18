@@ -11,7 +11,7 @@ import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldTestCase;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Data;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Data;
 import org.modica.afp.modca.structuredfields.data.ImagePictureData;
 
 /**

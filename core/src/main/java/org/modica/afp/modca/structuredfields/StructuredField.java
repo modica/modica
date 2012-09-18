@@ -45,7 +45,7 @@ public interface StructuredField {
      *
      * @return structured field type
      */
-    SfType getType();
+    StructuredFieldType getType();
 
     /**
      * The byte offset of this structured field within the AFP document.

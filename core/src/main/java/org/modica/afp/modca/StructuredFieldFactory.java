@@ -1,22 +1,22 @@
 package org.modica.afp.modca;
 
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Attribute;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Begin;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Control;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.CopyCount;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Data;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Descriptor;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.End;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Include;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Index;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Link;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Map;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Migration;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Orientation;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Position;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Process;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Table;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Variable;
+import org.modica.afp.modca.structuredfields.AttributeType;
+import org.modica.afp.modca.structuredfields.BeginType;
+import org.modica.afp.modca.structuredfields.ControlType;
+import org.modica.afp.modca.structuredfields.CopyCountType;
+import org.modica.afp.modca.structuredfields.DescriptorType;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Data;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.End;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Include;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Index;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Link;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Map;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Migration;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Orientation;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Position;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Process;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Table;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Variable;
 import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 
@@ -27,7 +27,7 @@ import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 public interface StructuredFieldFactory {
 
     /**
-     * Creates a structured field of the {@link Begin} type.
+     * Creates a structured field of the {@link BeginType} type.
      *
      * @param introducer the introducer for the structured field
      * @return a Begin type structured field
@@ -43,7 +43,7 @@ public interface StructuredFieldFactory {
     StructuredField createMap(StructuredFieldIntroducer introducer);
 
     /**
-     * Creates a structured field of the {@link Descriptor} type.
+     * Creates a structured field of the {@link DescriptorType} type.
      *
      * @param introducer the introducer for the structured field
      * @return a Descriptor type structured field
@@ -91,7 +91,7 @@ public interface StructuredFieldFactory {
     StructuredField createInclude(StructuredFieldIntroducer introducer);
 
     /**
-     * Creates a structured field of the {@link Control} type.
+     * Creates a structured field of the {@link ControlType} type.
      *
      * @param introducer the introducer for the structured field
      * @return a Control type structured field
@@ -107,7 +107,7 @@ public interface StructuredFieldFactory {
     StructuredField createIndex(StructuredFieldIntroducer introducer);
 
     /**
-     * Creates a structured field of the {@link Attribute} type.
+     * Creates a structured field of the {@link AttributeType} type.
      *
      * @param introducer the introducer for the structured field
      * @return an Attribute type structured field
@@ -115,7 +115,7 @@ public interface StructuredFieldFactory {
     StructuredField createAttribute(StructuredFieldIntroducer introducer);
 
     /**
-     * Creates a structured field of the {@link CopyCount} type.
+     * Creates a structured field of the {@link CopyCountType} type.
      *
      * @param introducer the introducer for the structured field
      * @return a CopyCount type structured field

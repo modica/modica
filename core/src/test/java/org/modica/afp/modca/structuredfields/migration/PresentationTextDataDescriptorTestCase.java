@@ -13,7 +13,7 @@ import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Migration;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Migration;
 import org.modica.afp.modca.structuredfields.migration.PresentationTextDataDescriptor;
 import org.modica.afp.modca.triplets.Triplet;
 import org.modica.common.ByteUtils;

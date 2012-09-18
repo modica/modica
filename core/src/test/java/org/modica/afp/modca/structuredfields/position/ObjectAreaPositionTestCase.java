@@ -14,7 +14,7 @@ import org.modica.afp.modca.common.Rotation;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldTestCase;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Position;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Position;
 import org.modica.afp.modca.structuredfields.position.ObjectAreaPosition;
 import org.modica.common.ByteUtils;
 

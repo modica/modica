@@ -14,7 +14,7 @@ import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.End;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.End;
 import org.modica.afp.modca.structuredfields.end.EndPresentationTextObject;
 import org.modica.afp.modca.triplets.Triplet;
 import org.modica.afp.modca.triplets.fullyqualifiedname.FullyQualifiedNameTestCase;

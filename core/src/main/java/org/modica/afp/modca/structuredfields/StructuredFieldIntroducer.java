@@ -27,7 +27,7 @@ public class StructuredFieldIntroducer implements Serializable {
 
     private final long offset;
     private final int length;
-    private final SfType type;
+    private final StructuredFieldType type;
     private final byte flags;
     private final int extLength;
 
@@ -43,7 +43,7 @@ public class StructuredFieldIntroducer implements Serializable {
     public StructuredFieldIntroducer(long offset, int length, byte[] type, byte flags, int extLength) {
         this.offset = offset;
         this.length = length;
-        this.type = SfTypeFactory.getValue(type);
+        this.type = StructuredFieldTypeFactory.getValue(type);
         this.flags = flags;
         this.extLength = extLength;
     }
@@ -90,7 +90,7 @@ public class StructuredFieldIntroducer implements Serializable {
      *
      * @return the structured field type
      */
-    public SfType getType() {
+    public StructuredFieldType getType() {
         return type;
     }
 

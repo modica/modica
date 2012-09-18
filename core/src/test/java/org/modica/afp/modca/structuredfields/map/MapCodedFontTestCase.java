@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.modica.afp.modca.Context;
 import org.modica.afp.modca.Context.ContextType;
 import org.modica.afp.modca.ParameterAsString;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Map;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Map;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletGroupTestCase;

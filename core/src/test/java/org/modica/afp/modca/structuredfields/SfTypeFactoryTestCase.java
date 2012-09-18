@@ -3,82 +3,77 @@ package org.modica.afp.modca.structuredfields;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.modica.afp.modca.structuredfields.SfType;
-import org.modica.afp.modca.structuredfields.SfTypeFactory;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Attribute;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Begin;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Control;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.CopyCount;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Descriptor;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.End;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Map;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Position;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Process;
+import org.modica.afp.modca.structuredfields.StructuredFieldType;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.End;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Map;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Position;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Process;
 import org.modica.common.ByteUtils;
 
 /**
- * A test case for {@link SfTypeFactory}.
+ * A test case for {@link StructuredFieldTypeFactory}.
  */
 public class SfTypeFactoryTestCase {
     @Test
     public void testAllStructuredFieldTypes() {
         // Attributes
-        testStructuredFieldTypeIsCorrect(Attribute.MFC, "D3A088");
-        testStructuredFieldTypeIsCorrect(Attribute.TLE, "D3A090");
+        testStructuredFieldTypeIsCorrect(AttributeType.MFC, "D3A088");
+        testStructuredFieldTypeIsCorrect(AttributeType.TLE, "D3A090");
 
         // Copy Counts
-        testStructuredFieldTypeIsCorrect(CopyCount.MCC, "D3A288");
-        testStructuredFieldTypeIsCorrect(CopyCount.FNM, "D3A289");
+        testStructuredFieldTypeIsCorrect(CopyCountType.MCC, "D3A288");
+        testStructuredFieldTypeIsCorrect(CopyCountType.FNM, "D3A289");
 
         // Descriptors
-        testStructuredFieldTypeIsCorrect(Descriptor.OBD, "D3A66B");
-        testStructuredFieldTypeIsCorrect(Descriptor.IID, "D3A67B");
-        testStructuredFieldTypeIsCorrect(Descriptor.CPD, "D3A687");
-        testStructuredFieldTypeIsCorrect(Descriptor.MDD, "D3A688");
-        testStructuredFieldTypeIsCorrect(Descriptor.CDD, "D3A692");
-        testStructuredFieldTypeIsCorrect(Descriptor.PTD1, "D3A69B");
-        testStructuredFieldTypeIsCorrect(Descriptor.PGD, "D3A6AF");
-        testStructuredFieldTypeIsCorrect(Descriptor.GDD, "D3A6BB");
-        testStructuredFieldTypeIsCorrect(Descriptor.FGD, "D3A6C5");
-        testStructuredFieldTypeIsCorrect(Descriptor.BDD, "D3A6EB");
-        testStructuredFieldTypeIsCorrect(Descriptor.IDD, "D3A6FB");
+        testStructuredFieldTypeIsCorrect(DescriptorType.OBD, "D3A66B");
+        testStructuredFieldTypeIsCorrect(DescriptorType.IID, "D3A67B");
+        testStructuredFieldTypeIsCorrect(DescriptorType.CPD, "D3A687");
+        testStructuredFieldTypeIsCorrect(DescriptorType.MDD, "D3A688");
+        testStructuredFieldTypeIsCorrect(DescriptorType.CDD, "D3A692");
+        testStructuredFieldTypeIsCorrect(DescriptorType.PTD1, "D3A69B");
+        testStructuredFieldTypeIsCorrect(DescriptorType.PGD, "D3A6AF");
+        testStructuredFieldTypeIsCorrect(DescriptorType.GDD, "D3A6BB");
+        testStructuredFieldTypeIsCorrect(DescriptorType.FGD, "D3A6C5");
+        testStructuredFieldTypeIsCorrect(DescriptorType.BDD, "D3A6EB");
+        testStructuredFieldTypeIsCorrect(DescriptorType.IDD, "D3A6FB");
 
         // Control
-        testStructuredFieldTypeIsCorrect(Control.IOC, "D3A77B");
-        testStructuredFieldTypeIsCorrect(Control.CPC, "D3A787");
-        testStructuredFieldTypeIsCorrect(Control.MMC, "D3A788");
-        testStructuredFieldTypeIsCorrect(Control.FNC, "D3A789");
-        testStructuredFieldTypeIsCorrect(Control.CFC, "D3A78A");
-        testStructuredFieldTypeIsCorrect(Control.CTC, "D3A79B");
-        testStructuredFieldTypeIsCorrect(Control.PEC, "D3A7A8");
-        testStructuredFieldTypeIsCorrect(Control.PMC, "D3A7AF");
+        testStructuredFieldTypeIsCorrect(ControlType.IOC, "D3A77B");
+        testStructuredFieldTypeIsCorrect(ControlType.CPC, "D3A787");
+        testStructuredFieldTypeIsCorrect(ControlType.MMC, "D3A788");
+        testStructuredFieldTypeIsCorrect(ControlType.FNC, "D3A789");
+        testStructuredFieldTypeIsCorrect(ControlType.CFC, "D3A78A");
+        testStructuredFieldTypeIsCorrect(ControlType.CTC, "D3A79B");
+        testStructuredFieldTypeIsCorrect(ControlType.PEC, "D3A7A8");
+        testStructuredFieldTypeIsCorrect(ControlType.PMC, "D3A7AF");
 
         // Begin BPS("D3A85F", "Begin Page Segment"),
-        testStructuredFieldTypeIsCorrect(Begin.BPS, "D3A85F");
-        testStructuredFieldTypeIsCorrect(Begin.BCA, "D3A877");
-        testStructuredFieldTypeIsCorrect(Begin.BII, "D3A87B");
-        testStructuredFieldTypeIsCorrect(Begin.BCP, "D3A887");
-        testStructuredFieldTypeIsCorrect(Begin.BFN, "D3A889");
-        testStructuredFieldTypeIsCorrect(Begin.BCF, "D3A88A");
-        testStructuredFieldTypeIsCorrect(Begin.BOC, "D3A892");
-        testStructuredFieldTypeIsCorrect(Begin.BPT, "D3A89B");
-        testStructuredFieldTypeIsCorrect(Begin.BDI, "D3A8A7");
-        testStructuredFieldTypeIsCorrect(Begin.BDT, "D3A8A8");
-        testStructuredFieldTypeIsCorrect(Begin.BNG, "D3A8AD");
-        testStructuredFieldTypeIsCorrect(Begin.BPG, "D3A8AF");
-        testStructuredFieldTypeIsCorrect(Begin.BGR, "D3A8BB");
-        testStructuredFieldTypeIsCorrect(Begin.BDG, "D3A8C4");
-        testStructuredFieldTypeIsCorrect(Begin.BFG, "D3A8C5");
-        testStructuredFieldTypeIsCorrect(Begin.BRG, "D3A8C6");
-        testStructuredFieldTypeIsCorrect(Begin.BOG, "D3A8C7");
-        testStructuredFieldTypeIsCorrect(Begin.BAG, "D3A8C9");
-        testStructuredFieldTypeIsCorrect(Begin.BMM, "D3A8CC");
-        testStructuredFieldTypeIsCorrect(Begin.BFM, "D3A8CD");
-        testStructuredFieldTypeIsCorrect(Begin.BRS, "D3A8CE");
-        testStructuredFieldTypeIsCorrect(Begin.BSG, "D3A8D9");
-        testStructuredFieldTypeIsCorrect(Begin.BMO, "D3A8DF");
-        testStructuredFieldTypeIsCorrect(Begin.BBC, "D3A8EB");
-        testStructuredFieldTypeIsCorrect(Begin.BIM, "D3A8FB");
+        testStructuredFieldTypeIsCorrect(BeginType.BPS, "D3A85F");
+        testStructuredFieldTypeIsCorrect(BeginType.BCA, "D3A877");
+        testStructuredFieldTypeIsCorrect(BeginType.BII, "D3A87B");
+        testStructuredFieldTypeIsCorrect(BeginType.BCP, "D3A887");
+        testStructuredFieldTypeIsCorrect(BeginType.BFN, "D3A889");
+        testStructuredFieldTypeIsCorrect(BeginType.BCF, "D3A88A");
+        testStructuredFieldTypeIsCorrect(BeginType.BOC, "D3A892");
+        testStructuredFieldTypeIsCorrect(BeginType.BPT, "D3A89B");
+        testStructuredFieldTypeIsCorrect(BeginType.BDI, "D3A8A7");
+        testStructuredFieldTypeIsCorrect(BeginType.BDT, "D3A8A8");
+        testStructuredFieldTypeIsCorrect(BeginType.BNG, "D3A8AD");
+        testStructuredFieldTypeIsCorrect(BeginType.BPG, "D3A8AF");
+        testStructuredFieldTypeIsCorrect(BeginType.BGR, "D3A8BB");
+        testStructuredFieldTypeIsCorrect(BeginType.BDG, "D3A8C4");
+        testStructuredFieldTypeIsCorrect(BeginType.BFG, "D3A8C5");
+        testStructuredFieldTypeIsCorrect(BeginType.BRG, "D3A8C6");
+        testStructuredFieldTypeIsCorrect(BeginType.BOG, "D3A8C7");
+        testStructuredFieldTypeIsCorrect(BeginType.BAG, "D3A8C9");
+        testStructuredFieldTypeIsCorrect(BeginType.BMM, "D3A8CC");
+        testStructuredFieldTypeIsCorrect(BeginType.BFM, "D3A8CD");
+        testStructuredFieldTypeIsCorrect(BeginType.BRS, "D3A8CE");
+        testStructuredFieldTypeIsCorrect(BeginType.BSG, "D3A8D9");
+        testStructuredFieldTypeIsCorrect(BeginType.BMO, "D3A8DF");
+        testStructuredFieldTypeIsCorrect(BeginType.BBC, "D3A8EB");
+        testStructuredFieldTypeIsCorrect(BeginType.BIM, "D3A8FB");
 
         // End
         testStructuredFieldTypeIsCorrect(End.EPS, "D3A95F");
@@ -132,8 +127,8 @@ public class SfTypeFactoryTestCase {
         testStructuredFieldTypeIsCorrect(Process.PPO, "D3ADC3");
     }
 
-    private void testStructuredFieldTypeIsCorrect(SfType sfType, String id) {
-        SfType type = SfTypeFactory.getValue(ByteUtils.hexToBytes(id));
+    private void testStructuredFieldTypeIsCorrect(StructuredFieldType sfType, String id) {
+        StructuredFieldType type = StructuredFieldTypeFactory.getValue(ByteUtils.hexToBytes(id));
         assertEquals(sfType, type);
     }
 }

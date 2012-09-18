@@ -17,7 +17,7 @@ import org.modica.afp.modca.common.Rotation;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Include;
+import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Include;
 import org.modica.afp.modca.structuredfields.include.IncludeObject;
 import org.modica.afp.modca.structuredfields.include.IncludeObject.ObjectType;
 import org.modica.afp.modca.triplets.Triplet;
