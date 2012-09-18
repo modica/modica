@@ -90,4 +90,39 @@ public class StructuredFieldFactoryImpl implements StructuredFieldFactory {
     public StructuredField createIndex(StructuredFieldIntroducer introducer) {
         return createStructuredField(introducer);
     }
+
+    @Override
+    public StructuredField createAttribute(StructuredFieldIntroducer introducer) {
+        return createStructuredField(introducer);
+    }
+
+    @Override
+    public StructuredField createCopyCount(StructuredFieldIntroducer introducer) {
+        return createStructuredField(introducer);
+    }
+
+    @Override
+    public StructuredField createProcess(StructuredFieldIntroducer introducer) {
+        return createStructuredField(introducer);
+    }
+
+    @Override
+    public StructuredField createOrientation(StructuredFieldIntroducer introducer) {
+        return createStructuredField(introducer);
+    }
+
+    @Override
+    public StructuredField createTable(StructuredFieldIntroducer introducer) {
+        return createStructuredField(introducer);
+    }
+
+    @Override
+    public StructuredField createVariable(StructuredFieldIntroducer introducer) {
+        return createStructuredField(introducer);
+    }
+
+    @Override
+    public StructuredField createLink(StructuredFieldIntroducer introducer) {
+        return createStructuredField(introducer);
+    }
 }

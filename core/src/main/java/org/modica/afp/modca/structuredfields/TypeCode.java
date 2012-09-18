@@ -19,14 +19,14 @@ public enum TypeCode {
         @Override
         public StructuredField createField(StructuredFieldFactory factory,
                 StructuredFieldIntroducer intro) {
-            return null;
+            return factory.createAttribute(intro);
         }
     },
     CopyCount(0xA2) {
         @Override
         public StructuredField createField(StructuredFieldFactory factory,
                 StructuredFieldIntroducer intro) {
-            return null;
+            return factory.createCopyCount(intro);
         }
     },
     Descriptor(0xA6) {
@@ -75,14 +75,14 @@ public enum TypeCode {
         @Override
         public StructuredField createField(StructuredFieldFactory factory,
                 StructuredFieldIntroducer intro) {
-            return null;
+            return factory.createProcess(intro);
         }
     },
     Orientation(0xAE) {
         @Override
         public StructuredField createField(StructuredFieldFactory factory,
                 StructuredFieldIntroducer intro) {
-            return null;
+            return factory.createOrientation(intro);
         }
     },
     Include(0xAF) {
@@ -96,7 +96,7 @@ public enum TypeCode {
         @Override
         public StructuredField createField(StructuredFieldFactory factory,
                 StructuredFieldIntroducer intro) {
-            return null;
+            return factory.createTable(intro);
         }
     },
     Migration(0xB1) {
@@ -110,14 +110,14 @@ public enum TypeCode {
         @Override
         public StructuredField createField(StructuredFieldFactory factory,
                 StructuredFieldIntroducer intro) {
-            return null;
+            return factory.createVariable(intro);
         }
     },
     Link(0xB4) {
         @Override
         public StructuredField createField(StructuredFieldFactory factory,
                 StructuredFieldIntroducer intro) {
-            return null;
+            return factory.createLink(intro);
         }
     },
     Data(0xEE) {
