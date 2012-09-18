@@ -19,7 +19,7 @@ import org.modica.afp.modca.triplets.TripletHandler;
  */
 public class MapImageObject extends StructuredFieldWithTripletGroup {
 
-    public MapImageObject(StructuredFieldIntroducer introducer, RepeatingTripletGroup tripletGroup) {
+    MapImageObject(StructuredFieldIntroducer introducer, RepeatingTripletGroup tripletGroup) {
         super(introducer, tripletGroup);
     }
 
@@ -31,7 +31,7 @@ public class MapImageObject extends StructuredFieldWithTripletGroup {
 
     public static final class MIOBuilder implements Builder {
         @Override
-        public MapImageObject create(StructuredFieldIntroducer intro, Parameters params,
+        public MapImageObject build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new MapImageObject(intro, TripletHandler.parseRepeatingGroup(params, context));
         }

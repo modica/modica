@@ -19,7 +19,7 @@ import org.modica.afp.modca.triplets.TripletHandler;
  */
 public class ObjectAreaDescriptor extends StructuredFieldWithTriplets {
 
-    public ObjectAreaDescriptor(StructuredFieldIntroducer introducer, List<Triplet> triplets) {
+    ObjectAreaDescriptor(StructuredFieldIntroducer introducer, List<Triplet> triplets) {
         super(introducer, triplets);
     }
 
@@ -31,7 +31,7 @@ public class ObjectAreaDescriptor extends StructuredFieldWithTriplets {
 
     public static final class OBDBuilder implements Builder {
         @Override
-        public ObjectAreaDescriptor create(StructuredFieldIntroducer intro, Parameters params,
+        public ObjectAreaDescriptor build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new ObjectAreaDescriptor(intro, TripletHandler.parseTriplet(params, 0, context));
         }

@@ -23,7 +23,8 @@ public class BeginNamedPageGroup extends StructuredFieldWithTriplets {
 
     private final String pGrpName;
 
-    public BeginNamedPageGroup(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
+    BeginNamedPageGroup(StructuredFieldIntroducer introducer, List<Triplet> triplets,
+            Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
         pGrpName = params.getStringAt(0, 8);
@@ -47,7 +48,7 @@ public class BeginNamedPageGroup extends StructuredFieldWithTriplets {
 
     public static final class BNGBuilder implements Builder {
         @Override
-        public BeginNamedPageGroup create(StructuredFieldIntroducer intro, Parameters params,
+        public BeginNamedPageGroup build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new BeginNamedPageGroup(intro, TripletHandler.parseTriplet(params, 8, context), params);
         }

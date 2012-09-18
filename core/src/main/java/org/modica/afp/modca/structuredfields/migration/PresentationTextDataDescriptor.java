@@ -25,7 +25,7 @@ public class PresentationTextDataDescriptor extends StructuredFieldWithTriplets 
     private final int xAxisSize;
     private final int yAxisSize;
 
-    public PresentationTextDataDescriptor(StructuredFieldIntroducer introducer, Parameters params) {
+    PresentationTextDataDescriptor(StructuredFieldIntroducer introducer, Parameters params) {
         super(introducer, Collections.<Triplet>emptyList());
         byte xpBase = params.getByte();
         byte ypBase = params.getByte();
@@ -88,7 +88,7 @@ public class PresentationTextDataDescriptor extends StructuredFieldWithTriplets 
 
     public static final class PTDBuilder implements Builder {
         @Override
-        public PresentationTextDataDescriptor create(StructuredFieldIntroducer intro,
+        public PresentationTextDataDescriptor build(StructuredFieldIntroducer intro,
                 Parameters params, Context context) throws UnsupportedEncodingException,
                 MalformedURLException {
             return new PresentationTextDataDescriptor(intro, params);

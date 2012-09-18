@@ -36,7 +36,7 @@ public class MapCodedFont extends StructuredFieldWithTripletGroup {
 
     private final Map<Byte, CharacterSetCodePage> fontMappings = new HashMap<Byte, CharacterSetCodePage>();
 
-    public MapCodedFont(StructuredFieldIntroducer introducer, RepeatingTripletGroup tripletGroup,
+    MapCodedFont(StructuredFieldIntroducer introducer, RepeatingTripletGroup tripletGroup,
             Context ctx) throws UnsupportedEncodingException, MalformedURLException {
         super(introducer, tripletGroup);
         handleFontMappings();
@@ -107,7 +107,7 @@ public class MapCodedFont extends StructuredFieldWithTripletGroup {
 
     public static final class MCFBuilder implements Builder {
         @Override
-        public MapCodedFont create(StructuredFieldIntroducer intro, Parameters params,
+        public MapCodedFont build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new MapCodedFont(intro, TripletHandler.parseRepeatingGroup(params, context), context);
         }

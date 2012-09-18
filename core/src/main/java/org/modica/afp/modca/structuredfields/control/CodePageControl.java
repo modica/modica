@@ -30,7 +30,7 @@ public class CodePageControl extends AbstractStructuredField {
     private final boolean isVariableSpaceEnabled;
     private final long defaultUnicodeValue;
 
-    public CodePageControl(StructuredFieldIntroducer introducer, Parameters params, Context context)
+    CodePageControl(StructuredFieldIntroducer introducer, Parameters params, Context context)
             throws UnsupportedEncodingException {
         super(introducer);
         defCharId = params.getString(8);
@@ -44,8 +44,7 @@ public class CodePageControl extends AbstractStructuredField {
         byte vsFlags = params.getByte();
         isAscendingCodePoint = CodePageUseFlags.isAscendingCodePoint(vsFlags);
         isVariableSpaceEnabled = CodePageUseFlags.isVariableSpaceEnabled(vsFlags);
-        if (cpRgLen == CPIRepeatingGroupLength.SINGLE_BYTE_INC_UNICODE
-                || cpRgLen == CPIRepeatingGroupLength.DOUBLE_BYTE_INC_UNICODE) {
+        if (cpRgLen.isUnicode()) {
             defaultUnicodeValue = params.getUInt(params.size() - params.getPosition());
         } else {
             defaultUnicodeValue = 0;
@@ -214,7 +213,7 @@ public class CodePageControl extends AbstractStructuredField {
 
     public static final class CPCBuilder implements Builder {
         @Override
-        public CodePageControl create(StructuredFieldIntroducer intro, Parameters params,
+        public CodePageControl build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException {
             return new CodePageControl(intro, params, context);
         }

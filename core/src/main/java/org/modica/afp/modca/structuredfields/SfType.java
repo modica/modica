@@ -3,9 +3,10 @@ package org.modica.afp.modca.structuredfields;
 import org.modica.afp.modca.structuredfields.StructuredField.Builder;
 
 /**
- * The type of structured field.
+ * This represents type of structured field as defined in the AFP specifications (MODCA, FOCA etc).
  */
 public interface SfType {
+
     /**
      * The category code.
      * @return the category

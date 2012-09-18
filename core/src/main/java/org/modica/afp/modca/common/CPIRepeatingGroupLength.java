@@ -13,15 +13,17 @@ package org.modica.afp.modca.common;
  * </p>
  */
 public enum CPIRepeatingGroupLength {
-    SINGLE_BYTE(0x0A),
-    DOUBLE_BYTE(0x0B),
-    SINGLE_BYTE_INC_UNICODE(0xFE),
-    DOUBLE_BYTE_INC_UNICODE(0xFF);
+    SINGLE_BYTE(0x0A, false),
+    DOUBLE_BYTE(0x0B, false),
+    SINGLE_BYTE_INC_UNICODE(0xFE, true),
+    DOUBLE_BYTE_INC_UNICODE(0xFF, true);
 
     private final byte id;
+    private final boolean isUnicode;
 
-    private CPIRepeatingGroupLength(int id) {
+    private CPIRepeatingGroupLength(int id, boolean isUnicode) {
         this.id = (byte) id;
+        this.isUnicode = isUnicode;
     }
 
     public static CPIRepeatingGroupLength getValue(byte id) {
@@ -31,5 +33,9 @@ public enum CPIRepeatingGroupLength {
             }
         }
         throw new IllegalArgumentException(id + " is not a valid CPI Repeating Group Length.");
+    }
+
+    public boolean isUnicode() {
+        return isUnicode;
     }
 }

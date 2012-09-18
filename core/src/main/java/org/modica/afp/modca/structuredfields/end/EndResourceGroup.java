@@ -21,7 +21,7 @@ public class EndResourceGroup extends StructuredFieldWithTriplets {
 
     private final EndFieldName rGrpName;
 
-    public EndResourceGroup(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
+    EndResourceGroup(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
         rGrpName = new EndFieldName(params);
@@ -59,7 +59,7 @@ public class EndResourceGroup extends StructuredFieldWithTriplets {
 
     public static final class ERGBuilder implements Builder {
         @Override
-        public EndResourceGroup create(StructuredFieldIntroducer intro, Parameters params,
+        public EndResourceGroup build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new EndResourceGroup(intro, TripletHandler.parseTriplet(params, 8, context), params);
         }

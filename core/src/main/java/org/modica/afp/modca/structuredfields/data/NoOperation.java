@@ -18,7 +18,7 @@ public class NoOperation extends AbstractStructuredField {
 
     private final String comment;
 
-    public NoOperation(StructuredFieldIntroducer introducer, Parameters params)
+    NoOperation(StructuredFieldIntroducer introducer, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer);
         comment = params.getString(params.size());
@@ -42,7 +42,7 @@ public class NoOperation extends AbstractStructuredField {
 
     public static final class NOPBuilder implements Builder {
         @Override
-        public NoOperation create(StructuredFieldIntroducer intro, Parameters params,
+        public NoOperation build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new NoOperation(intro, params);
         }

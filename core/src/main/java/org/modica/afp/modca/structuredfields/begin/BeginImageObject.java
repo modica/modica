@@ -25,7 +25,7 @@ public class BeginImageObject extends StructuredFieldWithTriplets {
 
     private final String idoName;
 
-    public BeginImageObject(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
+    BeginImageObject(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
         idoName = params.getStringAt(0, 8);
@@ -49,7 +49,7 @@ public class BeginImageObject extends StructuredFieldWithTriplets {
 
     public static final class BIMBuilder implements Builder {
         @Override
-        public BeginImageObject create(StructuredFieldIntroducer intro, Parameters params,
+        public BeginImageObject build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new BeginImageObject(intro, TripletHandler.parseTriplet(params, 8, context), params);
         }

@@ -19,7 +19,7 @@ public class EndObjectEnvironmentGroup extends AbstractStructuredField {
 
     private final EndFieldName oegName;
 
-    public EndObjectEnvironmentGroup(StructuredFieldIntroducer introducer, Parameters params)
+    EndObjectEnvironmentGroup(StructuredFieldIntroducer introducer, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer);
         oegName = new EndFieldName(params);
@@ -57,7 +57,7 @@ public class EndObjectEnvironmentGroup extends AbstractStructuredField {
 
     public static final class EOGBuilder implements Builder {
         @Override
-        public EndObjectEnvironmentGroup create(StructuredFieldIntroducer intro, Parameters params,
+        public EndObjectEnvironmentGroup build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new EndObjectEnvironmentGroup(intro, params);
         }

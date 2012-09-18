@@ -22,7 +22,7 @@ public class BeginObjectEnvironmentGroup extends StructuredFieldWithTriplets {
 
     private final String oegName;
 
-    public BeginObjectEnvironmentGroup(StructuredFieldIntroducer introducer, List<Triplet> triplets,
+    BeginObjectEnvironmentGroup(StructuredFieldIntroducer introducer, List<Triplet> triplets,
             Parameters params) throws UnsupportedEncodingException {
         super(introducer, triplets);
         oegName = params.getStringAt(0, 8);
@@ -46,7 +46,7 @@ public class BeginObjectEnvironmentGroup extends StructuredFieldWithTriplets {
 
     public static final class BOGBuilder implements Builder {
         @Override
-        public BeginObjectEnvironmentGroup create(StructuredFieldIntroducer intro,
+        public BeginObjectEnvironmentGroup build(StructuredFieldIntroducer intro,
                 Parameters params, Context context) throws UnsupportedEncodingException,
                 MalformedURLException {
             return new BeginObjectEnvironmentGroup(intro, TripletHandler.parseTriplet(params, 8,

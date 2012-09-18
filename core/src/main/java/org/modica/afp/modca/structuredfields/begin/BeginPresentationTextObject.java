@@ -21,7 +21,7 @@ public class BeginPresentationTextObject extends StructuredFieldWithTriplets {
 
     private final String pTdoName;
 
-    public BeginPresentationTextObject(StructuredFieldIntroducer introducer, List<Triplet> triplets,
+    BeginPresentationTextObject(StructuredFieldIntroducer introducer, List<Triplet> triplets,
             Parameters params) throws UnsupportedEncodingException {
         super(introducer, triplets);
         pTdoName = params.getStringAt(0, 8);
@@ -45,7 +45,7 @@ public class BeginPresentationTextObject extends StructuredFieldWithTriplets {
 
     public static final class BPTBuilder implements Builder {
         @Override
-        public BeginPresentationTextObject create(StructuredFieldIntroducer intro,
+        public BeginPresentationTextObject build(StructuredFieldIntroducer intro,
                 Parameters params, Context context) throws UnsupportedEncodingException,
                 MalformedURLException {
             return new BeginPresentationTextObject(intro, TripletHandler.parseTriplet(params, 8,

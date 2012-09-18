@@ -798,7 +798,7 @@ public abstract class SfTypeFactory {
 
     private final static class NotYetImplementedBuilder implements Builder {
         @Override
-        public StructuredField create(StructuredFieldIntroducer intro, Parameters params,
+        public StructuredField build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return null;
         }

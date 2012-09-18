@@ -21,7 +21,7 @@ public final class BeginDocument extends StructuredFieldWithTriplets {
     private final String documentName;
     private final boolean docNameProvidedBySystem;
 
-    public BeginDocument(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
+    BeginDocument(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
         if (params.getByte() != (byte) 0xFF && params.getByte() != (byte) 0xFF) {
@@ -67,7 +67,7 @@ public final class BeginDocument extends StructuredFieldWithTriplets {
 
     public static final class BDTBuilder implements Builder {
         @Override
-        public BeginDocument create(StructuredFieldIntroducer intro, Parameters params,
+        public BeginDocument build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new BeginDocument(intro, TripletHandler.parseTriplet(params, 8, context), params);
         }

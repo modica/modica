@@ -21,7 +21,7 @@ public class EndPage extends StructuredFieldWithTriplets {
 
     private final EndFieldName pageName;
 
-    public EndPage(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
+    EndPage(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
         pageName = new EndFieldName(params);
@@ -59,7 +59,7 @@ public class EndPage extends StructuredFieldWithTriplets {
 
     public static final class EPGBuilder implements Builder {
         @Override
-        public EndPage create(StructuredFieldIntroducer intro, Parameters params,
+        public EndPage build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new EndPage(intro, TripletHandler.parseTriplet(params, 8, context), params);
         }

@@ -19,7 +19,8 @@ public class EndResource extends AbstractStructuredField {
 
     private final EndFieldName rsName;
 
-    public EndResource(StructuredFieldIntroducer introducer, Parameters params) throws UnsupportedEncodingException {
+    EndResource(StructuredFieldIntroducer introducer, Parameters params)
+            throws UnsupportedEncodingException {
         super(introducer);
         rsName = new EndFieldName(params);
     }
@@ -55,7 +56,7 @@ public class EndResource extends AbstractStructuredField {
 
     public static final class ERSBuilder implements Builder {
         @Override
-        public EndResource create(StructuredFieldIntroducer intro, Parameters params,
+        public EndResource build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException {
             return new EndResource(intro, params);
         }

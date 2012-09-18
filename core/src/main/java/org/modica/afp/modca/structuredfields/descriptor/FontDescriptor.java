@@ -41,7 +41,7 @@ public class FontDescriptor extends StructuredFieldWithTriplets {
     private final int gcsgid;
     private final int fgid;
 
-    public FontDescriptor(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
+    FontDescriptor(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
         typeFcDesc = params.getString(32, EbcdicStringHandler.DEFAULT_CPGID);
@@ -340,7 +340,7 @@ public class FontDescriptor extends StructuredFieldWithTriplets {
 
     public static final class FNDBuilder implements Builder {
         @Override
-        public FontDescriptor create(StructuredFieldIntroducer intro, Parameters params,
+        public FontDescriptor build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new FontDescriptor(intro, TripletHandler.parseTriplet(params, 80, context), params);
         }

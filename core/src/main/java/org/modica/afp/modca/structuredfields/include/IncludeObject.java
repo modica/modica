@@ -42,7 +42,7 @@ public class IncludeObject extends StructuredFieldWithTriplets {
     private final boolean useYOriginOffset;
     private final ReferenceCoordinateSystem refCSys;
 
-    public IncludeObject(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
+    IncludeObject(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
         objName = params.getString(8);
@@ -50,14 +50,14 @@ public class IncludeObject extends StructuredFieldWithTriplets {
         assert reserved == (byte) 0x00;
         objType = ObjectType.getValue(params.getByte());
         // setting the origin
-        if (nextFewByesEqual(params, 3, (byte) 0xFF)) {
+        if (nextFewByesEqualFF(params, 3)) {
             xoaOset = 0xFFFFFF;
             useXOriginArea = true;
         } else {
             xoaOset = params.getInt(3);
             useXOriginArea = false;
         }
-        if (nextFewByesEqual(params, 3, (byte) 0xFF)) {
+        if (nextFewByesEqualFF(params, 3)) {
             yoaOset = 0xFFFFFF;
             useYOriginArea = true;
         } else {
@@ -65,7 +65,7 @@ public class IncludeObject extends StructuredFieldWithTriplets {
             useYOriginArea = false;
         }
         // setting the orientation
-        if (nextFewByesEqual(params, 2, (byte) 0xFF)) {
+        if (nextFewByesEqualFF(params, 2)) {
             xoaOrent = null;
             useXObjectRotation = true;
         } else {
@@ -73,7 +73,7 @@ public class IncludeObject extends StructuredFieldWithTriplets {
             useXObjectRotation = false;
             params.skip(1);
         }
-        if (nextFewByesEqual(params, 2, (byte) 0xFF)) {
+        if (nextFewByesEqualFF(params, 2)) {
             yoaOrent = null;
             useYObjectRotation = true;
         } else {
@@ -81,14 +81,14 @@ public class IncludeObject extends StructuredFieldWithTriplets {
             useYObjectRotation = false;
             params.skip(1);
         }
-        if (nextFewByesEqual(params, 3, (byte) 0xFF)) {
+        if (nextFewByesEqualFF(params, 3)) {
             xocaOset = 0xFFFFFF;
             useXOriginOffset = true;
         } else {
             xocaOset = params.getInt(3);
             useXOriginOffset = false;
         }
-        if (nextFewByesEqual(params, 3, (byte) 0xFF)) {
+        if (nextFewByesEqualFF(params, 3)) {
             yocaOset = 0xFFFFFF;
             useYOriginOffset = true;
         } else {
@@ -98,10 +98,11 @@ public class IncludeObject extends StructuredFieldWithTriplets {
         refCSys = ReferenceCoordinateSystem.getValue(params.getByte());
     }
 
-    private boolean nextFewByesEqual(Parameters params, int length, byte value) {
+    private boolean nextFewByesEqualFF(Parameters params, int length) {
+        byte ff = (byte) 0xFF;
         int pos = params.getPosition();
         for (int i = 0; i < length; i++) {
-            if (params.getByte() != value) {
+            if (params.getByte() != ff) {
                 params.skipTo(pos);
                 return false;
             }
@@ -356,7 +357,7 @@ public class IncludeObject extends StructuredFieldWithTriplets {
 
     public static final class IOBBuilder implements Builder {
         @Override
-        public IncludeObject create(StructuredFieldIntroducer intro, Parameters params,
+        public IncludeObject build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new IncludeObject(intro, TripletHandler.parseTriplet(params, 27, context), params);
         }

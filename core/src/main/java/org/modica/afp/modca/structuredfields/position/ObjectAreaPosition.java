@@ -28,7 +28,7 @@ public class ObjectAreaPosition extends AbstractStructuredField {
     private final int yocaOset;
     private final ReferenceCoordinateSystem refCSys;
 
-    public ObjectAreaPosition(StructuredFieldIntroducer introducer, Parameters params) {
+    ObjectAreaPosition(StructuredFieldIntroducer introducer, Parameters params) {
         super(introducer);
         oaPosId = params.getByte();
         int length = params.getByte();
@@ -172,7 +172,7 @@ public class ObjectAreaPosition extends AbstractStructuredField {
 
     public static final class OBPBuilder implements Builder {
         @Override
-        public ObjectAreaPosition create(StructuredFieldIntroducer intro, Parameters params,
+        public ObjectAreaPosition build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new ObjectAreaPosition(intro, params);
         }

@@ -21,7 +21,7 @@ public class BeginCodePage extends StructuredFieldWithTriplets {
 
     private final String cfName;
 
-    public BeginCodePage(StructuredFieldIntroducer introducer, List<Triplet> triplets,
+    BeginCodePage(StructuredFieldIntroducer introducer, List<Triplet> triplets,
             Parameters params, Context ctx) throws UnsupportedEncodingException {
         super(introducer, triplets);
         cfName = params.getStringAt(0, 8, EbcdicStringHandler.DEFAULT_CPGID);
@@ -46,7 +46,7 @@ public class BeginCodePage extends StructuredFieldWithTriplets {
 
     public static final class BCPBuilder implements Builder {
         @Override
-        public BeginCodePage create(StructuredFieldIntroducer intro, Parameters params,
+        public BeginCodePage build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new BeginCodePage(intro, TripletHandler.parseTriplet(params, 8, context), params, context);
         }

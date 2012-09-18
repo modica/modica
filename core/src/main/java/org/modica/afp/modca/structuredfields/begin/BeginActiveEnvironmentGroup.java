@@ -22,8 +22,8 @@ public final class BeginActiveEnvironmentGroup extends StructuredFieldWithTriple
 
     private final String aegName;
 
-    public BeginActiveEnvironmentGroup(StructuredFieldIntroducer introducer, List<Triplet> triplets,
-            Parameters params) throws UnsupportedEncodingException {
+    BeginActiveEnvironmentGroup(StructuredFieldIntroducer introducer,
+            List<Triplet> triplets, Parameters params) throws UnsupportedEncodingException {
         super(introducer, triplets);
         aegName = params.getStringAt(0, 8);
     }
@@ -46,7 +46,7 @@ public final class BeginActiveEnvironmentGroup extends StructuredFieldWithTriple
 
     public static final class BAGBuilder implements Builder {
         @Override
-        public BeginActiveEnvironmentGroup create(StructuredFieldIntroducer intro,
+        public BeginActiveEnvironmentGroup build(StructuredFieldIntroducer intro,
                 Parameters params, Context context) throws UnsupportedEncodingException,
                 MalformedURLException {
             return new BeginActiveEnvironmentGroup(intro, TripletHandler.parseTriplet(params, 8,

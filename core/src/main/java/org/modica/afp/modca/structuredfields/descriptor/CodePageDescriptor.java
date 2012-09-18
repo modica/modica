@@ -24,7 +24,7 @@ public class CodePageDescriptor extends AbstractStructuredField {
     private final int cpgid;
     private final EncodingScheme encScheme;
 
-    public CodePageDescriptor(StructuredFieldIntroducer introducer, Parameters params, Context ctx)
+    CodePageDescriptor(StructuredFieldIntroducer introducer, Parameters params, Context ctx)
             throws UnsupportedEncodingException {
         super(introducer);
         cpDesc = params.getString(32);
@@ -110,7 +110,7 @@ public class CodePageDescriptor extends AbstractStructuredField {
 
     public static final class CPDBuilder implements Builder {
         @Override
-        public CodePageDescriptor create(StructuredFieldIntroducer intro, Parameters params,
+        public CodePageDescriptor build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new CodePageDescriptor(intro, params, context);
         }

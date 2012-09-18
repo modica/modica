@@ -21,7 +21,7 @@ public class EndPresentationTextObject extends StructuredFieldWithTriplets {
 
     private final EndFieldName pTdoName;
 
-    public EndPresentationTextObject(StructuredFieldIntroducer introducer, List<Triplet> triplets,
+    EndPresentationTextObject(StructuredFieldIntroducer introducer, List<Triplet> triplets,
             Parameters params) throws UnsupportedEncodingException {
         super(introducer, triplets);
         pTdoName = new EndFieldName(params);
@@ -58,7 +58,7 @@ public class EndPresentationTextObject extends StructuredFieldWithTriplets {
 
     public static final class EPTBuilder implements Builder {
         @Override
-        public EndPresentationTextObject create(StructuredFieldIntroducer intro, Parameters params,
+        public EndPresentationTextObject build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new EndPresentationTextObject(intro, TripletHandler.parseTriplet(params, 8,
                     context), params);

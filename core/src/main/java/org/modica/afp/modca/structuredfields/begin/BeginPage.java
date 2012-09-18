@@ -27,7 +27,7 @@ public class BeginPage extends StructuredFieldWithTriplets {
 
     private final String pageName;
 
-    public BeginPage(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
+    BeginPage(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
         pageName = params.getStringAt(0, 8);
@@ -51,7 +51,7 @@ public class BeginPage extends StructuredFieldWithTriplets {
 
     public static final class BPGBuilder implements Builder {
         @Override
-        public BeginPage create(StructuredFieldIntroducer intro, Parameters params,
+        public BeginPage build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new BeginPage(intro, TripletHandler.parseTriplet(params, 8, context), params);
         }

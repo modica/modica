@@ -21,7 +21,7 @@ public class EndDocument extends StructuredFieldWithTriplets {
 
     private final EndFieldName docName;
 
-    public EndDocument(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
+    EndDocument(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
         docName = new EndFieldName(params);
@@ -58,7 +58,7 @@ public class EndDocument extends StructuredFieldWithTriplets {
 
     public static final class EDTBuilder implements Builder {
         @Override
-        public EndDocument create(StructuredFieldIntroducer intro, Parameters params,
+        public EndDocument build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new EndDocument(intro, TripletHandler.parseTriplet(params, 8, context), params);
         }

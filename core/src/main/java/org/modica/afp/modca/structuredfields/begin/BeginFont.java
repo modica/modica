@@ -21,7 +21,7 @@ public class BeginFont extends StructuredFieldWithTriplets {
 
     private final String csName;
 
-    public BeginFont(StructuredFieldIntroducer introducer, List<Triplet> triplets,
+    BeginFont(StructuredFieldIntroducer introducer, List<Triplet> triplets,
             Parameters params) throws UnsupportedEncodingException {
         super(introducer, triplets);
         csName = params.getStringAt(0, 8, EbcdicStringHandler.DEFAULT_CPGID);
@@ -51,7 +51,7 @@ public class BeginFont extends StructuredFieldWithTriplets {
 
     public static final class BFNBuilder implements Builder {
         @Override
-        public BeginFont create(StructuredFieldIntroducer intro, Parameters params,
+        public BeginFont build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new BeginFont(intro, TripletHandler.parseTriplet(params, 8, context), params);
         }

@@ -19,7 +19,7 @@ public class ImagePictureData extends AbstractStructuredField {
 
     private final long imageDataOffset;
 
-    public ImagePictureData(StructuredFieldIntroducer introducer) {
+    ImagePictureData(StructuredFieldIntroducer introducer) {
         super(introducer);
         imageDataOffset = introducer.getDataOffset();
     }
@@ -42,7 +42,7 @@ public class ImagePictureData extends AbstractStructuredField {
 
     public static final class IPDBuilder implements Builder {
         @Override
-        public ImagePictureData create(StructuredFieldIntroducer intro, Parameters params,
+        public ImagePictureData build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) {
             return new ImagePictureData(intro);
         }

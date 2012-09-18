@@ -31,7 +31,7 @@ public class StructuredFieldFactoryImpl implements StructuredFieldFactory {
                     - StructuredFieldIntroducer.SF_Introducer_FIELD - StructuredFieldIntroducer.Carriage_Control_FIELD);
             channel.read(buffer, byteOffset);
             Parameters params =  new Parameters(buffer.array(), (Integer) context.get(ContextType.MODCA_GCSGID));
-            return intro.getType().getBuilder().create(intro, params, context);
+            return intro.getType().getBuilder().build(intro, params, context);
         } catch (MalformedURLException mue) {
             throw new IllegalStateException(mue);
         } catch (UnsupportedEncodingException uee) {

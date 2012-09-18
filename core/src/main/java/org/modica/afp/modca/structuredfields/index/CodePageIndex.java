@@ -39,7 +39,7 @@ public class CodePageIndex extends AbstractStructuredField {
 
     private final List<CPI> cpis;
 
-    public CodePageIndex(StructuredFieldIntroducer introducer, Parameters params, Context context)
+    CodePageIndex(StructuredFieldIntroducer introducer, Parameters params, Context context)
             throws UnsupportedEncodingException {
         super(introducer);
         cpis = new ArrayList<CodePageIndex.CPI>();
@@ -202,7 +202,7 @@ public class CodePageIndex extends AbstractStructuredField {
 
     public static final class CPIBuilder implements Builder {
         @Override
-        public CodePageIndex create(StructuredFieldIntroducer intro, Parameters params,
+        public CodePageIndex build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException {
             return new CodePageIndex(intro, params, context);
         }

@@ -77,7 +77,7 @@ public interface StructuredField {
     List<ParameterAsString> getParameters();
 
     public interface Builder {
-        StructuredField create(StructuredFieldIntroducer intro, Parameters params, Context context)
+        StructuredField build(StructuredFieldIntroducer intro, Parameters params, Context context)
                 throws UnsupportedEncodingException, MalformedURLException;
     }
 }

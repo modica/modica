@@ -29,7 +29,7 @@ public class BeginResource extends StructuredFieldWithTriplets {
 
     private final String rsName;
 
-    public BeginResource(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
+    BeginResource(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
         rsName = params.getStringAt(0, 8);
@@ -54,7 +54,7 @@ public class BeginResource extends StructuredFieldWithTriplets {
 
     public static final class BRSBuilder implements Builder {
         @Override
-        public BeginResource create(StructuredFieldIntroducer intro, Parameters params,
+        public BeginResource build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new BeginResource(intro, TripletHandler.parseTriplet(params, 10, context), params);
         }

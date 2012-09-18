@@ -21,7 +21,7 @@ public class EndImageObject extends StructuredFieldWithTriplets {
 
     private final EndFieldName idoName;
 
-    public EndImageObject(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
+    EndImageObject(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
         idoName = new EndFieldName(params);
@@ -59,7 +59,7 @@ public class EndImageObject extends StructuredFieldWithTriplets {
 
     public static final class EIMBuilder implements Builder {
         @Override
-        public EndImageObject create(StructuredFieldIntroducer intro, Parameters params,
+        public EndImageObject build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new EndImageObject(intro, TripletHandler.parseTriplet(params, 8, context), params);
         }

@@ -56,7 +56,7 @@ public class PageDescriptor extends StructuredFieldWithTriplets {
     private final int xAxisPageSize;
     private final int yAxisPageSize;
 
-    public PageDescriptor(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params) {
+    PageDescriptor(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params) {
         super(introducer, triplets);
         xAxisBaseUnit = PresentationSpaceUnits.getValue(params.getByte());
         yAxisBaseUnit = PresentationSpaceUnits.getValue(params.getByte());
@@ -139,7 +139,7 @@ public class PageDescriptor extends StructuredFieldWithTriplets {
 
     public static final class PGDBuilder implements Builder {
         @Override
-        public PageDescriptor create(StructuredFieldIntroducer intro, Parameters params,
+        public PageDescriptor build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new PageDescriptor(intro, TripletHandler.parseTriplet(params, 15, context), params);
         }

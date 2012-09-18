@@ -27,7 +27,7 @@ public class ImageDataDescriptor extends AbstractStructuredField {
     private final int ySize;
     private final List<SelfDefiningField> selfDefiningFields;
 
-    public ImageDataDescriptor(StructuredFieldIntroducer introducer, Parameters params) {
+    ImageDataDescriptor(StructuredFieldIntroducer introducer, Parameters params) {
         super(introducer);
         unitsBase = PresentationSpaceUnits.getValue(params.getByte());
         xResol = (int) params.getUInt(2);
@@ -126,7 +126,7 @@ public class ImageDataDescriptor extends AbstractStructuredField {
 
     public static final class IDDBuilder implements Builder {
         @Override
-        public ImageDataDescriptor create(StructuredFieldIntroducer intro, Parameters params,
+        public ImageDataDescriptor build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) {
             return new ImageDataDescriptor(intro, params);
         }

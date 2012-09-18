@@ -18,7 +18,7 @@ public class EndActiveEnvironmentGroup extends AbstractStructuredField {
 
     private final EndFieldName aegName;
 
-    public EndActiveEnvironmentGroup(StructuredFieldIntroducer introducer, Parameters params)
+    EndActiveEnvironmentGroup(StructuredFieldIntroducer introducer, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer);
         aegName = new EndFieldName(params);
@@ -58,7 +58,7 @@ public class EndActiveEnvironmentGroup extends AbstractStructuredField {
 
     public static final class EAGBuilder implements Builder {
         @Override
-        public EndActiveEnvironmentGroup create(StructuredFieldIntroducer intro, Parameters params,
+        public EndActiveEnvironmentGroup build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException {
             return new EndActiveEnvironmentGroup(intro, params);
         }
