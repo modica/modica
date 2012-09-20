@@ -1,6 +1,8 @@
 package org.modica.afp.modca.structuredfields;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.modica.afp.modca.structuredfields.types.AttributeType;
 import org.modica.afp.modca.structuredfields.types.BeginType;
@@ -21,36 +23,35 @@ import org.modica.afp.modca.structuredfields.types.VariableType;
 import org.modica.common.ByteUtils;
 
 public abstract class StructuredFieldTypeFactory {
-    private static final java.util.Map<StructuredFieldKey, StructuredFieldType> SF_TYPES = new HashMap<StructuredFieldKey, StructuredFieldType>();
+    private static final Map<StructuredFieldKey, StructuredFieldType> SF_TYPES = registerStructuredFieldType(
+            AttributeType.values(),
+            CopyCountType.values(),
+            DescriptorType.values(),
+            ControlType.values(),
+            BeginType.values(),
+            EndType.values(),
+            IndexType.values(),
+            OrientationType.values(),
+            MapType.values(),
+            PositionType.values(),
+            ProcessType.values(),
+            IncludeType.values(),
+            TableType.values(),
+            MigrationType.values(),
+            VariableType.values(),
+            LinkType.values(),
+            DataType.values());
 
-    static {
-        registerStructuredFieldType(
-                AttributeType.values(),
-                CopyCountType.values(),
-                DescriptorType.values(),
-                ControlType.values(),
-                BeginType.values(),
-                EndType.values(),
-                IndexType.values(),
-                OrientationType.values(),
-                MapType.values(),
-                PositionType.values(),
-                ProcessType.values(),
-                IncludeType.values(),
-                TableType.values(),
-                MigrationType.values(),
-                VariableType.values(),
-                LinkType.values(),
-                DataType.values());
-    }
-
-    private static void registerStructuredFieldType(StructuredFieldType[]... sfTypes) {
+    private static Map<StructuredFieldKey, StructuredFieldType> registerStructuredFieldType(
+            StructuredFieldType[]... sfTypes) {
+        Map<StructuredFieldKey, StructuredFieldType> types = new HashMap<StructuredFieldKey, StructuredFieldType>();
         for (StructuredFieldType[] sfTypeArray : sfTypes) {
             for (StructuredFieldType sfType : sfTypeArray) {
-                SF_TYPES.put(makeFieldKey(sfType.getTypeCode().getValue(),
+                types.put(makeFieldKey(sfType.getTypeCode().getValue(),
                         sfType.getCategoryCode().getValue()), sfType);
             }
         }
+        return Collections.unmodifiableMap(types);
     }
 
     private static final class StructuredFieldKey {
