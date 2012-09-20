@@ -1,33 +1,27 @@
 package org.modica.afp.modca.structuredfields;
 
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.util.HashMap;
 
-import org.modica.afp.modca.Context;
-import org.modica.afp.modca.Parameters;
-import org.modica.afp.modca.structuredfields.StructuredField.Builder;
-import org.modica.afp.modca.structuredfields.data.ImagePictureData.IPDBuilder;
-import org.modica.afp.modca.structuredfields.data.NoOperation.NOPBuilder;
-import org.modica.afp.modca.structuredfields.data.PresentationTextData.PTXBuilder;
-import org.modica.afp.modca.structuredfields.end.EndActiveEnvironmentGroup.EAGBuilder;
-import org.modica.afp.modca.structuredfields.end.EndCodePage.ECPBuilder;
-import org.modica.afp.modca.structuredfields.end.EndDocument.EDTBuilder;
-import org.modica.afp.modca.structuredfields.end.EndImageObject.EIMBuilder;
-import org.modica.afp.modca.structuredfields.end.EndNamedPageGroup.ENGBuilder;
-import org.modica.afp.modca.structuredfields.end.EndPage.EPGBuilder;
-import org.modica.afp.modca.structuredfields.end.EndPresentationTextObject.EPTBuilder;
-import org.modica.afp.modca.structuredfields.end.EndResourceGroup.ERGBuilder;
-import org.modica.afp.modca.structuredfields.include.IncludeObject.IOBBuilder;
-import org.modica.afp.modca.structuredfields.index.CodePageIndex.CPIBuilder;
-import org.modica.afp.modca.structuredfields.map.MapCodedFont.MCFBuilder;
-import org.modica.afp.modca.structuredfields.map.MapImageObject.MIOBuilder;
-import org.modica.afp.modca.structuredfields.migration.PresentationTextDataDescriptor.PTDBuilder;
-import org.modica.afp.modca.structuredfields.position.ObjectAreaPosition.OBPBuilder;
+import org.modica.afp.modca.structuredfields.types.AttributeType;
+import org.modica.afp.modca.structuredfields.types.BeginType;
+import org.modica.afp.modca.structuredfields.types.CopyCountType;
+import org.modica.afp.modca.structuredfields.types.DataType;
+import org.modica.afp.modca.structuredfields.types.DescriptorType;
+import org.modica.afp.modca.structuredfields.types.EndType;
+import org.modica.afp.modca.structuredfields.types.IncludeType;
+import org.modica.afp.modca.structuredfields.types.IndexType;
+import org.modica.afp.modca.structuredfields.types.LinkType;
+import org.modica.afp.modca.structuredfields.types.MapType;
+import org.modica.afp.modca.structuredfields.types.MigrationType;
+import org.modica.afp.modca.structuredfields.types.OrientationType;
+import org.modica.afp.modca.structuredfields.types.PositionType;
+import org.modica.afp.modca.structuredfields.types.ProcessType;
+import org.modica.afp.modca.structuredfields.types.TableType;
+import org.modica.afp.modca.structuredfields.types.VariableType;
 import org.modica.common.ByteUtils;
 
 public abstract class StructuredFieldTypeFactory {
-    private static final java.util.Map<Byte, java.util.Map<Byte, StructuredFieldType>> SF_TYPES = new HashMap<Byte, java.util.Map<Byte, StructuredFieldType>>();
+    private static final java.util.Map<StructuredFieldKey, StructuredFieldType> SF_TYPES = new HashMap<StructuredFieldKey, StructuredFieldType>();
 
     static {
         registerStructuredFieldType(
@@ -36,30 +30,58 @@ public abstract class StructuredFieldTypeFactory {
                 DescriptorType.values(),
                 ControlType.values(),
                 BeginType.values(),
-                End.values(),
-                Index.values(),
-                Orientation.values(),
-                Map.values(),
-                Position.values(),
-                Process.values(),
-                Include.values(),
-                Table.values(),
-                Migration.values(),
-                Variable.values(),
-                Link.values(),
-                Data.values());
+                EndType.values(),
+                IndexType.values(),
+                OrientationType.values(),
+                MapType.values(),
+                PositionType.values(),
+                ProcessType.values(),
+                IncludeType.values(),
+                TableType.values(),
+                MigrationType.values(),
+                VariableType.values(),
+                LinkType.values(),
+                DataType.values());
     }
 
     private static void registerStructuredFieldType(StructuredFieldType[]... sfTypes) {
         for (StructuredFieldType[] sfTypeArray : sfTypes) {
-            byte typeID = sfTypeArray[0].getTypeCode().getValue();
-
-            java.util.Map<Byte, StructuredFieldType> map = new HashMap<Byte, StructuredFieldType>();
             for (StructuredFieldType sfType : sfTypeArray) {
-                map.put(sfType.getCategoryCode().getValue(), sfType);
+                SF_TYPES.put(makeFieldKey(sfType.getTypeCode().getValue(),
+                        sfType.getCategoryCode().getValue()), sfType);
             }
-            SF_TYPES.put(typeID, map);
         }
+    }
+
+    private static final class StructuredFieldKey {
+        private final byte typeCode;
+        private final byte categoryCode;
+
+        private StructuredFieldKey(byte typeCode, byte categoryCode) {
+            this.typeCode = typeCode;
+            this.categoryCode = categoryCode;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof StructuredFieldKey)) {
+                return false;
+            }
+            StructuredFieldKey key = (StructuredFieldKey) o;
+            return this.typeCode == key.typeCode && this.categoryCode == key.categoryCode;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = 17;
+            result = 31 * result + typeCode;
+            result = 31 * result + categoryCode;
+            return result;
+        }
+    }
+
+    private static StructuredFieldKey makeFieldKey(byte typeCode, byte categoryCode) {
+        return new StructuredFieldKey(typeCode, categoryCode);
     }
 
     /**
@@ -69,502 +91,12 @@ public abstract class StructuredFieldTypeFactory {
      * @return a structured field type
      */
     public static StructuredFieldType getValue(byte[] id) {
-        java.util.Map<Byte, StructuredFieldType> typeMap = SF_TYPES.get(id[1]);
-        if (typeMap == null) {
-            throw new IllegalArgumentException(
-                    ByteUtils.bytesToHex(id) + " is not a valid structured field");
-        }
-        StructuredFieldType type = typeMap.get(id[2]);
+        assert (id[0] & 0xFF) == 0xd3;
+        StructuredFieldType type = SF_TYPES.get(makeFieldKey(id[1], id[2]));
         if (type == null) {
-            throw new IllegalArgumentException(
-                    ByteUtils.bytesToHex(id) + " is not a valid structured field");
+            throw new IllegalArgumentException(ByteUtils.bytesToHex(id)
+                    + " is not a valid structured field");
         }
         return type;
-    }
-
-    public enum End implements StructuredFieldType {
-        EPS(CategoryCode.page_segment, "Page Segment", new NotYetImplementedBuilder()),
-        ECA(CategoryCode.color_attribute_table, "Color Attribute Table", new NotYetImplementedBuilder()),
-        EII(CategoryCode.im_image, "IM Image (C)", new NotYetImplementedBuilder()),
-        ECP(CategoryCode.code_page, "Code Page", new ECPBuilder()),
-        EFN(CategoryCode.font, "Font", new NotYetImplementedBuilder()),
-        ECF(CategoryCode.coded_font, "Coded Font", new NotYetImplementedBuilder()),
-        EOC(CategoryCode.object_container, "Object Container", new NotYetImplementedBuilder()),
-        EPT(CategoryCode.presentation_text, "Presentation Text Object", new EPTBuilder()),
-        EDI(CategoryCode.index, "Document Index", new NotYetImplementedBuilder()),
-        EDT(CategoryCode.document, "Document", new EDTBuilder()),
-        ENG(CategoryCode.page_group, "Named Page Group", new ENGBuilder()),
-        EPG(CategoryCode.page, "Page", new EPGBuilder()),
-        EGR(CategoryCode.graphics, "Graphics Object", new NotYetImplementedBuilder()),
-        EDG(CategoryCode.document_environment_group, "Document Environment Group", new NotYetImplementedBuilder()),
-        EFG(CategoryCode.form_environment_group, "Form Environment Group (O)", new NotYetImplementedBuilder()),
-        ERG(CategoryCode.resource_group, "Resource Group", new ERGBuilder()),
-        EOG(CategoryCode.object_environment_group, "Object Environment Group", new NotYetImplementedBuilder()),
-        EAG(CategoryCode.active_environment_group, "Active Environment Group", new EAGBuilder()),
-        EMM(CategoryCode.medium_map, "Medium Map", new NotYetImplementedBuilder()),
-        EFM(CategoryCode.form_map, "Form Map", new NotYetImplementedBuilder()),
-        ERS(CategoryCode.name_resource, "Resource", new NotYetImplementedBuilder()),
-        ESG(CategoryCode.resource_enviroment_group, "Resource Environment Group", new NotYetImplementedBuilder()),
-        EMO(CategoryCode.overlay, "Overlay", new NotYetImplementedBuilder()),
-        EBC(CategoryCode.barcode, "Bar Code Object", new NotYetImplementedBuilder()),
-        EIM(CategoryCode.image, "Image Object", new EIMBuilder());
-
-        public static final TypeCode TYPE_CODE = TypeCode.End;
-        private final CategoryCode category;
-        private final String name;
-        private final Builder builder;
-
-        private End(CategoryCode category, String name, Builder builder) {
-            this.category = category;
-            this.name = "End " + name;
-            this.builder = builder;
-        }
-
-        @Override
-        public CategoryCode getCategoryCode() {
-            return category;
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public TypeCode getTypeCode() {
-            return TYPE_CODE;
-        }
-
-        @Override
-        public Builder getBuilder() {
-            return builder;
-        }
-    }
-
-    public enum Index implements StructuredFieldType {
-        CPI(CategoryCode.code_page, "Code Page Index", new CPIBuilder()),
-        FNI(CategoryCode.font, "Font Index", new NotYetImplementedBuilder()),
-        CFI(CategoryCode.coded_font, "Coded Font Index", new NotYetImplementedBuilder());
-
-        private static final TypeCode TYPE_CODE = TypeCode.Index;
-        private final String name;
-        private final CategoryCode category;
-        private final Builder builder;
-
-        private Index(CategoryCode category, String name, Builder builder) {
-            this.name = name;
-            this.category = category;
-            this.builder = builder;
-        }
-
-        @Override
-        public CategoryCode getCategoryCode() {
-            return category;
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public TypeCode getTypeCode() {
-            return TYPE_CODE;
-        }
-
-        @Override
-        public Builder getBuilder() {
-            return builder;
-        }
-    }
-
-    public enum Orientation implements StructuredFieldType {
-        FNO(CategoryCode.font, "Font Orientation", new NotYetImplementedBuilder());
-
-        private static final TypeCode TYPE_CODE = TypeCode.Orientation;
-        private final String name;
-        private final CategoryCode category;
-        private final Builder builder;
-
-        private Orientation(CategoryCode category, String name, Builder builder) {
-            this.name = name;
-            this.category = category;
-            this.builder = builder;
-        }
-
-        @Override
-        public CategoryCode getCategoryCode() {
-            return category;
-        }
-
-        @Override
-        public TypeCode getTypeCode() {
-            return TYPE_CODE;
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public Builder getBuilder() {
-            return builder;
-        }
-    }
-
-    public enum Map implements StructuredFieldType {
-        MCA(CategoryCode.color_attribute_table, "Map Color Attribute Table", new NotYetImplementedBuilder()),
-        MMT(CategoryCode.medium, "Map Media Type", new NotYetImplementedBuilder()),
-        FNN(CategoryCode.font, "Font Name Map", new NotYetImplementedBuilder()),
-        MCF(CategoryCode.coded_font, "Map Coded Font", new MCFBuilder()),
-        MCD(CategoryCode.object_container, "Map Container Data", new NotYetImplementedBuilder()),
-        MPG(CategoryCode.page, "Map Page", new NotYetImplementedBuilder()),
-        MGO(CategoryCode.graphics, "Map Graphics Object", new NotYetImplementedBuilder()),
-        MDR(CategoryCode.data_resource, "Map Data Resource", new NotYetImplementedBuilder()),
-        IMM(CategoryCode.medium_map, "Invoke Medium Map", new NotYetImplementedBuilder()),
-        MPO(CategoryCode.page_overlay, "Map Page Overlay", new NotYetImplementedBuilder()),
-        MSU(CategoryCode.data_supression, "Map Suppression", new NotYetImplementedBuilder()),
-        MBC(CategoryCode.barcode, "Map Bar Code Object", new NotYetImplementedBuilder()),
-        MIO(CategoryCode.image, "Map Image Object", new MIOBuilder());
-
-        public static final TypeCode TYPE_CODE = TypeCode.Map;
-        private final CategoryCode category;
-        private final String name;
-        private final Builder builder;
-
-        private Map(CategoryCode category, String name, Builder builder) {
-            this.category = category;
-            this.name = name;
-            this.builder = builder;
-        }
-
-        @Override
-        public CategoryCode getCategoryCode() {
-            return category;
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public TypeCode getTypeCode() {
-            return TYPE_CODE;
-        }
-
-        @Override
-        public Builder getBuilder() {
-            return builder;
-        }
-    }
-
-    public enum Position implements StructuredFieldType {
-        OBP(CategoryCode.object_area, "Object Area Position", new OBPBuilder()),
-        ICP(CategoryCode.im_image, "IM Image Cell Position (C)", new NotYetImplementedBuilder()),
-        FNP(CategoryCode.font, "Font Position", new NotYetImplementedBuilder()),
-        PGP1(CategoryCode.page, "Page Position Format-1 (C)", new NotYetImplementedBuilder());
-
-        private static final TypeCode TYPE_CODE = TypeCode.Position;
-        private final CategoryCode category;
-        private final String name;
-        private final Builder builder;
-
-        private Position(CategoryCode category, String name, Builder builder) {
-            this.category = category;
-            this.name = name;
-            this.builder = builder;
-        }
-
-        @Override
-        public CategoryCode getCategoryCode() {
-            return category;
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public TypeCode getTypeCode() {
-            return TYPE_CODE;
-        }
-
-        @Override
-        public Builder getBuilder() {
-            return builder;
-        }
-    }
-
-    public enum Process implements StructuredFieldType {
-        PPO(CategoryCode.data_resource, "Preprocess Presentation Object", new NotYetImplementedBuilder());
-
-        private static final TypeCode TYPE_CODE = TypeCode.Process;
-        private final CategoryCode category;
-        private final String name;
-        private final Builder builder;
-
-        private Process(CategoryCode type, String name, Builder builder) {
-            this.category = type;
-            this.name = name;
-            this.builder = builder;
-        }
-
-        @Override
-        public CategoryCode getCategoryCode() {
-            return category;
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public TypeCode getTypeCode() {
-            return TYPE_CODE;
-        }
-
-        @Override
-        public Builder getBuilder() {
-            return builder;
-        }
-    }
-
-    public enum Include implements StructuredFieldType {
-        IPS(CategoryCode.page_segment, "Page Segment", new NotYetImplementedBuilder()),
-        IPG(CategoryCode.page, "Page", new NotYetImplementedBuilder()),
-        IOB(CategoryCode.data_resource, "Object", new IOBBuilder()),
-        IPO(CategoryCode.page_overlay, "Page Overlay", new NotYetImplementedBuilder());
-
-        private static final TypeCode TYPE_CODE = TypeCode.Include;
-        private final CategoryCode category;
-        private final String name;
-        private final Builder builder;
-
-        private Include(CategoryCode category, String name, Builder builder) {
-            this.category = category;
-            this.name = "Include " + name;
-            this.builder = builder;
-        }
-
-        @Override
-        public CategoryCode getCategoryCode() {
-            return category;
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public TypeCode getTypeCode() {
-            return TYPE_CODE;
-        }
-
-        @Override
-        public Builder getBuilder() {
-            return builder;
-        }
-    }
-
-    public enum Table implements StructuredFieldType {
-        CAT(CategoryCode.color_attribute_table, "Color Attribute Table", new NotYetImplementedBuilder());
-
-        private static final TypeCode TYPE_CODE = TypeCode.Table;
-        private final CategoryCode category;
-        private final String name;
-        private final Builder builder;
-
-        private Table(CategoryCode category, String name, Builder builder) {
-            this.category = category;
-            this.name = name;
-            this.builder = builder;
-        }
-
-        @Override
-        public CategoryCode getCategoryCode() {
-            return category;
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public TypeCode getTypeCode() {
-            return TYPE_CODE;
-        }
-
-        @Override
-        public Builder getBuilder() {
-            return builder;
-        }
-    }
-
-    public enum Migration implements StructuredFieldType {
-        MPS(CategoryCode.page_segment, "Map Page Segment", new NotYetImplementedBuilder()),
-        MCF1(CategoryCode.coded_font, "Map Coded Font Format-1 (C)", new NotYetImplementedBuilder()),
-        PTD(CategoryCode.presentation_text, "Presentation Text Data Descriptor", new PTDBuilder()),
-        PGP(CategoryCode.page, "Page Position", new NotYetImplementedBuilder()),
-        MMO(CategoryCode.overlay, "Map Medium Overlay", new NotYetImplementedBuilder());
-
-        private static final TypeCode TYPE_CODE = TypeCode.Migration;
-        private final CategoryCode category;
-        private final String name;
-        private final Builder builder;
-
-        private Migration(CategoryCode category, String name, Builder builder) {
-            this.category = category;
-            this.name = name;
-            this.builder = builder;
-        }
-
-        @Override
-        public CategoryCode getCategoryCode() {
-            return category;
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public TypeCode getTypeCode() {
-            return TYPE_CODE;
-        }
-
-        @Override
-        public Builder getBuilder() {
-            return builder;
-        }
-    }
-
-    public enum Variable implements StructuredFieldType {
-        PFC(CategoryCode.medium, "Presentation Fidelity Control", new NotYetImplementedBuilder()),
-        IEL(CategoryCode.index, "Index Element", new NotYetImplementedBuilder());
-
-        private static final TypeCode TYPE_CODE = TypeCode.Variable;
-        private final CategoryCode category;
-        private final String name;
-        private final Builder builder;
-
-        private Variable(CategoryCode category, String name, Builder builder) {
-            this.category = category;
-            this.name = name;
-            this.builder = builder;
-        }
-
-        @Override
-        public CategoryCode getCategoryCode() {
-            return category;
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public TypeCode getTypeCode() {
-            return TYPE_CODE;
-        }
-
-        @Override
-        public Builder getBuilder() {
-            return builder;
-        }
-    }
-
-    public enum Link implements StructuredFieldType {
-        LLE(CategoryCode.process_element, "Link Logical Element", new NotYetImplementedBuilder());
-
-        private static final TypeCode TYPE_CODE = TypeCode.Link;
-        private final CategoryCode category;
-        private final String name;
-        private final Builder builder;
-
-        private Link(CategoryCode category, String name, Builder builder) {
-            this.category = category;
-            this.name = name;
-            this.builder = builder;
-        }
-
-        @Override
-        public CategoryCode getCategoryCode() {
-            return category;
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public TypeCode getTypeCode() {
-            return TYPE_CODE;
-        }
-
-        @Override
-        public Builder getBuilder() {
-            return builder;
-        }
-    }
-
-    public enum Data implements StructuredFieldType {
-        IRD(CategoryCode.im_image, "IM Image Raster Data (C)", new NotYetImplementedBuilder()),
-        FNG(CategoryCode.font, "Font Patterns", new NotYetImplementedBuilder()),
-        OCD(CategoryCode.object_container, "Object Container Data", new NotYetImplementedBuilder()),
-        PTX(CategoryCode.presentation_text, "Presentation Text Data", new PTXBuilder()),
-        GAD(CategoryCode.graphics, "Graphics Data", new NotYetImplementedBuilder()),
-        BDA(CategoryCode.barcode, "Bar Code Data", new NotYetImplementedBuilder()),
-        NOP(CategoryCode.no_operation, "No Operation", new NOPBuilder()),
-        IPD(CategoryCode.image, "Image Picture Data", new IPDBuilder()),
-        // CTX is deprecated
-        CTX(CategoryCode.presentation_text, "Composed Text Data", new NotYetImplementedBuilder());
-
-        private static final TypeCode TYPE_CODE = TypeCode.Data;
-        private final CategoryCode category;
-        private final String name;
-        private final Builder builder;
-
-        private Data(CategoryCode category, String name, Builder builder) {
-            this.category = category;
-            this.name = name;
-            this.builder = builder;
-        }
-
-        @Override
-        public CategoryCode getCategoryCode() {
-            return category;
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public TypeCode getTypeCode() {
-            return TYPE_CODE;
-        }
-
-        @Override
-        public Builder getBuilder() {
-            return builder;
-        }
-    }
-
-    final static class NotYetImplementedBuilder implements Builder {
-        @Override
-        public StructuredField build(StructuredFieldIntroducer intro, Parameters params,
-                Context context) throws UnsupportedEncodingException, MalformedURLException {
-            return null;
-        }
     }
 }

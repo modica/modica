@@ -10,10 +10,10 @@ import org.junit.Test;
 import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
-import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.End;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldTestCase;
+import org.modica.afp.modca.structuredfields.types.EndType;
 import org.modica.common.ByteUtils;
 
 import static org.junit.Assert.assertEquals;
@@ -29,7 +29,7 @@ public class EndCodePageTestCase extends StructuredFieldTestCase<EndCodePage> {
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
-        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(End.ECP);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(EndType.ECP);
 
         Parameters params = new Parameters(cpName.getBytes("Cp500"));
         sut = new EndCodePage(intro, params, new Context());

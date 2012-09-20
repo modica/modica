@@ -11,10 +11,10 @@ import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.common.EncodingScheme;
-import org.modica.afp.modca.structuredfields.DescriptorType;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldTestCase;
+import org.modica.afp.modca.structuredfields.types.DescriptorType;
 import org.modica.common.ByteUtils;
 
 import static org.junit.Assert.assertEquals;

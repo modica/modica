@@ -15,10 +15,12 @@
  * limitations under the License.
  */
 
-package org.modica.afp.modca.structuredfields;
+package org.modica.afp.modca.structuredfields.types;
 
+import org.modica.afp.modca.structuredfields.CategoryCode;
 import org.modica.afp.modca.structuredfields.StructuredField.Builder;
-import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.NotYetImplementedBuilder;
+import org.modica.afp.modca.structuredfields.StructuredFieldType;
+import org.modica.afp.modca.structuredfields.TypeCode;
 import org.modica.afp.modca.structuredfields.begin.BeginActiveEnvironmentGroup.BAGBuilder;
 import org.modica.afp.modca.structuredfields.begin.BeginCodePage.BCPBuilder;
 import org.modica.afp.modca.structuredfields.begin.BeginDocument.BDTBuilder;

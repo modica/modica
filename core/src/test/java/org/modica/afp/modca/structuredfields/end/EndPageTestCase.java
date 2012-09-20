@@ -14,8 +14,8 @@ import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
-import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.End;
 import org.modica.afp.modca.structuredfields.end.EndPage;
+import org.modica.afp.modca.structuredfields.types.EndType;
 import org.modica.afp.modca.triplets.Triplet;
 import org.modica.afp.modca.triplets.fullyqualifiedname.FullyQualifiedNameTestCase;
 import org.modica.common.ByteUtils;
@@ -31,7 +31,7 @@ public class EndPageTestCase extends StructuredFieldWithTripletsTestCase<EndPage
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
-        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(End.EPG);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(EndType.EPG);
 
         List<Triplet> triplets = addTripletToList(
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,

@@ -1,24 +1,24 @@
 package org.modica.afp.modca;
 
-import org.modica.afp.modca.structuredfields.AttributeType;
-import org.modica.afp.modca.structuredfields.BeginType;
 import org.modica.afp.modca.structuredfields.ControlType;
-import org.modica.afp.modca.structuredfields.CopyCountType;
-import org.modica.afp.modca.structuredfields.DescriptorType;
-import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Data;
-import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.End;
-import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Include;
-import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Index;
-import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Link;
-import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Map;
-import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Migration;
-import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Orientation;
-import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Position;
-import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Process;
-import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Table;
-import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Variable;
 import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
+import org.modica.afp.modca.structuredfields.types.AttributeType;
+import org.modica.afp.modca.structuredfields.types.BeginType;
+import org.modica.afp.modca.structuredfields.types.CopyCountType;
+import org.modica.afp.modca.structuredfields.types.DataType;
+import org.modica.afp.modca.structuredfields.types.DescriptorType;
+import org.modica.afp.modca.structuredfields.types.EndType;
+import org.modica.afp.modca.structuredfields.types.IncludeType;
+import org.modica.afp.modca.structuredfields.types.IndexType;
+import org.modica.afp.modca.structuredfields.types.LinkType;
+import org.modica.afp.modca.structuredfields.types.MapType;
+import org.modica.afp.modca.structuredfields.types.MigrationType;
+import org.modica.afp.modca.structuredfields.types.OrientationType;
+import org.modica.afp.modca.structuredfields.types.PositionType;
+import org.modica.afp.modca.structuredfields.types.ProcessType;
+import org.modica.afp.modca.structuredfields.types.TableType;
+import org.modica.afp.modca.structuredfields.types.VariableType;
 
 /**
  * An interface for factories that create {@link StructuredField} objects given a
@@ -35,7 +35,7 @@ public interface StructuredFieldFactory {
     StructuredField createBegin(StructuredFieldIntroducer introducer);
 
     /**
-     * Creates a structured field of the {@link Map} type.
+     * Creates a structured field of the {@link MapType} type.
      *
      * @param introducer the introducer for the structured field
      * @return a Map type structured field
@@ -51,7 +51,7 @@ public interface StructuredFieldFactory {
     StructuredField createDescriptor(StructuredFieldIntroducer introducer);
 
     /**
-     * Creates a structured field of the {@link Migration} type.
+     * Creates a structured field of the {@link MigrationType} type.
      *
      * @param introducer the introducer for the structured field
      * @return a Migration type structured field
@@ -59,7 +59,7 @@ public interface StructuredFieldFactory {
     StructuredField createMigration(StructuredFieldIntroducer introducer);
 
     /**
-     * Creates a structured field of the {@link End} type.
+     * Creates a structured field of the {@link EndType} type.
      *
      * @param introducer the introducer for the structured field
      * @return a End type structured field
@@ -67,7 +67,7 @@ public interface StructuredFieldFactory {
     StructuredField createEnd(StructuredFieldIntroducer introducer);
 
     /**
-     * Creates a structured field of the {@link Data} type.
+     * Creates a structured field of the {@link DataType} type.
      *
      * @param introducer the introducer for the structured field
      * @return a Data type structured field
@@ -75,7 +75,7 @@ public interface StructuredFieldFactory {
     StructuredField createData(StructuredFieldIntroducer introducer);
 
     /**
-     * Creates a structured field of the {@link Position} type.
+     * Creates a structured field of the {@link PositionType} type.
      *
      * @param introducer the introducer for the structured field
      * @return a Position type structured field
@@ -83,7 +83,7 @@ public interface StructuredFieldFactory {
     StructuredField createPosition(StructuredFieldIntroducer introducer);
 
     /**
-     * Creates a structured field of the {@link Include} type.
+     * Creates a structured field of the {@link IncludeType} type.
      *
      * @param introducer the introducer for the structured field
      * @return a Include type structured field
@@ -99,7 +99,7 @@ public interface StructuredFieldFactory {
     StructuredField createControl(StructuredFieldIntroducer introducer);
 
     /**
-     * Creates a structured field of the {@link Index} type.
+     * Creates a structured field of the {@link IndexType} type.
      *
      * @param introducer the introducer for the structured field
      * @return a Index type structured field
@@ -123,7 +123,7 @@ public interface StructuredFieldFactory {
     StructuredField createCopyCount(StructuredFieldIntroducer introducer);
 
     /**
-     * Creates a structured field of the {@link Process} type.
+     * Creates a structured field of the {@link ProcessType} type.
      *
      * @param introducer the introducer for the structured field
      * @return a Process type structured field
@@ -131,7 +131,7 @@ public interface StructuredFieldFactory {
     StructuredField createProcess(StructuredFieldIntroducer introducer);
 
     /**
-     * Creates a structured field of the {@link Orientation} type.
+     * Creates a structured field of the {@link OrientationType} type.
      *
      * @param introducer the introducer for the structured field
      * @return a Orientation type structured field
@@ -139,7 +139,7 @@ public interface StructuredFieldFactory {
     StructuredField createOrientation(StructuredFieldIntroducer introducer);
 
     /**
-     * Creates a structured field of the {@link Table} type.
+     * Creates a structured field of the {@link TableType} type.
      *
      * @param introducer the introducer for the structured field
      * @return a Table type structured field
@@ -147,7 +147,7 @@ public interface StructuredFieldFactory {
     StructuredField createTable(StructuredFieldIntroducer introducer);
 
     /**
-     * Creates a structured field of the {@link Variable} type.
+     * Creates a structured field of the {@link VariableType} type.
      *
      * @param introducer the introducer for the structured field
      * @return a Variable type structured field
@@ -155,7 +155,7 @@ public interface StructuredFieldFactory {
     StructuredField createVariable(StructuredFieldIntroducer introducer);
 
     /**
-     * Creates a structured field of the {@link Link} type.
+     * Creates a structured field of the {@link LinkType} type.
      *
      * @param introducer the introducer for the structured field
      * @return a Link type structured field

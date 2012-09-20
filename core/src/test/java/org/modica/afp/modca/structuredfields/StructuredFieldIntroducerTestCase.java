@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.modica.afp.modca.structuredfields.StructuredFieldType;
 import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
+import org.modica.afp.modca.structuredfields.types.AttributeType;
 import org.modica.common.ByteUtils;
 
 public class StructuredFieldIntroducerTestCase {

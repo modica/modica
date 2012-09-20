@@ -13,8 +13,8 @@ import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldTestCase;
-import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.Data;
 import org.modica.afp.modca.structuredfields.data.NoOperation;
+import org.modica.afp.modca.structuredfields.types.DataType;
 
 /**
  * Test case for {@link NoOperation}.
@@ -26,7 +26,7 @@ public class NoOperationTestCase extends StructuredFieldTestCase<NoOperation> {
 
     @Before
     public void setUp() throws UnsupportedEncodingException {
-        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Data.NOP);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(DataType.NOP);
 
         Parameters params = new Parameters(comment.getBytes("Cp500"));
         sut = new NoOperation(intro, params);

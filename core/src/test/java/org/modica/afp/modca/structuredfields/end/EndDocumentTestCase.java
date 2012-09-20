@@ -9,10 +9,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
-import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.End;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
+import org.modica.afp.modca.structuredfields.types.EndType;
 import org.modica.afp.modca.triplets.Triplet;
 import org.modica.afp.modca.triplets.fullyqualifiedname.FullyQualifiedNameTestCase;
 import org.modica.common.ByteUtils;
@@ -30,7 +30,7 @@ public class EndDocumentTestCase extends StructuredFieldWithTripletsTestCase<End
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
-        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(End.EDT);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(EndType.EDT);
 
         List<Triplet> triplets = addTripletToList(
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,

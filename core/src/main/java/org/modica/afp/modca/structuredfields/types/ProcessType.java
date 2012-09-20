@@ -15,29 +15,27 @@
  * limitations under the License.
  */
 
-package org.modica.afp.modca.structuredfields;
+package org.modica.afp.modca.structuredfields.types;
 
+import org.modica.afp.modca.structuredfields.CategoryCode;
 import org.modica.afp.modca.structuredfields.StructuredField.Builder;
-import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.NotYetImplementedBuilder;
+import org.modica.afp.modca.structuredfields.StructuredFieldType;
+import org.modica.afp.modca.structuredfields.TypeCode;
 
 /**
- * A copy count structured field specifies groups of sheet copies, called copy subgroups, that are
- * to be generated, and identifies modification control structured fields that specify modifications
- * to be applied to each group.
+ * A process structured field specifies processing to be performed on an object.
  */
-public enum CopyCountType implements StructuredFieldType {
-    /** Medium Copy Count */
-    MCC(CategoryCode.medium, "Medium Copy Count", new NotYetImplementedBuilder()),
-    /** Font Patterns Map */
-    FNM(CategoryCode.font, "Font Patterns Map", new NotYetImplementedBuilder());
+public enum ProcessType implements StructuredFieldType {
+    /** Preprocess Presentation Object */
+    PPO(CategoryCode.data_resource, "Preprocess Presentation Object", new NotYetImplementedBuilder());
 
-    public static final TypeCode TYPE_CODE = TypeCode.CopyCount;
+    private static final TypeCode TYPE_CODE = TypeCode.Process;
     private final CategoryCode category;
     private final String name;
     private final Builder builder;
 
-    private CopyCountType(CategoryCode categoryCode, String name, Builder builder) {
-        this.category = categoryCode;
+    private ProcessType(CategoryCode type, String name, Builder builder) {
+        this.category = type;
         this.name = name;
         this.builder = builder;
     }

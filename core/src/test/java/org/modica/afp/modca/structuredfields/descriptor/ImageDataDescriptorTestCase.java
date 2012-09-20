@@ -17,11 +17,11 @@ import org.modica.afp.ioca.SetExtendedBilevelImageColor;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.common.PresentationSpaceUnits;
-import org.modica.afp.modca.structuredfields.DescriptorType;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldTestCase;
 import org.modica.afp.modca.structuredfields.descriptor.ImageDataDescriptor;
+import org.modica.afp.modca.structuredfields.types.DescriptorType;
 import org.modica.common.ByteUtils;
 
 /**

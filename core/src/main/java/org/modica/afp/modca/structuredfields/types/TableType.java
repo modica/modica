@@ -15,26 +15,27 @@
  * limitations under the License.
  */
 
-package org.modica.afp.modca.structuredfields;
+package org.modica.afp.modca.structuredfields.types;
 
+import org.modica.afp.modca.structuredfields.CategoryCode;
 import org.modica.afp.modca.structuredfields.StructuredField.Builder;
-import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.NotYetImplementedBuilder;
+import org.modica.afp.modca.structuredfields.StructuredFieldType;
+import org.modica.afp.modca.structuredfields.TypeCode;
 
 /**
- * An attribute structured field defines an attribute with parameters such as name and value.
+ * A table structured field contains a list of items of the same or similar type that are related to
+ * one another.
  */
-public enum AttributeType implements StructuredFieldType {
-    /** Medium Finishing Control */
-    MFC(CategoryCode.medium, "Medium Finishing Control", new NotYetImplementedBuilder()),
-    /** Tag Logical Element */
-    TLE(CategoryCode.process_element, "Tag Logical Element", new NotYetImplementedBuilder());
+public enum TableType implements StructuredFieldType {
+    /** Color Attribute Table */
+    CAT(CategoryCode.color_attribute_table, "Color Attribute Table", new NotYetImplementedBuilder());
 
-    public static final TypeCode TYPE_CODE = TypeCode.Attribute;
+    private static final TypeCode TYPE_CODE = TypeCode.Table;
     private final CategoryCode category;
     private final String name;
     private final Builder builder;
 
-    private AttributeType(CategoryCode category, String name, Builder builder) {
+    private TableType(CategoryCode category, String name, Builder builder) {
         this.category = category;
         this.name = name;
         this.builder = builder;

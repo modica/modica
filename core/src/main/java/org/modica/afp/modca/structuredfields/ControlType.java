@@ -18,7 +18,6 @@
 package org.modica.afp.modca.structuredfields;
 
 import org.modica.afp.modca.structuredfields.StructuredField.Builder;
-import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.NotYetImplementedBuilder;
 import org.modica.afp.modca.structuredfields.control.CodePageControl.CPCBuilder;
 
 /**

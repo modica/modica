@@ -11,10 +11,10 @@ import org.modica.afp.modca.Context;
 import org.modica.afp.modca.EbcdicStringHandler;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
-import org.modica.afp.modca.structuredfields.BeginType;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
+import org.modica.afp.modca.structuredfields.types.BeginType;
 import org.modica.afp.modca.triplets.Triplet;
 import org.modica.afp.modca.triplets.fullyqualifiedname.FullyQualifiedNameTestCase;
 

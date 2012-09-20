@@ -3,11 +3,11 @@ package org.modica.afp.modca.structuredfields.end;
 import java.io.UnsupportedEncodingException;
 
 import org.modica.afp.modca.Parameters;
-import org.modica.afp.modca.structuredfields.BeginType;
-import org.modica.afp.modca.structuredfields.StructuredFieldTypeFactory.End;
+import org.modica.afp.modca.structuredfields.types.BeginType;
+import org.modica.afp.modca.structuredfields.types.EndType;
 
 /**
- * This object is to amalgamate the intelligence of a lot of the {@link End} type structured fields
+ * This object is to amalgamate the intelligence of a lot of the {@link EndType} type structured fields
  * that have names. The name can either match the name or it can match ANY name of a corresponding
  * {@link BeginType} structured field or it.
  */
