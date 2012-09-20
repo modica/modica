@@ -1,14 +1,17 @@
 package org.modica.afp.modca.structuredfields.end;
 
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.modica.afp.modca.triplets.Triplet;
+import org.modica.afp.modca.triplets.TripletHandler;
 
 /**
  * The End Image Object structured field terminates the current image object initiated by a Begin
@@ -18,7 +21,7 @@ public class EndImageObject extends StructuredFieldWithTriplets {
 
     private final EndFieldName idoName;
 
-    public EndImageObject(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
+    EndImageObject(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
         idoName = new EndFieldName(params);
@@ -52,5 +55,13 @@ public class EndImageObject extends StructuredFieldWithTriplets {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("ImageDataObjectName", getIdoName()));
         return params;
+    }
+
+    public static final class EIMBuilder implements Builder {
+        @Override
+        public EndImageObject build(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException, MalformedURLException {
+            return new EndImageObject(intro, TripletHandler.parseTriplet(params, 8, context), params);
+        }
     }
 }

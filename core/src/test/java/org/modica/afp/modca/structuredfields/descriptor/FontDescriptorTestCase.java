@@ -19,8 +19,8 @@ import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Descriptor;
 import org.modica.afp.modca.structuredfields.descriptor.FontDescriptor;
+import org.modica.afp.modca.structuredfields.types.DescriptorType;
 import org.modica.afp.modca.triplets.Triplet;
 import org.modica.afp.modca.triplets.fullyqualifiedname.FullyQualifiedNameTestCase;
 import org.modica.common.ByteUtils;
@@ -37,7 +37,7 @@ public class FontDescriptorTestCase extends StructuredFieldWithTripletsTestCase<
 
     @Before
     public void setUp() throws UnsupportedEncodingException, MalformedURLException {
-        intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Descriptor.FND);
+        intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(DescriptorType.FND);
 
         ByteBuffer bb = ByteBuffer.allocate(80);
         byte[] descBytes = description.getBytes("Cp500");
@@ -126,7 +126,7 @@ public class FontDescriptorTestCase extends StructuredFieldWithTripletsTestCase<
 
     private FontDescriptor createdescriptor() throws UnsupportedEncodingException,
             MalformedURLException {
-        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Descriptor.FND);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(DescriptorType.FND);
         List<Triplet> triplets = addTripletToList(
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
                 FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);

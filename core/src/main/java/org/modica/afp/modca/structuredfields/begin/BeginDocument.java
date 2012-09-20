@@ -1,14 +1,17 @@
 package org.modica.afp.modca.structuredfields.begin;
 
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.modica.afp.modca.triplets.Triplet;
+import org.modica.afp.modca.triplets.TripletHandler;
 
 /**
  * The Begin Document structured field names and begins the document.
@@ -18,7 +21,7 @@ public final class BeginDocument extends StructuredFieldWithTriplets {
     private final String documentName;
     private final boolean docNameProvidedBySystem;
 
-    public BeginDocument(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
+    BeginDocument(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
         if (params.getByte() != (byte) 0xFF && params.getByte() != (byte) 0xFF) {
@@ -60,5 +63,13 @@ public final class BeginDocument extends StructuredFieldWithTriplets {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("DocumentName", documentName));
         return params;
+    }
+
+    public static final class BDTBuilder implements Builder {
+        @Override
+        public BeginDocument build(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException, MalformedURLException {
+            return new BeginDocument(intro, TripletHandler.parseTriplet(params, 8, context), params);
+        }
     }
 }

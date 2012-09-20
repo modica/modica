@@ -1,14 +1,18 @@
 package org.modica.afp.modca.structuredfields.descriptor;
 
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.common.PresentationSpaceUnits;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.modica.afp.modca.triplets.Triplet;
+import org.modica.afp.modca.triplets.TripletHandler;
 
 /**
  * The Page Descriptor structured field specifies the size and attributes of a page or overlay
@@ -52,7 +56,7 @@ public class PageDescriptor extends StructuredFieldWithTriplets {
     private final int xAxisPageSize;
     private final int yAxisPageSize;
 
-    public PageDescriptor(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params) {
+    PageDescriptor(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params) {
         super(introducer, triplets);
         xAxisBaseUnit = PresentationSpaceUnits.getValue(params.getByte());
         yAxisBaseUnit = PresentationSpaceUnits.getValue(params.getByte());
@@ -131,5 +135,13 @@ public class PageDescriptor extends StructuredFieldWithTriplets {
         params.add(new ParameterAsString("X-AxisPageSize", xAxisPageSize));
         params.add(new ParameterAsString("Y-AxisPageSize", yAxisPageSize));
         return params;
+    }
+
+    public static final class PGDBuilder implements Builder {
+        @Override
+        public PageDescriptor build(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException, MalformedURLException {
+            return new PageDescriptor(intro, TripletHandler.parseTriplet(params, 15, context), params);
+        }
     }
 }

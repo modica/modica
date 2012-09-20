@@ -17,9 +17,9 @@ import org.modica.afp.modca.common.Rotation;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Include;
 import org.modica.afp.modca.structuredfields.include.IncludeObject;
 import org.modica.afp.modca.structuredfields.include.IncludeObject.ObjectType;
+import org.modica.afp.modca.structuredfields.types.IncludeType;
 import org.modica.afp.modca.triplets.Triplet;
 import org.modica.afp.modca.triplets.fullyqualifiedname.FullyQualifiedNameTestCase;
 import org.modica.common.ByteUtils;
@@ -42,7 +42,7 @@ public class IncludeObjectTestCase extends StructuredFieldWithTripletsTestCase<I
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
-        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Include.IOB);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(IncludeType.IOB);
 
         List<Triplet> triplets = addTripletToList(
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,

@@ -14,8 +14,8 @@ import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldTestCase;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.End;
 import org.modica.afp.modca.structuredfields.end.EndResource;
+import org.modica.afp.modca.structuredfields.types.EndType;
 import org.modica.common.ByteUtils;
 
 /**
@@ -29,7 +29,7 @@ public class EndResourceTestCase extends StructuredFieldTestCase<EndResource> {
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
-        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(End.ERS);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(EndType.ERS);
 
         Parameters params = new Parameters(resourceName.getBytes("Cp500"));
         Parameters matchesAny = new Parameters(ByteUtils.createByteArray(0xff, 0xff));

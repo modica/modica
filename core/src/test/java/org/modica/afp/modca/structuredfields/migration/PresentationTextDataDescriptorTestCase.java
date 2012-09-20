@@ -13,8 +13,8 @@ import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Migration;
 import org.modica.afp.modca.structuredfields.migration.PresentationTextDataDescriptor;
+import org.modica.afp.modca.structuredfields.types.MigrationType;
 import org.modica.afp.modca.triplets.Triplet;
 import org.modica.common.ByteUtils;
 
@@ -28,7 +28,7 @@ public class PresentationTextDataDescriptorTestCase extends
 
     @Before
     public void setUp() {
-        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Migration.PTD);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(MigrationType.PTD);
 
         byte[] sfData = ByteUtils.createByteArray(0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0);
         Parameters params = new Parameters(sfData);

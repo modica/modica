@@ -33,7 +33,7 @@ public abstract class AbstractStructuredField implements StructuredField {
     }
 
     @Override
-    public SfType getType() {
+    public StructuredFieldType getType() {
         return introducer.getType();
     }
 

@@ -8,6 +8,7 @@ import org.modica.afp.ioca.IocaFunctionSetId;
 import org.modica.afp.ioca.SelfDefiningField;
 import org.modica.afp.ioca.SetBilevelImageColor;
 import org.modica.afp.ioca.SetExtendedBilevelImageColor;
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.common.PresentationSpaceUnits;
@@ -26,7 +27,7 @@ public class ImageDataDescriptor extends AbstractStructuredField {
     private final int ySize;
     private final List<SelfDefiningField> selfDefiningFields;
 
-    public ImageDataDescriptor(StructuredFieldIntroducer introducer, Parameters params) {
+    ImageDataDescriptor(StructuredFieldIntroducer introducer, Parameters params) {
         super(introducer);
         unitsBase = PresentationSpaceUnits.getValue(params.getByte());
         xResol = (int) params.getUInt(2);
@@ -121,5 +122,13 @@ public class ImageDataDescriptor extends AbstractStructuredField {
         params.add(new ParameterAsString("YSize", ySize));
         params.add(new ParameterAsString("UnitBase", unitsBase.name()));
         return params;
+    }
+
+    public static final class IDDBuilder implements Builder {
+        @Override
+        public ImageDataDescriptor build(StructuredFieldIntroducer intro, Parameters params,
+                Context context) {
+            return new ImageDataDescriptor(intro, params);
+        }
     }
 }

@@ -8,10 +8,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.End;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldTestCase;
+import org.modica.afp.modca.structuredfields.types.EndType;
 import org.modica.common.ByteUtils;
 
 import static org.junit.Assert.assertEquals;
@@ -27,7 +27,7 @@ public class EndActiveEnvironmentGroupTestCase extends
 
     @Before
     public void setUp() throws UnsupportedEncodingException {
-        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(End.EAG);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(EndType.EAG);
         Parameters params = new Parameters(aegName.getBytes("Cp500"));
         sut = new EndActiveEnvironmentGroup(intro, params);
 

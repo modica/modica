@@ -1,15 +1,18 @@
 package org.modica.afp.modca.structuredfields.begin;
 
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.EbcdicStringHandler;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.modica.afp.modca.triplets.Triplet;
+import org.modica.afp.modca.triplets.TripletHandler;
 
 /**
  * The Begin Font (BFN) structured field begins the font character set object.
@@ -18,7 +21,7 @@ public class BeginFont extends StructuredFieldWithTriplets {
 
     private final String csName;
 
-    public BeginFont(StructuredFieldIntroducer introducer, List<Triplet> triplets,
+    BeginFont(StructuredFieldIntroducer introducer, List<Triplet> triplets,
             Parameters params) throws UnsupportedEncodingException {
         super(introducer, triplets);
         csName = params.getStringAt(0, 8, EbcdicStringHandler.DEFAULT_CPGID);
@@ -44,5 +47,13 @@ public class BeginFont extends StructuredFieldWithTriplets {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("CharactersetName", csName));
         return params;
+    }
+
+    public static final class BFNBuilder implements Builder {
+        @Override
+        public BeginFont build(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException, MalformedURLException {
+            return new BeginFont(intro, TripletHandler.parseTriplet(params, 8, context), params);
+        }
     }
 }

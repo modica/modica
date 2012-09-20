@@ -18,7 +18,7 @@ public class EndCodePage extends AbstractStructuredField {
 
     private final EndFieldName cpName;
 
-    public EndCodePage(StructuredFieldIntroducer introducer, Parameters params, Context ctx)
+    EndCodePage(StructuredFieldIntroducer introducer, Parameters params, Context ctx)
             throws UnsupportedEncodingException {
         super(introducer);
         cpName = new EndFieldName(params, EbcdicStringHandler.DEFAULT_CPGID);
@@ -50,5 +50,13 @@ public class EndCodePage extends AbstractStructuredField {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("CodePageName", getCodePageName()));
         return params;
+    }
+
+    public static final class ECPBuilder implements Builder {
+        @Override
+        public EndCodePage build(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException {
+            return new EndCodePage(intro, params, context);
+        }
     }
 }

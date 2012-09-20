@@ -10,10 +10,10 @@ import org.junit.Test;
 import org.modica.afp.modca.Context;
 import org.modica.afp.modca.Context.ContextType;
 import org.modica.afp.modca.ParameterAsString;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Map;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletGroupTestCase;
+import org.modica.afp.modca.structuredfields.types.MapType;
 import org.modica.afp.modca.triplets.RepeatingTripletGroup;
 
 import static org.junit.Assert.assertEquals;
@@ -28,7 +28,7 @@ public class MapCodedFontTestCase extends StructuredFieldWithTripletGroupTestCas
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
-        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Map.MCF);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(MapType.MCF);
         RepeatingTripletGroup tripletGroup = StructuredFieldWithTripletGroupTestCase.createGenericRepeatingGroup();
 
         ctx = new Context();

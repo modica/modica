@@ -21,7 +21,7 @@ public class PresentationTextData extends AbstractStructuredField {
 
     private final List<ControlSequence> ptocaData;
 
-    public PresentationTextData(StructuredFieldIntroducer introducer, Parameters params,
+    PresentationTextData(StructuredFieldIntroducer introducer, Parameters params,
             Context ctx) throws UnsupportedEncodingException {
         super(introducer);
         ptocaData = ControlSequenceParser.parse(params, ctx);
@@ -40,5 +40,13 @@ public class PresentationTextData extends AbstractStructuredField {
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         return params;
+    }
+
+    public static final class PTXBuilder implements Builder {
+        @Override
+        public PresentationTextData build(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException {
+            return new PresentationTextData(intro, params, context);
+        }
     }
 }

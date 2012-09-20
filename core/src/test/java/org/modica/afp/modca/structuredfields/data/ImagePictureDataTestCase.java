@@ -11,8 +11,8 @@ import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldTestCase;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Data;
 import org.modica.afp.modca.structuredfields.data.ImagePictureData;
+import org.modica.afp.modca.structuredfields.types.DataType;
 
 /**
  * Test case for {@link ImagePictureData}.
@@ -24,7 +24,7 @@ public class ImagePictureDataTestCase extends StructuredFieldTestCase<ImagePictu
 
     @Before
     public void setUp() {
-        intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Data.IPD);
+        intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(DataType.IPD);
         sut = new ImagePictureData(intro);
         setMembers(sut, intro);
     }
