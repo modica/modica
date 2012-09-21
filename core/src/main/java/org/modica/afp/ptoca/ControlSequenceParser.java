@@ -63,65 +63,6 @@ public class ControlSequenceParser {
             isChained = false;
         }
         ControlSequenceIdentifier csId = ControlSequenceIdentifier.getCsId(id);
-        switch (csId) {
-        case ABSOLUTE_MOVE_BASELINE:
-            return new AbsoluteMoveBaseline(csId, length, isChained, params);
-        case ABSOLUTE_MOVE_INLINE:
-            return new AbsoluteMoveInline(csId, length, isChained, params);
-        case BEGIN_LINE:
-            return new BeginLine(csId, length, isChained);
-        case BEGIN_SUPPRESSION:
-            return new BeginSuppression(csId, length, isChained, params);
-        case DRAW_B_AXIS_RULE:
-            return new DrawBAxisRule(csId, length, isChained, params);
-        case DRAW_I_AXIS_RULE:
-            return new DrawIAxisRule(csId, length, isChained, params);
-        case END_SUPPRESSION:
-            return new EndSuppression(csId, length, isChained, params);
-        case NO_OPERATION:
-            return new NoOperation(csId, length, isChained, params);
-        case OVERSTRIKE:
-            return new Overstrike(csId, length, isChained, params);
-        case RELATIVE_MOVE_BASELINE:
-            return new RelativeMoveBaseline(csId, length, isChained, params);
-        case RELATIVE_MOVE_INLINE:
-            return new RelativeMoveInline(csId, length, isChained, params);
-        case REPEAT_STRING:
-            return new RepeatString(csId, length, isChained, params);
-        case SET_BASELINE_INCREMENT:
-            return new SetBaselineIncrement(csId, length, isChained, params);
-        case SET_CODED_FONT_LOCAL:
-            return new SetCodedFontLocal(csId, length, isChained, params, ctx);
-        case SET_EXTENDED_TEXT_COLOR:
-            return new SetExtendedTextColor(csId, length, isChained, params);
-        case SET_INLINE_MARGIN:
-            return new SetInlineMargin(csId, length, isChained, params);
-        case SET_INTERCHARACTER_ADJUSTMENT:
-            return new SetIntercharacterAdjustment(csId, length, isChained, params);
-        case SET_TEXT_COLOR:
-            return new SetTextColor(csId, length, isChained, params);
-        case SET_TEXT_ORIENTATION:
-            return new SetTextOrientation(csId, length, isChained, params);
-        case SET_VARIABLE_SPACE_CHARACTER_INCREMENT:
-            return new SetVariableSpaceCharacterIncrement(csId, length, isChained, params);
-        case TRANSPARENT_DATA:
-            return new TransparentData(csId, length, isChained, params, ctx);
-        case UNDERSCORE:
-            return new Underscore(csId, length, isChained, params);
-        default:
-            ControlSequence cs = new ControlSequence(csId, length, isChained) {
-                @Override
-                public String getValueAsString() {
-                    return "Unhandled Control Sequence";
-                }
-
-                @Override
-                public String toString() {
-                    return getValueAsString();
-                }
-            };
-            params.skip(cs.getLength() - 2);
-            return cs;
-        }
+        return csId.createControlSequence(length, isChained, params, ctx);
     }
 }
