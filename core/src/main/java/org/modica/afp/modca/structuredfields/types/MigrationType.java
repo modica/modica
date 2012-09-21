@@ -19,9 +19,11 @@ package org.modica.afp.modca.structuredfields.types;
 
 import org.modica.afp.modca.structuredfields.CategoryCode;
 import org.modica.afp.modca.structuredfields.StructuredField.Builder;
+import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldType;
 import org.modica.afp.modca.structuredfields.TypeCode;
 import org.modica.afp.modca.structuredfields.migration.PresentationTextDataDescriptor.PTDBuilder;
+import org.modica.parser.StructuredFieldIntroducerHandler;
 
 /**
  * A migration structured field is used to distinguish the MO:DCA structured field from a structured
@@ -69,5 +71,11 @@ public enum MigrationType implements StructuredFieldType {
     @Override
     public Builder getBuilder() {
         return builder;
+    }
+
+    @Override
+    public void handleIntroducer(StructuredFieldIntroducerHandler handler,
+            StructuredFieldIntroducer intro) {
+        handler.handle(intro);
     }
 }

@@ -19,11 +19,13 @@ package org.modica.afp.modca.structuredfields.types;
 
 import org.modica.afp.modca.structuredfields.CategoryCode;
 import org.modica.afp.modca.structuredfields.StructuredField.Builder;
+import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldType;
 import org.modica.afp.modca.structuredfields.TypeCode;
 import org.modica.afp.modca.structuredfields.data.ImagePictureData.IPDBuilder;
 import org.modica.afp.modca.structuredfields.data.NoOperation.NOPBuilder;
 import org.modica.afp.modca.structuredfields.data.PresentationTextData.PTXBuilder;
+import org.modica.parser.StructuredFieldIntroducerHandler;
 
 /**
  * A data structured field consists of data whose meaning and interpretation is governed by the
@@ -79,5 +81,11 @@ public enum DataType implements StructuredFieldType {
     @Override
     public Builder getBuilder() {
         return builder;
+    }
+
+    @Override
+    public void handleIntroducer(StructuredFieldIntroducerHandler handler,
+            StructuredFieldIntroducer intro) {
+        handler.handle(intro);
     }
 }

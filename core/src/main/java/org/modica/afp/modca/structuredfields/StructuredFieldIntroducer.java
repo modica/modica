@@ -3,6 +3,8 @@ package org.modica.afp.modca.structuredfields;
 import java.io.Serializable;
 
 import org.modica.common.StringUtils;
+import org.modica.parser.StructuredFieldHandler;
+import org.modica.parser.StructuredFieldIntroducerHandler;
 
 /**
  * A data object that represents a structured field and holds the data provided in the introducer.
@@ -146,6 +148,17 @@ public class StructuredFieldIntroducer implements Serializable {
      */
     public static boolean hasSfiExtension(byte flags) {
         return FlagField.hasSfiExtension(flags);
+    }
+
+    /**
+     * Given a {@link StructuredFieldHandler} this helper method will use its
+     * {@link StructuredFieldType} and call the relevant method on the handler.
+     * @See {@link StructuredFieldType#handleIntroducer(StructuredFieldIntroducerHandler, StructuredFieldIntroducer)}
+     *
+     * @param handler the introducer handler
+     */
+    public void handleIntroducer(StructuredFieldIntroducerHandler handler) {
+        getType().handleIntroducer(handler, this);
     }
 
     @Override

@@ -51,17 +51,8 @@ public final class StructuredFieldIntroducerParser {
      */
     public void parse() throws IOException {
         handler.startAfp();
-        for (StructuredFieldIntroducer sf : introducers) {
-            switch (sf.getType().getTypeCode()) {
-            case Begin:
-                handler.handleBegin(sf);
-                break;
-            case End:
-                handler.handleEnd(sf);
-                break;
-            default:
-                handler.handle(sf);
-            }
+        for (StructuredFieldIntroducer intro : introducers) {
+            intro.handleIntroducer(handler);
         }
         handler.endAfp();
     }

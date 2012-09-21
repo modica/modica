@@ -19,10 +19,12 @@ package org.modica.afp.modca.structuredfields.types;
 
 import org.modica.afp.modca.structuredfields.CategoryCode;
 import org.modica.afp.modca.structuredfields.StructuredField.Builder;
+import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldType;
 import org.modica.afp.modca.structuredfields.TypeCode;
 import org.modica.afp.modca.structuredfields.map.MapCodedFont.MCFBuilder;
 import org.modica.afp.modca.structuredfields.map.MapImageObject.MIOBuilder;
+import org.modica.parser.StructuredFieldIntroducerHandler;
 
 /**
  * A map structured field provides the following functions in the MO:DCA architecture:
@@ -97,5 +99,11 @@ public enum MapType implements StructuredFieldType {
     @Override
     public Builder getBuilder() {
         return builder;
+    }
+
+    @Override
+    public void handleIntroducer(StructuredFieldIntroducerHandler handler,
+            StructuredFieldIntroducer intro) {
+        handler.handle(intro);
     }
 }

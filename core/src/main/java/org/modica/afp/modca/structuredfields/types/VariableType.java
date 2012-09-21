@@ -19,8 +19,10 @@ package org.modica.afp.modca.structuredfields.types;
 
 import org.modica.afp.modca.structuredfields.CategoryCode;
 import org.modica.afp.modca.structuredfields.StructuredField.Builder;
+import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldType;
 import org.modica.afp.modca.structuredfields.TypeCode;
+import org.modica.parser.StructuredFieldIntroducerHandler;
 
 /**
  * A variable structured field defines or contains variable information.
@@ -60,5 +62,11 @@ public enum VariableType implements StructuredFieldType {
     @Override
     public Builder getBuilder() {
         return builder;
+    }
+
+    @Override
+    public void handleIntroducer(StructuredFieldIntroducerHandler handler,
+            StructuredFieldIntroducer intro) {
+        handler.handle(intro);
     }
 }

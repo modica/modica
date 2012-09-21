@@ -19,6 +19,7 @@ package org.modica.afp.modca.structuredfields.types;
 
 import org.modica.afp.modca.structuredfields.CategoryCode;
 import org.modica.afp.modca.structuredfields.StructuredField.Builder;
+import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldType;
 import org.modica.afp.modca.structuredfields.TypeCode;
 import org.modica.afp.modca.structuredfields.end.EndActiveEnvironmentGroup.EAGBuilder;
@@ -29,6 +30,7 @@ import org.modica.afp.modca.structuredfields.end.EndNamedPageGroup.ENGBuilder;
 import org.modica.afp.modca.structuredfields.end.EndPage.EPGBuilder;
 import org.modica.afp.modca.structuredfields.end.EndPresentationTextObject.EPTBuilder;
 import org.modica.afp.modca.structuredfields.end.EndResourceGroup.ERGBuilder;
+import org.modica.parser.StructuredFieldIntroducerHandler;
 
 /**
  * An end structured field identifies the end of a document component. In general, an end
@@ -115,5 +117,11 @@ public enum EndType implements StructuredFieldType {
     @Override
     public Builder getBuilder() {
         return builder;
+    }
+
+    @Override
+    public void handleIntroducer(StructuredFieldIntroducerHandler handler,
+            StructuredFieldIntroducer intro) {
+        handler.handleEnd(intro);
     }
 }

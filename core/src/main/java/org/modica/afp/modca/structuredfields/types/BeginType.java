@@ -19,6 +19,7 @@ package org.modica.afp.modca.structuredfields.types;
 
 import org.modica.afp.modca.structuredfields.CategoryCode;
 import org.modica.afp.modca.structuredfields.StructuredField.Builder;
+import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldType;
 import org.modica.afp.modca.structuredfields.TypeCode;
 import org.modica.afp.modca.structuredfields.begin.BeginActiveEnvironmentGroup.BAGBuilder;
@@ -32,6 +33,7 @@ import org.modica.afp.modca.structuredfields.begin.BeginPage.BPGBuilder;
 import org.modica.afp.modca.structuredfields.begin.BeginPresentationTextObject.BPTBuilder;
 import org.modica.afp.modca.structuredfields.begin.BeginResource.BRSBuilder;
 import org.modica.afp.modca.structuredfields.begin.BeginResourceGroup.BRGBuilder;
+import org.modica.parser.StructuredFieldIntroducerHandler;
 
 /**
  * A begin structured field introduces and identifies a document component. In general, a begin
@@ -118,5 +120,11 @@ public enum BeginType implements StructuredFieldType {
     @Override
     public Builder getBuilder() {
         return builder;
+    }
+
+    @Override
+    public void handleIntroducer(StructuredFieldIntroducerHandler handler,
+            StructuredFieldIntroducer intro) {
+        handler.handleBegin(intro);
     }
 }

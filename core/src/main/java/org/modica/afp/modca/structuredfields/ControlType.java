@@ -19,6 +19,7 @@ package org.modica.afp.modca.structuredfields;
 
 import org.modica.afp.modca.structuredfields.StructuredField.Builder;
 import org.modica.afp.modca.structuredfields.control.CodePageControl.CPCBuilder;
+import org.modica.parser.StructuredFieldIntroducerHandler;
 
 /**
  * A control structured field specifies the type of modifications that are to be applied to a group
@@ -71,5 +72,11 @@ public enum ControlType implements StructuredFieldType {
     @Override
     public Builder getBuilder() {
         return builder;
+    }
+
+    @Override
+    public void handleIntroducer(StructuredFieldIntroducerHandler handler,
+            StructuredFieldIntroducer intro) {
+        handler.handle(intro);
     }
 }

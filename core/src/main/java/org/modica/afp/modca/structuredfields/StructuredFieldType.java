@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import org.modica.afp.modca.Context;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredField.Builder;
+import org.modica.parser.StructuredFieldIntroducerHandler;
 
 /**
  * This represents type of structured field as defined in the AFP specifications (MODCA, FOCA etc).
@@ -31,6 +32,13 @@ public interface StructuredFieldType {
      * @return the name
      */
     String getName();
+
+    /**
+     * Delegates to the appropriate method on the handler for dealing with this structured field.
+     *
+     * @param handler the handler
+     */
+    void handleIntroducer(StructuredFieldIntroducerHandler handler, StructuredFieldIntroducer intro);
 
     /**
      * The builder for the structured field of this type.
