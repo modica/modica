@@ -1,13 +1,11 @@
 package org.modica.afp.ptoca;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.modica.afp.modca.Parameters;
-import org.modica.afp.ptoca.ControlSequenceIdentifier;
-import org.modica.afp.ptoca.DrawBAxisRule;
 import org.modica.common.ByteUtils;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test case for {@link DrawBAxisRule}.
@@ -21,7 +19,7 @@ public class DrawBAxisRuleTestCase extends ControlSequenceTestCase<DrawBAxisRule
 
     @Before
     public void setUp() {
-        Parameters params = new Parameters(dataArray, "Cp500");
+        Parameters params = new Parameters(dataArray);
         ControlSequenceIdentifier expectedCsId = ControlSequenceIdentifier.DRAW_B_AXIS_RULE;
         int length = 7;
         boolean isChained = true;
@@ -30,7 +28,7 @@ public class DrawBAxisRuleTestCase extends ControlSequenceTestCase<DrawBAxisRule
         setMembers(sutWithWidth, expectedCsId, isChained, length);
 
         sutWithoutWidth = new DrawBAxisRule(expectedCsId, 4, isChained,
-                new Parameters(dataArray, "Cp500"));
+                new Parameters(dataArray));
     }
 
     @Test

@@ -1,7 +1,5 @@
 package org.modica.afp.modca.structuredfields.index;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.List;
@@ -10,17 +8,19 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.modica.afp.modca.Context;
-import org.modica.afp.modca.Context.FOCAContext;
+import org.modica.afp.modca.Context.ContextType;
 import org.modica.afp.modca.ContextImpl;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.common.CPIRepeatingGroupLength;
 import org.modica.afp.modca.common.GraphicalCharacterUseFlags;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Index;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldTestCase;
 import org.modica.afp.modca.structuredfields.index.CodePageIndex.CPI;
+import org.modica.afp.modca.structuredfields.types.IndexType;
 import org.modica.common.ByteUtils;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test case for {@link CodePageIndex}.
@@ -36,10 +36,10 @@ public class CodePageIndexTestCase extends StructuredFieldTestCase<CodePageIndex
 
     @Before
     public void setUp() throws UnsupportedEncodingException {
-        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Index.CPI);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(IndexType.CPI);
 
         Context context = new ContextImpl();
-        context.put(FOCAContext.CPI_REPEATING_GROUP_LENGTH, CPIRepeatingGroupLength.SINGLE_BYTE);
+        context.put(ContextType.FOCA_CPI_REPEATING_GROUP_LENGTH, CPIRepeatingGroupLength.SINGLE_BYTE);
         sut = createSingleByteCPI(CPIRepeatingGroupLength.SINGLE_BYTE);
         doubleByteUnicodeSut = createDoubleByteCPI(CPIRepeatingGroupLength.DOUBLE_BYTE_INC_UNICODE);
 
@@ -48,7 +48,7 @@ public class CodePageIndexTestCase extends StructuredFieldTestCase<CodePageIndex
 
     private CodePageIndex createSingleByteCPI(CPIRepeatingGroupLength cpiRLen)
             throws UnsupportedEncodingException {
-        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Index.CPI);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(IndexType.CPI);
         ByteBuffer bb = ByteBuffer.allocate(30);
         bb.put(char1Name.getBytes("Cp500"));
         bb.put(ByteUtils.createByteArray(1, 4));
@@ -57,13 +57,13 @@ public class CodePageIndexTestCase extends StructuredFieldTestCase<CodePageIndex
         bb.put(char3Name.getBytes("Cp500"));
         bb.put(ByteUtils.createByteArray(4, 6));
         Context context = new ContextImpl();
-        context.put(FOCAContext.CPI_REPEATING_GROUP_LENGTH, cpiRLen);
-        return new CodePageIndex(intro, new Parameters(bb.array(), "Cp500"), context);
+        context.put(ContextType.FOCA_CPI_REPEATING_GROUP_LENGTH, cpiRLen);
+        return new CodePageIndex(intro, new Parameters(bb.array()), context);
     }
 
     private CodePageIndex createDoubleByteCPI(CPIRepeatingGroupLength cpiRLen)
             throws UnsupportedEncodingException {
-        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Index.CPI);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(IndexType.CPI);
         ByteBuffer bb = ByteBuffer.allocate(42);
         bb.put(char1Name.getBytes("Cp500"));
         bb.put(ByteUtils.createByteArray(1, 2, 3, 1, 5));
@@ -72,8 +72,8 @@ public class CodePageIndexTestCase extends StructuredFieldTestCase<CodePageIndex
         bb.put(char3Name.getBytes("Cp500"));
         bb.put(ByteUtils.createByteArray(4, 1, 2, 3, 1, 2, 3));
         Context context = new ContextImpl();
-        context.put(FOCAContext.CPI_REPEATING_GROUP_LENGTH, cpiRLen);
-        return new CodePageIndex(intro, new Parameters(bb.array(), "Cp500"), context);
+        context.put(ContextType.FOCA_CPI_REPEATING_GROUP_LENGTH, cpiRLen);
+        return new CodePageIndex(intro, new Parameters(bb.array()), context);
     }
 
     @Test

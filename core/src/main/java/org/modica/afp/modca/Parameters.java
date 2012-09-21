@@ -5,6 +5,8 @@ import java.io.UnsupportedEncodingException;
 import org.modica.common.ByteUtils;
 import org.modica.common.StringUtils;
 
+import static org.modica.afp.modca.EbcdicStringHandler.DEFAULT_CPGID;
+
 /**
  * This class is a wrapper for the structured field parameters data byte array. This keeps track of
  * where in the data byte array is being read, and every time a byte is read the pointer is
@@ -15,11 +17,16 @@ public class Parameters {
     private final byte[] sfData;
     private int position = 0;
     private static final ByteUtils byteUtils = ByteUtils.getBigEndianUtils();
-    private final String stringEncoding;
+    private final int cpgid;
 
-    public Parameters(byte[] sfData, String stringEncoding) {
+    public Parameters(byte[] sfData, int cpgid) {
         this.sfData = sfData;
-        this.stringEncoding = stringEncoding;
+        this.cpgid = cpgid;
+    }
+
+    public Parameters(byte[] sfData) {
+        this.sfData = sfData;
+        this.cpgid = DEFAULT_CPGID;
     }
 
     /**
@@ -91,7 +98,7 @@ public class Parameters {
     }
 
     /**
-     * Returns a string representation encoded with the encoding given in the constructor from the
+     * Returns a string representation encoded with the encoding given in the constructor at a
      * given position, for length bytes. The file pointer isn't changed with this method call.
      *
      * @param position the starting position to encode the returned String
@@ -99,8 +106,26 @@ public class Parameters {
      * @return the encoded String
      * @throws UnsupportedEncodingException if for some reason Cp500 encoding isn't supported
      */
-    public String getString(int position, int length) throws UnsupportedEncodingException {
-        return getString(position, length, stringEncoding);
+    public String getStringAt(int position, int length) throws UnsupportedEncodingException {
+        return getStringAt(position, length, cpgid);
+    }
+
+    /**
+     * Returns a string representation given the encoding of the bytes at a given position, for
+     * length bytes. The file pointer isn't changed with this method call.
+     *
+     * @param position the starting position to encode the returned String
+     * @param length the number of bytes in the returned String
+     * @param cpgid the encoding scheme of the bytes
+     * @return the encoded String
+     * @throws UnsupportedEncodingException if for some reason the encoding isn't supported
+     */
+    public String getStringAt(int position, int length, int cpgid)
+            throws UnsupportedEncodingException {
+        if (position + length > size()) {
+            return null;
+        }
+        return StringUtils.bytesToString(sfData, position, length, cpgid);
     }
 
     /**
@@ -112,25 +137,7 @@ public class Parameters {
      * @throws UnsupportedEncodingException if for some reason Cp500 encoding isn't supported
      */
     public String getString(int length) throws UnsupportedEncodingException {
-        return getString(length, stringEncoding);
-    }
-
-    /**
-     * Returns a string representation given the encoding of the bytes from the given position, for
-     * length bytes. The file pointer isn't changed with this method call.
-     *
-     * @param position the starting position to encode the returned String
-     * @param length the number of bytes in the returned String
-     * @param encoding the encoding scheme of the bytes
-     * @return the encoded String
-     * @throws UnsupportedEncodingException if for some reason the encoding isn't supported
-     */
-    public String getString(int position, int length, String encoding)
-            throws UnsupportedEncodingException {
-        if (position + length > size()) {
-            return null;
-        }
-        return StringUtils.bytesToString(sfData, position, length, encoding);
+        return getString(length, cpgid);
     }
 
     /**
@@ -138,12 +145,12 @@ public class Parameters {
      * position, for length bytes.
      *
      * @param length the number of bytes in the returned String
-     * @param encoding the encoding scheme of the bytes
+     * @param cpgid the encoding scheme of the bytes
      * @return the encoded String
      * @throws UnsupportedEncodingException if for some reason the encoding isn't supported
      */
-    public String getString(int length, String encoding) throws UnsupportedEncodingException {
-        String str = getString(position, length, encoding);
+    public String getString(int length, int cpgid) throws UnsupportedEncodingException {
+        String str = getStringAt(position, length, cpgid);
         position += str != null ? length : 0;
         return str;
     }

@@ -48,7 +48,7 @@ public class NamedColorTestCase {
 
     private void testNamedColor(int byte1, int byte2, NamedColor expected) {
         byte[] bytes = ByteUtils.createByteArray(byte1, byte2);
-        NamedColor sut = NamedColor.getValue(new Parameters(bytes, "Cp500"));
+        NamedColor sut = NamedColor.getValue(new Parameters(bytes));
         assertEquals(expected, sut);
     }
 

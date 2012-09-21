@@ -22,12 +22,12 @@ public class ObjectIdTestCase extends TripletTestCase<ObjectId> {
     @Override
     public void setUp() {
         byteData = ByteUtils.createByteArray(6, 2, 3, 4, 5, 6, 7, 8, 9);
-        x = new ObjectId(new Parameters(byteData, "Cp500"), byteData.length);
-        ObjectId y = new ObjectId(new Parameters(byteData, "Cp500"), byteData.length);
-        ObjectId z = new ObjectId(new Parameters(byteData, "Cp500"), byteData.length);
+        x = new ObjectId(new Parameters(byteData), byteData.length);
+        ObjectId y = new ObjectId(new Parameters(byteData), byteData.length);
+        ObjectId z = new ObjectId(new Parameters(byteData), byteData.length);
 
         byteData[1] = 1;
-        notEqual = new ObjectId(new Parameters(byteData, "Cp500"), byteData.length);
+        notEqual = new ObjectId(new Parameters(byteData), byteData.length);
         setXYZ(x, y, z, notEqual);
     }
 

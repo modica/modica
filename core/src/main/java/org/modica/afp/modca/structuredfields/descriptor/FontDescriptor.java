@@ -1,16 +1,20 @@
 package org.modica.afp.modca.structuredfields.descriptor;
 
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.modica.afp.foca.FontWeightClass;
 import org.modica.afp.foca.FontWidthClass;
+import org.modica.afp.modca.Context;
+import org.modica.afp.modca.EbcdicStringHandler;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.modica.afp.modca.triplets.Triplet;
+import org.modica.afp.modca.triplets.TripletHandler;
 import org.modica.common.ByteUtils;
 
 /**
@@ -37,10 +41,10 @@ public class FontDescriptor extends StructuredFieldWithTriplets {
     private final int gcsgid;
     private final int fgid;
 
-    public FontDescriptor(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
+    FontDescriptor(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
-        typeFcDesc = params.getString(32, "Cp500");
+        typeFcDesc = params.getString(32, EbcdicStringHandler.DEFAULT_CPGID);
         fontWeight = FontWeightClass.getValue(params.getByte());
         fontWidth = FontWidthClass.getValue(params.getByte());
         maxPtSize = (int) params.getUInt(2);
@@ -332,5 +336,13 @@ public class FontDescriptor extends StructuredFieldWithTriplets {
         params.add(new ParameterAsString("GCSGID", gcsgid));
         params.add(new ParameterAsString("FGID", fgid));
         return params;
+    }
+
+    public static final class FNDBuilder implements Builder {
+        @Override
+        public FontDescriptor build(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException, MalformedURLException {
+            return new FontDescriptor(intro, TripletHandler.parseTriplet(params, 80, context), params);
+        }
     }
 }

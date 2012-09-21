@@ -109,6 +109,12 @@ public class LazyAfpCreatingHandler implements StructuredFieldIntroducerHandler 
             @Override
             public Context call() throws Exception {
                 switch (introducer.getType().getTypeCode()) {
+                case Attribute:
+                    factory.createMap(introducer);
+                    break;
+                case CopyCount:
+                    factory.createCopyCount(introducer);
+                    break;
                 case Map:
                     factory.createMap(introducer);
                     break;
@@ -133,6 +139,25 @@ public class LazyAfpCreatingHandler implements StructuredFieldIntroducerHandler 
                 case Index:
                     factory.createIndex(introducer);
                     break;
+                case Link:
+                    factory.createLink(introducer);
+                    break;
+                case Orientation:
+                    factory.createOrientation(introducer);
+                    break;
+                case Process:
+                    factory.createProcess(introducer);
+                    break;
+                case Table:
+                    factory.createTable(introducer);
+                    break;
+                case Variable:
+                    factory.createVariable(introducer);
+                    break;
+                case Begin:
+                case End:
+                case Unknown:
+                    throw new IllegalArgumentException("Should not get here.");
                 }
                 return factory.getPreviousContext();
             }

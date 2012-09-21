@@ -2,6 +2,7 @@ package org.modica.afp.ptoca;
 
 import java.io.UnsupportedEncodingException;
 
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.Parameters;
 
 /**
@@ -11,12 +12,12 @@ import org.modica.afp.modca.Parameters;
  */
 public class TransparentData extends ControlSequence {
 
-    private final byte[] data;
+    private final String data;
 
     public TransparentData(ControlSequenceIdentifier csId, int length, boolean isChained,
-            Parameters params) {
+            Parameters params, Context ctx) throws UnsupportedEncodingException {
         super(csId, length, isChained);
-        data = params.getByteArray(length - 2);
+        data = params.getString(length - 2, ctx.getPTXEncoding());
     }
 
     /**
@@ -27,7 +28,7 @@ public class TransparentData extends ControlSequence {
      * @throws UnsupportedEncodingException if an error occurs encoding the String
      */
     public String getDataString(String encoding) throws UnsupportedEncodingException {
-        return new String(data, encoding);
+        return data;
     }
 
     @Override

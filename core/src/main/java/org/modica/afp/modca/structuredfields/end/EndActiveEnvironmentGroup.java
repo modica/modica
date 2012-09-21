@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.AbstractStructuredField;
@@ -17,7 +18,7 @@ public class EndActiveEnvironmentGroup extends AbstractStructuredField {
 
     private final EndFieldName aegName;
 
-    public EndActiveEnvironmentGroup(StructuredFieldIntroducer introducer, Parameters params)
+    EndActiveEnvironmentGroup(StructuredFieldIntroducer introducer, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer);
         aegName = new EndFieldName(params);
@@ -53,5 +54,13 @@ public class EndActiveEnvironmentGroup extends AbstractStructuredField {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("ActiveEnvironmentGroupName", getAegName()));
         return params;
+    }
+
+    public static final class EAGBuilder implements Builder {
+        @Override
+        public EndActiveEnvironmentGroup build(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException {
+            return new EndActiveEnvironmentGroup(intro, params);
+        }
     }
 }

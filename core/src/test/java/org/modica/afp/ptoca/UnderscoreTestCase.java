@@ -15,7 +15,7 @@ public class UnderscoreTestCase extends ControlSequenceTestCase<Underscore> {
 
     @Before
     public void setUp() {
-        Parameters params = new Parameters(ByteUtils.createByteArray(0), "Cp500");
+        Parameters params = new Parameters(ByteUtils.createByteArray(0));
         ControlSequenceIdentifier expectedCsId = ControlSequenceIdentifier.UNDERSCORE;
         int length = 3;
         boolean isChained = true;

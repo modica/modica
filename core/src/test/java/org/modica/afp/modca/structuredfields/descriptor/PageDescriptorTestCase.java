@@ -15,8 +15,8 @@ import org.modica.afp.modca.common.PresentationSpaceUnits;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Descriptor;
 import org.modica.afp.modca.structuredfields.descriptor.PageDescriptor;
+import org.modica.afp.modca.structuredfields.types.DescriptorType;
 import org.modica.afp.modca.triplets.Triplet;
 import org.modica.afp.modca.triplets.fullyqualifiedname.FullyQualifiedNameTestCase;
 import org.modica.common.ByteUtils;
@@ -32,7 +32,7 @@ public class PageDescriptorTestCase extends StructuredFieldWithTripletsTestCase<
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
-        intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Descriptor.PGD);
+        intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(DescriptorType.PGD);
 
         List<Triplet> triplets = addTripletToList(
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
@@ -40,12 +40,12 @@ public class PageDescriptorTestCase extends StructuredFieldWithTripletsTestCase<
 
         byte[] bytes = ByteUtils.createByteArray(0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0);
 
-        Parameters inchesParams = new Parameters(bytes, "Cp500");
+        Parameters inchesParams = new Parameters(bytes);
         sut = new PageDescriptor(intro, triplets, inchesParams);
         super.setMembers(sut, intro, triplets);
         bytes[0] = 1;
         bytes[1] = 1;
-        Parameters cmParams = new Parameters(bytes, "Cp500");
+        Parameters cmParams = new Parameters(bytes);
         cmSut = new PageDescriptor(intro, triplets, cmParams);
     }
 

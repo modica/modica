@@ -3,12 +3,14 @@ package org.modica.parser.lazy;
 import java.nio.channels.FileChannel;
 
 import org.modica.afp.modca.Context;
-import org.modica.afp.modca.Context.MODCAContext;
+import org.modica.afp.modca.Context.ContextType;
 import org.modica.afp.modca.ContextImpl;
+import org.modica.afp.modca.EbcdicStringHandler;
 import org.modica.afp.modca.StructuredFieldFactory;
 import org.modica.afp.modca.StructuredFieldFactoryImpl;
 import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
+import org.modica.afp.modca.structuredfields.descriptor.CodePageDescriptor;
 
 public class LazyStructuredFieldFactory implements StructuredFieldFactory {
 
@@ -35,7 +37,7 @@ public class LazyStructuredFieldFactory implements StructuredFieldFactory {
 
     private void pushContext() {
         Context next = new ContextImpl();
-        next.put(MODCAContext.GCSGID, null);
+        next.put(ContextType.MODCA_GCSGID, null);
         contextStack.push(next);
     }
 
@@ -99,6 +101,48 @@ public class LazyStructuredFieldFactory implements StructuredFieldFactory {
         return delegate.createIndex(introducer);
     }
 
+    @Override
+    public StructuredField createAttribute(StructuredFieldIntroducer introducer) {
+        beforeCreation(introducer);
+        return delegate.createAttribute(introducer);
+    }
+
+    @Override
+    public StructuredField createCopyCount(StructuredFieldIntroducer introducer) {
+        beforeCreation(introducer);
+        return delegate.createCopyCount(introducer);
+    }
+
+    @Override
+    public StructuredField createProcess(StructuredFieldIntroducer introducer) {
+        beforeCreation(introducer);
+        return delegate.createProcess(introducer);
+    }
+
+    @Override
+    public StructuredField createOrientation(StructuredFieldIntroducer introducer) {
+        beforeCreation(introducer);
+        return delegate.createOrientation(introducer);
+    }
+
+    @Override
+    public StructuredField createTable(StructuredFieldIntroducer introducer) {
+        beforeCreation(introducer);
+        return delegate.createTable(introducer);
+    }
+
+    @Override
+    public StructuredField createVariable(StructuredFieldIntroducer introducer) {
+        beforeCreation(introducer);
+        return delegate.createVariable(introducer);
+    }
+
+    @Override
+    public StructuredField createLink(StructuredFieldIntroducer introducer) {
+        beforeCreation(introducer);
+        return delegate.createLink(introducer);
+    }
+
     private static class ContextStack implements Context {
 
         private final Context current;
@@ -115,38 +159,37 @@ public class LazyStructuredFieldFactory implements StructuredFieldFactory {
         }
 
         @Override
-        public Object get(FOCAContext focaContext) {
-            Object ob = current.get(focaContext);
+        public Object get(ContextType contextObj) {
+            Object ob = current.get(contextObj);
             if (ob == null && previous != null) {
-                ob = previous.get(focaContext);
+                ob = previous.get(contextObj);
                 if (ob != null) {
-                    current.put(focaContext, ob);
+                    current.put(contextObj, ob);
                 }
             }
             return ob;
         }
 
         @Override
-        public Object get(MODCAContext modcaContext) {
-            Object ob = current.get(modcaContext);
-            if (ob == null && previous != null) {
-                ob = previous.get(modcaContext);
-                if (ob != null) {
-                    current.put(modcaContext, ob);
-                }
-            }
-            return ob;
+        public void put(ContextType contextObj, Object obj) {
+            current.put(contextObj, obj);
         }
 
         @Override
-        public void put(FOCAContext focaContext, Object obj) {
-            current.put(focaContext, obj);
+        public void setCpgidForCodePage(CodePageDescriptor descriptor) {
         }
 
         @Override
-        public void put(MODCAContext modcaContext, Object obj) {
-            current.put(modcaContext, obj);
+        public void setCurrentCodePageName(String name) {
+        }
+
+        @Override
+        public int getPTXEncoding() {
+            return EbcdicStringHandler.DEFAULT_CPGID;
+        }
+
+        @Override
+        public void endCodePage() {
         }
     }
-
 }

@@ -13,8 +13,8 @@ import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldTestCase;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.End;
 import org.modica.afp.modca.structuredfields.end.EndObjectEnvironmentGroup;
+import org.modica.afp.modca.structuredfields.types.EndType;
 import org.modica.common.ByteUtils;
 
 /**
@@ -29,11 +29,11 @@ public class EndObjectEnvironmentGroupTestCase extends
 
     @Before
     public void setUp() throws UnsupportedEncodingException {
-        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(End.EOG);
-        Parameters params = new Parameters(oegName.getBytes("Cp500"), "Cp500");
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(EndType.EOG);
+        Parameters params = new Parameters(oegName.getBytes("Cp500"));
         sut = new EndObjectEnvironmentGroup(intro, params);
 
-        Parameters matchesAny = new Parameters(ByteUtils.createByteArray(0xff, 0xff), "Cp500");
+        Parameters matchesAny = new Parameters(ByteUtils.createByteArray(0xff, 0xff));
         sutMatchesAny = new EndObjectEnvironmentGroup(intro, matchesAny);
 
         setMembers(sut, intro);

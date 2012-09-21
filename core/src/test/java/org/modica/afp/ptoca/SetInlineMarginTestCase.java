@@ -17,7 +17,7 @@ public class SetInlineMarginTestCase extends ControlSequenceTestCase<SetInlineMa
 
     @Before
     public void setUp() {
-        Parameters params = new Parameters(new byte[] { 0x7F, 0x00 }, "Cp500");
+        Parameters params = new Parameters(new byte[] { 0x7F, 0x00 });
         ControlSequenceIdentifier expectedCsId = ControlSequenceIdentifier.SET_INLINE_MARGIN;
         int length = 4;
         boolean isChained = true;

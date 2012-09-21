@@ -25,13 +25,13 @@ public class MeasurementUnitsTestCase extends TripletTestCase<MeasurementUnits> 
     @Override
     public void setUp() {
         byte[] data = ByteUtils.createByteArray(0, 0, 1, 2, 3, 4);
-        x = new MeasurementUnits(new Parameters(data, "Cp500"));
-        MeasurementUnits y = new MeasurementUnits(new Parameters(data, "Cp500"));
-        MeasurementUnits z = new MeasurementUnits(new Parameters(data, "Cp500"));
+        x = new MeasurementUnits(new Parameters(data));
+        MeasurementUnits y = new MeasurementUnits(new Parameters(data));
+        MeasurementUnits z = new MeasurementUnits(new Parameters(data));
 
         data[0] = 1;
         data[1] = 1;
-        notEqual = new MeasurementUnits(new Parameters(data, "Cp500"));
+        notEqual = new MeasurementUnits(new Parameters(data));
         setXYZ(x, y, z, notEqual);
     }
 

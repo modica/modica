@@ -7,13 +7,17 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.modica.afp.modca.Context;
+import org.modica.afp.modca.Context.ContextType;
+import org.modica.afp.modca.ContextImpl;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletGroupTestCase;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Map;
-import org.modica.afp.modca.structuredfields.map.MapCodedFont;
+import org.modica.afp.modca.structuredfields.types.MapType;
 import org.modica.afp.modca.triplets.RepeatingTripletGroup;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * A test case for {@link MapCodedFont}.
@@ -21,15 +25,22 @@ import org.modica.afp.modca.triplets.RepeatingTripletGroup;
 public class MapCodedFontTestCase extends StructuredFieldWithTripletGroupTestCase<MapCodedFont> {
 
     private MapCodedFont sut;
+    private Context ctx;
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
-        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Map.MCF);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(MapType.MCF);
         RepeatingTripletGroup tripletGroup = StructuredFieldWithTripletGroupTestCase.createGenericRepeatingGroup();
 
-        sut = new MapCodedFont(intro, tripletGroup);
+        ctx = new ContextImpl();
+        sut = new MapCodedFont(intro, tripletGroup, ctx);
 
         setMembers(sut, intro, tripletGroup);
+    }
+
+    @Test
+    public void testContext() {
+        assertEquals(sut, ctx.get(ContextType.MODCA_MAP_CODED_FONT));
     }
 
     @Test

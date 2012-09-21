@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.modica.afp.modca.Context;
+import org.modica.afp.modca.Context.ContextType;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
-import org.modica.afp.modca.Context.FOCAContext;
 import org.modica.afp.modca.common.CPIRepeatingGroupLength;
 import org.modica.afp.modca.common.GraphicalCharacterUseFlags;
 import org.modica.afp.modca.structuredfields.AbstractStructuredField;
@@ -30,7 +30,7 @@ public class CodePageControl extends AbstractStructuredField {
     private final boolean isVariableSpaceEnabled;
     private final long defaultUnicodeValue;
 
-    public CodePageControl(StructuredFieldIntroducer introducer, Parameters params, Context context)
+    CodePageControl(StructuredFieldIntroducer introducer, Parameters params, Context context)
             throws UnsupportedEncodingException {
         super(introducer);
         defCharId = params.getString(8);
@@ -44,14 +44,13 @@ public class CodePageControl extends AbstractStructuredField {
         byte vsFlags = params.getByte();
         isAscendingCodePoint = CodePageUseFlags.isAscendingCodePoint(vsFlags);
         isVariableSpaceEnabled = CodePageUseFlags.isVariableSpaceEnabled(vsFlags);
-        if (cpRgLen == CPIRepeatingGroupLength.SINGLE_BYTE_INC_UNICODE
-                || cpRgLen == CPIRepeatingGroupLength.DOUBLE_BYTE_INC_UNICODE) {
+        if (cpRgLen.isUnicode()) {
             defaultUnicodeValue = params.getUInt(params.size() - params.getPosition());
         } else {
             defaultUnicodeValue = 0;
         }
 
-        context.put(FOCAContext.CPI_REPEATING_GROUP_LENGTH, cpRgLen);
+        context.put(ContextType.FOCA_CPI_REPEATING_GROUP_LENGTH, cpRgLen);
     }
 
     private enum CodePageUseFlags {
@@ -210,5 +209,13 @@ public class CodePageControl extends AbstractStructuredField {
         params.add(new ParameterAsString("isVariableSpaceEnabled", isVariableSpaceEnabled));
         params.add(new ParameterAsString("DefaultUnicodeValue", defaultUnicodeValue));
         return params;
+    }
+
+    public static final class CPCBuilder implements Builder {
+        @Override
+        public CodePageControl build(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException {
+            return new CodePageControl(intro, params, context);
+        }
     }
 }

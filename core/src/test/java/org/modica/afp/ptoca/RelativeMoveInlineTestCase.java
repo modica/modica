@@ -16,7 +16,7 @@ public class RelativeMoveInlineTestCase extends ControlSequenceTestCase<Relative
 
     @Before
     public void setUp() {
-        Parameters params = new Parameters(new byte[] { 0x7F, (byte) 0xFF }, "Cp500");
+        Parameters params = new Parameters(new byte[] { 0x7F, (byte) 0xFF });
         ControlSequenceIdentifier expectedCsId = ControlSequenceIdentifier.RELATIVE_MOVE_INLINE;
         int length = 4;
 

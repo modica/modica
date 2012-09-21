@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.modica.afp.modca.Context;
+import org.modica.afp.modca.Context.ContextType;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
-import org.modica.afp.modca.Context.FOCAContext;
 import org.modica.afp.modca.common.CPIRepeatingGroupLength;
 import org.modica.afp.modca.common.GraphicalCharacterUseFlags;
 import org.modica.afp.modca.structuredfields.AbstractStructuredField;
@@ -39,12 +39,13 @@ public class CodePageIndex extends AbstractStructuredField {
 
     private final List<CPI> cpis;
 
-    public CodePageIndex(StructuredFieldIntroducer introducer, Parameters params, Context context)
+    CodePageIndex(StructuredFieldIntroducer introducer, Parameters params, Context context)
             throws UnsupportedEncodingException {
         super(introducer);
         cpis = new ArrayList<CodePageIndex.CPI>();
 
-        CPIRepeatingGroupLength rgLength = (CPIRepeatingGroupLength) context.get(FOCAContext.CPI_REPEATING_GROUP_LENGTH);
+        CPIRepeatingGroupLength rgLength = (CPIRepeatingGroupLength)
+                context.get(ContextType.FOCA_CPI_REPEATING_GROUP_LENGTH);
 
         while (params.getPosition() < params.size() - 1) {
             cpis.add(new CPI(rgLength, params));
@@ -197,5 +198,13 @@ public class CodePageIndex extends AbstractStructuredField {
     public List<ParameterAsString> getParameters() {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         return params;
+    }
+
+    public static final class CPIBuilder implements Builder {
+        @Override
+        public CodePageIndex build(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException {
+            return new CodePageIndex(intro, params, context);
+        }
     }
 }

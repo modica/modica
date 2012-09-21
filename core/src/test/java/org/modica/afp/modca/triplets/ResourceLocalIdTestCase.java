@@ -23,10 +23,10 @@ public class ResourceLocalIdTestCase extends TripletTestCase<ResourceLocalId> {
     @Override
     public void setUp() {
         byte[] data = new byte[] { 0x00, 0x02, 0x03 };
-        x = new ResourceLocalId(new Parameters(data, "Cp500"));
-        ResourceLocalId y = new ResourceLocalId(new Parameters(data, "Cp500"));
-        ResourceLocalId z = new ResourceLocalId(new Parameters(data, "Cp500"));
-        Parameters params = new Parameters(data, "Cp500");
+        x = new ResourceLocalId(new Parameters(data));
+        ResourceLocalId y = new ResourceLocalId(new Parameters(data));
+        ResourceLocalId z = new ResourceLocalId(new Parameters(data));
+        Parameters params = new Parameters(data);
         params.skip(1);
         ResourceLocalId notEqual = new ResourceLocalId(params);
 
@@ -43,7 +43,7 @@ public class ResourceLocalIdTestCase extends TripletTestCase<ResourceLocalId> {
 
     private void testResourceType(byte typeId, ResourceType type) {
         byte[] data = new byte[] { typeId, 0x01 };
-        ResourceLocalId testSubject = new ResourceLocalId(new Parameters(data, "Cp500"));
+        ResourceLocalId testSubject = new ResourceLocalId(new Parameters(data));
         assertEquals(type, testSubject.getResourceType());
     }
 

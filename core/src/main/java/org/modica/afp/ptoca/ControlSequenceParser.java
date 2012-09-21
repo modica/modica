@@ -1,8 +1,10 @@
 package org.modica.afp.ptoca;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.Parameters;
 
 /**
@@ -19,17 +21,19 @@ public class ControlSequenceParser {
      *
      * @param sfParams the structured field parameters
      * @return a List of control sequences
+     * @throws UnsupportedEncodingException 
      */
-    public static List<ControlSequence> parse(Parameters sfParams) {
+    public static List<ControlSequence> parse(Parameters sfParams, Context ctx)
+            throws UnsupportedEncodingException {
         int paramSize = sfParams.size();
         List<ControlSequence> controlSequences = new ArrayList<ControlSequence>();
         boolean startNewChain = sfParams.peekByte() == CONTROL_SEQUENCE_PREFIX;
         while (sfParams.getPosition() < paramSize) {
             ControlSequence cs;
             if (startNewChain) {
-                cs = parseNewChain(sfParams);
+                cs = parseNewChain(sfParams, ctx);
             } else {
-                cs = parseChainedSequence(sfParams);
+                cs = createControlSequence(sfParams, ctx);
             }
             startNewChain = !cs.isChained();
             controlSequences.add(cs);
@@ -38,20 +42,17 @@ public class ControlSequenceParser {
         return controlSequences;
     }
 
-    private static ControlSequence parseChainedSequence(Parameters sfParams) {
-        ControlSequence cs = ControlSequenceParser.createControlSequence(sfParams);
-        return cs;
-    }
-
-    private static ControlSequence parseNewChain(Parameters sfParams) {
+    private static ControlSequence parseNewChain(Parameters sfParams, Context ctx)
+            throws UnsupportedEncodingException {
         byte prefix = sfParams.getByte();
         byte classByte = sfParams.getByte();
         assert prefix == CONTROL_SEQUENCE_PREFIX;
         assert classByte == CONTROL_SEQUENCE_CLASS;
-        return parseChainedSequence(sfParams);
+        return createControlSequence(sfParams, ctx);
     }
 
-    private static ControlSequence createControlSequence(Parameters params) {
+    private static ControlSequence createControlSequence(Parameters params, Context ctx)
+            throws UnsupportedEncodingException {
         int length = (int) params.getUInt(1);
         byte id = params.getByte();
         boolean isChained;
@@ -90,7 +91,7 @@ public class ControlSequenceParser {
         case SET_BASELINE_INCREMENT:
             return new SetBaselineIncrement(csId, length, isChained, params);
         case SET_CODED_FONT_LOCAL:
-            return new SetCodedFontLocal(csId, length, isChained, params);
+            return new SetCodedFontLocal(csId, length, isChained, params, ctx);
         case SET_EXTENDED_TEXT_COLOR:
             return new SetExtendedTextColor(csId, length, isChained, params);
         case SET_INLINE_MARGIN:
@@ -104,7 +105,7 @@ public class ControlSequenceParser {
         case SET_VARIABLE_SPACE_CHARACTER_INCREMENT:
             return new SetVariableSpaceCharacterIncrement(csId, length, isChained, params);
         case TRANSPARENT_DATA:
-            return new TransparentData(csId, length, isChained, params);
+            return new TransparentData(csId, length, isChained, params, ctx);
         case UNDERSCORE:
             return new Underscore(csId, length, isChained, params);
         default:

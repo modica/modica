@@ -1,14 +1,12 @@
 package org.modica.afp.modca.triplets;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.modica.afp.modca.Context;
-import org.modica.afp.modca.Context.MODCAContext;
+import org.modica.afp.modca.Context.ContextType;
 import org.modica.afp.modca.ContextImpl;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
@@ -16,6 +14,8 @@ import org.modica.afp.modca.triplets.Cgcsgid.Ccsid;
 import org.modica.afp.modca.triplets.Cgcsgid.Cpgid;
 import org.modica.common.ByteUtils;
 import org.modica.common.StringUtils;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test case for {@link Cgcsgid}.
@@ -25,9 +25,9 @@ public class CgcsgidTestCase extends TripletTestCase<Cgcsgid> {
     private Ccsid ccsid;
     private final TripletIdentifiers tid = TripletIdentifiers.coded_graphic_character_set_global_identifier;
     private final Parameters cpgidBytes = new Parameters(
-            ByteUtils.createByteArray(0x00, 0x01, 0x01, 0x02), "Cp500");
+            ByteUtils.createByteArray(0x00, 0x01, 0x01, 0x02));
     private final Parameters ccsidBytes = new Parameters(
-            ByteUtils.createByteArray(0x00, 0x00, 0x01, 0x02), "Cp500");
+            ByteUtils.createByteArray(0x00, 0x00, 0x01, 0x02));
     private Context context;
 
     @Before
@@ -40,8 +40,7 @@ public class CgcsgidTestCase extends TripletTestCase<Cgcsgid> {
 
         Cgcsgid y = getValue(cpgidBytes);
         Cgcsgid z = getValue(cpgidBytes);
-        Parameters notEqualBytes = new Parameters(
-                ByteUtils.createByteArray(0x00, 0x00, 0x01, 0x03), "Cp500");
+        Parameters notEqualBytes = new Parameters(ByteUtils.createByteArray(0x00, 0x00, 0x01, 0x03));
         Cgcsgid notEqual = Cgcsgid.parse(notEqualBytes, context);
         setXYZ(cgcsgid, y, z, notEqual);
     }
@@ -51,8 +50,7 @@ public class CgcsgidTestCase extends TripletTestCase<Cgcsgid> {
         ccsid = (Ccsid) getValue(ccsidBytes);
         Cgcsgid y = getValue(ccsidBytes);
         Cgcsgid z = getValue(ccsidBytes);
-        Parameters notEqualBytes = new Parameters(
-                ByteUtils.createByteArray(0x00, 0x01, 0x01, 0x03), "Cp500");
+        Parameters notEqualBytes = new Parameters(ByteUtils.createByteArray(0x00, 0x01, 0x01, 0x03));
         Cgcsgid notEqual = getValue(notEqualBytes);
         setXYZ(ccsid, y, z, notEqual);
         testEqualsHashCode();
@@ -69,16 +67,16 @@ public class CgcsgidTestCase extends TripletTestCase<Cgcsgid> {
         assertEquals(0x06, ccsid.getLength());
         assertEquals(0x0102, ccsid.getCcsid());
         assertEquals(tid, ccsid.getTid());
-        assertEquals("Cp258", context.get(MODCAContext.GCSGID));
+        assertEquals(258, context.get(ContextType.MODCA_GCSGID));
 
-        Parameters params = new Parameters(ByteUtils.createByteArray(0x00, 0x01, 0x00, 0x7B), "Cp123");
+        Parameters params = new Parameters(ByteUtils.createByteArray(0x00, 0x01, 0x00, 0x7B), 123);
         Context ctx = new ContextImpl();
         // Cp500 is used as the default
-        assertEquals("Cp500", ctx.get(MODCAContext.GCSGID));
+        assertEquals(500, ctx.get(ContextType.MODCA_GCSGID));
         // Parsing the CGCSGID object changes the state of the context object to the appropriate
         // encoding code page
         Cgcsgid.parse(params, ctx);
-        assertEquals("Cp123", ctx.get(MODCAContext.GCSGID));
+        assertEquals(123, ctx.get(ContextType.MODCA_GCSGID));
 
     }
 

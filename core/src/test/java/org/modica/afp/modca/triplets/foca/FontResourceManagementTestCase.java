@@ -33,13 +33,13 @@ public class FontResourceManagementTestCase extends TripletTestCase<ResourceMana
                 0xF5, 0xF6, //minute
                 0xF1, 0xF2, //second
                 0xF9, 0xF9); // second / 10
-        x = ResourceManagement.parse(new Parameters(data, "Cp500"));
-        ResourceManagement y = ResourceManagement.parse(new Parameters(data, "Cp500"));
-        ResourceManagement z = ResourceManagement.parse(new Parameters(data, "Cp500"));
+        x = ResourceManagement.parse(new Parameters(data));
+        ResourceManagement y = ResourceManagement.parse(new Parameters(data));
+        ResourceManagement z = ResourceManagement.parse(new Parameters(data));
 
         data[5] = 0x40;
 
-        notEqual = ResourceManagement.parse(new Parameters(data, "Cp500"));
+        notEqual = ResourceManagement.parse(new Parameters(data));
         setXYZ(x, y, z, notEqual);
     }
 

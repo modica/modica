@@ -1,9 +1,12 @@
 package org.modica.afp.modca.structuredfields.migration;
 
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
@@ -22,7 +25,7 @@ public class PresentationTextDataDescriptor extends StructuredFieldWithTriplets 
     private final int xAxisSize;
     private final int yAxisSize;
 
-    public PresentationTextDataDescriptor(StructuredFieldIntroducer introducer, Parameters params) {
+    PresentationTextDataDescriptor(StructuredFieldIntroducer introducer, Parameters params) {
         super(introducer, Collections.<Triplet>emptyList());
         byte xpBase = params.getByte();
         byte ypBase = params.getByte();
@@ -81,5 +84,14 @@ public class PresentationTextDataDescriptor extends StructuredFieldWithTriplets 
         params.add(new ParameterAsString("X-AxisSize", xAxisSize));
         params.add(new ParameterAsString("Y-AxisSize", yAxisSize));
         return params;
+    }
+
+    public static final class PTDBuilder implements Builder {
+        @Override
+        public PresentationTextDataDescriptor build(StructuredFieldIntroducer intro,
+                Parameters params, Context context) throws UnsupportedEncodingException,
+                MalformedURLException {
+            return new PresentationTextDataDescriptor(intro, params);
+        }
     }
 }

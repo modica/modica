@@ -3,7 +3,9 @@ package org.modica.afp.modca.structuredfields.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
+import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.AbstractStructuredField;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.common.StringUtils;
@@ -17,7 +19,7 @@ public class ImagePictureData extends AbstractStructuredField {
 
     private final long imageDataOffset;
 
-    public ImagePictureData(StructuredFieldIntroducer introducer) {
+    ImagePictureData(StructuredFieldIntroducer introducer) {
         super(introducer);
         imageDataOffset = introducer.getDataOffset();
     }
@@ -36,5 +38,13 @@ public class ImagePictureData extends AbstractStructuredField {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("ImageDataOffset", StringUtils.toHex(imageDataOffset, 8)));
         return params;
+    }
+
+    public static final class IPDBuilder implements Builder {
+        @Override
+        public ImagePictureData build(StructuredFieldIntroducer intro, Parameters params,
+                Context context) {
+            return new ImagePictureData(intro);
+        }
     }
 }

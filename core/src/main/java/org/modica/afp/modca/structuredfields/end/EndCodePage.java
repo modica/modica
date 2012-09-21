@@ -4,6 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modica.afp.modca.Context;
+import org.modica.afp.modca.EbcdicStringHandler;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.AbstractStructuredField;
@@ -16,10 +18,11 @@ public class EndCodePage extends AbstractStructuredField {
 
     private final EndFieldName cpName;
 
-    public EndCodePage(StructuredFieldIntroducer introducer, Parameters params)
+    EndCodePage(StructuredFieldIntroducer introducer, Parameters params, Context ctx)
             throws UnsupportedEncodingException {
         super(introducer);
-        cpName = new EndFieldName(params, "Cp500");
+        cpName = new EndFieldName(params, EbcdicStringHandler.DEFAULT_CPGID);
+        ctx.endCodePage();
     }
 
     /**
@@ -47,5 +50,13 @@ public class EndCodePage extends AbstractStructuredField {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("CodePageName", getCodePageName()));
         return params;
+    }
+
+    public static final class ECPBuilder implements Builder {
+        @Override
+        public EndCodePage build(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException {
+            return new EndCodePage(intro, params, context);
+        }
     }
 }

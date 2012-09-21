@@ -3,37 +3,37 @@ package org.modica.afp.modca.structuredfields.end;
 import java.io.UnsupportedEncodingException;
 
 import org.modica.afp.modca.Parameters;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Begin;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.End;
+import org.modica.afp.modca.structuredfields.types.BeginType;
+import org.modica.afp.modca.structuredfields.types.EndType;
 
 /**
- * This object is to amalgamate the intelligence of a lot of the {@link End} type structured fields
+ * This object is to amalgamate the intelligence of a lot of the {@link EndType} type structured fields
  * that have names. The name can either match the name or it can match ANY name of a corresponding
- * {@link Begin} structured field or it.
+ * {@link BeginType} structured field or it.
  */
-public class EndFieldName {
+class EndFieldName {
 
     private final String name;
     private final boolean nameMatchesAny;
 
-    public EndFieldName(Parameters params, String encoding) throws UnsupportedEncodingException {
+    EndFieldName(Parameters params, int cpgid) throws UnsupportedEncodingException {
         if (params.size() < 2 ||
                 (params.getByte() == (byte) 0xFF && params.getByte() == (byte) 0xFF)) {
             name = null;
             nameMatchesAny = true;
         } else {
-            name = params.getString(0, 8, encoding);
+            name = params.getStringAt(0, 8, cpgid);
             nameMatchesAny = false;
         }
     }
 
-    public EndFieldName(Parameters params) throws UnsupportedEncodingException {
+    EndFieldName(Parameters params) throws UnsupportedEncodingException {
         if (params.size() < 2 ||
                 (params.getByte() == (byte) 0xFF && params.getByte() == (byte) 0xFF)) {
             name = null;
             nameMatchesAny = true;
         } else {
-            name = params.getString(0, 8);
+            name = params.getStringAt(0, 8);
             nameMatchesAny = false;
         }
     }

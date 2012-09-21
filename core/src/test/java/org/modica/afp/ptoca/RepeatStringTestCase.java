@@ -25,7 +25,7 @@ public class RepeatStringTestCase extends ControlSequenceTestCase<RepeatString> 
         bb.put((byte) 0x01);
         bb.put((byte) 0x02);
         bb.put(repeatedString.getBytes("Cp500"));
-        Parameters params = new Parameters(bb.array(), "Cp500");
+        Parameters params = new Parameters(bb.array());
         ControlSequenceIdentifier expectedCsId = ControlSequenceIdentifier.REPEAT_STRING;
         int length = 44;
 

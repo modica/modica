@@ -1,14 +1,17 @@
 package org.modica.afp.modca.structuredfields.begin;
 
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.modica.afp.modca.triplets.Triplet;
+import org.modica.afp.modca.triplets.TripletHandler;
 
 /**
  * The Begin Resource structured field begins an envelope that is used to carry resource objects in
@@ -26,10 +29,10 @@ public class BeginResource extends StructuredFieldWithTriplets {
 
     private final String rsName;
 
-    public BeginResource(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
+    BeginResource(StructuredFieldIntroducer introducer, List<Triplet> triplets, Parameters params)
             throws UnsupportedEncodingException {
         super(introducer, triplets);
-        rsName = params.getString(0, 8);
+        rsName = params.getStringAt(0, 8);
     }
 
     /**
@@ -47,5 +50,13 @@ public class BeginResource extends StructuredFieldWithTriplets {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("ResourceName", rsName));
         return params;
+    }
+
+    public static final class BRSBuilder implements Builder {
+        @Override
+        public BeginResource build(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException, MalformedURLException {
+            return new BeginResource(intro, TripletHandler.parseTriplet(params, 10, context), params);
+        }
     }
 }

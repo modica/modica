@@ -1,6 +1,7 @@
 package org.modica.afp.modca;
 
 import org.modica.afp.modca.structuredfields.StructuredField;
+import org.modica.afp.modca.structuredfields.descriptor.CodePageDescriptor;
 
 /**
  * This class provides context for structured fields. Some fields rely on parameters in other
@@ -10,48 +11,36 @@ import org.modica.afp.modca.structuredfields.StructuredField;
 public interface Context {
 
     /**
-     * An enumeration of the FOCA context items.
+     * An enumeration of the different types of objects that can be stored in this Context object.
      */
-    public enum FOCAContext {
-        CPI_REPEATING_GROUP_LENGTH;
+    public enum ContextType {
+        FOCA_CPI_REPEATING_GROUP_LENGTH,
+        MODCA_GCSGID,
+        MODCA_MAP_CODED_FONT,
+        PTOCA_SET_CODED_FONT_LOCAL
     }
 
     /**
-     * An enumeration of MODCA context items.
-     */
-    public enum MODCAContext {
-        GCSGID;
-    }
-
-    /**
-     * Put a FOCA related context item into the context map.
+     * Put a context item into the context map.
      *
-     * @param focaContext the FOCA context item
+     * @param the context item
      * @param obj the value of the item
      */
-    public void put(FOCAContext focaContext, Object obj);
+    void put(ContextType focaContext, Object obj);
 
     /**
-     * Put a MODCA related context item into the context map.
+     * Get a contextual item.
      *
-     * @param modcaContext the MODCA context item
-     * @param obj the value of the item
-     */
-    public void put(MODCAContext modcaContext, Object obj);
-
-    /**
-     * Get a FOCA related context item.
-     *
-     * @param focaContext the FOCA context item
+     * @param contextType the context item
      * @return the value of the item
      */
-    public Object get(FOCAContext focaContext);
+    Object get(ContextType focaContext);
 
-    /**
-     * Get a MODCA related context item.
-     *
-     * @param modcaContext the MODCA context item
-     * @return the value of the item
-     */
-    public Object get(MODCAContext modcaContext);
+    void setCpgidForCodePage(CodePageDescriptor descriptor);
+
+    void setCurrentCodePageName(String name);
+
+    int getPTXEncoding();
+
+    void endCodePage();
 }

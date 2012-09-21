@@ -1,14 +1,17 @@
 package org.modica.afp.modca.structuredfields.end;
 
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.modica.afp.modca.triplets.Triplet;
+import org.modica.afp.modca.triplets.TripletHandler;
 
 /**
  * The End Presentation Text Object structured field terminates the current presentation text object
@@ -18,7 +21,7 @@ public class EndPresentationTextObject extends StructuredFieldWithTriplets {
 
     private final EndFieldName pTdoName;
 
-    public EndPresentationTextObject(StructuredFieldIntroducer introducer, List<Triplet> triplets,
+    EndPresentationTextObject(StructuredFieldIntroducer introducer, List<Triplet> triplets,
             Parameters params) throws UnsupportedEncodingException {
         super(introducer, triplets);
         pTdoName = new EndFieldName(params);
@@ -51,5 +54,14 @@ public class EndPresentationTextObject extends StructuredFieldWithTriplets {
         List<ParameterAsString> params = new ArrayList<ParameterAsString>();
         params.add(new ParameterAsString("PresentationTextObjectName", getPTdoName()));
         return params;
+    }
+
+    public static final class EPTBuilder implements Builder {
+        @Override
+        public EndPresentationTextObject build(StructuredFieldIntroducer intro, Parameters params,
+                Context context) throws UnsupportedEncodingException, MalformedURLException {
+            return new EndPresentationTextObject(intro, TripletHandler.parseTriplet(params, 8,
+                    context), params);
+        }
     }
 }

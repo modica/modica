@@ -1,8 +1,12 @@
 package org.modica.afp.modca.structuredfields;
 
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.List;
 
+import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
+import org.modica.afp.modca.Parameters;
 
 /**
  * A structured field is the building block of an AFP document.
@@ -41,7 +45,7 @@ public interface StructuredField {
      *
      * @return structured field type
      */
-    SfType getType();
+    StructuredFieldType getType();
 
     /**
      * The byte offset of this structured field within the AFP document.
@@ -72,4 +76,8 @@ public interface StructuredField {
      */
     List<ParameterAsString> getParameters();
 
+    public interface Builder {
+        StructuredField build(StructuredFieldIntroducer intro, Parameters params, Context context)
+                throws UnsupportedEncodingException, MalformedURLException;
+    }
 }

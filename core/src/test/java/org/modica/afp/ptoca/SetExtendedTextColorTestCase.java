@@ -21,7 +21,7 @@ public class SetExtendedTextColorTestCase extends ControlSequenceTestCase<SetExt
     @Before
     public void setUp() throws UnsupportedEncodingException {
         byte[] data = ByteUtils.createByteArray(0, 1, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8);
-        Parameters params = new Parameters(data, "Cp500");
+        Parameters params = new Parameters(data);
         ControlSequenceIdentifier expectedCsId = ControlSequenceIdentifier.SET_EXTENDED_TEXT_COLOR;
         int length = 16;
 

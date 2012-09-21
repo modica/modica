@@ -17,9 +17,9 @@ import org.modica.afp.modca.common.Rotation;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletsTestCase;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Include;
 import org.modica.afp.modca.structuredfields.include.IncludeObject;
 import org.modica.afp.modca.structuredfields.include.IncludeObject.ObjectType;
+import org.modica.afp.modca.structuredfields.types.IncludeType;
 import org.modica.afp.modca.triplets.Triplet;
 import org.modica.afp.modca.triplets.fullyqualifiedname.FullyQualifiedNameTestCase;
 import org.modica.common.ByteUtils;
@@ -42,7 +42,7 @@ public class IncludeObjectTestCase extends StructuredFieldWithTripletsTestCase<I
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
-        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Include.IOB);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(IncludeType.IOB);
 
         List<Triplet> triplets = addTripletToList(
                 FullyQualifiedNameTestCase.FONT_CHAR_SET_NAME_REF,
@@ -61,32 +61,32 @@ public class IncludeObjectTestCase extends StructuredFieldWithTripletsTestCase<I
 
         bb.put(paramByteArray);
         byte[] constructorArray = bb.array();
-        Parameters params = new Parameters(constructorArray, "Cp500");
+        Parameters params = new Parameters(constructorArray);
         hasAllParams = new IncludeObject(intro, triplets, params);
         setMembers(hasAllParams, intro, triplets);
 
         fillWithFF(constructorArray, 10, 3);
-        Parameters useXOA = new Parameters(constructorArray, "Cp500");
+        Parameters useXOA = new Parameters(constructorArray);
         useXOriginArea = new IncludeObject(intro, triplets, useXOA);
 
         fillWithFF(constructorArray, 13, 3);
-        params = new Parameters(constructorArray, "Cp500");
+        params = new Parameters(constructorArray);
         useYOriginArea = new IncludeObject(intro, triplets, params);
 
         fillWithFF(constructorArray, 16, 2);
-        params = new Parameters(constructorArray, "Cp500");
+        params = new Parameters(constructorArray);
         useXObjectRotation = new IncludeObject(intro, triplets, params);
 
         fillWithFF(constructorArray, 18, 2);
-        params = new Parameters(constructorArray, "Cp500");
+        params = new Parameters(constructorArray);
         useYObjectRotation = new IncludeObject(intro, triplets, params);
 
         fillWithFF(constructorArray, 20, 3);
-        params = new Parameters(constructorArray, "Cp500");
+        params = new Parameters(constructorArray);
         useXOriginOffset = new IncludeObject(intro, triplets, params);
 
         fillWithFF(constructorArray, 23, 3);
-        params = new Parameters(constructorArray, "Cp500");
+        params = new Parameters(constructorArray);
         useYOriginOffset = new IncludeObject(intro, triplets, params);
     }
 

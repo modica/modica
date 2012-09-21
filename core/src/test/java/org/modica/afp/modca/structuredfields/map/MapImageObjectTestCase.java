@@ -11,8 +11,8 @@ import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletGroupTestCase;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.Map;
 import org.modica.afp.modca.structuredfields.map.MapImageObject;
+import org.modica.afp.modca.structuredfields.types.MapType;
 import org.modica.afp.modca.triplets.RepeatingTripletGroup;
 
 /**
@@ -24,7 +24,7 @@ public class MapImageObjectTestCase extends StructuredFieldWithTripletGroupTestC
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
-        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(Map.MIO);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(MapType.MIO);
         RepeatingTripletGroup repeatingGroup = createGenericRepeatingGroup();
 
         sut = new MapImageObject(intro, repeatingGroup);

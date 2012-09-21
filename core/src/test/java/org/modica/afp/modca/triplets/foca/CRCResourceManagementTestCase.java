@@ -1,9 +1,5 @@
 package org.modica.afp.modca.triplets.foca;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +8,12 @@ import org.junit.Test;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.triplets.TripletTestCase;
-import org.modica.afp.modca.triplets.foca.ResourceManagement;
 import org.modica.afp.modca.triplets.foca.ResourceManagement.CRCResourceManagement;
 import org.modica.common.ByteUtils;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class CRCResourceManagementTestCase extends TripletTestCase<ResourceManagement> {
 
@@ -25,12 +24,12 @@ public class CRCResourceManagementTestCase extends TripletTestCase<ResourceManag
     @Override
     public void setUp() {
         byte[] crcBytes = ByteUtils.createByteArray(1, 2, 3, 1);
-        x = ResourceManagement.parse(new Parameters(crcBytes, "Cp500"));
-        ResourceManagement y = ResourceManagement.parse(new Parameters(crcBytes, "Cp500"));
-        ResourceManagement z = ResourceManagement.parse(new Parameters(crcBytes, "Cp500"));
+        x = ResourceManagement.parse(new Parameters(crcBytes));
+        ResourceManagement y = ResourceManagement.parse(new Parameters(crcBytes));
+        ResourceManagement z = ResourceManagement.parse(new Parameters(crcBytes));
 
         crcBytes[3] = 0;
-        notEqual = ResourceManagement.parse(new Parameters(crcBytes, "Cp500"));
+        notEqual = ResourceManagement.parse(new Parameters(crcBytes));
         setXYZ(x, y, z, notEqual);
     }
 

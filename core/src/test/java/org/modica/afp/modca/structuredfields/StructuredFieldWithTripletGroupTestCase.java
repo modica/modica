@@ -1,7 +1,5 @@
 package org.modica.afp.modca.structuredfields;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 
@@ -12,6 +10,8 @@ import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.triplets.RepeatingTripletGroup;
 import org.modica.afp.modca.triplets.TripletHandler;
 import org.modica.common.ByteUtils;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test case for subclasses of {@link StructuredFieldWithTripletGroup}.
@@ -42,8 +42,8 @@ public abstract class StructuredFieldWithTripletGroupTestCase<T extends Structur
         // I think this works... will find out soon enough
         byte[] data = ByteUtils.hexToBytes("0022"
                 + "0C028600C3F0C8F2F0F0" + "C2F00C028500E3F1E5F1F0F5F0F00426000004240502");
-        Parameters params = new Parameters(data, "Cp500");
         Context context = new ContextImpl();
+        Parameters params = new Parameters(data);
         return TripletHandler.parseRepeatingGroup(params, context);
     }
 }

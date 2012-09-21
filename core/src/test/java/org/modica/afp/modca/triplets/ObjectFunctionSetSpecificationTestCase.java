@@ -27,7 +27,7 @@ public class ObjectFunctionSetSpecificationTestCase extends
     @Override
     public void setUp() {
         byte[] tripletBytes = ByteUtils.hexToBytes("10210600000000000000");
-        Parameters params = new Parameters(tripletBytes, "Cp500");
+        Parameters params = new Parameters(tripletBytes);
         params.skip(2);
         x = new ObjectFunctionSetSpecification(params, 8);
         params.skipTo(2);
@@ -38,7 +38,7 @@ public class ObjectFunctionSetSpecificationTestCase extends
         tripletBytes[2] = 0x05;
         tripletBytes[5] = 0x01;
         tripletBytes[6] = 0x40;
-        params = new Parameters(tripletBytes, "Cp500");
+        params = new Parameters(tripletBytes);
         params.skipTo(2);
         notEqual = new ObjectFunctionSetSpecification(params, 8);
         setXYZ(x, y, z, notEqual);

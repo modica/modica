@@ -60,35 +60,9 @@ public class StructuredFieldCreator implements StructuredFieldIntroducerHandler 
 
     @Override
     public void handle(StructuredFieldIntroducer introducer) {
-        StructuredField structuredField;
-        switch (introducer.getType().getTypeCode()) {
-        case Map:
-            structuredField = sfFactory.createMap(introducer);
-            break;
-        case Descriptor:
-            structuredField = sfFactory.createDescriptor(introducer);
-            break;
-        case Migration:
-            structuredField = sfFactory.createMigration(introducer);
-            break;
-        case Data:
-            structuredField = sfFactory.createData(introducer);
-            break;
-        case Position:
-            structuredField = sfFactory.createPosition(introducer);
-            break;
-        case Include:
-            structuredField = sfFactory.createInclude(introducer);
-            break;
-        case Control:
-            structuredField = sfFactory.createControl(introducer);
-            break;
-        case Index:
-            structuredField = sfFactory.createIndex(introducer);
-            break;
-        default:
-            structuredField = null;
-        }
+        StructuredField structuredField = introducer.getType()
+                                                    .getTypeCode()
+                                                    .createField(sfFactory, introducer);
 
         // TODO remove UnhandledStructuredField once all structured fields can
         // be created

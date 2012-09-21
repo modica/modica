@@ -1,7 +1,5 @@
 package org.modica.afp.modca.structuredfields.end;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -9,14 +7,16 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.modica.afp.modca.ContextImpl;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducerTestCase;
 import org.modica.afp.modca.structuredfields.StructuredFieldTestCase;
-import org.modica.afp.modca.structuredfields.SfTypeFactory.End;
-import org.modica.afp.modca.structuredfields.end.EndCodePage;
+import org.modica.afp.modca.structuredfields.types.EndType;
 import org.modica.common.ByteUtils;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test case for {@link EndCodePage}.
@@ -29,12 +29,12 @@ public class EndCodePageTestCase extends StructuredFieldTestCase<EndCodePage> {
 
     @Before
     public void setUp() throws MalformedURLException, UnsupportedEncodingException {
-        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(End.ECP);
+        StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(EndType.ECP);
 
-        Parameters params = new Parameters(cpName.getBytes("Cp500"), "Cp500");
-        sut = new EndCodePage(intro, params);
-        Parameters matchesAnyParams = new Parameters(ByteUtils.createByteArray(0xff, 0xff), "Cp500");
-        sutMatchesAny = new EndCodePage(intro, matchesAnyParams);
+        Parameters params = new Parameters(cpName.getBytes("Cp500"));
+        sut = new EndCodePage(intro, params, new ContextImpl());
+        Parameters matchesAnyParams = new Parameters(ByteUtils.createByteArray(0xff, 0xff));
+        sutMatchesAny = new EndCodePage(intro, matchesAnyParams, new ContextImpl());
         setMembers(sut, intro);
     }
 

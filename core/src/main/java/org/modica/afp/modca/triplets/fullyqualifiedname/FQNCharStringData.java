@@ -8,7 +8,7 @@ import org.modica.afp.modca.ParameterAsString;
 /**
  * Provides functionality for the Fully Qualified Name triplets that have character string data.
  */
-final class FQNCharStringData extends FullyQualifiedName {
+public final class FQNCharStringData extends FullyQualifiedName {
     private final String data;
     private final FQNType type;
 

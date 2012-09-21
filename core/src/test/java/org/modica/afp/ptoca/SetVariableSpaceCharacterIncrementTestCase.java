@@ -16,7 +16,7 @@ public class SetVariableSpaceCharacterIncrementTestCase
 
     @Before
     public void setUp() {
-        Parameters params = new Parameters(ByteUtils.createByteArray(1, 2), "Cp500");
+        Parameters params = new Parameters(ByteUtils.createByteArray(1, 2));
         ControlSequenceIdentifier expectedCsId = ControlSequenceIdentifier.SET_VARIABLE_SPACE_CHARACTER_INCREMENT;
         int length = 4;
         boolean isChained = true;

@@ -17,7 +17,7 @@ public class EndSuppressionTestCase extends ControlSequenceTestCase<EndSuppressi
 
     @Before
     public void setUp() {
-        Parameters params = new Parameters(new byte[] { suppressionId }, "Cp500");
+        Parameters params = new Parameters(new byte[] { suppressionId });
         ControlSequenceIdentifier expectedCsId = ControlSequenceIdentifier.END_SUPPRESSION;
         int length = 4;
         boolean isChained = true;

@@ -19,7 +19,7 @@ public class NoOperationTestCase extends ControlSequenceTestCase<NoOperation> {
 
     @Before
     public void setUp() throws UnsupportedEncodingException {
-        Parameters params = new Parameters(comment.getBytes("Cp500"), "Cp500");
+        Parameters params = new Parameters(comment.getBytes("Cp500"));
         ControlSequenceIdentifier expectedCsId = ControlSequenceIdentifier.NO_OPERATION;
         int length = 25;
         boolean isChained = true;

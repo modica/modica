@@ -18,7 +18,7 @@ public class SetTextOrientationTestCase extends ControlSequenceTestCase<SetTextO
 
     @Before
     public void setUp() {
-        Parameters params = new Parameters(ByteUtils.createByteArray(0xB3, 0x81, 0xB3, 0x81), "Cp500");
+        Parameters params = new Parameters(ByteUtils.createByteArray(0xB3, 0x81, 0xB3, 0x81));
         ControlSequenceIdentifier expectedCsId = ControlSequenceIdentifier.SET_TEXT_ORIENTATION;
         int length = 4;
         boolean isChained = true;
@@ -26,13 +26,13 @@ public class SetTextOrientationTestCase extends ControlSequenceTestCase<SetTextO
         sut = new SetTextOrientation(expectedCsId, length, isChained, params);
         setMembers(sut, expectedCsId, isChained, length);
 
-        params = new Parameters(ByteUtils.createByteArray(0, 0x82, 0, 0x83), "Cp500");
+        params = new Parameters(ByteUtils.createByteArray(0, 0x82, 0, 0x83));
         oneDegree = new SetTextOrientation(expectedCsId, length, isChained, params);
 
-        params = new Parameters(ByteUtils.createByteArray(5, 0x04, 5, 0x05), "Cp500");
+        params = new Parameters(ByteUtils.createByteArray(5, 0x04, 5, 0x05));
         tenDegrees = new SetTextOrientation(expectedCsId, length, isChained, params);
 
-        params = new Parameters(ByteUtils.createByteArray(50, 0x06, 50, 0x07), "Cp500");
+        params = new Parameters(ByteUtils.createByteArray(50, 0x06, 50, 0x07));
         hundredDegrees = new SetTextOrientation(expectedCsId, length, isChained, params);
     }
 

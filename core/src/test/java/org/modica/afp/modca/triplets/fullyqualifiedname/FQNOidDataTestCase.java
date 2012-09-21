@@ -34,7 +34,7 @@ public class FQNOidDataTestCase extends TripletTestCase<FQNOidData> {
         byteData = ByteUtils.createByteArray(6, 1, 2, 3, 4, 5, 6, 7);
         length = 8;
 
-        oid = new ObjectId(new Parameters(byteData, "Cp500"), length);
+        oid = new ObjectId(new Parameters(byteData), length);
 
         x = createTestSubject(byteData, length);
         FQNOidData y = createTestSubject(byteData, length);
@@ -46,7 +46,7 @@ public class FQNOidDataTestCase extends TripletTestCase<FQNOidData> {
     }
 
     private FQNOidData createTestSubject(byte[] data, int length) {
-        return new FQNOidData(length, new ObjectId(new Parameters(data, "Cp500"), length), FQNType.attribute_gid);
+        return new FQNOidData(length, new ObjectId(new Parameters(data), length), FQNType.attribute_gid);
     }
 
     @Test
