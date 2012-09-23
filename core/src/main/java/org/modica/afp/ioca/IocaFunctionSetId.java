@@ -19,24 +19,7 @@ public class IocaFunctionSetId implements SelfDefiningField {
         assert length == 0x02;
         byte category = params.getByte();
         assert category == 0x01;
-        fs = getFunctionSet(params.getByte());
-    }
-
-    private FunctionSet getFunctionSet(byte id) {
-        switch (id) {
-        case 0x0A:
-            return FunctionSet.FS_10;
-        case 0x0B:
-            return FunctionSet.FS_11;
-        case 0x28:
-            return FunctionSet.FS_40;
-        case 0x2A:
-            return FunctionSet.FS_42;
-        case 0x2D:
-            return FunctionSet.FS_45;
-        default:
-            throw new IllegalArgumentException(id + " is not a valid IOCA function set");
-        }
+        fs = FunctionSet.getValue(params.getByte());
     }
 
     @Override
