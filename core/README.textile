@@ -4,4 +4,4 @@ p. The MODiCA core library provides the technology for parsing AFP documents. Th
 
 h3. Testing and Code Coverage
 
-p. MODiCA is tested thorougly with JUnit tests as well as integration tests. When the gradle build is invoked, the default action is to use Emm to analyse code coverage, the report can be viewed by opening "build/reports/emma/coverage.html" in a browser.
+p. MODiCA is tested thorougly with JUnit tests as well as integration tests. When the gradle build is invoked, the default action is to use Emma to analyse code coverage, the report can be viewed by opening "build/reports/emma/coverage.html" in a browser.
