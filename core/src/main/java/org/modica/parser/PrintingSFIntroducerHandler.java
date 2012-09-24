@@ -15,8 +15,6 @@
  * limitations under the License.
  */
 
-/* $Id:$ */
-
 package org.modica.parser;
 
 import java.io.PrintStream;
