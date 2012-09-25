@@ -25,7 +25,6 @@ import java.util.List;
 import org.modica.afp.modca.Context;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
-import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.modica.afp.modca.triplets.Triplet;
@@ -59,7 +58,7 @@ public class TagLogicalElement extends StructuredFieldWithTriplets {
 
     public static class TLEBuilder implements Builder {
         @Override
-        public StructuredField build(StructuredFieldIntroducer intro, Parameters params,
+        public TagLogicalElement build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
             return new TagLogicalElement(intro, TripletHandler.parseTriplet(params, 0, context));
         }
