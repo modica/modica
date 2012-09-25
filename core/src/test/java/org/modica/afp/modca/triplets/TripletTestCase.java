@@ -17,6 +17,7 @@
 
 package org.modica.afp.modca.triplets;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.junit.Test;
@@ -33,7 +34,7 @@ public abstract class TripletTestCase<T> {
     private T z;
     private T notEqual;
 
-    public abstract void setUp();
+    public abstract void setUp() throws UnsupportedEncodingException;
 
     public void setXYZ(T x, T y, T z, T notEqual) {
         this.x = x;

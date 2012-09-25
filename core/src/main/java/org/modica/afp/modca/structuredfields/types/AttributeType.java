@@ -22,6 +22,7 @@ import org.modica.afp.modca.structuredfields.StructuredField.Builder;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
 import org.modica.afp.modca.structuredfields.StructuredFieldType;
 import org.modica.afp.modca.structuredfields.TypeCode;
+import org.modica.afp.modca.structuredfields.attribute.TagLogicalElement.TLEBuilder;
 import org.modica.parser.StructuredFieldIntroducerHandler;
 
 /**
@@ -31,7 +32,7 @@ public enum AttributeType implements StructuredFieldType {
     /** Medium Finishing Control */
     MFC(CategoryCode.medium, "Medium Finishing Control", new NotYetImplementedBuilder()),
     /** Tag Logical Element */
-    TLE(CategoryCode.process_element, "Tag Logical Element", new NotYetImplementedBuilder());
+    TLE(CategoryCode.process_element, "Tag Logical Element", new TLEBuilder());
 
     public static final TypeCode TYPE_CODE = TypeCode.Attribute;
     private final CategoryCode category;

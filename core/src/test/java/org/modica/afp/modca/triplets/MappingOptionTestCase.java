@@ -23,7 +23,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.modica.afp.modca.ParameterAsString;
-import org.modica.afp.modca.triplets.MappingOption.MapValue;
+import org.modica.afp.modca.common.MapValue;
 
 import static org.junit.Assert.assertEquals;
 

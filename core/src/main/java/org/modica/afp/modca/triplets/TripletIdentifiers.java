@@ -114,8 +114,9 @@ public enum TripletIdentifiers {
     },
     attribute_value(0x36) {
         @Override
-        public Triplet buildTriplet(int length, Parameters params, Context context) {
-            return new NotYetImplementedTriplet(length, this, params);
+        public Triplet buildTriplet(int length, Parameters params, Context context)
+                throws UnsupportedEncodingException {
+            return new AttributeValue(length, this, params);
         }
     },
     descriptor_position(0x43) {
