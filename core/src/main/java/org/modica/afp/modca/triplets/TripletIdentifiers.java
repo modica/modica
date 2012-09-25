@@ -382,6 +382,20 @@ public enum TripletIdentifiers {
         public Triplet buildTriplet(int length, Parameters params, Context context) {
             return new NotYetImplementedTriplet(length, this, params);
         }
+    },
+    image_resolution(0x9A) {
+        @Override
+        Triplet buildTriplet(int length, Parameters params, Context context)
+                throws UnsupportedEncodingException, MalformedURLException {
+            return new NotYetImplementedTriplet(length, this, params);
+        }
+    },
+    object_container_presentation_space_size(0x9C) {
+        @Override
+        Triplet buildTriplet(int length, Parameters params, Context context)
+                throws UnsupportedEncodingException, MalformedURLException {
+            return new NotYetImplementedTriplet(length, this, params);
+        }
     };
 
     private static final int MAX_LENGTH = 254;

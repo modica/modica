@@ -86,6 +86,8 @@ public class TripletIdentifiersTestCase {
         testId(0x95, TripletIdentifiers.rendering_intent);
         testId(0x96, TripletIdentifiers.cmr_tag_fidelity);
         testId(0x97, TripletIdentifiers.device_appearance);
+        testId(0x9A, TripletIdentifiers.image_resolution);
+        testId(0x9C, TripletIdentifiers.object_container_presentation_space_size);
     }
 
     private void testId(int expected, TripletIdentifiers tripletId) {
