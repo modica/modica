@@ -94,8 +94,36 @@ public final class StructuredFieldHandlers {
             for (StructuredFieldHandler handler : handlers) {
                 handler.endAfp();
             }
-
         }
 
+    }
+
+    public static StructuredFieldHandler ignore() {
+        return IgnoringStructuredFieldHandler.SINGLETON;
+    }
+
+    private static class IgnoringStructuredFieldHandler implements StructuredFieldHandler {
+
+        private static final StructuredFieldHandler SINGLETON = new IgnoringStructuredFieldHandler();
+
+        @Override
+        public void startAfp() {
+        }
+
+        @Override
+        public void handleBegin(StructuredField structuredField) {
+        }
+
+        @Override
+        public void handleEnd(StructuredField structuredField) {
+        }
+
+        @Override
+        public void handle(StructuredField structuredField) {
+        }
+
+        @Override
+        public void endAfp() {
+        }
     }
 }

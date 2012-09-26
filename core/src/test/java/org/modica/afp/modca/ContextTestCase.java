@@ -41,7 +41,7 @@ public class ContextTestCase {
 
     @Before
     public void setUp() {
-        sut = new Context();
+        sut = new ContextImpl();
         mcf = mock(MapCodedFont.class);
         cpDesc = mock(CodePageDescriptor.class);
 
@@ -53,7 +53,7 @@ public class ContextTestCase {
 
     @Test
     public void testConstructor() {
-        Context ctx = new Context();
+        Context ctx = new ContextImpl();
         assertEquals(EbcdicStringHandler.DEFAULT_CPGID, ctx.get(MODCA_GCSGID));
     }
 

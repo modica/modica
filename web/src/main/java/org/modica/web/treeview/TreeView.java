@@ -16,7 +16,6 @@ import org.modica.afp.modca.structuredfields.StructuredField;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTripletGroup;
 import org.modica.afp.modca.structuredfields.StructuredFieldWithTriplets;
 import org.modica.common.StringUtils;
-import org.modica.web.TreeViewPanel;
 import org.modica.web.model.AfpTreeModel;
 import org.modica.web.model.SfTreeNode;
 import org.slf4j.Logger;
@@ -96,20 +95,12 @@ public class TreeView extends Panel {
     }
 
     private void addToRoot(DefaultMutableTreeNode parent, SfTreeNode nodes) {
-        for (Object node : nodes.getChilden()) {
-            if (node instanceof SfTreeNode) {
-                SfTreeNode tn = (SfTreeNode) node;
-                DefaultMutableTreeNode child = new DefaultMutableTreeNode(new SfModelBean(
-                        tn.getField()));
-                addParamsAndTriplets(child, tn.getField());
-                parent.add(child);
-                addToRoot(child, tn);
-            } else {
-                StructuredField sf = (StructuredField) node;
-                DefaultMutableTreeNode child = new DefaultMutableTreeNode(new SfModelBean(sf));
-                addParamsAndTriplets(child, sf);
-                parent.add(child);
-            }
+        for (SfTreeNode node : nodes.getChilden()) {
+            DefaultMutableTreeNode child = new DefaultMutableTreeNode(new SfModelBean(
+                    node.getField()));
+            addParamsAndTriplets(child, node.getField());
+            parent.add(child);
+            addToRoot(child, node);
         }
     }
 

@@ -19,7 +19,7 @@ package org.modica.afp.ptoca;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.modica.afp.modca.Context;
+import org.modica.afp.modca.ContextImpl;
 import org.modica.afp.modca.Parameters;
 
 import static org.junit.Assert.assertEquals;
@@ -37,7 +37,7 @@ public class SetCodedFontLocalTestCase extends ControlSequenceTestCase<SetCodedF
         int length = 3;
         boolean isChained = true;
 
-        sut = new SetCodedFontLocal(expectedCsId, length, isChained, params, new Context());
+        sut = new SetCodedFontLocal(expectedCsId, length, isChained, params, new ContextImpl());
         setMembers(sut, expectedCsId, isChained, length);
     }
 

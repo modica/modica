@@ -1,0 +1,19 @@
+<html xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+</wicket:head>
+<body>
+<wicket:panel>
+    <div>This AFP has <span wicket:id="size">0</span> SFs</div>
+    <div wicket:id="field" class="field">
+        <wicket:container wicket:id="sf">sf</wicket:container>
+    </div>
+    <wicket:fragment wicket:id="collapsed">
+        <a wicket:id="link"><span wicket:id="sf_string">sf name</span></a>
+    </wicket:fragment>
+    <wicket:fragment wicket:id="expanded">
+        <div><span wicket:id="sf_string">sf name</span></div>
+        <div><span wicket:id="param_count">sf name</span> params</div>
+    </wicket:fragment>
+</wicket:panel>
+</body>
+</html>

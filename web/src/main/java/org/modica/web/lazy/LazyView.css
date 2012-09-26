@@ -1,0 +1,14 @@
+.field {
+    font-weight:bold;
+    padding:5px;
+    background-color:#4682B4;
+    color:#fff;
+    border: 1px rgba(0,0,0,0.2) solid;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.field a {
+    color:#fff;
+}

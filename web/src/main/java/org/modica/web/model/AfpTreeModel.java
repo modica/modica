@@ -1,5 +1,8 @@
 package org.modica.web.model;
 
+import java.io.IOException;
+
+import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -17,7 +20,11 @@ public class AfpTreeModel extends Model<SfTreeNode> {
 
     @Override
     public SfTreeNode getObject() {
-        return afpService.getSfTreeNode();
+        try {
+            return afpService.getRootNode();
+        } catch (IOException e) {
+            throw new WicketRuntimeException(e);
+        }
     }
 
     @Override

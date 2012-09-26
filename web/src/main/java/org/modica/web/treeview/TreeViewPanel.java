@@ -1,7 +1,7 @@
-package org.modica.web;
+package org.modica.web.treeview;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -10,7 +10,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.modica.web.filepicker.FilePicker;
 import org.modica.web.model.AfpService;
 import org.modica.web.model.AfpTreeModel;
-import org.modica.web.treeview.TreeView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,8 +35,8 @@ public class TreeViewPanel extends Panel {
                 LOG.debug("setObject()");
                 super.setObject(file);
                 try {
-                    afpService.setAfpFile(file);
-                } catch (FileNotFoundException e) {
+                    afpService.load(file);
+                } catch (IOException e) {
                     throw new WicketRuntimeException("Faulty afp file " + file, e);
                 }
                 treeView.update();

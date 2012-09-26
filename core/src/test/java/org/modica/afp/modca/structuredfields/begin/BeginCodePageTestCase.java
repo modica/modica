@@ -24,7 +24,7 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.modica.afp.modca.Context;
+import org.modica.afp.modca.ContextImpl;
 import org.modica.afp.modca.EbcdicStringHandler;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
@@ -55,7 +55,7 @@ public class BeginCodePageTestCase extends StructuredFieldWithTripletsTestCase<B
                 FullyQualifiedNameTestCase.CODE_PAGE_NAME_REF);
 
         Parameters params = new Parameters(cfName.getBytes(EbcdicStringHandler.DEFAULT_CPGID_NAME));
-        sut = new BeginCodePage(intro, triplets, params, new Context());
+        sut = new BeginCodePage(intro, triplets, params, new ContextImpl());
         super.setMembers(sut, intro, triplets);
     }
 

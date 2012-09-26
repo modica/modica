@@ -5,9 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.apache.wicket.WicketRuntimeException;
-import org.modica.web.ModicaSession;
-
 /**
  * This service is used to manage the session scoped AfpModel object:
  * It will coordinate the AFP file management and the AFP document building
@@ -15,67 +12,83 @@ import org.modica.web.ModicaSession;
  */
 public class AfpService {
 
+    private IAfpState afpState;
+
     private AfpTreeBuilder afpTreeBuilder;
 
-    private final ThreadLocal<FileInputStream> fileChannelStore = new ThreadLocal<FileInputStream>();
-
-    private final ThreadLocal<SfTreeNode> sfTreeNodeStore = new ThreadLocal<SfTreeNode>();
-
-    public void setAfpFile(File afpFile) throws FileNotFoundException {
-        ModicaSession session = ModicaSession.get();
-        File previous = session.getAfpFile();
-        if (previous != null) {
-            previous.delete();
-        }
-        session.setAfpFile(afpFile);
-        load(afpFile);
+    public void load(File afpFile) throws IOException {
+        clear();
+        openStream(afpFile);
     }
 
-    public SfTreeNode getSfTreeNode() {
-        SfTreeNode sfTreeNode = sfTreeNodeStore.get();
+    public SfTreeNode getRootNode() throws IOException {
+        SfTreeNode sfTreeNode = getSfTreeNode();
         if (sfTreeNode == null) {
-            FileInputStream input = fileChannelStore.get();
-            if (input != null) {
-                try {
-                    sfTreeNode = afpTreeBuilder.buildTree(input);
-                    sfTreeNodeStore.set(sfTreeNode);
-                } catch (IOException e) {
-                    throw new WicketRuntimeException("Error building afp tree", e);
-                }
+            File file = getAfpFile();
+            if (file != null) {
+                sfTreeNode = buildTree(file);
+                setSfTreeNode(sfTreeNode);
             }
         }
         return sfTreeNode;
     }
 
-    private void load(File afpFile) throws FileNotFoundException {
-        fileChannelStore.set(new FileInputStream(afpFile));
-        sfTreeNodeStore.set(null);
+    private SfTreeNode buildTree(File file) throws IOException {
+        return afpTreeBuilder.buildTree(file);
     }
 
-    public void beginSession() throws FileNotFoundException {
-        ModicaSession session = ModicaSession.get();
-        if (session != null) {
-            File afpFile = session.getAfpFile();
-            if (afpFile != null) {
-                try {
-                    load(afpFile);
-                } catch (FileNotFoundException e) {
-                    throw new WicketRuntimeException(e);
-                }
-            }
+    private void clear() throws IOException {
+        SfTreeNode node = getSfTreeNode();
+        if (node != null) {
+            afpTreeBuilder.detach(node);
+        }
+        setSfTreeNode(null);
+        File previous = getAfpFile();
+        if (previous != null) {
+            previous.delete();
+        }
+        setAfpFile(null);
+    }
+
+    private void openStream(File afpFile) throws FileNotFoundException {
+        setAfpFile(afpFile);
+    }
+
+    private File getAfpFile() {
+        return afpState.getAfpFile();
+    }
+
+    private void setAfpFile(File afpFile) {
+        afpState.setAfpFile(afpFile);
+    }
+
+    private SfTreeNode getSfTreeNode() {
+        return afpState.getSfTreeNode();
+    }
+
+    private void setSfTreeNode(SfTreeNode sfTreeNode) {
+        afpState.setSfTreeNode(sfTreeNode);
+    }
+
+    void beginRequest() throws IOException {
+        SfTreeNode sfTreeNode = getSfTreeNode();
+        if (sfTreeNode != null) {
+            afpTreeBuilder.attach(sfTreeNode, new FileInputStream(getAfpFile()));
         }
     }
 
-    public void endSession() throws IOException {
-        FileInputStream input = fileChannelStore.get();
-        fileChannelStore.set(null);
-        sfTreeNodeStore.set(null);
-        if (input != null) {
-            input.close();
+    void endRequest() throws IOException {
+        SfTreeNode sfTreeNode = getSfTreeNode();
+        if (sfTreeNode != null) {
+            afpTreeBuilder.detach(sfTreeNode);
         }
     }
 
     public void setAfpTreeBuilder(AfpTreeBuilder afpTreeBuilder) {
         this.afpTreeBuilder = afpTreeBuilder;
+    }
+
+    public void setAfpState(IAfpState afpState) {
+        this.afpState = afpState;
     }
 }

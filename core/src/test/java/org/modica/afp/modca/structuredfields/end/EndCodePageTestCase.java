@@ -24,7 +24,7 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.modica.afp.modca.Context;
+import org.modica.afp.modca.ContextImpl;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.structuredfields.StructuredFieldIntroducer;
@@ -49,9 +49,9 @@ public class EndCodePageTestCase extends StructuredFieldTestCase<EndCodePage> {
         StructuredFieldIntroducer intro = StructuredFieldIntroducerTestCase.createGenericIntroducer(EndType.ECP);
 
         Parameters params = new Parameters(cpName.getBytes("Cp500"));
-        sut = new EndCodePage(intro, params, new Context());
+        sut = new EndCodePage(intro, params, new ContextImpl());
         Parameters matchesAnyParams = new Parameters(ByteUtils.createByteArray(0xff, 0xff));
-        sutMatchesAny = new EndCodePage(intro, matchesAnyParams, new Context());
+        sutMatchesAny = new EndCodePage(intro, matchesAnyParams, new ContextImpl());
         setMembers(sut, intro);
     }
 

@@ -25,6 +25,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.modica.afp.modca.Context;
+import org.modica.afp.modca.ContextImpl;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.common.EncodingScheme;
@@ -55,7 +56,7 @@ public class CodePageDescriptorTestCase extends StructuredFieldTestCase<CodePage
         byte[] paramsBytes = ByteUtils.createByteArray(0, 8, 1, 2, 3, 4, 5, 6, 7, 8, 0x62, 0);
         bb.put(paramsBytes);
         Parameters params = new Parameters(bb.array());
-        Context ctx = new Context();
+        Context ctx = new ContextImpl();
         ctx.setCurrentCodePageName("test");
         sut = new CodePageDescriptor(intro, params, ctx);
 
@@ -65,7 +66,7 @@ public class CodePageDescriptorTestCase extends StructuredFieldTestCase<CodePage
         bb = ByteBuffer.allocate(42);
         bb.put(cpDesc.getBytes("Cp500"));
         bb.put(noSchemeBytes);
-        ctx = new Context();
+        ctx = new ContextImpl();
         ctx.setCurrentCodePageName("test");
         sutNoScheme = new CodePageDescriptor(intro, new Parameters(bb.array()), ctx);
     }

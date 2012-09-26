@@ -25,6 +25,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.modica.afp.modca.Context;
+import org.modica.afp.modca.ContextImpl;
 import org.modica.afp.modca.ParameterAsString;
 import org.modica.afp.modca.Parameters;
 import org.modica.afp.modca.common.CPIRepeatingGroupLength;
@@ -71,33 +72,33 @@ public class CodePageControlTestCase extends StructuredFieldTestCase<CodePageCon
         bb.put(defaultChar.getBytes("Cp500"));
         bb.put(ByteUtils.createByteArray(0x80, 0x0A, 2, 3, 0x90));
         byte[] data = bb.array();
-        sutCtx = new Context();
+        sutCtx = new ContextImpl();
         sut = new CodePageControl(intro, new Parameters(data), sutCtx);
         setMembers(sut, intro);
 
         data[8] = (byte) 0x00;
-        notInvalid = new CodePageControl(intro, new Parameters(data), new Context());
+        notInvalid = new CodePageControl(intro, new Parameters(data), new ContextImpl());
 
         data[8] = (byte) 0x40;
-        noPresentation = new CodePageControl(intro, new Parameters(data), new Context());
+        noPresentation = new CodePageControl(intro, new Parameters(data), new ContextImpl());
 
         data[8] = 0x60;
-        noIncrement = new CodePageControl(intro, new Parameters(data), new Context());
+        noIncrement = new CodePageControl(intro, new Parameters(data), new ContextImpl());
 
-        doubleByteCtx = new Context();
+        doubleByteCtx = new ContextImpl();
         data[9] = 0x0B;
         doubleByte = new CodePageControl(intro, new Parameters(data), doubleByteCtx);
 
-        singleByteUnicodeCtx = new Context();
+        singleByteUnicodeCtx = new ContextImpl();
         data[9] = (byte) 0xFE;
         singleByteUnicode = new CodePageControl(intro, new Parameters(data), singleByteUnicodeCtx);
 
-        doubleByteUnicodeCtx = new Context();
+        doubleByteUnicodeCtx = new ContextImpl();
         data[9] = (byte) 0xFF;
         doubleByteUnicode = new CodePageControl(intro, new Parameters(data), doubleByteUnicodeCtx);
 
         data[12] = (byte) 0x08;
-        enableVariableSpace = new CodePageControl(intro, new Parameters(data), new Context());
+        enableVariableSpace = new CodePageControl(intro, new Parameters(data), new ContextImpl());
     }
 
     @Test

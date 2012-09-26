@@ -4,13 +4,16 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 	
-	<bean id="afpTreeBuilder" class="org.modica.web.model.AfpTreeBuilder"/>
+	<bean id="afpTreeBuilder" class="org.modica.web.model.LazyParsingTreeBuilder"/>
 
     <bean id="afpServiceSession" class="org.modica.web.model.AfpServiceRequestCycleListener">
         <property name="afpService" ref="afpService"/>
     </bean>
 
+    <bean id="afpState" class="org.modica.web.model.SessionScopedAfpState"/>
+
     <bean id="afpService" class="org.modica.web.model.AfpService">
+        <property name="afpState" ref="afpState"/>
         <property name="afpTreeBuilder" ref="afpTreeBuilder"/>
     </bean>
 
