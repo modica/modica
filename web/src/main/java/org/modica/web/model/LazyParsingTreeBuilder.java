@@ -88,8 +88,9 @@ public class LazyParsingTreeBuilder implements AfpTreeBuilder {
                 }
             }
         }).start();
-
-        return new LazyParsingNode(treeBuilder.getTree(), lazyAfp);
+        SfTreeNode sfTreeNode = new LazyParsingNode(treeBuilder.getTree(), lazyAfp);
+        attach(sfTreeNode, new FileInputStream(file));
+        return sfTreeNode;
     }
 
     @Override

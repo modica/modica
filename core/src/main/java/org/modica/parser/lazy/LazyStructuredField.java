@@ -20,13 +20,6 @@ public class LazyStructuredField extends AbstractStructuredField {
 
     private static final Logger LOG = LoggerFactory.getLogger(LazyStructuredField.class);
 
-    private static final StructuredField SF_GUARD = new AbstractStructuredField(null) {
-        @Override
-        public List<ParameterAsString> getParameters() {
-            return Collections.emptyList();
-        }
-    };
-
     private StructuredField structuredField;
 
     private Future<Context> contextFuture;
@@ -39,6 +32,9 @@ public class LazyStructuredField extends AbstractStructuredField {
             FileChannelProvider fileChannelProvider) {
         super(introducer);
         this.introducer = introducer;
+        if(introducer == null) {
+            System.out.println("null introducer");
+        }
         this.contextFuture = contextFuture;
         this.fileChannelProvider = fileChannelProvider;
     }
@@ -55,7 +51,8 @@ public class LazyStructuredField extends AbstractStructuredField {
             throw new RuntimeException(e);
         }
         if (context == null) {
-            structuredField = SF_GUARD;
+            LOG.debug("Context is null so creating a guard Structured field for introduce " + introducer);
+            structuredField = createGuard(introducer);
             return;
         }
         StructuredFieldFactory factory = new StructuredFieldFactoryImpl(
@@ -92,11 +89,19 @@ public class LazyStructuredField extends AbstractStructuredField {
             structuredField = factory.createIndex(introducer);
             break;
         default:
-            structuredField = SF_GUARD;
+            LOG.debug("No factory method associated with introducer.  " +
+                    "Creating a guard SF for introduce " + introducer);
+            structuredField = createGuard(introducer);
         }
         if (structuredField == null) {
-            structuredField = SF_GUARD;
+            LOG.debug("Factory created a null Structured Field. " +
+                    "Creating a guard SF for introduce " + introducer);
+            structuredField = createGuard(introducer);
         }
+    }
+
+    private AbstractStructuredField createGuard(StructuredFieldIntroducer introducer) {
+        return new StructuredFieldGuard(introducer);
     }
 
     @Override
@@ -111,5 +116,22 @@ public class LazyStructuredField extends AbstractStructuredField {
     public String toString() {
         return structuredField == null ? "Proxy: " + introducer.toString()
                 : structuredField.toString();
+    }
+
+    private static class StructuredFieldGuard extends AbstractStructuredField {
+
+        public StructuredFieldGuard(StructuredFieldIntroducer introducer) {
+            super(introducer);
+        }
+
+        @Override
+        public List<ParameterAsString> getParameters() {
+            return Collections.emptyList();
+        }
+
+        @Override
+        public String toString() {
+            return super.toString();
+        }
     }
 }
