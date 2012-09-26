@@ -24,9 +24,9 @@ public class MainPage extends WebPage {
     private static final String CONTENT_ID = "content";
 
     private final List<MenuItem> menuItems = Arrays.asList(
-            new MenuItem("inspect", new TreeViewPanel(CONTENT_ID)),
-            new MenuItem("lazy", new LazyViewPanel(CONTENT_ID)),
-            new MenuItem("settings", new SettingsPanel(CONTENT_ID)));
+            new MenuItem("Tree View", new TreeViewPanel(CONTENT_ID)),
+            new MenuItem("Flat View", new LazyViewPanel(CONTENT_ID))/*,
+            new MenuItem("settings", new SettingsPanel(CONTENT_ID))*/);
 
     private Panel activePanel;
 
