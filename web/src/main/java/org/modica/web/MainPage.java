@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
+import org.modica.web.lazy.LazyViewPanel;
+import org.modica.web.treeview.TreeViewPanel;
+
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
@@ -14,8 +17,6 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.resource.PackageResourceReference;
-import org.modica.web.lazy.LazyViewPanel;
-import org.modica.web.treeview.TreeViewPanel;
 
 public class MainPage extends WebPage {
 
@@ -33,6 +34,7 @@ public class MainPage extends WebPage {
     @Override
     public void renderHead(IHeaderResponse response) {
         response.renderCSSReference("css/reset.css");
+        response.renderCSSReference("css/modica.css");
         response.renderCSSReference(new PackageResourceReference(MainPage.class, "MainPage.css"));
     }
 
