@@ -112,7 +112,7 @@ public class LazyView extends Panel {
 
         private static final long serialVersionUID = 1L;
 
-        public Expanded(String id, String markupId, MarkupContainer markupProvider,
+        public Expanded(final String id, String markupId, final MarkupContainer markupProvider,
                 final ListItem<SfTreeNode> item) {
             super(id, markupId, markupProvider);
             SfTreeNode node = item.getModelObject();
@@ -121,11 +121,30 @@ public class LazyView extends Panel {
                 add(new Label("sf_string", "ROOT"));
                 add(new Label("param_count", "-"));
             } else {
+
+                AjaxLink<Void> link = new AjaxLink<Void>("link") {
+
+                    private static final long serialVersionUID = 1L;
+
+                    @Override
+                    public void onClick(AjaxRequestTarget target) {
+                        Fragment collapsed = new Collapsed(id, "collapsed", markupProvider, item);
+                        expand(collapsed);
+                        target.add(item);
+                    }
+                };
+
                 String size = sf.getParameters() == null ? "0" : String.valueOf(sf.getParameters().size());
                 // Calling getParameters triggers full parse of SF, and an update to what toString() returns
-                add(new Label("sf_string", sf.toString()));
+                link.add(new Label("sf_string", sf.toString()));
+                add(link);
+                // add(new Label("sf_string", sf.toString()));
                 add(new Label("param_count", size));
             }
+        }
+
+        private void expand(Fragment expanded) {
+            replaceWith(expanded);
         }
 
     }
