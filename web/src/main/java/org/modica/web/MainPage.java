@@ -33,8 +33,6 @@ public class MainPage extends WebPage {
 
     @Override
     public void renderHead(IHeaderResponse response) {
-        response.renderCSSReference("css/reset.css");
-        response.renderCSSReference("css/modica.css");
         response.renderCSSReference(new PackageResourceReference(MainPage.class, "MainPage.css"));
     }
 

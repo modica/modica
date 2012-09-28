@@ -43,7 +43,12 @@ public class LazyView extends Panel {
                 item.add(new Collapsed("sf", "collapsed", LazyView.this, item));
             }
         };
-        add(new Label("size", new SizeModel()));
+        add(new Label("size", new SizeModel()){
+            @Override
+            public boolean isVisible() {
+                return LazyView.this.afpTreeModel.getObject() != null;
+            }
+        });
         add(lv);
     }
 
@@ -111,14 +116,14 @@ public class LazyView extends Panel {
                 final ListItem<SfTreeNode> item) {
             super(id, markupId, markupProvider);
             SfTreeNode node = item.getModelObject();
-            StructuredField sf = node.getField();
+            final StructuredField sf = node.getField();
             if (sf == null) {
                 add(new Label("sf_string", "ROOT"));
                 add(new Label("param_count", "-"));
             } else {
+                String size = sf.getParameters() == null ? "0" : String.valueOf(sf.getParameters().size());
+                // Calling getParameters triggers full parse of SF, and an update to what toString() returns
                 add(new Label("sf_string", sf.toString()));
-                String size = sf.getParameters() == null ? "0" : String.valueOf(sf.getParameters()
-                        .size());
                 add(new Label("param_count", size));
             }
         }

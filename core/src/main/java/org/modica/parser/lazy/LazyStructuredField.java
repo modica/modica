@@ -39,8 +39,10 @@ public class LazyStructuredField extends AbstractStructuredField {
         this.fileChannelProvider = fileChannelProvider;
     }
 
-    private void load() {
-        LOG.debug("load()");
+    private void fullparse() {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Begin full parse of '" + this + "'");
+        }
         Context context;
         try {
             context = contextFuture.get();
@@ -98,6 +100,7 @@ public class LazyStructuredField extends AbstractStructuredField {
                     "Creating a guard SF for introduce " + introducer);
             structuredField = createGuard(introducer);
         }
+        LOG.debug("Full parse of '" + this + "' completed");
     }
 
     private AbstractStructuredField createGuard(StructuredFieldIntroducer introducer) {
@@ -107,15 +110,15 @@ public class LazyStructuredField extends AbstractStructuredField {
     @Override
     public List<ParameterAsString> getParameters() {
         if (structuredField == null) {
-            load();
+            fullparse();
         }
         return structuredField.getParameters();
     }
 
     @Override
     public String toString() {
-        return structuredField == null ? "Proxy: " + introducer.toString()
-                : structuredField.toString();
+        return structuredField == null ? introducer.toString() + " (partially parsed)"
+                : structuredField.toString() + " (fully parsed)";
     }
 
     private static class StructuredFieldGuard extends AbstractStructuredField {
