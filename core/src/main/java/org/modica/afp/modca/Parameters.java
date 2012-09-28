@@ -223,6 +223,15 @@ public class Parameters {
         return size() - getPosition();
     }
 
+    /**
+     * Returns true if there are more bytes in this parameters object.
+     *
+     * @return true if there are more bytes to be read
+     */
+    public boolean hasMoreBytes() {
+        return bytesRemaining() > 0;
+    }
+
     @Override
     public String toString() {
         return "pos=" + position + " size=" + sfData.length;

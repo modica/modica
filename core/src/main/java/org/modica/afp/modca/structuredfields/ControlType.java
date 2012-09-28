@@ -19,6 +19,7 @@ package org.modica.afp.modca.structuredfields;
 
 import org.modica.afp.modca.structuredfields.StructuredField.Builder;
 import org.modica.afp.modca.structuredfields.control.CodePageControl.CPCBuilder;
+import org.modica.afp.modca.structuredfields.control.FontControl.FNCBuilder;
 import org.modica.parser.StructuredFieldIntroducerHandler;
 
 /**
@@ -33,7 +34,7 @@ public enum ControlType implements StructuredFieldType {
     /** Medium Modification Control */
     MMC(CategoryCode.medium, "Medium Modification Control", new NotYetImplementedBuilder()),
     /** Font Control */
-    FNC(CategoryCode.font, "Font Control", new NotYetImplementedBuilder()),
+    FNC(CategoryCode.font, "Font Control", new FNCBuilder()),
     /** Coded Font Control */
     CFC(CategoryCode.coded_font, "Coded Font Control", new NotYetImplementedBuilder()),
     /** Composed Text Control (O) */

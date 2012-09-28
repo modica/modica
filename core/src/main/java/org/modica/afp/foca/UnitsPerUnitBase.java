@@ -15,33 +15,31 @@
  * limitations under the License.
  */
 
-package org.modica.afp.modca.common;
+package org.modica.afp.foca;
 
+import org.modica.common.ByteUtils;
 
-/**
- * An enumerated type that describes the base units for the page or the overlay coordinate
- * system.
- */
-public enum PresentationSpaceUnits {
-    /** Units measured in units of 10 inches */
-    INCHES_10(0x00),
-    /** Units measured in units of 10 centimetres */
-    CENTIMETRE_10(0x01),
-    /** */
-    RELATIVE(0x02);
+public enum UnitsPerUnitBase {
+    NO_SHAPE_RESOLUTION(0x00, 0x00),
+    RESOLUTION_240_PEL(0x09, 0x60),
+    RESOLUTION_300_PEL(0x0B, 0xB8),
+    RELATIVE_BASE(0x03, 0xE8);
 
-    private final byte id;
+    private final byte byte1Value;
+    private final byte byte2Value;
 
-    private PresentationSpaceUnits(int id) {
-        this.id = (byte) id;
+    private UnitsPerUnitBase(int byte1, int byte2) {
+        this.byte1Value = (byte) byte1;
+        this.byte2Value = (byte) byte2;
     }
 
-    public static PresentationSpaceUnits getValue(byte id) {
-        for (PresentationSpaceUnits unit : PresentationSpaceUnits.values()) {
-            if (unit.id == id) {
+    public static UnitsPerUnitBase getValue(byte byte1, byte byte2) {
+        for (UnitsPerUnitBase unit : UnitsPerUnitBase.values()) {
+            if (unit.byte1Value == byte1 && unit.byte2Value == byte2) {
                 return unit;
             }
         }
-        throw new IllegalArgumentException("Byte value:" + id + " is not a valid PageUnit");
+        throw new IllegalArgumentException("The units per unit base value is unrecognised: "
+                + ByteUtils.bytesToHex(byte1, byte2));
     }
 }

@@ -48,7 +48,7 @@ public class CodePageDescriptor extends AbstractStructuredField {
         numCdPts = params.getUInt(4);
         gcsgid = (int) params.getUInt(2);
         cpgid = (int) params.getUInt(2);
-        if (params.bytesRemaining() > 0) {
+        if (params.hasMoreBytes()) {
             encScheme = EncodingScheme.getValue(params.getByte());
             params.skip(1); // The encoding scheme only uses the first of 2 bytes
         } else {
