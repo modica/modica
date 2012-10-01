@@ -126,6 +126,252 @@ public class FontControl extends StructuredFieldWithTriplets {
         return b;
     }
 
+    /**
+     * Returns the pattern tech identifier.
+     *
+     * @return the pattern tech id
+     */
+    public PatternTechIdentifier getPatternTechId() {
+        return patTech;
+    }
+
+    /**
+     * Returns the font flags set for this font.
+     *
+     * @return the font flags
+     */
+    public EnumSet<FontFlag> getFontFlags() {
+        return fontFlags;
+    }
+
+    /**
+     * Returns the units of measure for the x-axis.
+     *
+     * @return the x-axis base unit
+     */
+    public PresentationSpaceUnits getXUnitBase() {
+        return xUnitBase;
+    }
+
+    /**
+     * Returns the units of measure for the y-axis.
+     *
+     * @return the y-axis base unit
+     */
+    public PresentationSpaceUnits getYUnitBase() {
+        return yUnitBase;
+    }
+
+    /**
+     * Returns the resolution of the x-axis base units.
+     *
+     * @return the x-axis resolution
+     */
+    public UnitsPerUnitBase getXUnitsPerBase() {
+        return xUnitsPerBase;
+    }
+
+    /**
+     * Returns the resolution of the y-axis base units.
+     *
+     * @return the y-axis resolution
+     */
+    public UnitsPerUnitBase getYUnitsPerBase() {
+        return yUnitsPerBase;
+    }
+
+    /**
+     * The Maximum Character Box Width parameter specifies the width of uniform character boxes or
+     * the maximum width of variable character boxes, depending on the value of the Uniform
+     * Character Box parameter.
+     * <p>
+     * If the Uniform Character Box parameter is off (0), the Maximum Character Box Width value
+     * specifies the width of the widest character box in the font, and the Character Box Width
+     * parameter specifies the width of each individual character box. This parameter can be used to
+     * determine if the character, when positioned, fits in the presentation space.
+     * </p>
+     *
+     * @return the maximum character box width
+     */
+    public int getMaxCharacterBoxWidth() {
+        return maxCharacterBoxWidth;
+    }
+
+    /**
+     * The Maximum Character Box Height parameter specifies the height of uniform character boxes
+     * or the maximum height of variable character boxes, depending on the value of the Uniform
+     * Character Box parameter.
+     * <p>
+     * If the Uniform Character Box parameter is off (0), this parameter specifies the maximum
+     * height of any character box in a font, and the Character Box Height parameter specifies the
+     * height of each character box in a font. This parameter can be used to determine if the
+     * character, when positioned, fits in the presentation space.
+     *
+     * @return the max character box height
+     */
+    public int getMaxCharacterBoxHeight() {
+        return maxCharacterBoxHeight;
+    }
+
+    /**
+     * This is a control parameter, used to manage the data structures. The value contained in this
+     * parameter defines the length of the repeating group used in the Font Orientation (FNO)
+     * structured field. The value is a constant, set to X'1A'
+     *
+     * @return the FNO repeating group length
+     */
+    public int getFNORepeatingGroupLength() {
+        return fnoRepeatingGroupLength;
+    }
+
+    /**
+     * This is a control parameter, used to manage the data structures. The value contained in this
+     * parameter defines the length of the repeating group used in the Font Index (FNI) structured
+     * field.
+     * <p>
+     * For raster technology fonts, this value must be X'1C'. For outline technology fonts, this
+     * value may be X'0A' or X'1C'.
+     * <p>
+     *
+     * @return the FNI repeating group length
+     */
+    public int getFNIRepeatingGroupLength() {
+        return fniRepeatingGroupLength;
+    }
+
+    /**
+     * The boundary alignments for the raster patterns. The codes X'00', X'02', and X'03' indicate
+     * one-byte, four-byte, and eight-byte alignments, respectively. The choice is left to the font
+     * designer for a font containing raster patterns. To derive actual pattern data addresses, the
+     * pattern data address in bytes 4–7 in the Font Patterns Map (FNM) repeating groups must be
+     * multiplied by 1, 4, or 8, respectively.
+     *
+     * @return the pattern alignment
+     */
+    public PatternAlignment getPatternAlignment() {
+        return patAlign;
+    }
+
+    /**
+     * The total number of data bytes for all the Font Patterns (FNG) structured fields in this font
+     * character set, when the pattern technology identifier is set to X'05'. Must be set to
+     * X'000000' if the font does not contain raster patterns, or the pattern technology identifier
+     * is not X'05'.
+     *
+     * @return the raster pattern data count
+     */
+    public int getRasterPatternDataCount() {
+        return rasterPatternDataCount;
+    }
+
+    /**
+     * This is a control parameter, used to manage the data structures. The value contained in this
+     * parameter defines the length of the repeating group used in the Font Position (FNP)
+     * structured field. The value is a constant, set to X'16'.
+     *
+     * @return the FNP repeating group length
+     */
+    public int getFNPRepeatingGroupLength() {
+        return fnpRepeatingGroupLength;
+    }
+
+    /**
+     * FNM Repeating Group Length This is a control parameter, used to manage the data structures.
+     * The value contained in this parameter defines the length of the repeating group used in the
+     * Font Position (FNP) structured field. The value is set to X'00' if the font contains outline
+     * font data in the FNGs. Otherwise it contains X'08'.
+     *
+     * @return the FNM repeating group length
+     */
+    public int getFNMRepeatingGroupLength() {
+        return fnmRepeatingGroupLength;
+    }
+
+    /**
+     * This parameter is optional for raster fonts, but is required if the FNC structured field
+     * includes outline font descriptive information and describes the shape x-axis base unit.
+     *
+     * @return the x-axis base unit for shapes
+     */
+    public PresentationSpaceUnits getXShapeBaseUnits() {
+        return resXUBase;
+    }
+
+    /**
+     * This parameter is optional for raster fonts, but is required if the FNC structured field
+     * includes outline font descriptive information and describes the shape y-axis base unit.
+     *
+     * @return the y-axis base unit for shapes
+     */
+    public PresentationSpaceUnits getYShapeBaseUnits() {
+        return resYUBase;
+    }
+
+    /**
+     * This parameter is optional for raster fonts, but is required if the FNC structured field
+     * includes outline font descriptive information and describes the x-axis shape resolution. 
+     *
+     * @return the x-axis shape resolution
+     */
+    public UnitsPerUnitBase getXShapeResolution() {
+        return xfrUnits;
+    }
+
+    /**
+     * This parameter is optional for raster fonts, but is required if the FNC structured field
+     * includes outline font descriptive information and describes the y-axis shape resolution. 
+     *
+     * @return the y-axis shape resolution
+     */
+    public UnitsPerUnitBase getYShapeResolution() {
+        return yfrUnits;
+    }
+
+    /**
+     * Length, in bytes, of the font pattern data when the pattern technology identifier is set to
+     * X'1E' or X'1F'. This parameter is used only when the pattern technology identifier is not
+     * equal to X'05'.
+     *
+     * @return the outline pattern data count
+     */
+    public int getOutlinePatternDataCount() {
+        return outlinePatternDataCount;
+    }
+
+    /**
+     * This is a control parameter, used to manage the data structures. The value contained in this
+     * parameter defines the length of the repeating group used in the Font Name Map (FNN)
+     * structured field. Used when the pattern technology identifier is not equal to X'05'.
+     *
+     * @return the FNN repeating group length
+     */
+    public int getFNNRepeatingGroupLength() {
+        return fnnRepeatingGroupLength;
+    }
+
+    /**
+     * This is a control parameter used to manage the data structures and specify the number of data
+     * bytes in the FNN structured fields. This field is included when the FNGs contain outline font
+     * data; when the pattern technology identifier is equal to X'1E', or X'1F'.
+     *
+     * @return the FNN data count
+     */
+    public int getFNNDataCount() {
+        return fnnDataCount;
+    }
+
+    /**
+     * This is a control parameter used to manage the data structures and specify the number of IBM
+     * character names (GCGIDs) mapped to outline font character names in the FNN structured fields.
+     * This field is included when the FNGs contain outline font data; when the pattern technology
+     * identifier is equal to X'1E', or X'1F'.
+     *
+     * @return the FNN name count
+     */
+    public int getFNNNameCount() {
+        return fnnNameCount;
+    }
+
     @Override
     public List<ParameterAsString> getParameters() {
 
