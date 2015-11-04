@@ -11,6 +11,7 @@ subprojects {subProject ->
     apply plugin: 'eclipse'
     apply from: emmaPlugin
     compileJava.options.fork([memoryMaximumSize: '1024m'])
+    compileJava.options.encoding = 'UTF-8'
     jar.baseName = "modica_$subProject.name"
     
     sourceCompatibility = 1.6
