@@ -86,7 +86,7 @@ public final class BeginDocument extends StructuredFieldWithTriplets {
         @Override
         public BeginDocument build(StructuredFieldIntroducer intro, Parameters params,
                 Context context) throws UnsupportedEncodingException, MalformedURLException {
-            return new BeginDocument(intro, TripletHandler.parseTriplet(params, 8, context), params);
+            return new BeginDocument(intro, TripletHandler.parseTriplet(params, 10, context), params);
         }
     }
 }

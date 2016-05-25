@@ -12,6 +12,7 @@ subprojects {subProject ->
     apply from: emmaPlugin
     compileJava.options.fork([memoryMaximumSize: '1024m'])
     compileJava.options.encoding = 'UTF-8'
+    javadoc.options.encoding = 'UTF-8'
     jar.baseName = "modica_$subProject.name"
     
     sourceCompatibility = 1.6
